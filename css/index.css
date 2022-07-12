@@ -56,6 +56,14 @@ body{
     font-weight: 700;
 }
 
+.close-side-bar{
+    position: absolute;
+    top: 3px;
+    right: 1px;
+    border: 0;
+    background-color: rgb(58, 132, 58);
+}
+
 .header, .side-bar{
     box-shadow: 4px 4px 10px rgb(1, 43, 1);
 }
