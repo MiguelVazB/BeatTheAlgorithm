@@ -1,3 +1,13 @@
+body{
+    position: absolute;
+    top: 50px;
+    left: 150px;
+    right: 0;
+    bottom: 0;
+    background-color: aqua;
+    height: 2000px;
+}
+
 .header{
     position: fixed;
     top: 0;
@@ -31,9 +41,9 @@
 }
 
 .side-bar{
-    position: absolute;
-    width: 150px;
-    top: 50px;
+    position: fixed;
+    width: 180px;
+    top: 51px;
     left: 0;
     bottom: 0;
     background-color: rgb(58, 132, 58);
@@ -44,4 +54,8 @@
     color: whitesmoke;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: 700;
+}
+
+.header, .side-bar{
+    box-shadow: 4px 4px 10px rgb(1, 43, 1);
 }
