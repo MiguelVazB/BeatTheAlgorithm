@@ -1,7 +1,7 @@
 body{
     position: absolute;
     top: 50px;
-    left: 150px;
+    left: 0;
     right: 0;
     bottom: 0;
     background-color: aqua;
@@ -21,11 +21,36 @@ body{
     justify-content: space-between;
 }
 
+.logo{
+    display: flex;
+    width: 400px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.algo-menu-button{
+    width: 38px;
+    height: 38px;
+    display: flex;
+    flex-direction: column;
+    border: 0;
+    background-color: rgb(24, 110, 24);
+    justify-content: center;
+    cursor: pointer;
+}
+
+.algo-menu-button div{
+    width: 100%;
+    height: 3px;
+    margin: 3px 0px;
+    background-color: white;
+}
+
 .logo p{
     font-size: xx-large;
-    margin: 0px 30px;
+    margin: 0;
     text-shadow: 5px 8px 2px black;
-    padding: 3px 0px;
+    padding: 6px 0px;
     width: max-content;
 }
 
@@ -51,19 +76,25 @@ body{
     flex-direction: column;
     justify-content: space-around;
     text-align: center;
-    color: whitesmoke;
+    color: white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: 700;
-}
+    /* Change this when done */
+    display: none;}
 
 .close-side-bar{
     position: absolute;
-    top: 3px;
-    right: 1px;
+    font-size: x-large;
+    height: min-content;
+    margin: 0;
+    top: 0px;
+    right: 4px;
     border: 0;
+    color: white;
     background-color: rgb(58, 132, 58);
+    cursor: pointer;
 }
 
 .header, .side-bar{
-    box-shadow: 4px 4px 10px rgb(1, 43, 1);
+    box-shadow: 4px 4px 6px rgb(1, 43, 1);
 }
