@@ -1,5 +1,4 @@
 const algoMenuButton = document.querySelector(".algo-menu-button");
-
 algoMenuButton.onclick = function(){
     let sidebar = document.querySelector(".side-bar");
     sidebar.style.display = "flex";

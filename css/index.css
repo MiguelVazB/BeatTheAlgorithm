@@ -4,8 +4,7 @@ body{
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: aqua;
-    height: 2000px;
+    background-color: rgb(196, 255, 196);
 }
 
 .header{
@@ -85,7 +84,6 @@ body{
     left: 0;
     bottom: 0;
     background-color: rgb(58, 132, 58);
-    display: flex;
     flex-direction: column;
     justify-content: space-around;
     text-align: center;
@@ -93,7 +91,6 @@ body{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: 700;
     display: none;
-    transition: all 2s ease-in-out;
 }
 
 .side-bar a{
@@ -125,4 +122,22 @@ body{
 
 .header, .side-bar{
     box-shadow: 0px 4px 8px rgb(1, 43, 1);
+}
+
+/* This is where the looks of the content of the page is modified */
+
+main{
+    display: flex;
+}
+
+.left-content{
+    flex: 1;
+    background-color: aliceblue;
+    height: max-content;
+}
+
+.right-content{
+    flex: 1;
+    background-color: rgb(222, 221, 221);
+    height: max-content;
 }
