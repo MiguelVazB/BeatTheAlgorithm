@@ -15,3 +15,8 @@ closeSideBar.onclick = function(){
     changeDocument.style.left = "0";
     changeDocument.style.up = "0";
 }
+
+function loadBubbleSort(){
+    $(".left-content").load("bubbleSort.html");
+    $(".right-content").load("bubbleSortUser.html");
+}
