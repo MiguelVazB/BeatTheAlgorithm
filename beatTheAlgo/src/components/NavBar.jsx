@@ -3,16 +3,28 @@ import "./NavBar.css";
 
 export default function NavBar() {
   return (
-    <nav>
-      <div className="hamburgerMenu">
-        <div></div>
-        <div></div>
-        <div></div>
+    <nav className="navBar">
+      <div className="logo">
+        <div className="hamburgerMenu">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <Link className="navFont" to="/">
+          Beat the Algorithm
+        </Link>
       </div>
-      <Link to="/">Beat the Algorithm</Link>
-      <Link to="/">Home</Link>
-      <Link to="algorithms">Algorithms</Link>
-      <Link to="about">About</Link>
+      <div className="links">
+        <Link className="navFont" to="/">
+          Home
+        </Link>
+        <Link className="navFont" to="algorithms">
+          Algorithms
+        </Link>
+        <Link className="navFont" to="about">
+          About
+        </Link>
+      </div>
     </nav>
   );
 }
