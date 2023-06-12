@@ -1,0 +1,7 @@
+html{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: auto;
+    background-image: linear-gradient(to right, #202020 , #222629);
+}
