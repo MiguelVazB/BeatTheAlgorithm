@@ -1,0 +1,13 @@
+.hamburgerMenu{
+    display: flex;
+    flex-direction: column;
+    width: 25px;
+    height: 25px;
+    justify-content: space-evenly;
+}
+
+.hamburgerMenu div{
+    width: 100%;
+    height: 4px;
+    background-color: white;
+}
