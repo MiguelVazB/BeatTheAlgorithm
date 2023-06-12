@@ -11,18 +11,18 @@ export default function NavBar() {
           <div></div>
         </div>
         <Link className="navFont" to="/">
-          Beat the Algorithm
+          <p>Beat the Algorithm</p>
         </Link>
       </div>
       <div className="links">
         <Link className="navFont" to="/">
-          Home
+          <p>Home</p>
         </Link>
         <Link className="navFont" to="algorithms">
-          Algorithms
+          <p>Algorithms</p>
         </Link>
         <Link className="navFont" to="about">
-          About
+          <p>About</p>
         </Link>
       </div>
     </nav>
