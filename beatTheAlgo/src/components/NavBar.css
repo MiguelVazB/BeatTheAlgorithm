@@ -73,7 +73,33 @@
     font-family: 'Inter', sans-serif;
     display: none;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
+}
+
+.algoMenu h1{
+    padding-top: 15px;
+}
+
+.algoList{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: 40px;
+}
+
+.menuButtons{
+    display: flex;
+    justify-content: center;
+}
+
+.homeButtonMenu, .aboutButtonMenu{
+    background-color: #202020;
+    border: 0;
+    color: white;
+    padding: 10px 0;
+    font-size: large;
+    font-weight: bold;
+    flex: 1;
 }
 
 .goBackArrow {

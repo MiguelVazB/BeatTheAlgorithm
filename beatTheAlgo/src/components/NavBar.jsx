@@ -36,10 +36,20 @@ export default function NavBar() {
       {showMenu && (
         <div className="algoMenu">
           <img src={Arrow} onClick={showMenuClick} className="goBackArrow" />
-          <p>hi</p>
-          <p>hi</p>
-          <p>hi</p>
-          <p>hi</p>
+          <h1>Algorithms</h1>
+          <div className="algoList">
+            <p>Algorithm_1</p>
+            <p>Algorithm_2</p>
+            <p>Algorithm_3</p>
+            <p>Algorithm_4</p>
+            <p>Algorithm_5</p>
+            <p>Algorithm_6</p>
+            <p>Algorithm_7</p>
+          </div>
+          <div className="menuButtons">
+            <button className="homeButtonMenu">Home</button>
+            <button className="aboutButtonMenu">About</button>
+          </div>
         </div>
       )}
     </nav>
