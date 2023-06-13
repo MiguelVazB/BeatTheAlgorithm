@@ -25,6 +25,12 @@ export default function NavBar() {
           <p>About</p>
         </Link>
       </div>
+      <div className="algoMenu">
+        <p>hi</p>
+        <p>hi</p>
+        <p>hi</p>
+        <p>hi</p>
+      </div>
     </nav>
   );
 }
