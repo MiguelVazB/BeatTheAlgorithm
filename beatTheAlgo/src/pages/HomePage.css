@@ -8,17 +8,17 @@
 }
 
 .challengeUser{
-    margin: 60px;
+    margin: 6vh 4vw;
     background-image: linear-gradient(to right, rgba(32, 32, 32, 1) 35%, rgba(97, 137, 47, 0.5));
     display: flex;
-    padding: 50px;
+    padding: 4vh;
     justify-content: space-between;
-    border-radius: 60px;
+    border-radius: 4em;
 }
 
 .challengeUser p{
     text-align: center;
-    font-size: 4.2em;
+    font-size: 7.2vw;
     padding: 10px;
     margin: 0;
 }
@@ -29,32 +29,12 @@
     object-fit: contain;
 }
 
-/* bigger screen sizes */
-
-@media (min-width: 1080px){
-    .homePage{
-        color: red;
-    }
-
-    /* .challengeUser{
-        padding: 30px;
-    } */
-
-    .challengeUser p{
-        font-size: 6.3em;
-    }
+@media (max-width:699px){
+    .homePage{color: aqua;}
+    .challengeUser p{font-size: 6.2vw;}
 }
 
-@media (min-width: 1444px){
-    .homePage{
-        color: aqua;
-    }
-
-    /* .challengeUser{
-        padding: 30px;
-    } */
-
-    .challengeUser p{
-        font-size: 12.1em;
-    }
+@media (max-width:431px){
+    .homePage{color: red;}
+    .challengeUser p{font-size: 5.4vw;}
 }
