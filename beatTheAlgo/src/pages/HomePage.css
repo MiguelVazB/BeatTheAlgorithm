@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+.homePage{
+    font-family: 'Inter', sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.challengeUser{
+    margin: 60px;
+    background-image: linear-gradient(to right, rgba(32, 32, 32, 1) 35%, rgba(97, 137, 47, 0.5));
+    display: flex;
+    padding: 50px;
+    justify-content: space-between;
+    border-radius: 60px;
+}
+
+.challengeUser p{
+    text-align: center;
+    font-size: 4.2em;
+    padding: 10px;
+    margin: 0;
+}
+
+.headAlgo{
+    width: 40%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* bigger screen sizes */
+
+@media (min-width: 1080px){
+    .homePage{
+        color: red;
+    }
+
+    /* .challengeUser{
+        padding: 30px;
+    } */
+
+    .challengeUser p{
+        font-size: 6.3em;
+    }
+}
+
+@media (min-width: 1444px){
+    .homePage{
+        color: aqua;
+    }
+
+    /* .challengeUser{
+        padding: 30px;
+    } */
+
+    .challengeUser p{
+        font-size: 12.1em;
+    }
+}
