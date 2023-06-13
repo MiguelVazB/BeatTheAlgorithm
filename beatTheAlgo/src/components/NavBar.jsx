@@ -1,11 +1,19 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import "./NavBar.css";
+import Arrow from "../images/left-arrow.svg";
 
 export default function NavBar() {
+  const [showMenu, setShowMenu] = useState(false);
+
+  function showMenuClick() {
+    setShowMenu((prev) => !prev);
+  }
+
   return (
     <nav className="navBar">
       <div className="logo">
-        <div className="hamburgerMenu">
+        <div className="hamburgerMenu" onClick={showMenuClick}>
           <div></div>
           <div></div>
           <div></div>
@@ -25,12 +33,15 @@ export default function NavBar() {
           <p>About</p>
         </Link>
       </div>
-      <div className="algoMenu">
-        <p>hi</p>
-        <p>hi</p>
-        <p>hi</p>
-        <p>hi</p>
-      </div>
+      {showMenu && (
+        <div className="algoMenu">
+          <img src={Arrow} onClick={showMenuClick} className="goBackArrow" />
+          <p>hi</p>
+          <p>hi</p>
+          <p>hi</p>
+          <p>hi</p>
+        </div>
+      )}
     </nav>
   );
 }
