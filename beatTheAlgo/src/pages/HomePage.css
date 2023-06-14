@@ -5,36 +5,65 @@
     color: white;
     display: flex;
     flex-direction: column;
+    row-gap: 1vh;
 }
 
-.challengeUser{
+.elementBox{
     margin: 6vh 4vw;
-    background-image: linear-gradient(to right, rgba(32, 32, 32, 1) 35%, rgba(97, 137, 47, 0.5));
     display: flex;
     padding: 4vh;
     justify-content: space-between;
     border-radius: 4em;
 }
 
-.challengeUser p{
+.elementBox p{
     text-align: center;
-    font-size: 7.2vw;
     padding: 10px;
     margin: 0;
 }
 
-.headAlgo{
+.elementBox p span{
+    font-weight: bold;
+}
+
+.challengeUser p{
+    font-size: 7.2vw;
+}
+
+.solve p, .learn p{
+    font-size: 7vw;
+}
+
+.elementImage{
     width: 40%;
     height: auto;
     object-fit: contain;
 }
 
+.challengeUser{
+    background-image: linear-gradient(to right, rgba(32, 32, 32, 1) 35%, rgba(97, 137, 47, 0.5));
+}
+
+.solve{
+    background-image: linear-gradient(to right,  rgba(97, 137, 47, 0.5), rgba(34, 38, 41, 1) 70%);
+}
+
+.learn{
+    background-image: linear-gradient(to right, rgba(32, 32, 32, 1) 30%, rgba(97, 137, 47, 0.5));
+}
+
 @media (max-width:699px){
-    .homePage{color: aqua;}
     .challengeUser p{font-size: 6.2vw;}
 }
 
 @media (max-width:431px){
-    .homePage{color: red;}
     .challengeUser p{font-size: 5.4vw;}
+}
+
+@media (max-width:1019px){
+    .solve p{font-size: 5.8vw;}
+}
+
+@media (max-width:464px){
+    .solve p{font-size: 4.8vw;}
 }
