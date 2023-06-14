@@ -9,7 +9,7 @@
 .navBar {
     font-family: 'Inter', sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 40px 20px 50px 20px;
     justify-content: space-between;
     align-items: center;
     background-image: linear-gradient(rgba(97, 137, 47, 1), rgba(0, 0, 0, 0));
@@ -24,7 +24,7 @@
     color: white;
     text-decoration: none;
     font-weight: bold;
-    font-size: larger;
+    font-size: x-large;
     padding-left: 30px;
 }
 
