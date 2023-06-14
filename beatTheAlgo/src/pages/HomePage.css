@@ -67,3 +67,44 @@
 @media (max-width:464px){
     .solve p{font-size: 4.8vw;}
 }
+
+/* Mobile devices */
+
+@media (max-width: 425px){
+    .homePage{
+        background-image: linear-gradient(to top, rgba(97, 137, 47, 1), rgba(32, 32, 32, 1) 70%);
+        row-gap: 10vh;
+    }
+
+    .elementBox{
+        margin: 0;
+        background-image: none;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .elementImage{
+        width: 65%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .challengeUser p{
+        margin-bottom: 4vh;
+        font-size: 12vw;
+    }
+
+    .solve{
+        flex-direction: column-reverse;
+    }
+
+    .solve p{
+        margin-bottom: 6vh;
+        font-size: 13vw;
+    }
+
+    .learn p{
+        margin-bottom: 8vh;
+        font-size: 13vw;
+    }
+}
