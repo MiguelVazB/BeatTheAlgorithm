@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 .homePage{
     font-family: 'Inter', sans-serif;
     color: white;
@@ -58,6 +56,53 @@
     mix-blend-mode: screen;
 }
 
+.startButton{
+    width: max-content;
+    font-size: 4vw;
+    padding: 1vw 2vw;
+    border-radius: 3vw;
+    align-self: center;
+    margin-bottom: 10vh;
+    background-color: rgba(97, 137, 47, 1);
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.startButton .elementImage{
+    width: 4vw;
+    height: auto;
+}
+
+.ready{
+    display: flex;
+    flex-direction: column;
+    font-size: 3vh;
+    padding: 2vw 12vw;
+    text-align: center;
+    align-items: center;
+    margin: 0;
+    background-image: linear-gradient(to top, rgba(97, 137, 47, 0.4), rgba(32, 32, 32, 0));
+    text-underline-offset: 0.6vh;
+}
+
+.ready p{
+    margin: 2vh;
+}
+
+.ready .readyQuestion{
+    font-weight: bold;
+    font-size: 4.5vh;
+    margin-bottom: 8vh;
+}
+
+.ready .orStart{
+    font-weight: bold;
+    text-decoration: 2px underline;
+}
+
+/* resizing of font for bigger devices */
+
 @media (max-width:699px){
     .challengeUser p{font-size: 6.2vw;}
 }
@@ -113,5 +158,16 @@
     .learn p{
         margin-bottom: 8vh;
         font-size: 13vw;
+    }
+
+    .startButton{
+        flex-direction: row;
+        margin-bottom: 8vh;
+        background-color: rgba(32, 32, 32, 1);
+    }
+    
+    .ready{
+        background-image: none;
+        text-shadow: 3px 3px 3px black;
     }
 }
