@@ -1,4 +1,4 @@
-import "./HomePage.css";
+import "./pageStyles/HomePage.css";
 import HeadAlgo from "../images/head-white.png";
 import Puzzle from "../images/puzzle.png";
 import Matrix from "../images/matrix.png";
