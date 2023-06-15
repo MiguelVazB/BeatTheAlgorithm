@@ -7,12 +7,15 @@
 }
 
 .navBar {
+    position: fixed;
+    right: 0;
+    left: 0;
     font-family: 'Inter', sans-serif;
     margin: 0;
-    padding: 40px 20px 50px 20px;
+    padding: 30px 20px 30px 20px;
     justify-content: space-between;
     align-items: center;
-    background-image: linear-gradient(rgba(97, 137, 47, 1), rgba(0, 0, 0, 0));
+    background-image: linear-gradient(rgba(97, 137, 47, 1), rgba(32, 32, 32, 1));
 }
 
 .logo {
@@ -24,7 +27,7 @@
     color: white;
     text-decoration: none;
     font-weight: bold;
-    font-size: x-large;
+    font-size: 2.5vh;
     padding-left: 30px;
 }
 
@@ -35,7 +38,7 @@
 }
 
 .navFont p:hover {
-    background-color: rgb(63, 90, 31);
+    text-shadow: 0px 0px 3px white;
     scale: 1.06;
 }
 
@@ -46,7 +49,7 @@
 .hamburgerMenu {
     display: flex;
     flex-direction: column;
-    width: 20px;
+    width: 25px;
     height: 25px;
     justify-content: space-around;
 }
@@ -71,20 +74,20 @@
     text-align: center;
     color: white;
     font-family: 'Inter', sans-serif;
-    display: none;
+    display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .algoMenu h1{
-    padding-top: 15px;
+    padding: 1vh 0px;
+    font-size: fit-content;
 }
 
 .algoList{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    row-gap: 40px;
+    row-gap: 5vh;
 }
 
 .menuButtons{
@@ -106,19 +109,76 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 10%;
+    width: 4vh;
     height: auto;
-    padding-left: 30px;
-    padding-top: 25px;
+    padding-left: 5vw;
+    padding-top: 5vw;
     filter: invert(100%);
 }
 
-@media (max-width: 610px) {
+/* menu for mobile */
+@media (max-width: 557px) {
+    .algoMenu {
+        height: 100vh;
+        width: auto;
+        display: flex;
+        justify-content: space-between;
+    }
+    
     .links {
         display: none;
     }
 
-    .algoMenu {
+    .goBackArrow{
+        display: block;
+        padding: 7.5vw;
+    }
+
+    .menuButtons{
         display: flex;
+    }
+
+    .algoList{
+        display: flex;
+        flex-direction: column;
+        row-gap: 0;
+        flex: 1;
+    }
+}
+
+/* menu for rest of devices */
+
+@media (min-width: 558px){
+    .menuButtons{
+        display: none;
+    }
+
+    .goBackArrow{
+        display: none;
+    }
+
+    .algoMenu h1{
+        padding: 1.5vw 0px;
+        font-size: 3vh;
+        text-decoration: underline;
+        font-weight: bold;
+        text-underline-offset: 1vh;
+    }
+
+    .algoMenu {
+        position: fixed;
+        display: flex;
+        justify-content: flex-start;
+        background-image: linear-gradient(to bottom, rgba(32, 32, 32, 1), rgba(97, 137, 47, 1));
+        right: 80%;
+        top: 85px;
+    }
+
+    .algoList{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        row-gap: 0;
+        font-size: 2.8vh;
     }
 }
