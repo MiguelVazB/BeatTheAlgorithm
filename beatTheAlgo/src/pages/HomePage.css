@@ -41,6 +41,7 @@
 }
 
 .challengeUser{
+    margin-top: 15vh;
     background-image: linear-gradient(to right, rgba(32, 32, 32, 1) 35%, rgba(97, 137, 47, 0.5));
 }
 
@@ -75,7 +76,7 @@
 
 /* Mobile devices */
 
-@media (max-width: 425px){
+@media (max-width: 426px){
     .homePage{
         background-image: linear-gradient(to top, rgba(97, 137, 47, 1), rgba(32, 32, 32, 1) 70%);
         row-gap: 10vh;
@@ -97,6 +98,7 @@
     .challengeUser p{
         margin-bottom: 4vh;
         font-size: 12vw;
+        margin-top: 14vh;
     }
 
     .solve{
