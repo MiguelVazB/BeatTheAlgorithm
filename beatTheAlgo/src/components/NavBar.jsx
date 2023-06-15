@@ -26,8 +26,8 @@ export default function NavBar() {
         <Link className="navFont" to="/">
           <p>Home</p>
         </Link>
-        <Link className="navFont" to="algorithms">
-          <p>Algorithms</p>
+        <Link className="navFont" to="moreOnAlgorithms">
+          <p>More on Algorithms</p>
         </Link>
         <Link className="navFont" to="about">
           <p>About</p>
@@ -47,8 +47,12 @@ export default function NavBar() {
             <p>Algorithm_7</p>
           </div>
           <div className="menuButtons">
-            <button className="homeButtonMenu">Home</button>
-            <button className="aboutButtonMenu">About</button>
+            <Link className="homeButtonMenu" to="/">
+              Home
+            </Link>
+            <Link className="aboutButtonMenu" to="about">
+              About
+            </Link>
           </div>
         </div>
       )}
