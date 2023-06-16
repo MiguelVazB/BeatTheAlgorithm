@@ -96,32 +96,8 @@
     text-decoration: 0.1em underline;
 }
 
-/* resizing of font for bigger devices */
 
-/* @media (min-width:604px) and (max-width:800px){
-    .challengeUser p{color: red; font-size: 10em;}
-} */
-/*
-@media (max-width:431px){
-    .challengeUser p{font-size: 5.4vw;}
-}
-
-@media (max-width:1019px){
-    .solve p{font-size: 5.8vw;}
-}
-
-@media (max-width:464px){
-    .solve p{font-size: 4.8vw;}
-} */
-
-@media (max-width:604px) and (width:700px){
-    .challengeUser p{
-        color: red;
-        /* font-size: 5.5rem; */
-    }
-}
-
-/* Mobile devices */
+/* resizing for Mobile devices */
 
 @media (max-width: 950px){
     .homePage{
@@ -174,5 +150,73 @@
 
     .ready p{
         margin: 0.5rem;
+    }
+}
+
+
+/* resizing of font for bigger devices */
+@media (min-width:605px) and (max-width:763px){
+    .challengeUser p, .solve p, .learn p{
+        font-size: 4rem;
+    }
+}
+
+@media (min-width:764px) and (max-width:950px){
+    .challengeUser p, .solve p, .learn p{
+        font-size: 5.4rem;
+    }
+    .ready .readyQuestion{
+        font-size: 3.5rem;
+    }
+    .ready p{
+        font-size: 3rem;
+    }
+}
+
+@media (min-width:1180px) and (max-width:1448px){
+    .challengeUser p, .solve p, .learn p{
+        font-size: 4.5rem;
+    }
+    .ready .readyQuestion{
+        font-size: 4rem;
+    }
+    .ready p{
+        font-size: 3.5rem;
+    }
+}
+
+@media (min-width:1449px) and (max-width:1845px){
+    .challengeUser p, .solve p, .learn p{
+        font-size: 6rem;
+    }
+    .ready .readyQuestion{
+        font-size: 4.5rem;
+    }
+    .ready p{
+        font-size: 4rem;
+    }
+}
+
+@media (min-width:1846px) and (max-width:2402px){
+    .challengeUser p, .solve p, .learn p{
+        font-size: 8.1rem;
+    }
+    .ready .readyQuestion{
+        font-size: 5rem;
+    }
+    .ready p{
+        font-size: 4.5rem;
+    }
+}
+
+@media (min-width:2403px){
+    .challengeUser p, .solve p, .learn p{
+        font-size: 10.9rem;
+    }
+    .ready .readyQuestion{
+        font-size: 5.5rem;
+    }
+    .ready p{
+        font-size: 5rem;
     }
 }
