@@ -1,6 +1,8 @@
+import "./pageStyles/AlgorithmsPage.css";
+
 export default function AlgorithmsPage() {
   return (
-    <main>
+    <main className="algoPage">
       <p>Algo page</p>
     </main>
   );

@@ -1,7 +1,9 @@
+import "./pageStyles/About.css";
+
 export default function About() {
   return (
-    <main>
-      <p>about page</p>
+    <main className="aboutPage">
+      <p>About page</p>
     </main>
   );
 }
