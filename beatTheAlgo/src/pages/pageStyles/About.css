@@ -1,0 +1,11 @@
+.aboutPage{
+    display: flex;
+    color: white;
+    flex: 1;
+    padding-top: 12vh;
+    justify-content: center;
+}
+
+.aboutPage p{
+    font-size: xx-large;
+}

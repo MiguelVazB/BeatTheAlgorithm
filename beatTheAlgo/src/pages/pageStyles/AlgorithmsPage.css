@@ -1,0 +1,7 @@
+.algoPage{
+    display: flex;
+    color: white;
+    flex: 1;
+    padding-top: 12vh;
+    justify-content: center;
+}
