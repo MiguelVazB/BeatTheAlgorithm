@@ -12,12 +12,12 @@ export const AlgoMenu = ({ showMenuClick }) => {
         <Link className="algorithms" to="moreOnAlgorithms">
           Bubble Sort
         </Link>
-        <p>Algorithm_2</p>
-        <p>Algorithm_3</p>
-        <p>Algorithm_4</p>
-        <p>Algorithm_5</p>
-        <p>Algorithm_6</p>
-        <p>Algorithm_7</p>
+        <Link className="algorithms">Algorithm_1</Link>
+        <Link className="algorithms">Algorithm_2</Link>
+        <Link className="algorithms">Algorithm_3</Link>
+        <Link className="algorithms">Algorithm_4</Link>
+        <Link className="algorithms">Algorithm_5</Link>
+        <Link className="algorithms">Algorithm_6</Link>
       </div>
       <div className="menuButtons">
         <Link className="homeButtonMenu" to="/">
