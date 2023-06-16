@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Arrow from "../images/left-arrow.svg";
-import "./AlgoMenu.css";
+import "./componentStyles/AlgoMenu.css";
 
 export const AlgoMenu = ({ showMenuClick }) => {
   return (
@@ -9,7 +9,7 @@ export const AlgoMenu = ({ showMenuClick }) => {
       <img src={Arrow} onClick={showMenuClick} className="goBackArrow" />
       <h1>Algorithms</h1>
       <div className="algoList">
-        <Link className="algorithms" to="moreOnAlgorithms">
+        <Link className="algorithms" to="bubbleSort" onClick={showMenuClick}>
           Bubble Sort
         </Link>
         <Link className="algorithms">Algorithm_1</Link>
