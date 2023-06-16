@@ -3,20 +3,20 @@
     color: white;
     display: flex;
     flex-direction: column;
-    row-gap: 1vh;
+    row-gap: 7em;
 }
 
 .elementBox{
-    margin: 6vh 4vw;
+    margin: 0 4em;
     display: flex;
-    padding: 4vh;
+    padding: 3em 4em;
     justify-content: space-between;
-    border-radius: 4em;
+    border-radius: 3em;
 }
 
 .elementBox p{
     text-align: center;
-    padding: 10px;
+    padding: 0.5em;
     margin: 0;
 }
 
@@ -25,11 +25,11 @@
 }
 
 .challengeUser p{
-    font-size: 7.2vw;
+    font-size: 3.5em;
 }
 
 .solve p, .learn p{
-    font-size: 7vw;
+    font-size: 3.5em;
 }
 
 .elementImage{
@@ -39,7 +39,7 @@
 }
 
 .challengeUser{
-    margin-top: 15vh;
+    margin-top: 10em;
     background-image: linear-gradient(to right, rgba(32, 32, 32, 1) 35%, rgba(97, 137, 47, 0.5));
 }
 
@@ -57,12 +57,11 @@
 }
 
 .startButton{
-    width: max-content;
-    font-size: 4vw;
-    padding: 1vw 2vw;
-    border-radius: 3vw;
+    font-size: 2em;
+    padding: 0.1em 0.6em;
+    border-radius: 0.6em;
     align-self: center;
-    margin-bottom: 10vh;
+    margin-bottom: 3em;
     background-color: rgba(97, 137, 47, 1);
     text-decoration: none;
     color: white;
@@ -70,43 +69,39 @@
 }
 
 .startButton .elementImage{
-    width: 4vw;
+    width: 1.2em;
     height: auto;
 }
 
 .ready{
     display: flex;
     flex-direction: column;
-    font-size: 3vh;
-    padding: 2vw 12vw;
+    font-size: 2.1em;
+    padding: 1em 5em;
     text-align: center;
     align-items: center;
     margin: 0;
     background-image: linear-gradient(to top, rgba(97, 137, 47, 0.4), rgba(32, 32, 32, 0));
-    text-underline-offset: 0.6vh;
-}
-
-.ready p{
-    margin: 2vh;
+    text-underline-offset: 0.2em;
 }
 
 .ready .readyQuestion{
     font-weight: bold;
-    font-size: 4.5vh;
-    margin-bottom: 8vh;
+    font-size: 1.6em;
+    margin-bottom: 2em;
 }
 
 .ready .orStart{
     font-weight: bold;
-    text-decoration: 2px underline;
+    text-decoration: 0.1em underline;
 }
 
 /* resizing of font for bigger devices */
 
-@media (max-width:699px){
-    .challengeUser p{font-size: 6.2vw;}
-}
-
+/* @media (min-width:604px) and (max-width:800px){
+    .challengeUser p{color: red; font-size: 10em;}
+} */
+/*
 @media (max-width:431px){
     .challengeUser p{font-size: 5.4vw;}
 }
@@ -117,14 +112,21 @@
 
 @media (max-width:464px){
     .solve p{font-size: 4.8vw;}
+} */
+
+@media (max-width:604px) and (width:700px){
+    .challengeUser p{
+        color: red;
+        /* font-size: 5.5rem; */
+    }
 }
 
 /* Mobile devices */
 
-@media (max-width: 426px){
+@media (max-width: 950px){
     .homePage{
         background-image: linear-gradient(to top, rgba(97, 137, 47, 1), rgba(32, 32, 32, 1) 70%);
-        row-gap: 10vh;
+        row-gap: 4rem;
     }
 
     .elementBox{
@@ -135,29 +137,22 @@
     }
 
     .elementImage{
-        width: 65%;
+        width: 70%;
         height: auto;
         object-fit: contain;
     }
 
     .challengeUser p{
-        margin-bottom: 4vh;
-        font-size: 12vw;
-        margin-top: 14vh;
+        font-size: 3rem;
+        margin-top: 0.7em;
     }
 
     .solve{
         flex-direction: column-reverse;
     }
 
-    .solve p{
-        margin-bottom: 6vh;
-        font-size: 13vw;
-    }
-
-    .learn p{
-        margin-bottom: 8vh;
-        font-size: 13vw;
+    .solve p, .learn p{
+        font-size: 3em;
     }
 
     .startButton{
@@ -169,5 +164,15 @@
     .ready{
         background-image: none;
         text-shadow: 3px 3px 3px black;
+        font-size: 1.2rem;
+        padding: 1em 2.5em;
+    }
+
+    .ready .readyQuestion{
+        font-size: 1.4rem;
+    }
+
+    .ready p{
+        margin: 0.5rem;
     }
 }
