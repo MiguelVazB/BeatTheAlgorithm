@@ -66,95 +66,11 @@
     cursor: pointer;
 }
 
-.algoMenu {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 1), rgba(97, 137, 47, 1));
-    text-align: center;
-    color: white;
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    flex-direction: column;
-}
-
-.algoMenu h1{
-    padding-bottom: 2em;
-    font-size: 2em;
-    font-weight: bold;
-    text-decoration: underline;
-    text-underline-offset: 0.4em;
-}
-
-.algoList{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    row-gap: 3rem;
-}
-
-.algoList p{
-    margin: 0;
-    font-size: 1.8rem;
-}
-
-.menuButtons{
-    display: flex;
-    justify-content: center;
-    column-gap: 0.2rem;
-}
-
-.homeButtonMenu, .aboutButtonMenu{
-    background-color: #202020;
-    border: 0;
-    color: white;
-    padding: 1.2rem 0;
-    font-size: large;
-    font-weight: bold;
-    flex: 1;
-}
-
-.goBackArrow {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 2.5rem;
-    height: auto;
-    padding-left: 1.5rem;
-    padding-top: 2rem;
-    filter: invert(100%);
-}
-
 
 /* menu for mobile */
-@media (max-width: 950px) {
-    .algoMenu {
-        height: 100vh;
-        width: auto;
-        display: flex;
-        justify-content: space-between;
-    }
-    
+@media (max-width: 950px) {   
     .links {
         display: none;
-    }
-
-    .goBackArrow{
-        display: block;
-    }
-
-    .menuButtons{
-        display: flex;
-    }
-
-    .algoList{
-        display: flex;
-        flex-direction: column;
-        row-gap: 0;
-        flex: 1;
-        margin-bottom: 3rem;
     }
 }
 
@@ -166,40 +82,5 @@
     .navBar {
         padding-left: 1em;
         padding-right: 1em;
-    }
-}
-
-
-/* menu for rest of devices */
-@media (min-width: 951px){
-    .menuButtons{
-        display: none;
-    }
-
-    .goBackArrow{
-        display: none;
-    }
-
-    .algoMenu h1{
-        padding: 1.5rem 0px;
-        font-size: 2.5rem;
-        text-decoration: underline;
-        font-weight: bold;
-        text-underline-offset: 0.7rem;
-    }
-
-    .algoMenu {
-        position: fixed;
-        display: flex;
-        padding: 0 3rem;
-        justify-content: flex-start;
-        background-image: linear-gradient(to bottom, rgba(32, 32, 32, 1), rgba(97, 137, 47, 1));
-        width: max-content;
-        top: 6em;
-    }
-
-    .algoList{
-        flex: 1;
-        margin-bottom: 5rem;
     }
 }

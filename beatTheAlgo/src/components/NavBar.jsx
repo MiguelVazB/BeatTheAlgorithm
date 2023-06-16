@@ -1,7 +1,7 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./NavBar.css";
-import Arrow from "../images/left-arrow.svg";
+import { AlgoMenu } from "./AlgoMenu";
 
 export default function NavBar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -34,31 +34,8 @@ export default function NavBar() {
             <p>About</p>
           </Link>
         </div>
-        {showMenu && (
-          <div className="algoMenu">
-            <img src={Arrow} onClick={showMenuClick} className="goBackArrow" />
-            <h1>Algorithms</h1>
-            <div className="algoList">
-              <p>Algorithm_1</p>
-              <p>Algorithm_2</p>
-              <p>Algorithm_3</p>
-              <p>Algorithm_4</p>
-              <p>Algorithm_5</p>
-              <p>Algorithm_6</p>
-              <p>Algorithm_7</p>
-            </div>
-            <div className="menuButtons">
-              <Link className="homeButtonMenu" to="/">
-                Home
-              </Link>
-              <Link className="aboutButtonMenu" to="about">
-                About
-              </Link>
-            </div>
-          </div>
-        )}
+        {showMenu && <AlgoMenu showMenuClick={showMenuClick} />}
       </nav>
-      <Outlet />
     </>
   );
 }
