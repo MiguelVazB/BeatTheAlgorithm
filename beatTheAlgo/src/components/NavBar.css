@@ -81,9 +81,11 @@
 }
 
 .algoMenu h1{
-    padding-bottom: 0.2em;
+    padding-bottom: 2em;
     font-size: 2em;
     font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 0.4em;
 }
 
 .algoList{
@@ -118,9 +120,9 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 2rem;
+    width: 2.5rem;
     height: auto;
-    padding-left: 2rem;
+    padding-left: 1.5rem;
     padding-top: 2rem;
     filter: invert(100%);
 }
