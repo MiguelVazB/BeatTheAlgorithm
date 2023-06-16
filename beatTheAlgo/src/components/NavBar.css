@@ -118,6 +118,7 @@
     filter: invert(100%);
 }
 
+
 /* menu for mobile */
 @media (max-width: 710px) {
     .algoMenu {
@@ -148,8 +149,8 @@
     }
 }
 
-/* menu for rest of devices */
 
+/* menu for rest of devices */
 @media (min-width: 711px){
     .menuButtons{
         display: none;
