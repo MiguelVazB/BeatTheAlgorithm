@@ -11,8 +11,12 @@ export default function GameLayout({ algo }) {
   React.useEffect(() => {
     switch (algo) {
       case "bubble_sort":
-        setAlgorithmBrowser(<BubbleSort />);
-        setAlgorithmUser(<BubbleSortUser />);
+        setAlgorithmBrowser(
+          <BubbleSort difficulty={difficulty ? difficulty : ""} />
+        );
+        setAlgorithmUser(
+          <BubbleSortUser difficulty={difficulty ? difficulty : ""} />
+        );
         break;
     }
   }, []);
@@ -45,7 +49,7 @@ export default function GameLayout({ algo }) {
             className="setDifficultyButton"
             onClick={setDifficultyFunction}
           >
-            Set Difficulty
+            Start
           </button>
         </div>
       </div>
