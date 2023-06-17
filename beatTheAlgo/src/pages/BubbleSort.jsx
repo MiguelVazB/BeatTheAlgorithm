@@ -1,10 +1,12 @@
 import React from "react";
 import "./pageStyles/BubbleSort.css";
 import { generateXRandomNumbers } from "../utils/randomNumbers.jsx";
-import ArrowTop from "../images/arrow-top.svg";
+import ArrowTop from "../images/arrow-top-white.svg";
 
 export const BubbleSort = () => {
   const [valuesToSort, setValuesToSort] = React.useState([]);
+
+  const arrowRef = React.useRef(null);
 
   React.useEffect(() => {
     let randomNumbers = generateXRandomNumbers(9);
@@ -19,6 +21,13 @@ export const BubbleSort = () => {
     });
     setValuesToSort(values);
   }, []);
+
+  React.useEffect(() => {
+    const bubbles = document.getElementsByClassName("valueToSort");
+    let pos = bubbles[0]?.getBoundingClientRect();
+    arrowRef.current.style.top = `${pos?.y - pos?.height / 8}px`;
+    arrowRef.current.style.left = `${pos?.x + pos?.width / 4}px`;
+  }, [arrowRef, valuesToSort]);
 
   return (
     <main className="bubbleSort">
@@ -48,7 +57,7 @@ export const BubbleSort = () => {
       </dialog> */}
       <div className="computerSide">
         {valuesToSort}
-        <img src={ArrowTop} className="arrowBrowser" />
+        <img src={ArrowTop} ref={arrowRef} className="arrowBrowser" />
       </div>
       <div className="userSide">
         <h1 className="algorithmDisplayed">Bubble Sort</h1>
