@@ -1,0 +1,53 @@
+.bubbleSort{
+    text-align: left;
+}
+
+.valueToSort{
+    position: relative;
+    display: inline-block;
+    background-image: radial-gradient(rgba(63, 137, 174, 0.2) 55%, rgba(255, 255, 255, 0.8));
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    padding: 3em;
+    margin: 2rem;
+    height: fit-content;
+    text-align: center;
+    font-weight: bold;
+}
+
+.bubbleDot{
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border: 0;
+    top: 1em;
+    right: 2.4em;
+}
+
+.smallBubbleDot{
+    top: 2.2em;
+    right: 1.8em;
+    width: 0.6em;
+    height: 0.6em;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.arrowBrowser{
+    position: absolute;
+    height: 4rem;
+    width: auto;
+    animation: infinite arrowBrowserAnimation 2s ease-in-out;
+    animation-iteration-count: 3;
+}
+
+@keyframes arrowBrowserAnimation{
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(1em);
+    }
+}
