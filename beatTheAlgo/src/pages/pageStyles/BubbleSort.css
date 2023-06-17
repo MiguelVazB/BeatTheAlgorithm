@@ -12,16 +12,27 @@
     text-align: end;
 }
 
-/* .bubbleSort dialog{
-    position: absolute;
-    text-align: center;
-    top: 0;
-    bottom: 0;
+.difficultyOverlay{
+    z-index: 10;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    right: 0;
+    left: 0;
+    background-color: rgba(32, 32, 32, 0.9);
 }
 
-.bubbleSort dialog::backdrop{
-    background-color: purple;
-} */
+.difficultyOverlay p{
+    font-size: 3em;
+}
+
+#difficulty, .setDifficultyButton{
+    font-size: 2rem;
+    border-radius: 0.8rem;
+    cursor: pointer;
+}
 
 .computerSide{
     width: 35%;
@@ -71,7 +82,6 @@
     text-align: left;
     background-color: rgba(32, 32, 32, 1);
     margin-left: -1em;
-    /* background-image: linear-gradient(to right bottom, rgba(32, 32, 32, 0.1), rgba(97, 137, 47, 0.1)); */
     margin-bottom: 2rem;
     font-size: 2.5em;
 }
@@ -80,8 +90,21 @@
     position: absolute;
     height: 4rem;
     width: auto;
-    filter: hue-rotate(100%)
+    animation: infinite arrowBrowserAnimation 2s ease-in-out;
+    animation-iteration-count: 3;
 }
+
+@keyframes arrowBrowserAnimation{
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(1em);
+    }
+}
+
+
+/* User side */
 
 .userSide{
     flex: 1;
