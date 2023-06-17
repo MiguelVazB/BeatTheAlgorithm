@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import "./NavBar.css";
+import "./componentStyles/NavBar.css";
 import { AlgoMenu } from "./AlgoMenu";
 
 export default function NavBar() {
