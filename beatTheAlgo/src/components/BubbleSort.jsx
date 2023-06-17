@@ -5,7 +5,6 @@ import ArrowTop from "../images/arrow-top-white.svg";
 
 export const BubbleSort = () => {
   const [valuesToSort, setValuesToSort] = React.useState([]);
-  const [userValues, setUserValues] = React.useState([]);
 
   const arrowRef = React.useRef(null);
 
@@ -20,27 +19,8 @@ export const BubbleSort = () => {
         </div>
       );
     });
-    let userValues = randomNumbers.map((x, index) => {
-      return (
-        <div
-          className="valueToSort userBubbles"
-          key={`${x} ${index}`}
-          onClick={() => popBubble(index)}
-        >
-          {x}
-          <div className="bubbleDot"></div>
-          <div className="smallBubbleDot bubbleDot"></div>
-        </div>
-      );
-    });
     setValuesToSort(values);
-    setUserValues(userValues);
   }, []);
-
-  async function popBubble(index) {
-    document.getElementsByClassName("userBubbles")[index].style.display =
-      "none";
-  }
 
   React.useEffect(() => {
     const bubbles = document.getElementsByClassName("valueToSort");
@@ -57,4 +37,36 @@ export const BubbleSort = () => {
       {/* <img src={ArrowTop} ref={arrowRef} className="arrowBrowser second" /> */}
     </div>
   );
+};
+
+/* BubbleSort for the user */
+
+export const BubbleSortUser = () => {
+  const [userValues, setUserValues] = React.useState([]);
+
+  React.useEffect(() => {
+    let randomNumbers = generateXRandomNumbers(9);
+    let userValues = randomNumbers.map((x, index) => {
+      return (
+        <div
+          className="valueToSort userBubbles"
+          key={`${x} ${index}`}
+          onClick={() => popBubble(index)}
+        >
+          {x}
+          <div className="bubbleDot"></div>
+          <div className="smallBubbleDot bubbleDot"></div>
+        </div>
+      );
+    });
+    setUserValues(userValues);
+  }, []);
+
+  async function popBubble(index) {
+    document
+      .getElementsByClassName("userBubbles")
+      [index].classList.add("bubblePopAnimate");
+  }
+
+  return <div className="bubbleSort">{userValues}</div>;
 };
