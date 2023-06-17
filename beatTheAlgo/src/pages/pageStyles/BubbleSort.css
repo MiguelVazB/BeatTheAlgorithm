@@ -1,0 +1,23 @@
+.bubbleSort{
+    padding-top: 6em;
+    margin: 0;
+    background-image: linear-gradient(to right, rgba(32, 32, 32, 0.5) 35%, rgba(97, 137, 47, 1));
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    color: white;
+    display: flex;
+    text-align: end;
+}
+
+.computerSide{
+    width: 35%;
+    padding: 1rem;
+}
+
+.userSide{
+    flex: 1;
+    padding: 1rem;
+}
