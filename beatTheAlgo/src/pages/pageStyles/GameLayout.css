@@ -34,6 +34,10 @@
     cursor: pointer;
 }
 
+.setDifficultyButton{
+    padding: 0 2rem;
+}
+
 .computerSide{
     width: 35%;
     padding: 1rem;
