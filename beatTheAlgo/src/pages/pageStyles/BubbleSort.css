@@ -78,8 +78,9 @@
 
 .arrowBrowser{
     position: absolute;
-    height: 5rem;
+    height: 4rem;
     width: auto;
+    filter: hue-rotate(100%)
 }
 
 .userSide{
