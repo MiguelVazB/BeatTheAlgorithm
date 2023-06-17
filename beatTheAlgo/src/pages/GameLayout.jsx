@@ -1,30 +1,34 @@
 import React from "react";
 import "./pageStyles/GameLayout.css";
-import { BubbleSort } from "../components/BubbleSort";
+import { BubbleSort, BubbleSortUser } from "../components/BubbleSort";
 
 export default function GameLayout({ algo }) {
   const [difficulty, setDifficulty] = React.useState("");
-  const [algorithm, setAlgorithm] = React.useState("");
+  const [algorithmBrowser, setAlgorithmBrowser] = React.useState("");
+  const [algorithmUser, setAlgorithmUser] = React.useState("");
   const difficultyOverlay = React.useRef(null);
-
-  function setDifficultyFunction() {
-    setDifficulty(document.querySelector("#difficulty").value);
-  }
 
   React.useEffect(() => {
     switch (algo) {
       case "bubble_sort":
-        setAlgorithm(<BubbleSort />);
+        setAlgorithmBrowser(<BubbleSort />);
+        setAlgorithmUser(<BubbleSortUser />);
         break;
     }
-  }, [algorithm]);
+  }, []);
 
   React.useEffect(() => {
     if (difficulty.length > 0) {
       difficultyOverlay.current.style.display = "none";
     }
-    console.log(difficulty);
   }, [difficulty]);
+
+  function setDifficultyFunction() {
+    let difficultySelected = document.querySelector("#difficulty").value;
+    setDifficulty(
+      difficultySelected.charAt(0).toUpperCase() + difficultySelected.slice(1)
+    );
+  }
 
   return (
     <main className="gameLayout">
@@ -45,7 +49,9 @@ export default function GameLayout({ algo }) {
           </button>
         </div>
       </div>
-      <div className="computerSide">{algorithm ? algorithm : ""}</div>
+      <div className="computerSide">
+        {algorithmBrowser ? algorithmBrowser : ""}
+      </div>
       <div className="userSide">
         <h1 className="algorithmDisplayed">
           {String(algo)
@@ -55,7 +61,7 @@ export default function GameLayout({ algo }) {
             })}
           <span>{difficulty ? `(${difficulty})` : ""}</span>
         </h1>
-        {/* {userValues} */}
+        {algorithmUser ? algorithmUser : ""}
       </div>
     </main>
   );
