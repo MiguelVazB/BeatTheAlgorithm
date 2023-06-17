@@ -9,7 +9,11 @@ export const AlgoMenu = ({ showMenuClick }) => {
       <img src={Arrow} onClick={showMenuClick} className="goBackArrow" />
       <h1>Algorithms</h1>
       <div className="algoList">
-        <Link className="algorithms" to="bubbleSort" onClick={showMenuClick}>
+        <Link
+          className="algorithms"
+          to="algo/bubble_sort"
+          onClick={showMenuClick}
+        >
           Bubble Sort
         </Link>
         <Link className="algorithms">Algorithm_1</Link>
