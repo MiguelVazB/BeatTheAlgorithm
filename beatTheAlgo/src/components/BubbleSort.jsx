@@ -3,7 +3,7 @@ import "./componentStyles/BubbleSort.css";
 import { generateXRandomNumbers } from "../utils/randomNumbers.jsx";
 import ArrowTop from "../images/arrow-top-white.svg";
 
-export const BubbleSort = () => {
+export const BubbleSort = ({ difficulty }) => {
   const [valuesToSort, setValuesToSort] = React.useState([]);
 
   const arrowRef = React.useRef(null);
@@ -41,7 +41,7 @@ export const BubbleSort = () => {
 
 /* BubbleSort for the user */
 
-export const BubbleSortUser = () => {
+export const BubbleSortUser = ({ difficulty }) => {
   const [userValues, setUserValues] = React.useState([]);
 
   React.useEffect(() => {
