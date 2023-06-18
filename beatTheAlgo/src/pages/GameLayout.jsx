@@ -7,6 +7,7 @@ export default function GameLayout({ algo }) {
   const [algorithmBrowser, setAlgorithmBrowser] = React.useState("");
   const [algorithmUser, setAlgorithmUser] = React.useState("");
   const difficultyOverlay = React.useRef(null);
+  const countDownRef = React.useRef(null);
 
   React.useEffect(() => {
     switch (algo) {
@@ -14,9 +15,7 @@ export default function GameLayout({ algo }) {
         setAlgorithmBrowser(
           <BubbleSort difficulty={difficulty ? difficulty : ""} />
         );
-        setAlgorithmUser(
-          <BubbleSortUser difficulty={difficulty ? difficulty : ""} />
-        );
+        setAlgorithmUser(<BubbleSortUser />);
         break;
     }
   }, []);
@@ -24,8 +23,23 @@ export default function GameLayout({ algo }) {
   React.useEffect(() => {
     if (difficulty.length > 0) {
       difficultyOverlay.current.style.display = "none";
+      countDownRef.current.style.visibility = "visible";
+      countDown();
     }
   }, [difficulty]);
+
+  function countDown() {
+    let countDownValue = 3;
+    const countDown = setInterval(() => {
+      countDownRef.current.innerHTML = countDownValue;
+      countDownValue -= 1;
+      if (countDownValue < 0) {
+        countDownRef.current.style.display = "none";
+        clearInterval(countDown);
+        console.log("done with countdown");
+      }
+    }, 1000);
+  }
 
   function setDifficultyFunction() {
     let difficultySelected = document.querySelector("#difficulty").value;
@@ -53,6 +67,7 @@ export default function GameLayout({ algo }) {
           </button>
         </div>
       </div>
+      <div className="countDown" ref={countDownRef}></div>
       <div className="computerSide">
         {algorithmBrowser ? algorithmBrowser : ""}
       </div>
