@@ -24,14 +24,32 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
   React.useEffect(() => {
     if (countDownOver) {
       const bubbles = document.getElementsByClassName("valueToSort");
-      let pos = bubbles[0]?.getBoundingClientRect();
-      arrowRef.current.style.top = `${pos?.y - pos?.height / 4}px`;
-      arrowRef.current.style.left = `${pos?.x + pos?.width / 4}px`;
-      arrowRef.current.classList.add("arrowBrowserAnimate");
-      console.log(valuesToSort[0]?.props?.children[0]);
-      const countDown = setInterval(() => {
-        console.log("hi");
-      }, 5000);
+      for (let index = 0; index < randomNumbers.length - 1; index++) {
+        let firstArrowPos = bubbles[index]?.getBoundingClientRect();
+        arrowRef.current.style.top = `${
+          firstArrowPos?.y - firstArrowPos?.height / 4
+        }px`;
+        arrowRef.current.style.left = `${
+          firstArrowPos?.x + firstArrowPos?.width / 4
+        }px`;
+        arrowRef.current.classList.add("arrowBrowserAnimate");
+        arrowRef.current.style.visibility = "visible";
+        for (let j = 0; j < randomNumbers.length - index - 1; j++) {
+          let secondArrowPos = bubbles[j]?.getBoundingClientRect();
+          secondArrowRef.current.style.top = `${
+            secondArrowPos?.y - secondArrowPos?.height / 4
+          }px`;
+          secondArrowRef.current.style.left = `${
+            secondArrowPos?.x + secondArrowPos?.width / 4
+          }px`;
+          secondArrowRef.current.classList.add("arrowBrowserAnimate");
+          secondArrowRef.current.style.visibility = "visible";
+        }
+      }
+      // console.log(valuesToSort[0]?.props?.children[0]);
+      // const countDown = setInterval(() => {
+      //   console.log("hi");
+      // }, 5000);
     }
   }, [countDownOver]);
 
