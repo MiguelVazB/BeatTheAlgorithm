@@ -58,6 +58,9 @@
     position: absolute;
     height: 4rem;
     width: auto;
+}
+
+.arrowBrowserAnimate{
     animation: infinite arrowBrowserAnimation 2s ease-in-out;
     animation-iteration-count: 5;
 }
