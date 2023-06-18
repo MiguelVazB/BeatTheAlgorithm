@@ -1,8 +1,13 @@
 import React from "react";
 import "./pageStyles/GameLayout.css";
+import { generateXRandomNumbers } from "../utils/randomNumbers.jsx";
 import { BubbleSort, BubbleSortUser } from "../components/BubbleSort";
 
 export default function GameLayout({ algo }) {
+  const [bubbleValues, setBubbleValues] = React.useState([]);
+
+  const [countDownOver, setCountDownOver] = React.useState(false);
+
   const [difficulty, setDifficulty] = React.useState("");
   const [algorithmBrowser, setAlgorithmBrowser] = React.useState("");
   const [algorithmUser, setAlgorithmUser] = React.useState("");
@@ -10,15 +15,29 @@ export default function GameLayout({ algo }) {
   const countDownRef = React.useRef(null);
 
   React.useEffect(() => {
+    let randomNumbers = generateXRandomNumbers(9);
+    setBubbleValues(randomNumbers);
+  }, []);
+
+  React.useEffect(() => {
     switch (algo) {
       case "bubble_sort":
         setAlgorithmBrowser(
-          <BubbleSort difficulty={difficulty ? difficulty : ""} />
+          <BubbleSort
+            difficulty={difficulty ? difficulty : ""}
+            randomNumbers={bubbleValues}
+            countDownOver={countDownOver}
+          />
         );
-        setAlgorithmUser(<BubbleSortUser />);
+        setAlgorithmUser(
+          <BubbleSortUser
+            randomNumbers={bubbleValues}
+            countDownOver={countDownOver}
+          />
+        );
         break;
     }
-  }, []);
+  }, [bubbleValues, algo, difficulty, countDownOver]);
 
   React.useEffect(() => {
     if (difficulty.length > 0) {
@@ -35,8 +54,8 @@ export default function GameLayout({ algo }) {
       countDownValue -= 1;
       if (countDownValue < 0) {
         countDownRef.current.style.display = "none";
+        setCountDownOver(true);
         clearInterval(countDown);
-        console.log("done with countdown");
       }
     }, 1000);
   }
