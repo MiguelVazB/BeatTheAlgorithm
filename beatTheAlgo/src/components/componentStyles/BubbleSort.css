@@ -1,5 +1,13 @@
 .bubbleSort{
+    flex: 1;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.temporaryBubble{
+    display: flex;
+    font-size: 2rem;
 }
 
 .valueToSort{
@@ -7,9 +15,9 @@
     display: inline-block;
     background-image: radial-gradient(rgba(63, 137, 174, 0.2) 55%, rgba(255, 255, 255, 0.8));
     border-radius: 50%;
-    width: 2em;
-    height: 2em;
-    padding: 3em;
+    width: 2rem;
+    height: 2rem;
+    padding: 3rem;
     margin: 2rem;
     height: fit-content;
     text-align: center;
@@ -61,6 +69,10 @@
     width: auto;
 }
 
+.second{
+    background-color: red;
+}
+
 .arrowBrowserAnimate{
     animation: infinite arrowBrowserAnimation 2s ease-in-out;
     animation-iteration-count: 5;
@@ -73,4 +85,8 @@
     50% {
         transform: translateY(1em);
     }
+}
+
+.bubbleSortUser{
+    text-align: left;
 }
