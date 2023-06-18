@@ -24,7 +24,7 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
   React.useEffect(() => {
     if (countDownOver) {
       const bubbles = document.getElementsByClassName("valueToSort");
-      for (let index = 0; index < randomNumbers.length - 1; index++) {
+      for (let index = 0; index < randomNumbers.length; index++) {
         let firstArrowPos = bubbles[index]?.getBoundingClientRect();
         arrowRef.current.style.top = `${
           firstArrowPos?.y - firstArrowPos?.height / 4
@@ -46,6 +46,8 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
           secondArrowRef.current.style.visibility = "visible";
         }
       }
+      // arrowRef.current.style.display = "none";
+      // secondArrowRef.current.style.display = "none";
       // console.log(valuesToSort[0]?.props?.children[0]);
       // const countDown = setInterval(() => {
       //   console.log("hi");
@@ -55,9 +57,22 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
 
   return (
     <div className="bubbleSort">
-      {valuesToSort}
-      <img src={ArrowTop} ref={arrowRef} className="arrowBrowser" />
-      <img src={ArrowTop} ref={secondArrowRef} className="arrowBrowser" />
+      <div className="algorithm">
+        {valuesToSort}
+        <img src={ArrowTop} ref={arrowRef} className="arrowBrowser" />
+        <img
+          src={ArrowTop}
+          ref={secondArrowRef}
+          className="arrowBrowser second"
+        />
+      </div>
+      <div className="temporaryBubble">
+        <p>Temporary spot:</p>
+        <div className="valueToSort">
+          <div className="bubbleDot"></div>
+          <div className="smallBubbleDot bubbleDot"></div>
+        </div>
+      </div>
     </div>
   );
 };
@@ -90,5 +105,5 @@ export const BubbleSortUser = ({ randomNumbers }) => {
       [index].classList.add("bubblePopAnimate");
   }
 
-  return <div className="bubbleSort">{userValues}</div>;
+  return <div className="bubbleSortUser">{userValues}</div>;
 };
