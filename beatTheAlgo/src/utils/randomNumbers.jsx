@@ -5,6 +5,12 @@ function generateXRandomNumbers(quantity) {
   for (let i = 0; i < quantity; i++) {
     randomNumbers.push(Math.floor(Math.random() * 100) + 1);
   }
+
+  for (let i = randomNumbers.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [randomNumbers[i], randomNumbers[j]] = [randomNumbers[j], randomNumbers[i]];
+  }
+
   return randomNumbers;
 }
 
