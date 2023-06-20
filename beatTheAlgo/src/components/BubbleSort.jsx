@@ -4,10 +4,10 @@ import ArrowTop from "../images/arrow-top-white.svg";
 
 export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
   const [valuesToSort, setValuesToSort] = React.useState([]);
-  const [tempBubbleValue, setTempBubbleValue] = React.useState("");
 
   const arrowRef = React.useRef(null);
   const secondArrowRef = React.useRef(null);
+  const tempBubble = React.useRef(null);
 
   React.useEffect(() => {
     let values = randomNumbers.map((x, index) => {
@@ -31,6 +31,7 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
     }
   }, [countDownOver]);
 
+  // Bubble sort algorithm using setInterval
   function bubbleSortAlgorithm() {
     let index = 0;
     let j = 0;
@@ -45,7 +46,11 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
           let firstValue = Number(bubbles[j].children[0].innerHTML);
           let secondValue = Number(bubbles[j + 1].children[0].innerHTML);
           if (firstValue > secondValue) {
-            setTempBubbleValue(secondValue);
+            tempBubble.current.innerHTML = firstValue;
+            bubbles[j].children[0].innerHTML = secondValue;
+            bubbles[j + 1].children[0].innerHTML = tempBubble.current.innerHTML;
+          } else {
+            tempBubble.current.innerHTML = "";
           }
           j++;
         } else {
@@ -54,8 +59,10 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
         }
       } else {
         clearInterval(intervalAction);
+        arrowRef.current.style.visibility = "hidden";
+        secondArrowRef.current.style.visibility = "hidden";
       }
-    }, 100);
+    }, 2000);
   }
 
   function displayFirstArrow(index) {
@@ -63,7 +70,7 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
     const bubbles = document.getElementsByClassName("valueToSortComputer");
     let firstArrowPos = bubbles[index]?.getBoundingClientRect();
     arrowRef.current.style.top = `${
-      firstArrowPos?.y - firstArrowPos?.height / 4
+      firstArrowPos?.y - firstArrowPos?.height / 8
     }px`;
     arrowRef.current.style.left = `${
       firstArrowPos?.x + firstArrowPos?.width / 4
@@ -77,7 +84,7 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
     const bubbles = document.getElementsByClassName("valueToSortComputer");
     let secondArrowPos = bubbles[index]?.getBoundingClientRect();
     secondArrowRef.current.style.top = `${
-      secondArrowPos?.y - secondArrowPos?.height / 4
+      secondArrowPos?.y - secondArrowPos?.height / 8
     }px`;
     secondArrowRef.current.style.left = `${
       secondArrowPos?.x + secondArrowPos?.width / 4
@@ -100,7 +107,7 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
       <div className="temporaryBubble">
         <p>Temporary bubble:</p>
         <div className="tempBubble">
-          <p>{tempBubbleValue}</p>
+          <p className="tempBubbleValue" ref={tempBubble}></p>
           <div className="bubbleDot"></div>
           <div className="smallBubbleDot bubbleDot"></div>
         </div>
