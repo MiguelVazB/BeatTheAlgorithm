@@ -23,37 +23,56 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
 
   React.useEffect(() => {
     if (countDownOver) {
-      const bubbles = document.getElementsByClassName("valueToSort");
-      for (let index = 0; index < randomNumbers.length; index++) {
-        let firstArrowPos = bubbles[index]?.getBoundingClientRect();
-        arrowRef.current.style.top = `${
-          firstArrowPos?.y - firstArrowPos?.height / 4
-        }px`;
-        arrowRef.current.style.left = `${
-          firstArrowPos?.x + firstArrowPos?.width / 4
-        }px`;
-        arrowRef.current.classList.add("arrowBrowserAnimate");
-        arrowRef.current.style.visibility = "visible";
-        for (let j = 0; j < randomNumbers.length - index - 1; j++) {
-          let secondArrowPos = bubbles[j]?.getBoundingClientRect();
-          secondArrowRef.current.style.top = `${
-            secondArrowPos?.y - secondArrowPos?.height / 4
-          }px`;
-          secondArrowRef.current.style.left = `${
-            secondArrowPos?.x + secondArrowPos?.width / 4
-          }px`;
-          secondArrowRef.current.classList.add("arrowBrowserAnimate");
-          secondArrowRef.current.style.visibility = "visible";
-        }
-      }
-      // arrowRef.current.style.display = "none";
-      // secondArrowRef.current.style.display = "none";
-      // console.log(valuesToSort[0]?.props?.children[0]);
-      // const countDown = setInterval(() => {
-      //   console.log("hi");
-      // }, 5000);
+      bubbleSortAlgorithm();
+    } else {
+      arrowRef.current.style.visibility = "hidden";
+      secondArrowRef.current.style.visibility = "hidden";
     }
   }, [countDownOver]);
+
+  function bubbleSortAlgorithm() {
+    let index = 0;
+    let intervalAction;
+
+    const bubbles = document.getElementsByClassName("valueToSort");
+    intervalAction = setInterval(() => {
+      if (index < randomNumbers.length) {
+        displayFirstArrow(index);
+        displaySecondArrow(index + 1);
+        index++;
+      } else {
+        clearInterval(intervalAction);
+      }
+    }, 5000);
+    console.log("hi");
+  }
+
+  function displayFirstArrow(index) {
+    console.log("displayFirstArrow function called " + index);
+    const bubbles = document.getElementsByClassName("valueToSort");
+    let firstArrowPos = bubbles[index]?.getBoundingClientRect();
+    arrowRef.current.style.top = `${
+      firstArrowPos?.y - firstArrowPos?.height / 4
+    }px`;
+    arrowRef.current.style.left = `${
+      firstArrowPos?.x + firstArrowPos?.width / 4
+    }px`;
+    arrowRef.current.classList.add("arrowBrowserAnimate");
+    arrowRef.current.style.visibility = "visible";
+  }
+
+  function displaySecondArrow(index) {
+    const bubbles = document.getElementsByClassName("valueToSort");
+    let secondArrowPos = bubbles[index]?.getBoundingClientRect();
+    secondArrowRef.current.style.top = `${
+      secondArrowPos?.y - secondArrowPos?.height / 4
+    }px`;
+    secondArrowRef.current.style.left = `${
+      secondArrowPos?.x + secondArrowPos?.width / 4
+    }px`;
+    secondArrowRef.current.classList.add("arrowBrowserAnimate");
+    secondArrowRef.current.style.visibility = "visible";
+  }
 
   return (
     <div className="bubbleSort">
@@ -67,7 +86,7 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
         />
       </div>
       <div className="temporaryBubble">
-        <p>Temporary spot:</p>
+        <p>Temporary bubble:</p>
         <div className="valueToSort">
           <div className="bubbleDot"></div>
           <div className="smallBubbleDot bubbleDot"></div>
