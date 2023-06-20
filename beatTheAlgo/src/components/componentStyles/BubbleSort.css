@@ -35,9 +35,17 @@
     margin: 2rem;
     text-align: center;
     font-weight: bold;
+    font-size: 2rem;
+}
+
+.tempBubble{
+    display: flex;
 }
 
 .tempBubble p{
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
     margin: 0;
 }
 
@@ -68,12 +76,11 @@
 }
 
 .second{
-    background-color: red;
+    filter: brightness(70%);
 }
 
 .arrowBrowserAnimate{
-    animation: infinite arrowBrowserAnimation 2s ease-in-out;
-    animation-iteration-count: 5;
+    animation: infinite arrowBrowserAnimation 1s ease-in-out;
 }
 
 .bubbleSortUser{
@@ -92,7 +99,7 @@
         transform: translateY(0);
     }
     50% {
-        transform: translateY(1em);
+        transform: translateY(0.3em);
     }
 }
 
