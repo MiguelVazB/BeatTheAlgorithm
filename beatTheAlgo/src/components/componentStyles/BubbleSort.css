@@ -3,11 +3,20 @@
     text-align: left;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+}
+
+.algorithm{
+    flex: 1;
 }
 
 .temporaryBubble{
+    flex: 1;
     display: flex;
     font-size: 2rem;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
 }
 
 .valueToSort{
@@ -24,41 +33,22 @@
     font-weight: bold;
 }
 
-.bubblePopAnimate{
-    animation: popBubble 0.5s ease-in-out forwards;
-}
-
-@keyframes popBubble {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1.2);
-      opacity: 0.7;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 0;
-    }
-  }
-
 .bubbleDot{
     position: absolute;
-    width: 1em;
-    height: 1em;
+    width: 1rem;
+    height: 1rem;
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 50%;
     border: 0;
-    top: 1em;
-    right: 2.4em;
+    top: 1rem;
+    right: 2.4rem;
 }
 
 .smallBubbleDot{
-    top: 2.2em;
-    right: 1.8em;
-    width: 0.6em;
-    height: 0.6em;
+    top: 2.2rem;
+    right: 1.8rem;
+    width: 0.6rem;
+    height: 0.6rem;
     background-color: rgba(255, 255, 255, 0.4);
 }
 
@@ -78,6 +68,17 @@
     animation-iteration-count: 5;
 }
 
+.bubbleSortUser{
+    text-align: left;
+}
+
+.bubblePopAnimate{
+    animation: popBubble 0.5s ease-in-out forwards;
+}
+
+
+/* Animations */
+
 @keyframes arrowBrowserAnimation{
     0%, 100% {
         transform: translateY(0);
@@ -87,6 +88,17 @@
     }
 }
 
-.bubbleSortUser{
-    text-align: left;
+@keyframes popBubble {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0;
+    }
 }
