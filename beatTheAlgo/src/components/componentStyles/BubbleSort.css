@@ -19,7 +19,12 @@
     height: 2rem;
 }
 
-.valueToSort{
+.valueToSortComputer p{
+    padding: 0;
+    margin: 0;
+}
+
+.valueToSort, .tempBubble{
     position: relative;
     display: inline-block;
     background-image: radial-gradient(rgba(63, 137, 174, 0.2) 55%, rgba(255, 255, 255, 0.8));
@@ -28,9 +33,12 @@
     height: 2rem;
     padding: 3rem;
     margin: 2rem;
-    height: fit-content;
     text-align: center;
     font-weight: bold;
+}
+
+.tempBubble p{
+    margin: 0;
 }
 
 .bubbleDot{
