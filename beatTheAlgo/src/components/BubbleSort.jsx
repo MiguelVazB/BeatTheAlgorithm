@@ -4,6 +4,7 @@ import ArrowTop from "../images/arrow-top-white.svg";
 
 export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
   const [valuesToSort, setValuesToSort] = React.useState([]);
+  const [tempBubbleValue, setTempBubbleValue] = React.useState("");
 
   const arrowRef = React.useRef(null);
   const secondArrowRef = React.useRef(null);
@@ -11,8 +12,8 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
   React.useEffect(() => {
     let values = randomNumbers.map((x, index) => {
       return (
-        <div className="valueToSort" key={`${x} ${index}`}>
-          {x}
+        <div className="valueToSort valueToSortComputer" key={`${x} ${index}`}>
+          <p>{x}</p>
           <div className="bubbleDot"></div>
           <div className="smallBubbleDot bubbleDot"></div>
         </div>
@@ -32,24 +33,34 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
 
   function bubbleSortAlgorithm() {
     let index = 0;
+    let j = 0;
     let intervalAction;
 
-    const bubbles = document.getElementsByClassName("valueToSort");
+    const bubbles = document.getElementsByClassName("valueToSortComputer");
     intervalAction = setInterval(() => {
       if (index < randomNumbers.length) {
-        displayFirstArrow(index);
-        displaySecondArrow(index + 1);
-        index++;
+        if (j < randomNumbers.length - 1) {
+          displayFirstArrow(j);
+          displaySecondArrow(j + 1);
+          let firstValue = Number(bubbles[j].children[0].innerHTML);
+          let secondValue = Number(bubbles[j + 1].children[0].innerHTML);
+          if (firstValue > secondValue) {
+            setTempBubbleValue(secondValue);
+          }
+          j++;
+        } else {
+          index++;
+          j = 0;
+        }
       } else {
         clearInterval(intervalAction);
       }
-    }, 5000);
-    console.log("hi");
+    }, 100);
   }
 
   function displayFirstArrow(index) {
     console.log("displayFirstArrow function called " + index);
-    const bubbles = document.getElementsByClassName("valueToSort");
+    const bubbles = document.getElementsByClassName("valueToSortComputer");
     let firstArrowPos = bubbles[index]?.getBoundingClientRect();
     arrowRef.current.style.top = `${
       firstArrowPos?.y - firstArrowPos?.height / 4
@@ -62,7 +73,8 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
   }
 
   function displaySecondArrow(index) {
-    const bubbles = document.getElementsByClassName("valueToSort");
+    console.log("displaySecondArrow function called " + index);
+    const bubbles = document.getElementsByClassName("valueToSortComputer");
     let secondArrowPos = bubbles[index]?.getBoundingClientRect();
     secondArrowRef.current.style.top = `${
       secondArrowPos?.y - secondArrowPos?.height / 4
@@ -87,7 +99,8 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
       </div>
       <div className="temporaryBubble">
         <p>Temporary bubble:</p>
-        <div className="valueToSort">
+        <div className="tempBubble">
+          <p>{tempBubbleValue}</p>
           <div className="bubbleDot"></div>
           <div className="smallBubbleDot bubbleDot"></div>
         </div>
