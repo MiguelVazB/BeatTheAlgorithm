@@ -83,12 +83,26 @@
     animation: infinite arrowBrowserAnimation 1s ease-in-out;
 }
 
+
+/* Bubble Sort user */
+
 .bubbleSortUser{
     text-align: left;
 }
 
 .bubblePopAnimate{
     animation: popBubble 0.5s ease-in-out forwards;
+}
+
+.userAttempt{
+    display: flex;
+    justify-content: center;
+    font-size: 5rem;
+    justify-content: space-evenly;
+}
+
+.userBubbles p{
+    margin: 0;
 }
 
 
