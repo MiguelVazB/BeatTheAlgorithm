@@ -4,6 +4,7 @@ import ArrowTop from "../images/arrow-top-white.svg";
 
 export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
   const [valuesToSort, setValuesToSort] = React.useState([]);
+  const [sortedValues, setSortedValues] = React.useState([]);
 
   const arrowRef = React.useRef(null);
   const secondArrowRef = React.useRef(null);
@@ -20,6 +21,7 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
       );
     });
     setValuesToSort(values);
+    setSortedValues(randomNumbers);
   }, [randomNumbers]);
 
   React.useEffect(() => {
@@ -36,6 +38,23 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
     let index = 0;
     let j = 0;
     let intervalAction;
+
+    let difficultyTimeInterval;
+
+    switch (difficulty) {
+      case "Easy":
+        difficultyTimeInterval = 500;
+        break;
+      case "Intermediate":
+        difficultyTimeInterval = 200;
+        break;
+      case "Hard":
+        difficultyTimeInterval = 100;
+        break;
+      case "Impossible":
+        difficultyTimeInterval = 10;
+        break;
+    }
 
     const bubbles = document.getElementsByClassName("valueToSortComputer");
     intervalAction = setInterval(() => {
@@ -63,7 +82,7 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
         arrowRef.current.style.visibility = "hidden";
         secondArrowRef.current.style.visibility = "hidden";
       }
-    }, 500);
+    }, difficultyTimeInterval);
   }
 
   function displayFirstArrow(index) {
@@ -106,10 +125,17 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
       <div className="temporaryBubble">
         <p>Temporary bubble:</p>
         <div className="tempBubble">
-          <p className="tempBubbleValue" ref={tempBubble}></p>
+          <p className="tempBubbleValue" ref={tempBubble}>
+            100
+          </p>
           <div className="bubbleDot"></div>
           <div className="smallBubbleDot bubbleDot"></div>
         </div>
+      </div>
+      <div className="sortedValues">
+        {sortedValues.map((value) => {
+          return <div>{value}</div>;
+        })}
       </div>
     </div>
   );

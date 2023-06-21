@@ -13,10 +13,8 @@
 .temporaryBubble{
     flex: 1;
     display: flex;
-    font-size: 2rem;
+    font-size: 1.5rem;
     align-items: center;
-    width: 2rem;
-    height: 2rem;
 }
 
 .valueToSortComputer p{
@@ -40,13 +38,16 @@
 
 .tempBubble{
     display: flex;
+    width: 0.5rem;
+    height: 0.5rem;
+    justify-content: center;
 }
 
-.tempBubble p{
-    width: 3rem;
-    height: 3rem;
-    font-size: 2rem;
+.tempBubbleValue{
     margin: 0;
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
 }
 
 .bubbleDot{
@@ -83,6 +84,12 @@
     animation: infinite arrowBrowserAnimation 1s ease-in-out;
 }
 
+.sortedValues{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    text-shadow: 3px 3px 2px green;
+}
 
 /* Bubble Sort user */
 
