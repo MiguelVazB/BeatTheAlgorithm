@@ -69,6 +69,17 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
             tempBubble.current.innerHTML = firstValue;
             bubbles[j].children[0].innerHTML = secondValue;
             bubbles[j + 1].children[0].innerHTML = tempBubble.current.innerHTML;
+            setSortedValues((prev) => {
+              return prev.map((value, index) => {
+                if (index == j) {
+                  return secondValue;
+                } else if (index == j + 1) {
+                  return tempBubble.current.innerHTML;
+                } else {
+                  return value;
+                }
+              });
+            });
           } else {
             tempBubble.current.innerHTML = "";
           }
@@ -133,8 +144,8 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
         </div>
       </div>
       <div className="sortedValues">
-        {sortedValues.map((value) => {
-          return <div>{value}</div>;
+        {sortedValues.map((value, index) => {
+          return <div key={`${value} ${index}`}>{value}</div>;
         })}
       </div>
     </div>
