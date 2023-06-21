@@ -148,6 +148,15 @@ export const BubbleSortUser = ({ randomNumbers }) => {
     ]);
   }
 
+  function resetUserAttempt() {
+    setUserAttempt([]);
+    let popBubble = document.getElementsByClassName("userBubbles");
+    for (let i = 0; i < popBubble.length; i++) {
+      popBubble[i].classList.remove("bubblePopAnimate");
+      popBubble[i].style.pointerEvents = "auto";
+    }
+  }
+
   return (
     <div className="bubbleSortUser">
       <div className="userCLickableBubbles">{userValues}</div>
@@ -157,7 +166,9 @@ export const BubbleSortUser = ({ randomNumbers }) => {
         })}
       </div>
       <div className="buttonWrapper">
-        <button className="resetBtn">Reset</button>
+        <button className="resetBtn" onClick={resetUserAttempt}>
+          Reset
+        </button>
       </div>
     </div>
   );
