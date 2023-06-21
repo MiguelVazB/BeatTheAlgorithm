@@ -65,21 +65,16 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
           let firstValue = Number(bubbles[j].children[0].innerHTML);
           let secondValue = Number(bubbles[j + 1].children[0].innerHTML);
           if (firstValue > secondValue) {
-            bubbles[j].children[0].innerHTML = "";
+            //bubbles[j].children[0].innerHTML = "";
             tempBubble.current.innerHTML = firstValue;
             bubbles[j].children[0].innerHTML = secondValue;
             bubbles[j + 1].children[0].innerHTML = tempBubble.current.innerHTML;
-            setSortedValues((prev) => {
-              return prev.map((value, index) => {
-                if (index == j) {
-                  return secondValue;
-                } else if (index == j + 1) {
-                  return tempBubble.current.innerHTML;
-                } else {
-                  return value;
-                }
-              });
-            });
+            // setSortedValues((prev) => {
+            //   const updatedValues = [...prev];
+            //   updatedValues[j] = secondValue;
+            //   updatedValues[j + 1] = firstValue;
+            //   return updatedValues;
+            // });
           } else {
             tempBubble.current.innerHTML = "";
           }
