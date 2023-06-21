@@ -31,7 +31,7 @@ export default function HomePage() {
           challenge
         </p>
       </div>
-      <Link className="elementBox startButton" to="about">
+      <Link className="elementBox startButton" to="algo/bubble_sort">
         <p>Start</p>
         <img src={rightArrow} className="elementImage" />
       </Link>
