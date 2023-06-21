@@ -119,7 +119,7 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
 
 export const BubbleSortUser = ({ randomNumbers }) => {
   const [userValues, setUserValues] = React.useState([]);
-  const [userAttempt, setUserAttempt] = React.useState(Array(10).fill("_"));
+  const [userAttempt, setUserAttempt] = React.useState([]);
 
   React.useEffect(() => {
     let userValues = randomNumbers.map((x, index) => {
@@ -142,20 +142,22 @@ export const BubbleSortUser = ({ randomNumbers }) => {
     let popBubble = document.getElementsByClassName("userBubbles");
     popBubble[index].classList.add("bubblePopAnimate");
     popBubble[index].style.pointerEvents = "none";
-    setUserAttempt((prevState) => {
-      const updatedArray = [...prevState];
-      updatedArray[index] = Number(popBubble[index].children[0].innerHTML);
-      return updatedArray;
-    });
+    setUserAttempt((prev) => [
+      ...prev,
+      Number(popBubble[index].children[0].innerHTML),
+    ]);
   }
 
   return (
     <div className="bubbleSortUser">
-      {userValues}
+      <div className="userCLickableBubbles">{userValues}</div>
       <div className="userAttempt">
         {userAttempt.map((x, index) => {
           return <div key={index}>{x}</div>;
         })}
+      </div>
+      <div className="buttonWrapper">
+        <button className="resetBtn">Reset</button>
       </div>
     </div>
   );

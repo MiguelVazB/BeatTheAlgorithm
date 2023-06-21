@@ -95,8 +95,8 @@
 }
 
 .userAttempt{
+    margin-top: 8rem;
     display: flex;
-    justify-content: center;
     font-size: 5rem;
     justify-content: space-evenly;
 }
@@ -105,6 +105,18 @@
     margin: 0;
 }
 
+.buttonWrapper{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.resetBtn{
+    font-size: 1rem;
+    color: white;
+    background-color: rgba(32,32,32,0.5);
+    padding: 1rem 3rem;
+}
 
 /* Animations */
 
