@@ -4,32 +4,24 @@ import ArrowTop from "../images/arrow-top-white.svg";
 
 export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
   const [valuesToSort, setValuesToSort] = React.useState([]);
-  const [sortedValues, setSortedValues] = React.useState([]);
+  const [bubbleValues, setBubbleValues] = React.useState([]);
+  const [showArrows, setShowArrows] = React.useState(false);
+  const [tempBubbleValue, setTempBubbleValue] = React.useState("");
 
   const arrowRef = React.useRef(null);
   const secondArrowRef = React.useRef(null);
-  const tempBubble = React.useRef(null);
 
   React.useEffect(() => {
-    let values = randomNumbers.map((x, index) => {
-      return (
-        <div className="valueToSort valueToSortComputer" key={`${x} ${index}`}>
-          <p>{x}</p>
-          <div className="bubbleDot"></div>
-          <div className="smallBubbleDot bubbleDot"></div>
-        </div>
-      );
-    });
-    setValuesToSort(values);
-    setSortedValues(randomNumbers);
+    setValuesToSort(randomNumbers);
+    setBubbleValues(randomNumbers);
   }, [randomNumbers]);
 
   React.useEffect(() => {
     if (countDownOver) {
+      setShowArrows(true);
       bubbleSortAlgorithm();
     } else {
-      arrowRef.current.style.visibility = "hidden";
-      secondArrowRef.current.style.visibility = "hidden";
+      setShowArrows(false);
     }
   }, [countDownOver]);
 
@@ -56,27 +48,23 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
         break;
     }
 
-    const bubbles = document.getElementsByClassName("valueToSortComputer");
+    let updatedValues = [...valuesToSort];
     intervalAction = setInterval(() => {
       if (index < randomNumbers.length) {
         if (j < randomNumbers.length - 1) {
+          setShowArrows(true);
           displayFirstArrow(j);
           displaySecondArrow(j + 1);
-          let firstValue = Number(bubbles[j].children[0].innerHTML);
-          let secondValue = Number(bubbles[j + 1].children[0].innerHTML);
+          let firstValue = Number(updatedValues[j]);
+          let secondValue = Number(updatedValues[j + 1]);
           if (firstValue > secondValue) {
-            //bubbles[j].children[0].innerHTML = "";
-            tempBubble.current.innerHTML = firstValue;
-            bubbles[j].children[0].innerHTML = secondValue;
-            bubbles[j + 1].children[0].innerHTML = tempBubble.current.innerHTML;
-            // setSortedValues((prev) => {
-            //   const updatedValues = [...prev];
-            //   updatedValues[j] = secondValue;
-            //   updatedValues[j + 1] = firstValue;
-            //   return updatedValues;
-            // });
+            setTempBubbleValue(firstValue);
+            let tempValue = firstValue;
+            updatedValues[j] = secondValue;
+            updatedValues[j + 1] = tempValue;
+            setBubbleValues([...updatedValues]);
           } else {
-            tempBubble.current.innerHTML = "";
+            setTempBubbleValue("");
           }
           j++;
         } else {
@@ -85,8 +73,7 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
         }
       } else {
         clearInterval(intervalAction);
-        arrowRef.current.style.visibility = "hidden";
-        secondArrowRef.current.style.visibility = "hidden";
+        setShowArrows(false);
       }
     }, difficultyTimeInterval);
   }
@@ -120,26 +107,39 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
   return (
     <div className="bubbleSort">
       <div className="algorithm">
-        {valuesToSort}
-        <img src={ArrowTop} ref={arrowRef} className="arrowBrowser" />
-        <img
-          src={ArrowTop}
-          ref={secondArrowRef}
-          className="arrowBrowser second"
-        />
+        {bubbleValues.map((x, index) => {
+          return (
+            <div
+              className="valueToSort valueToSortComputer"
+              key={`${x} ${index}`}
+            >
+              <p>{x}</p>
+              <div className="bubbleDot"></div>
+              <div className="smallBubbleDot bubbleDot"></div>
+            </div>
+          );
+        })}
+        {showArrows && (
+          <img src={ArrowTop} ref={arrowRef} className="arrowBrowser" />
+        )}
+        {showArrows && (
+          <img
+            src={ArrowTop}
+            ref={secondArrowRef}
+            className="arrowBrowser second"
+          />
+        )}
       </div>
       <div className="temporaryBubble">
         <p>Temporary bubble:</p>
         <div className="tempBubble">
-          <p className="tempBubbleValue" ref={tempBubble}>
-            100
-          </p>
+          <p className="tempBubbleValue">{tempBubbleValue}</p>
           <div className="bubbleDot"></div>
           <div className="smallBubbleDot bubbleDot"></div>
         </div>
       </div>
       <div className="sortedValues">
-        {sortedValues.map((value, index) => {
+        {bubbleValues.map((value, index) => {
           return <div key={`${value} ${index}`}>{value}</div>;
         })}
       </div>
