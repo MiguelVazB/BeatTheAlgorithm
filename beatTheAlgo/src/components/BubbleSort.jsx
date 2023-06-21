@@ -46,6 +46,7 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
           let firstValue = Number(bubbles[j].children[0].innerHTML);
           let secondValue = Number(bubbles[j + 1].children[0].innerHTML);
           if (firstValue > secondValue) {
+            bubbles[j].children[0].innerHTML = "";
             tempBubble.current.innerHTML = firstValue;
             bubbles[j].children[0].innerHTML = secondValue;
             bubbles[j + 1].children[0].innerHTML = tempBubble.current.innerHTML;
@@ -62,11 +63,10 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
         arrowRef.current.style.visibility = "hidden";
         secondArrowRef.current.style.visibility = "hidden";
       }
-    }, 2000);
+    }, 500);
   }
 
   function displayFirstArrow(index) {
-    console.log("displayFirstArrow function called " + index);
     const bubbles = document.getElementsByClassName("valueToSortComputer");
     let firstArrowPos = bubbles[index]?.getBoundingClientRect();
     arrowRef.current.style.top = `${
@@ -80,7 +80,6 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
   }
 
   function displaySecondArrow(index) {
-    console.log("displaySecondArrow function called " + index);
     const bubbles = document.getElementsByClassName("valueToSortComputer");
     let secondArrowPos = bubbles[index]?.getBoundingClientRect();
     secondArrowRef.current.style.top = `${
@@ -120,6 +119,7 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
 
 export const BubbleSortUser = ({ randomNumbers }) => {
   const [userValues, setUserValues] = React.useState([]);
+  const [userAttempt, setUserAttempt] = React.useState(Array(10).fill("_"));
 
   React.useEffect(() => {
     let userValues = randomNumbers.map((x, index) => {
@@ -129,20 +129,34 @@ export const BubbleSortUser = ({ randomNumbers }) => {
           key={`${x} ${index}`}
           onClick={() => popBubble(index)}
         >
-          {x}
+          <p>{x}</p>
           <div className="bubbleDot"></div>
           <div className="smallBubbleDot bubbleDot"></div>
         </div>
       );
     });
     setUserValues(userValues);
-  }, [randomNumbers]);
+  }, [randomNumbers, userAttempt]);
 
   async function popBubble(index) {
-    document
-      .getElementsByClassName("userBubbles")
-      [index].classList.add("bubblePopAnimate");
+    let popBubble = document.getElementsByClassName("userBubbles");
+    popBubble[index].classList.add("bubblePopAnimate");
+    popBubble[index].style.pointerEvents = "none";
+    setUserAttempt((prevState) => {
+      const updatedArray = [...prevState];
+      updatedArray[index] = Number(popBubble[index].children[0].innerHTML);
+      return updatedArray;
+    });
   }
 
-  return <div className="bubbleSortUser">{userValues}</div>;
+  return (
+    <div className="bubbleSortUser">
+      {userValues}
+      <div className="userAttempt">
+        {userAttempt.map((x, index) => {
+          return <div key={index}>{x}</div>;
+        })}
+      </div>
+    </div>
+  );
 };
