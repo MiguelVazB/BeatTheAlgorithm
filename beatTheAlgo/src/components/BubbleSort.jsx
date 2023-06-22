@@ -151,24 +151,21 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
 
 export const BubbleSortUser = ({ randomNumbers }) => {
   const [userValues, setUserValues] = React.useState([]);
+  const [valuesSorted, setValuesSorted] = React.useState([]);
   const [userAttempt, setUserAttempt] = React.useState([]);
 
   React.useEffect(() => {
-    let userValues = randomNumbers.map((x, index) => {
-      return (
-        <div
-          className="valueToSort userBubbles"
-          key={`${x} ${index}`}
-          onClick={() => popBubble(index)}
-        >
-          <p>{x}</p>
-          <div className="bubbleDot"></div>
-          <div className="smallBubbleDot bubbleDot"></div>
-        </div>
-      );
-    });
-    setUserValues(userValues);
-  }, [randomNumbers, userAttempt]);
+    setUserValues(randomNumbers);
+  }, [randomNumbers]);
+
+  React.useEffect(() => {
+    let correctAnswer = [...userValues];
+    setValuesSorted(correctAnswer.sort());
+  }, [userValues]);
+
+  // React.useEffect(() => {
+
+  // },[userAttempt])
 
   async function popBubble(index) {
     let popBubble = document.getElementsByClassName("userBubbles");
@@ -187,11 +184,26 @@ export const BubbleSortUser = ({ randomNumbers }) => {
       popBubble[i].classList.remove("bubblePopAnimate");
       popBubble[i].style.pointerEvents = "auto";
     }
+    console.log(valuesSorted);
   }
 
   return (
     <div className="bubbleSortUser">
-      <div className="userCLickableBubbles">{userValues}</div>
+      <div className="userCLickableBubbles">
+        {userValues.map((x, index) => {
+          return (
+            <div
+              className="valueToSort userBubbles"
+              key={`${x} ${index}`}
+              onClick={() => popBubble(index)}
+            >
+              <p>{x}</p>
+              <div className="bubbleDot"></div>
+              <div className="smallBubbleDot bubbleDot"></div>
+            </div>
+          );
+        })}
+      </div>
       <div className="userAttempt">
         {userAttempt.map((x, index) => {
           return <div key={index}>{x}</div>;
