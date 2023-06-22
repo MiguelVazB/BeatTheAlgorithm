@@ -2,7 +2,13 @@ import React from "react";
 import "./componentStyles/BubbleSort.css";
 import ArrowTop from "../images/arrow-top-white.svg";
 
-export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
+export const BubbleSort = ({
+  difficulty,
+  randomNumbers,
+  countDownOver,
+  setWinner,
+  winner,
+}) => {
   const [valuesToSort, setValuesToSort] = React.useState([]);
   const [bubbleValues, setBubbleValues] = React.useState([]);
   const [showArrows, setShowArrows] = React.useState(false);
@@ -49,10 +55,10 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
     }
 
     let updatedValues = [...valuesToSort];
+    setShowArrows(true);
     intervalAction = setInterval(() => {
       if (index < randomNumbers.length) {
         if (j < randomNumbers.length - 1) {
-          setShowArrows(true);
           displayFirstArrow(j);
           displaySecondArrow(j + 1);
           let firstValue = Number(updatedValues[j]);
@@ -67,6 +73,11 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
             setTempBubbleValue("");
           }
           j++;
+          console.log(winner);
+          // if (winner == "user") {
+          //   clearInterval(intervalAction);
+          //   setShowArrows(false);
+          // }
         } else {
           index++;
           j = 0;
@@ -74,6 +85,7 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
       } else {
         clearInterval(intervalAction);
         setShowArrows(false);
+        setWinner("computer");
       }
     }, difficultyTimeInterval);
   }
@@ -149,23 +161,28 @@ export const BubbleSort = ({ difficulty, randomNumbers, countDownOver }) => {
 
 /* BubbleSort for the user */
 
-export const BubbleSortUser = ({ randomNumbers }) => {
+export const BubbleSortUser = ({ randomNumbers, setWinner }) => {
   const [userValues, setUserValues] = React.useState([]);
   const [valuesSorted, setValuesSorted] = React.useState([]);
   const [userAttempt, setUserAttempt] = React.useState([]);
 
   React.useEffect(() => {
     setUserValues(randomNumbers);
+    let correctAnswer = [...randomNumbers];
+    setValuesSorted(correctAnswer.sort((a, b) => a - b));
   }, [randomNumbers]);
 
   React.useEffect(() => {
-    let correctAnswer = [...userValues];
-    setValuesSorted(correctAnswer.sort());
-  }, [userValues]);
+    if (userAttempt.length > 0 && userAttempt.length === randomNumbers.length) {
+      // if (JSON.stringify(userAttempt) == JSON.stringify(valuesSorted)) {
+      handleSetWinner();
+      // }
+    }
+  }, [userAttempt]);
 
-  // React.useEffect(() => {
-
-  // },[userAttempt])
+  const handleSetWinner = () => {
+    setWinner("user");
+  };
 
   async function popBubble(index) {
     let popBubble = document.getElementsByClassName("userBubbles");
@@ -184,7 +201,6 @@ export const BubbleSortUser = ({ randomNumbers }) => {
       popBubble[i].classList.remove("bubblePopAnimate");
       popBubble[i].style.pointerEvents = "auto";
     }
-    console.log(valuesSorted);
   }
 
   return (
