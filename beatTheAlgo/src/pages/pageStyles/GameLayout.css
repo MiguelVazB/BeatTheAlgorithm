@@ -52,6 +52,19 @@
     justify-content: center;
     align-items: center;
     font-size: 7rem;
+    flex-direction: column;
+}
+
+.tryAgainBtn{
+    margin-top: 2rem;
+    font-size: 2rem;
+    padding: 1.5rem 2rem;
+    border-radius: 1em;
+    background-color: rgba(97, 137, 47, 0.5);
+    color: white;
+    font-weight: bold;
+    border: 0;
+    cursor: pointer;
 }
 
 .computerSide{
