@@ -88,8 +88,8 @@ export const BubbleSort = ({
             j = 0;
           }
         } else {
-          clearInterval(intervalAction);
           setShowArrows(false);
+          clearInterval(intervalAction);
           setWinner("computer");
         }
       }, difficultyTimeInterval);
