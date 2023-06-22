@@ -123,6 +123,7 @@
     color: white;
     background-color: rgba(32,32,32, 0.5);
     padding: 1rem 3rem;
+    cursor: pointer;
 }
 
 /* Animations */
