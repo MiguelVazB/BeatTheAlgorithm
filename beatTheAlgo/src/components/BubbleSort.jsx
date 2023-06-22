@@ -13,9 +13,11 @@ export const BubbleSort = ({
   const [bubbleValues, setBubbleValues] = React.useState([]);
   const [showArrows, setShowArrows] = React.useState(false);
   const [tempBubbleValue, setTempBubbleValue] = React.useState("");
+  const [startAlgo, setStartAlgo] = React.useState(false);
 
   const arrowRef = React.useRef(null);
   const secondArrowRef = React.useRef(null);
+  const winnerRef = React.useRef(winner);
 
   React.useEffect(() => {
     setValuesToSort(randomNumbers);
@@ -25,95 +27,112 @@ export const BubbleSort = ({
   React.useEffect(() => {
     if (countDownOver) {
       setShowArrows(true);
-      bubbleSortAlgorithm();
+      setStartAlgo(true);
     } else {
       setShowArrows(false);
     }
   }, [countDownOver]);
 
-  // Bubble sort algorithm using setInterval
-  function bubbleSortAlgorithm() {
-    let index = 0;
-    let j = 0;
-    let intervalAction;
+  React.useEffect(() => {
+    if (startAlgo) {
+      let index = 0;
+      let j = 0;
+      let intervalAction;
 
-    let difficultyTimeInterval;
+      let difficultyTimeInterval;
 
-    switch (difficulty) {
-      case "Easy":
-        difficultyTimeInterval = 500;
-        break;
-      case "Intermediate":
-        difficultyTimeInterval = 200;
-        break;
-      case "Hard":
-        difficultyTimeInterval = 100;
-        break;
-      case "Impossible":
-        difficultyTimeInterval = 10;
-        break;
-    }
-
-    let updatedValues = [...valuesToSort];
-    setShowArrows(true);
-    intervalAction = setInterval(() => {
-      if (index < randomNumbers.length) {
-        if (j < randomNumbers.length - 1) {
-          displayFirstArrow(j);
-          displaySecondArrow(j + 1);
-          let firstValue = Number(updatedValues[j]);
-          let secondValue = Number(updatedValues[j + 1]);
-          if (firstValue > secondValue) {
-            setTempBubbleValue(firstValue);
-            let tempValue = firstValue;
-            updatedValues[j] = secondValue;
-            updatedValues[j + 1] = tempValue;
-            setBubbleValues([...updatedValues]);
-          } else {
-            setTempBubbleValue("");
-          }
-          j++;
-          console.log(winner);
-          // if (winner == "user") {
-          //   clearInterval(intervalAction);
-          //   setShowArrows(false);
-          // }
-        } else {
-          index++;
-          j = 0;
-        }
-      } else {
-        clearInterval(intervalAction);
-        setShowArrows(false);
-        setWinner("computer");
+      switch (difficulty) {
+        case "Easy":
+          difficultyTimeInterval = 500;
+          break;
+        case "Intermediate":
+          difficultyTimeInterval = 200;
+          break;
+        case "Hard":
+          difficultyTimeInterval = 100;
+          break;
+        case "Impossible":
+          difficultyTimeInterval = 10;
+          break;
       }
-    }, difficultyTimeInterval);
-  }
+
+      let updatedValues = [...valuesToSort];
+      setShowArrows(true);
+
+      intervalAction = setInterval(() => {
+        const currentWinner = winnerRef.current;
+
+        if (currentWinner === "user") {
+          setShowArrows(false);
+          clearInterval(intervalAction);
+        }
+
+        if (index < randomNumbers.length) {
+          if (j < randomNumbers.length - 1) {
+            displayFirstArrow(j);
+            displaySecondArrow(j + 1);
+            let firstValue = Number(updatedValues[j]);
+            let secondValue = Number(updatedValues[j + 1]);
+            if (firstValue > secondValue) {
+              setTempBubbleValue(firstValue);
+              let tempValue = firstValue;
+              updatedValues[j] = secondValue;
+              updatedValues[j + 1] = tempValue;
+              setBubbleValues([...updatedValues]);
+            } else {
+              setTempBubbleValue("");
+            }
+            j++;
+          } else {
+            index++;
+            j = 0;
+          }
+        } else {
+          clearInterval(intervalAction);
+          setShowArrows(false);
+          setWinner("computer");
+        }
+      }, difficultyTimeInterval);
+
+      winnerRef.current = winner;
+    }
+  }, [startAlgo, winner]);
+
+  // Bubble sort algorithm using setInterval
+  // function bubbleSortAlgorithm() {}
 
   function displayFirstArrow(index) {
-    const bubbles = document.getElementsByClassName("valueToSortComputer");
-    let firstArrowPos = bubbles[index]?.getBoundingClientRect();
-    arrowRef.current.style.top = `${
-      firstArrowPos?.y - firstArrowPos?.height / 8
-    }px`;
-    arrowRef.current.style.left = `${
-      firstArrowPos?.x + firstArrowPos?.width / 4
-    }px`;
-    arrowRef.current.classList.add("arrowBrowserAnimate");
-    arrowRef.current.style.visibility = "visible";
+    if (showArrows) {
+      const bubbles = document.getElementsByClassName("valueToSortComputer");
+      let firstArrowPos = bubbles[index]?.getBoundingClientRect();
+      if (arrowRef.current) {
+        arrowRef.current.style.top = `${
+          firstArrowPos?.y - firstArrowPos?.height / 8
+        }px`;
+        arrowRef.current.style.left = `${
+          firstArrowPos?.x + firstArrowPos?.width / 4
+        }px`;
+        arrowRef.current.classList.add("arrowBrowserAnimate");
+        arrowRef.current.style.visibility = "visible";
+      }
+    }
   }
 
   function displaySecondArrow(index) {
-    const bubbles = document.getElementsByClassName("valueToSortComputer");
-    let secondArrowPos = bubbles[index]?.getBoundingClientRect();
-    secondArrowRef.current.style.top = `${
-      secondArrowPos?.y - secondArrowPos?.height / 8
-    }px`;
-    secondArrowRef.current.style.left = `${
-      secondArrowPos?.x + secondArrowPos?.width / 4
-    }px`;
-    secondArrowRef.current.classList.add("arrowBrowserAnimate");
-    secondArrowRef.current.style.visibility = "visible";
+    if (showArrows) {
+      const bubbles = document.getElementsByClassName("valueToSortComputer");
+      let secondArrowPos = bubbles[index]?.getBoundingClientRect();
+      if (secondArrowRef.current) {
+        secondArrowRef.current.style.top = `${
+          secondArrowPos?.y - secondArrowPos?.height / 8
+        }px`;
+        secondArrowRef.current.style.left = `${
+          secondArrowPos?.x + secondArrowPos?.width / 4
+        }px`;
+        secondArrowRef.current.classList.add("arrowBrowserAnimate");
+        secondArrowRef.current.style.visibility = "visible";
+      }
+    }
   }
 
   return (
@@ -175,14 +194,10 @@ export const BubbleSortUser = ({ randomNumbers, setWinner }) => {
   React.useEffect(() => {
     if (userAttempt.length > 0 && userAttempt.length === randomNumbers.length) {
       // if (JSON.stringify(userAttempt) == JSON.stringify(valuesSorted)) {
-      handleSetWinner();
+      setWinner("user");
       // }
     }
   }, [userAttempt]);
-
-  const handleSetWinner = () => {
-    setWinner("user");
-  };
 
   async function popBubble(index) {
     let popBubble = document.getElementsByClassName("userBubbles");
