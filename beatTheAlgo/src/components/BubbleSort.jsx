@@ -90,6 +90,7 @@ export const BubbleSort = ({
         } else {
           setShowArrows(false);
           clearInterval(intervalAction);
+          setStartAlgo(false);
           setWinner("computer");
         }
       }, difficultyTimeInterval);
@@ -193,9 +194,9 @@ export const BubbleSortUser = ({ randomNumbers, setWinner }) => {
 
   React.useEffect(() => {
     if (userAttempt.length > 0 && userAttempt.length === randomNumbers.length) {
-      // if (JSON.stringify(userAttempt) == JSON.stringify(valuesSorted)) {
-      setWinner("user");
-      // }
+      if (JSON.stringify(userAttempt) == JSON.stringify(valuesSorted)) {
+        setWinner("user");
+      }
     }
   }, [userAttempt]);
 
