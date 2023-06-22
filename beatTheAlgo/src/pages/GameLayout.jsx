@@ -20,6 +20,19 @@ export default function GameLayout({ algo }) {
     setBubbleValues(randomNumbers);
   }, []);
 
+  React.useEffect(() => {
+    if (difficulty.length > 0) {
+      difficultyOverlay.current.style.display = "none";
+      countDownRef.current.style.visibility = "visible";
+      countDown();
+    }
+  }, [difficulty]);
+
+  React.useEffect(() => {
+    setShowWinner(winner);
+    // console.log(winner);
+  }, [winner]);
+
   function getComputerSideComponent() {
     switch (algo) {
       case "bubble_sort":
@@ -44,19 +57,6 @@ export default function GameLayout({ algo }) {
     }
   }
 
-  React.useEffect(() => {
-    if (difficulty.length > 0) {
-      difficultyOverlay.current.style.display = "none";
-      countDownRef.current.style.visibility = "visible";
-      countDown();
-    }
-  }, [difficulty]);
-
-  React.useEffect(() => {
-    setShowWinner(winner);
-    // console.log(winner);
-  }, [winner]);
-
   function countDown() {
     let countDownValue = 3;
     const countDown = setInterval(() => {
@@ -67,7 +67,7 @@ export default function GameLayout({ algo }) {
         setCountDownOver(true);
         clearInterval(countDown);
       }
-    }, 0); //put it back to 1000
+    }, 1000); //put it back to 1000
   }
 
   function setDifficultyFunction() {
@@ -75,6 +75,10 @@ export default function GameLayout({ algo }) {
     setDifficulty(
       difficultySelected.charAt(0).toUpperCase() + difficultySelected.slice(1)
     );
+  }
+
+  function restartGame() {
+    window.location.reload(false);
   }
 
   return (
@@ -100,6 +104,9 @@ export default function GameLayout({ algo }) {
       {showWinner && (
         <div className="overlay winner">
           {winner == "user" ? "YOU Beat the Algorithm!!!" : "Algorithm Won!"}
+          <button className="tryAgainBtn" onClick={restartGame}>
+            Try Again
+          </button>
         </div>
       )}
       <div className="computerSide">{getComputerSideComponent()}</div>
