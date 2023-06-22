@@ -12,16 +12,19 @@
     text-align: end;
 }
 
-.difficultyOverlay{
+.overlay{
     z-index: 10;
     position: fixed;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     height: 100%;
     right: 0;
     left: 0;
     background-color: rgba(32, 32, 32, 0.9);
+}
+
+.difficultyOverlay{
+    flex-direction: column;
+    align-items: center;   
 }
 
 .difficultyOverlay p{
@@ -39,16 +42,9 @@
 }
 
 .countDown{
-    z-index: 10;
-    position: fixed;
-    display: flex;
     visibility: hidden;
     justify-content: center;
     font-size: 30em;
-    height: 100%;
-    right: 0;
-    left: 0;
-    background-color: rgba(32, 32, 32, 0.9);
     font-family: fantasy, 'Inter', sans-serif;
 }
 
