@@ -7,10 +7,14 @@ export default function GameLayout({ algo }) {
   const [bubbleValues, setBubbleValues] = React.useState([]);
 
   const [countDownOver, setCountDownOver] = React.useState(false);
+  const [showWinner, setShowWinner] = React.useState(false);
+  const [winner, setWinner] = React.useState("");
+  const [gameOver, setGameOver] = React.useState(false);
 
   const [difficulty, setDifficulty] = React.useState("");
   const [algorithmBrowser, setAlgorithmBrowser] = React.useState("");
   const [algorithmUser, setAlgorithmUser] = React.useState("");
+
   const difficultyOverlay = React.useRef(null);
   const countDownRef = React.useRef(null);
 
@@ -27,12 +31,14 @@ export default function GameLayout({ algo }) {
             difficulty={difficulty ? difficulty : ""}
             randomNumbers={bubbleValues}
             countDownOver={countDownOver}
+            setWinner={setWinnerState}
+            winner={winner}
           />
         );
         setAlgorithmUser(
           <BubbleSortUser
             randomNumbers={bubbleValues}
-            countDownOver={countDownOver}
+            setWinner={setWinnerState}
           />
         );
         break;
@@ -47,6 +53,15 @@ export default function GameLayout({ algo }) {
     }
   }, [difficulty]);
 
+  React.useEffect(() => {
+    setShowWinner(winner);
+    //setAlgorithmBrowser("");
+  }, [winner]);
+
+  const setWinnerState = (newWinner) => {
+    setWinner(newWinner);
+  };
+
   function countDown() {
     let countDownValue = 3;
     const countDown = setInterval(() => {
@@ -57,7 +72,7 @@ export default function GameLayout({ algo }) {
         setCountDownOver(true);
         clearInterval(countDown);
       }
-    }, 1000);
+    }, 1000); //put it back to 1000
   }
 
   function setDifficultyFunction() {
@@ -69,7 +84,7 @@ export default function GameLayout({ algo }) {
 
   return (
     <main className="gameLayout">
-      <div className="difficultyOverlay" ref={difficultyOverlay}>
+      <div className="overlay difficultyOverlay" ref={difficultyOverlay}>
         <p>Choose Difficulty:</p>
         <div className="difficultyOptions">
           <select name="difficulty" id="difficulty">
@@ -86,7 +101,12 @@ export default function GameLayout({ algo }) {
           </button>
         </div>
       </div>
-      <div className="countDown" ref={countDownRef}></div>
+      <div className="overlay countDown" ref={countDownRef}></div>
+      {showWinner && (
+        <div className="overlay winner">
+          {winner == "user" ? "YOU Beat the Algorithm!!!" : "Algorithm Won!"}
+        </div>
+      )}
       <div className="computerSide">
         {algorithmBrowser ? algorithmBrowser : ""}
       </div>

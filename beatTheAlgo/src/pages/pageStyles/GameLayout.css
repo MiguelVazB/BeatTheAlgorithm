@@ -48,6 +48,12 @@
     font-family: fantasy, 'Inter', sans-serif;
 }
 
+.winner{
+    justify-content: center;
+    align-items: center;
+    font-size: 7rem;
+}
+
 .computerSide{
     width: 35%;
     padding: 1rem;
