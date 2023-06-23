@@ -2,6 +2,7 @@ import React from "react";
 import "./pageStyles/GameLayout.css";
 import { generateXRandomNumbers } from "../utils/randomNumbers.jsx";
 import { BubbleSort, BubbleSortUser } from "../components/BubbleSort";
+import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 
 export default function GameLayout({ algo }) {
   const [bubbleValues, setBubbleValues] = React.useState([]);
@@ -92,11 +93,8 @@ export default function GameLayout({ algo }) {
                 return x.charAt(0).toUpperCase() + x.slice(1) + " ";
               })}
           </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-            quisquam hic iste ratione quis. Quis nesciunt ad voluptate sed natus
-            dolor dolore provident ab similique, doloremque sit dolorem iure
-            ipsum.
+          <p className="description">
+            {AlgorithmDescriptions[algo].description}
           </p>
         </div>
         <div className="difficultySection">
@@ -118,11 +116,8 @@ export default function GameLayout({ algo }) {
         </div>
         <div className="algoDescription gameInstructions">
           <p className="infoTitle">Instructions</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste fugiat
-            possimus quia. Inventore aliquam ea quam facilis soluta, saepe
-            consequuntur ipsa quaerat aperiam nihil possimus iusto odit quidem
-            autem eligendi?
+          <p className="instructions">
+            {AlgorithmDescriptions[algo].instructions}
           </p>
         </div>
       </div>
