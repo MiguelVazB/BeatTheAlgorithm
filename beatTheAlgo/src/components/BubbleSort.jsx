@@ -14,6 +14,7 @@ export const BubbleSort = ({
   const [showArrows, setShowArrows] = React.useState(false);
   const [tempBubbleValue, setTempBubbleValue] = React.useState("");
   const [startAlgo, setStartAlgo] = React.useState(false);
+  const [bubbleIndicesClass, setBubbleIndicesClass] = React.useState([]);
 
   const arrowRef = React.useRef(null);
   const secondArrowRef = React.useRef(null);
@@ -77,6 +78,10 @@ export const BubbleSort = ({
             let firstValue = Number(updatedValues[j]);
             let secondValue = Number(updatedValues[j + 1]);
             if (firstValue > secondValue) {
+              let indices = [];
+              indices.push(j);
+              indices.push(j + 1);
+              setBubbleIndicesClass(indices);
               setTempBubbleValue(firstValue);
               let tempValue = firstValue;
               updatedValues[j] = secondValue;
@@ -102,9 +107,31 @@ export const BubbleSort = ({
     }
   }, [startAlgo, winner]);
 
+  React.useEffect(() => {
+    if (bubbleIndicesClass.length > 0) {
+      let firstIndex = bubbleIndicesClass[0];
+      let secondIndex = bubbleIndicesClass[1];
+
+      // animation for first bubble
+      bubblesRef.current.children[firstIndex].style.animationName =
+        "moveBubbleRight";
+      bubblesRef.current.children[firstIndex].style.animationDuration =
+        difficulty === "Easy" ? "0.6s" : "0.1s";
+      bubblesRef.current.children[firstIndex].style.animationTimingFunction =
+        "ease-in-out";
+
+      // animation for second bubble
+      bubblesRef.current.children[secondIndex].style.animationName =
+        "moveBubbleLeft";
+      bubblesRef.current.children[secondIndex].style.animationDuration =
+        difficulty === "Easy" ? "0.6s" : "0.1s";
+      bubblesRef.current.children[secondIndex].style.animationTimingFunction =
+        "ease-in-out";
+    }
+  }, [bubbleIndicesClass]);
+
   function displayFirstArrow(index) {
     if (showArrows) {
-      // bubblesRef.current.children[index].classList.add("swapBubbleRight");
       let firstArrowPos =
         bubblesRef.current.children[index]?.getBoundingClientRect();
       if (arrowRef.current) {
@@ -122,7 +149,6 @@ export const BubbleSort = ({
 
   function displaySecondArrow(index) {
     if (showArrows) {
-      // bubblesRef.current.children[index].classList.add("swapBubbleLeft");
       let secondArrowPos =
         bubblesRef.current.children[index]?.getBoundingClientRect();
       if (secondArrowRef.current) {
