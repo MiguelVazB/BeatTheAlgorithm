@@ -67,7 +67,7 @@ export default function GameLayout({ algo }) {
         setCountDownOver(true);
         clearInterval(countDown);
       }
-    }, 1000); //put it back to 1000
+    }, 1000); //put it back to 1000 ms = 1 second
   }
 
   function setDifficultyFunction() {
@@ -84,20 +84,46 @@ export default function GameLayout({ algo }) {
   return (
     <main className="gameLayout">
       <div className="overlay difficultyOverlay" ref={difficultyOverlay}>
-        <p>Choose Difficulty:</p>
-        <div className="difficultyOptions">
-          <select name="difficulty" id="difficulty">
-            <option value="easy">Easy</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="hard">Hard</option>
-            <option value="impossible">Impossible</option>
-          </select>
-          <button
-            className="setDifficultyButton"
-            onClick={setDifficultyFunction}
-          >
-            Start
-          </button>
+        <div className="algoDescription AlgoInfo">
+          <p className="infoTitle">
+            {String(algo)
+              .split("_")
+              .map((x) => {
+                return x.charAt(0).toUpperCase() + x.slice(1) + " ";
+              })}
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
+            quisquam hic iste ratione quis. Quis nesciunt ad voluptate sed natus
+            dolor dolore provident ab similique, doloremque sit dolorem iure
+            ipsum.
+          </p>
+        </div>
+        <div className="difficultySection">
+          <p>Choose Difficulty:</p>
+          <div className="difficultyOptions">
+            <select name="difficulty" id="difficulty">
+              <option value="easy">Easy</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="hard">Hard</option>
+              <option value="impossible">Impossible</option>
+            </select>
+            <button
+              className="setDifficultyButton"
+              onClick={setDifficultyFunction}
+            >
+              Start
+            </button>
+          </div>
+        </div>
+        <div className="algoDescription gameInstructions">
+          <p className="infoTitle">Instructions</p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste fugiat
+            possimus quia. Inventore aliquam ea quam facilis soluta, saepe
+            consequuntur ipsa quaerat aperiam nihil possimus iusto odit quidem
+            autem eligendi?
+          </p>
         </div>
       </div>
       <div className="overlay countDown" ref={countDownRef}></div>
