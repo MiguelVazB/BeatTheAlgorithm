@@ -1,0 +1,17 @@
+.inProgress{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    flex: 1;
+    padding-top: 7em;
+    justify-content: center;
+}
+
+.container{
+    font-family: Stencil Std, fantasy;
+    font-size: 5rem;
+    color: white;
+    text-align: center;
+    margin: 5rem;
+    padding: 5rem;
+}
