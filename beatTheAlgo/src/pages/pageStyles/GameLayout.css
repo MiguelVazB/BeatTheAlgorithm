@@ -1,7 +1,7 @@
 .gameLayout{
     padding-top: 6em;
     margin: 0;
-    background-image: linear-gradient(to right, rgba(32, 32, 32, 0.5) 35%, rgba(97, 137, 47, 1));
+    background-image: linear-gradient(to bottom, rgba(32, 32, 32, 0.5) 45%, rgba(97, 137, 47, 1));
     position: fixed;
     top: 0;
     right: 0;
@@ -9,6 +9,7 @@
     bottom: 0;
     color: white;
     display: flex;
+    flex-direction: column;
     text-align: end;
 }
 
@@ -104,7 +105,7 @@
 }
 
 .computerSide{
-    width: 35%;
+    width: 100%;
     padding: 1rem;
     display: flex;
     align-content: flex-start;
@@ -114,11 +115,10 @@
 }
 
 .algorithmDisplayed{
-    margin: -0.5em;
-    text-align: left;
+    margin: 0;
+    text-align: center;
     background-color: rgba(32, 32, 32, 1);
-    margin-left: -1em;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     font-size: 2.5em;
 }
 
