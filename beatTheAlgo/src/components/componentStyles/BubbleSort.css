@@ -15,11 +15,17 @@
     display: flex;
     font-size: 1.5rem;
     align-items: center;
+    margin-top: 1rem;
+    justify-content: space-around;
 }
 
 .valueToSortComputer p{
     padding: 0;
     margin: 0;
+}
+
+.valueToSortComputer, .tempBubble{
+    cursor: not-allowed;
 }
 
 .valueToSort, .tempBubble{
@@ -30,7 +36,7 @@
     width: 2rem;
     height: 2rem;
     padding: 3rem;
-    margin: 2rem;
+    margin: 0 2.5rem;
     text-align: center;
     font-weight: bold;
     font-size: 2rem;
@@ -40,6 +46,7 @@
     display: flex;
     width: 0.5rem;
     height: 0.5rem;
+    margin: 1rem;
     justify-content: center;
 }
 
@@ -85,8 +92,10 @@
 }
 
 .sortedValues{
+    flex: 1;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    margin-top: 1rem;
     font-size: 1.5rem;
     font-weight: bold;
 }
@@ -94,6 +103,7 @@
 /* Bubble Sort user */
 
 .bubbleSortUser{
+    margin-top: 1rem;
     text-align: left;
 }
 
@@ -102,9 +112,9 @@
 }
 
 .userAttempt{
-    margin-top: 8rem;
+    margin-top: 3rem;
     display: flex;
-    font-size: 5rem;
+    font-size: 4rem;
     justify-content: space-evenly;
 }
 
@@ -113,7 +123,7 @@
 }
 
 .buttonWrapper{
-    margin-top: 2rem;
+    margin-top: 3rem;
     display: flex;
     justify-content: center;
 }
@@ -124,6 +134,14 @@
     background-color: rgba(32,32,32, 0.5);
     padding: 1rem 3rem;
     cursor: pointer;
+}
+
+.swapBubbleRight{
+    animation: moveBubbleRight 0.5s ease-in-out;
+}
+
+.swapBubbleLeft{
+    animation: moveBubbleLeft 0.5s ease-in-out;
 }
 
 /* Animations */
@@ -151,3 +169,39 @@
       opacity: 0;
     }
 }
+
+/* @keyframes moveBubbleRight {
+    0% {
+      transform: translateX(0rem);
+    }
+    25% {
+      transform: translateX(1.5rem);
+    }
+    50% {
+      transform: translateX(3rem);
+    }
+    75% {
+      transform: translateX(4.5rem);
+    }
+    100% {
+      transform: translateX(2.5rem);
+    }
+}
+  
+@keyframes moveBubbleLeft {
+    0% {
+      transform: translateX(0rem);
+    }
+    25% {
+      transform: translateX(-1.5rem);
+    }
+    50% {
+      transform: translateX(-3rem);
+    }
+    75% {
+      transform: translateX(-4.5rem);
+    }
+    100% {
+      transform: translateX(-2.5rem);
+    }
+} */
