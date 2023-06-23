@@ -67,7 +67,7 @@ export default function GameLayout({ algo }) {
         setCountDownOver(true);
         clearInterval(countDown);
       }
-    }, 1000); //put it back to 1000 ms = 1 second
+    }, 0); //put it back to 1000 ms = 1 second
   }
 
   function setDifficultyFunction() {
@@ -131,22 +131,20 @@ export default function GameLayout({ algo }) {
         <div className="overlay winner">
           {winner == "user" ? "YOU Beat the Algorithm!!!" : "Algorithm Won!"}
           <button className="tryAgainBtn" onClick={restartGame}>
-            Try Again
+            {winner == "user" ? "Play Again" : "Try Again"}
           </button>
         </div>
       )}
+      <h1 className="algorithmDisplayed">
+        {String(algo)
+          .split("_")
+          .map((x) => {
+            return x.charAt(0).toUpperCase() + x.slice(1) + " ";
+          })}
+        <span>{difficulty ? `(${difficulty})` : ""}</span>
+      </h1>
       <div className="computerSide">{getComputerSideComponent()}</div>
-      <div className="userSide">
-        <h1 className="algorithmDisplayed">
-          {String(algo)
-            .split("_")
-            .map((x) => {
-              return x.charAt(0).toUpperCase() + x.slice(1) + " ";
-            })}
-          <span>{difficulty ? `(${difficulty})` : ""}</span>
-        </h1>
-        {getUserSideComponent()}
-      </div>
+      <div className="userSide">{getUserSideComponent()}</div>
     </main>
   );
 }
