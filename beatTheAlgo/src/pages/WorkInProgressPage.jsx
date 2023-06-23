@@ -5,7 +5,9 @@ export default function WorkInProgressPage() {
   return (
     <div className="inProgress">
       <div className="container">
-        <p>WORK IN PROGRESS 🛠️</p>
+        <p>
+          WORK IN PROGRESS <span className="spin">🛠️</span>
+        </p>
       </div>
     </div>
   );

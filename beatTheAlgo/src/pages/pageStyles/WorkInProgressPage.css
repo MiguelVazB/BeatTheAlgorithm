@@ -15,3 +15,55 @@
     margin: 5rem;
     padding: 5rem;
 }
+
+.container p{
+    color: white;
+    animation: colorChange 45s infinite;
+    animation-delay: 5s;
+}
+
+.spin{
+    display: inline-block;
+    animation: spin 10s infinite linear;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(270deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes colorChange {
+    0% {
+      color: white;
+      text-shadow: none;
+    }
+    25% {
+      color: rgb(32,32,32);
+      text-shadow: 0px 0px 3px white;
+    }
+    50% {
+      color: green;
+      text-shadow: none;
+    }
+    75% {
+        color: rgb(32,32,32);
+        text-shadow: 0px 0px 3px white;
+    }
+    100% {
+      color: white;
+      text-shadow: none;
+    }
+}
