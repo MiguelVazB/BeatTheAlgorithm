@@ -113,6 +113,20 @@ export default function GameLayout({ algo }) {
               Start
             </button>
           </div>
+          <div className="difficultyExplanation">
+            <div className="easy">
+              {AlgorithmDescriptions[algo].difficulty.easy}
+            </div>
+            <div className="intermediate">
+              {AlgorithmDescriptions[algo].difficulty.intermediate}
+            </div>
+            <div className="hard">
+              {AlgorithmDescriptions[algo].difficulty.hard}
+            </div>
+            <div className="impossible">
+              {AlgorithmDescriptions[algo].difficulty.impossible}
+            </div>
+          </div>
         </div>
         <div className="algoDescription gameInstructions">
           <p className="infoTitle">Instructions</p>
