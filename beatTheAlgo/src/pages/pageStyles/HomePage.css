@@ -9,7 +9,7 @@
 .elementBox{
     margin: 0 4em;
     display: flex;
-    padding: 3em 4em;
+    padding: 1em 4em;
     justify-content: space-between;
     border-radius: 3em;
 }
@@ -57,11 +57,12 @@
 }
 
 .startButton{
-    font-size: 2em;
-    padding: 0.1em 0.6em;
+    font-size: 2rem;
+    padding: 0.1rem 0.6rem;
     border-radius: 0.6em;
     align-self: center;
     margin-bottom: 3em;
+    margin-top: -3em;
     background-color: rgba(97, 137, 47, 1);
     text-decoration: none;
     color: white;
@@ -81,14 +82,17 @@
     text-align: center;
     align-items: center;
     margin: 0;
-    background-image: linear-gradient(to top, rgba(97, 137, 47, 0.4), rgba(32, 32, 32, 0));
     text-underline-offset: 0.2em;
+}
+
+.ready p{
+    margin: 1rem;
 }
 
 .ready .readyQuestion{
     font-weight: bold;
-    font-size: 1.6em;
-    margin-bottom: 2em;
+    font-size: 3rem;
+    margin-bottom: 1em;
 }
 
 .ready .orStart{
@@ -120,7 +124,7 @@
 
     .challengeUser p{
         font-size: 3rem;
-        margin-top: 0.7em;
+        margin-top: 1.5em;
     }
 
     .solve{
@@ -154,7 +158,7 @@
 }
 
 
-/* resizing of font for bigger devices */
+/* resizing of font and containers for bigger devices */
 @media (min-width:605px) and (max-width:763px){
     .challengeUser p, .solve p, .learn p{
         font-size: 4rem;
@@ -175,7 +179,7 @@
 
 @media (min-width:1180px) and (max-width:1448px){
     .challengeUser p, .solve p, .learn p{
-        font-size: 4.5rem;
+        font-size: 4.2rem;
     }
     .ready .readyQuestion{
         font-size: 4rem;
@@ -186,8 +190,11 @@
 }
 
 @media (min-width:1449px) and (max-width:1845px){
-    .challengeUser p, .solve p, .learn p{
+    .challengeUser p, .learn p{
         font-size: 6rem;
+    }
+    .solve p{
+        font-size: 5.6rem;
     }
     .ready .readyQuestion{
         font-size: 4.5rem;
@@ -195,11 +202,18 @@
     .ready p{
         font-size: 4rem;
     }
+    .elementBox{
+        margin-left: 4.5em;
+        margin-right: 4.5em;
+    }
 }
 
 @media (min-width:1846px) and (max-width:2402px){
     .challengeUser p, .solve p, .learn p{
-        font-size: 8.1rem;
+        font-size: 7.9rem;
+    }
+    .solve p{
+        font-size: 7rem;
     }
     .ready .readyQuestion{
         font-size: 5rem;
@@ -207,16 +221,27 @@
     .ready p{
         font-size: 4.5rem;
     }
+    .elementBox{
+        margin-left: 6em;
+        margin-right: 6em;
+    }
 }
 
 @media (min-width:2403px){
-    .challengeUser p, .solve p, .learn p{
+    .challengeUser p, .learn p{
         font-size: 10.9rem;
+    }
+    .solve p{
+        font-size: 10rem;
     }
     .ready .readyQuestion{
         font-size: 5.5rem;
     }
     .ready p{
         font-size: 5rem;
+    }
+    .elementBox{
+        margin-left: 7.5em;
+        margin-right: 7.5em;
     }
 }
