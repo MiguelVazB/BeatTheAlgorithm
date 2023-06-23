@@ -18,6 +18,7 @@ export const BubbleSort = ({
   const arrowRef = React.useRef(null);
   const secondArrowRef = React.useRef(null);
   const winnerRef = React.useRef(winner);
+  const bubblesRef = React.useRef(null);
 
   React.useEffect(() => {
     setValuesToSort(randomNumbers);
@@ -32,6 +33,8 @@ export const BubbleSort = ({
       setShowArrows(false);
     }
   }, [countDownOver]);
+
+  // Bubble sort algorithm using setInterval and useEffect
 
   React.useEffect(() => {
     if (startAlgo) {
@@ -99,16 +102,14 @@ export const BubbleSort = ({
     }
   }, [startAlgo, winner]);
 
-  // Bubble sort algorithm using setInterval
-  // function bubbleSortAlgorithm() {}
-
   function displayFirstArrow(index) {
     if (showArrows) {
-      const bubbles = document.getElementsByClassName("valueToSortComputer");
-      let firstArrowPos = bubbles[index]?.getBoundingClientRect();
+      // bubblesRef.current.children[index].classList.add("swapBubbleRight");
+      let firstArrowPos =
+        bubblesRef.current.children[index]?.getBoundingClientRect();
       if (arrowRef.current) {
         arrowRef.current.style.top = `${
-          firstArrowPos?.y - firstArrowPos?.height / 8
+          firstArrowPos?.y - firstArrowPos?.height / 1.8
         }px`;
         arrowRef.current.style.left = `${
           firstArrowPos?.x + firstArrowPos?.width / 4
@@ -121,11 +122,12 @@ export const BubbleSort = ({
 
   function displaySecondArrow(index) {
     if (showArrows) {
-      const bubbles = document.getElementsByClassName("valueToSortComputer");
-      let secondArrowPos = bubbles[index]?.getBoundingClientRect();
+      // bubblesRef.current.children[index].classList.add("swapBubbleLeft");
+      let secondArrowPos =
+        bubblesRef.current.children[index]?.getBoundingClientRect();
       if (secondArrowRef.current) {
         secondArrowRef.current.style.top = `${
-          secondArrowPos?.y - secondArrowPos?.height / 8
+          secondArrowPos?.y - secondArrowPos?.height / 1.8
         }px`;
         secondArrowRef.current.style.left = `${
           secondArrowPos?.x + secondArrowPos?.width / 4
@@ -138,7 +140,7 @@ export const BubbleSort = ({
 
   return (
     <div className="bubbleSort">
-      <div className="algorithm">
+      <div ref={bubblesRef} className="algorithm">
         {bubbleValues.map((x, index) => {
           return (
             <div
@@ -151,17 +153,17 @@ export const BubbleSort = ({
             </div>
           );
         })}
-        {showArrows && (
-          <img src={ArrowTop} ref={arrowRef} className="arrowBrowser" />
-        )}
-        {showArrows && (
-          <img
-            src={ArrowTop}
-            ref={secondArrowRef}
-            className="arrowBrowser second"
-          />
-        )}
       </div>
+      {showArrows && (
+        <img src={ArrowTop} ref={arrowRef} className="arrowBrowser" />
+      )}
+      {showArrows && (
+        <img
+          src={ArrowTop}
+          ref={secondArrowRef}
+          className="arrowBrowser second"
+        />
+      )}
       <div className="temporaryBubble">
         <p>Temporary bubble:</p>
         <div className="tempBubble">
@@ -169,11 +171,11 @@ export const BubbleSort = ({
           <div className="bubbleDot"></div>
           <div className="smallBubbleDot bubbleDot"></div>
         </div>
-      </div>
-      <div className="sortedValues">
-        {bubbleValues.map((value, index) => {
-          return <div key={`${value} ${index}`}>{value}</div>;
-        })}
+        <div className="sortedValues">
+          {bubbleValues.map((value, index) => {
+            return <div key={`${value} ${index}`}>{value}</div>;
+          })}
+        </div>
       </div>
     </div>
   );
