@@ -116,7 +116,7 @@ export const BubbleSort = ({
       bubblesRef.current.children[firstIndex].style.animationName =
         "moveBubbleRight";
       bubblesRef.current.children[firstIndex].style.animationDuration =
-        difficulty === "Easy" ? "0.6s" : "0.1s";
+        difficulty === "Easy" ? "0.3s" : "0.1s";
       bubblesRef.current.children[firstIndex].style.animationTimingFunction =
         "ease-in-out";
 
@@ -124,7 +124,7 @@ export const BubbleSort = ({
       bubblesRef.current.children[secondIndex].style.animationName =
         "moveBubbleLeft";
       bubblesRef.current.children[secondIndex].style.animationDuration =
-        difficulty === "Easy" ? "0.6s" : "0.1s";
+        difficulty === "Easy" ? "0.3s" : "0.1s";
       bubblesRef.current.children[secondIndex].style.animationTimingFunction =
         "ease-in-out";
     }
