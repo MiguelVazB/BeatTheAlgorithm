@@ -23,12 +23,44 @@
 }
 
 .difficultyOverlay{
-    flex-direction: column;
-    align-items: center;   
+    flex-direction: row;
+    align-items: center;  
 }
 
-.difficultyOverlay p{
-    font-size: 3em;
+.difficultySection{
+    display: flex;
+    flex-direction: column;
+    margin: 0 5rem;
+    /* transform: translateY(-12rem); */
+    margin-bottom: 20rem;
+}
+
+.difficultySection p{
+    font-size: 3rem;
+    text-align: center;
+}
+
+.difficultyOptions{
+    display: flex;
+}
+
+.algoDescription{
+    padding: 5rem;
+    font-size: 3rem;
+    text-align: left;
+    margin-bottom: 10rem;
+}
+
+.algoDescription .infoTitle{
+    font-family: 'Inter', sans-serif;
+    text-decoration: underline;
+    text-underline-offset: 1rem;
+    color: rgba(97, 137, 47, 1);
+    font-weight: bold;
+}
+
+.gameInstructions{
+    text-align: right;
 }
 
 #difficulty, .setDifficultyButton{
@@ -60,11 +92,15 @@
     font-size: 2rem;
     padding: 1.5rem 2rem;
     border-radius: 1em;
-    background-color: rgba(97, 137, 47, 0.5);
+    background-color: rgba(97, 137, 47, 0);
     color: white;
     font-weight: bold;
-    border: 0;
+    border: 5px solid rgba(97, 137, 47, 1);
     cursor: pointer;
+}
+
+.tryAgainBtn{
+    margin-bottom: 10rem;
 }
 
 .computerSide{
