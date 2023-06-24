@@ -46,6 +46,7 @@
 }
 
 .algoDescription{
+    position: relative;
     flex: 1;
     padding: 5rem;
     font-size: 3rem;
@@ -59,6 +60,19 @@
     text-underline-offset: 1rem;
     color: rgba(97, 137, 47, 1);
     font-weight: bold;
+}
+
+.nextOverlayButton{
+    position: absolute;
+    display: none;
+    right: 0;
+    bottom: 0;
+    font-size: 2rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 1.5rem;
+    margin: 2rem;
+    background-color: rgba(97, 137, 47, 1);
+    cursor: pointer;
 }
 
 .gameInstructions{
@@ -143,4 +157,45 @@
 
 .userBubbles{
     cursor: pointer;
+}
+
+@media (max-width: 950px){
+    .difficultySection{
+        display: none;
+    }
+    .gameInstructions{
+        display: none;
+    }
+    .nextOverlayButton{
+        display: block;
+    }
+    /* .difficultyOverlay{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        height: max-content;
+    } */
+    /*
+    .algoDescription{
+        padding: 2rem;
+        font-size: 2rem;
+        margin: 0;
+    }
+    .infoTitle{
+        margin-top: 0;
+    } */
+    /* .difficultySection p{
+        margin: 0;
+        font-size: 1.2rem;   
+    }
+    #difficulty, .setDifficultyButton{
+        font-size: 1rem;
+    }
+    .difficultyExplanation{
+        margin-top: 1rem;
+        font-size: 1rem;
+    }
+    .difficultyExplanation div{
+        margin: 0.5rem;
+    } */
 }

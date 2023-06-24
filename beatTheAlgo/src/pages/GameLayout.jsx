@@ -15,6 +15,9 @@ export default function GameLayout({ algo }) {
 
   const difficultyOverlay = React.useRef(null);
   const countDownRef = React.useRef(null);
+  const algoInfoRef = React.useRef(null);
+  const instructionsRef = React.useRef(null);
+  const difficultyRef = React.useRef(null);
 
   React.useEffect(() => {
     let randomNumbers = generateXRandomNumbers(9);
@@ -31,7 +34,6 @@ export default function GameLayout({ algo }) {
 
   React.useEffect(() => {
     setShowWinner(winner);
-    // console.log(winner);
   }, [winner]);
 
   function getComputerSideComponent() {
@@ -68,7 +70,7 @@ export default function GameLayout({ algo }) {
         setCountDownOver(true);
         clearInterval(countDown);
       }
-    }, 0); //put it back to 1000 ms = 1 second
+    }, 1000); //put it back to 1000 ms = 1 second
   }
 
   function setDifficultyFunction() {
@@ -82,10 +84,21 @@ export default function GameLayout({ algo }) {
     window.location.reload(false);
   }
 
+  function hideAndShowNextOverlay(overlay) {
+    console.log(overlay);
+    if (overlay === "algoInfo") {
+      algoInfoRef.current.style.display = "none";
+      instructionsRef.current.style.display = "block";
+    } else {
+      instructionsRef.current.style.display = "none";
+      difficultyRef.current.style.display = "flex";
+    }
+  }
+
   return (
     <main className="gameLayout">
       <div className="overlay difficultyOverlay" ref={difficultyOverlay}>
-        <div className="algoDescription AlgoInfo">
+        <div ref={algoInfoRef} className="algoDescription algoInfo">
           <p className="infoTitle">
             {String(algo)
               .split("_")
@@ -96,8 +109,12 @@ export default function GameLayout({ algo }) {
           <p className="description">
             {AlgorithmDescriptions[algo].description}
           </p>
+          <button
+            className="nextOverlayButton"
+            onClick={() => hideAndShowNextOverlay("algoInfo")}
+          >{`Next >`}</button>
         </div>
-        <div className="difficultySection">
+        <div ref={difficultyRef} className="difficultySection">
           <p>Choose Difficulty:</p>
           <div className="difficultyOptions">
             <select name="difficulty" id="difficulty">
@@ -128,11 +145,15 @@ export default function GameLayout({ algo }) {
             </div>
           </div>
         </div>
-        <div className="algoDescription gameInstructions">
+        <div ref={instructionsRef} className="algoDescription gameInstructions">
           <p className="infoTitle">Instructions</p>
           <p className="instructions">
             {AlgorithmDescriptions[algo].instructions}
           </p>
+          <button
+            className="nextOverlayButton"
+            onClick={() => hideAndShowNextOverlay("instructions")}
+          >{`Next >`}</button>
         </div>
       </div>
       <div className="overlay countDown" ref={countDownRef}></div>
