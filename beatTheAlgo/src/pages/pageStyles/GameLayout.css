@@ -231,6 +231,34 @@
         font-size: 0.5rem;
     }
 }
+@media (max-width: 300px){
+    .algoDescription{
+        font-size: 1.5rem;
+        padding: 2rem;
+    }
+    .difficultySection p{
+        margin-top: 3rem;
+        font-size: 2rem;
+    }
+    #difficulty{
+        font-size: 1rem;
+    }
+    .setDifficultyButton{
+        font-size: 1rem;
+    }
+    .difficultyExplanation{
+        margin-top: 1rem;
+    }
+    .winner{
+        font-size: 2rem;
+    }
+    .tryAgainBtn{
+        font-size: 1rem;
+    }
+    .nextOverlayButton{
+        font-size: 1rem;
+    }
+}
 @media (min-width: 1025px) {
     .algoDescription{
         font-size: 2.5rem;
