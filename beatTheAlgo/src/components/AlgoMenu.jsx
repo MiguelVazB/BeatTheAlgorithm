@@ -36,10 +36,10 @@ export const AlgoMenu = ({ showMenuClick }) => {
         </Link>
       </div>
       <div className="menuButtons">
-        <Link className="homeButtonMenu" to="/">
+        <Link className="homeButtonMenu" to="/" onClick={showMenuClick}>
           Home
         </Link>
-        <Link className="aboutButtonMenu" to="about">
+        <Link className="aboutButtonMenu" to="about" onClick={showMenuClick}>
           About
         </Link>
       </div>
