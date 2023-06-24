@@ -3,7 +3,7 @@
     flex-direction: column;
     color: white;
     flex: 1;
-    padding-top: 7em;
+    padding-top: 7rem;
     justify-content: center;
 }
 
@@ -12,11 +12,12 @@
     font-size: 5rem;
     color: white;
     text-align: center;
-    margin: 5rem;
+    margin: 1rem;
     padding: 5rem;
 }
 
 .container p{
+    margin: 0;
     color: white;
     animation: colorChange 45s infinite;
     animation-delay: 5s;
@@ -65,5 +66,12 @@
     100% {
       color: white;
       text-shadow: none;
+    }
+}
+
+@media (max-width: 540px){
+    .container{
+        padding: 1rem;
+        font-size: 4rem;
     }
 }
