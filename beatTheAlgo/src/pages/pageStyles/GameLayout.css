@@ -70,7 +70,7 @@
     font-size: 2rem;
     padding: 0.5rem 1.5rem;
     border-radius: 1.5rem;
-    margin: 2rem;
+    margin-right: 0.5rem;
     background-color: rgba(97, 137, 47, 1);
     cursor: pointer;
 }
@@ -120,7 +120,7 @@
     margin-top: 2rem;
     font-size: 2rem;
     padding: 1.5rem 2rem;
-    border-radius: 1em;
+    border-radius: 1.5em;
     background-color: rgba(97, 137, 47, 0);
     color: white;
     font-weight: bold;
@@ -159,9 +159,11 @@
     cursor: pointer;
 }
 
-@media (max-width: 950px){
+/* Display the buttons and mobile layout */
+@media (max-width: 1024px){
     .difficultySection{
         display: none;
+        margin-top: 2em;
     }
     .gameInstructions{
         display: none;
@@ -169,33 +171,69 @@
     .nextOverlayButton{
         display: block;
     }
-    /* .difficultyOverlay{
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-        height: max-content;
-    } */
-    /*
     .algoDescription{
-        padding: 2rem;
-        font-size: 2rem;
-        margin: 0;
-    }
-    .infoTitle{
-        margin-top: 0;
-    } */
-    /* .difficultySection p{
-        margin: 0;
-        font-size: 1.2rem;   
-    }
-    #difficulty, .setDifficultyButton{
-        font-size: 1rem;
+        text-align: left;
     }
     .difficultyExplanation{
-        margin-top: 1rem;
-        font-size: 1rem;
+        margin: 0;
+        margin-top: 3rem;
     }
     .difficultyExplanation div{
-        margin: 0.5rem;
-    } */
+        font-size: 1.1rem;
+        margin: 1rem;
+    }
+    .winner{
+        font-size: 5rem;
+    }
+    .tryAgainBtn{
+        font-size: 1.5rem;
+    }
+    .algorithmDisplayed{
+        font-size: 1.5em;
+    }
+    .computerSide{
+        height: 35%;
+    }
+}
+
+/* hide the buttons and display the overlays */
+@media (min-width: 1025px){
+    .difficultySection{
+        display: flex;
+    }
+    .gameInstructions{
+        display: block;
+    }
+}
+
+/* font resizing for overlay */
+@media (max-width: 560px){
+    .algoDescription{
+        font-size: 2.5rem;
+        padding: 2rem;
+    }
+    .winner{
+        font-size: 3.5rem;
+    }
+    .tryAgainBtn{
+        font-size: 1rem;
+    }
+}
+@media (max-width: 390px){
+    .algoDescription{
+        font-size: 2rem;
+        padding: 2rem;
+    }
+    .winner{
+        font-size: 2rem;
+    }
+    .tryAgainBtn{
+        font-size: 0.5rem;
+    }
+}
+@media (min-width: 1025px) {
+    .algoDescription{
+        font-size: 2.5rem;
+        padding: 2rem;
+    }
 }
