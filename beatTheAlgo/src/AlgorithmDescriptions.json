@@ -3,10 +3,10 @@
         "description": "Bubble sort is a way to put numbers in order. You compare two numbers at a time and swap them if they're not in the right order. Keep doing this until all the numbers are in the correct order. It's like making the biggest numbers \"bubble\" to the end.",
         "instructions": "Click on the bubbles in the green area to pop them. Put them in the right order (from smallest to biggest) and Beat the Algorithm! The Reset button deletes your current attempt. Choose a difficulty and press start. Good Luck!",
         "difficulty": {
-            "easy": "Easy difficulty makes each move of the algorithm to take 500 ms or 1/2 of a second.",
-            "intermediate": "Intermediate difficulty makes each move of the algorithm to take 200 ms or 1/5 of a second.",
-            "hard": "Hard difficulty makes each move of the algorithm to take 100 ms or 1/10 of a second.",
-            "impossible": "Impossible difficulty makes each move of the algorithm to take 10 ms or 1/100 of a second."
+            "easy": "Easy makes each move of the algorithm to take 500 ms or 1/2 of a second.",
+            "intermediate": "Intermediate makes each move of the algorithm to take 200 ms or 1/5 of a second.",
+            "hard": "Hard makes each move of the algorithm to take 100 ms or 1/10 of a second.",
+            "impossible": "Impossible makes each move of the algorithm to take 10 ms or 1/100 of a second."
         }
     }
 }
