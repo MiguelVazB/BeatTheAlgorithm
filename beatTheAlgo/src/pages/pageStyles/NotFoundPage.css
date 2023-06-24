@@ -3,12 +3,12 @@
     flex-direction: column;
     color: white;
     flex: 1;
-    padding-top: 7em;
+    padding-top: 15em;
     justify-content: center;
 }
 
-.container{
-    margin: 0;
+.notFoundContainer{
+    margin: 1rem;
     font-family: Stencil Std, fantasy;
     font-size: 4rem;
     color: white;
@@ -18,4 +18,10 @@
 .notFoundError{
     margin: 0;
     font-size: 10rem;
+}
+
+@media (max-width: 415px) {
+    .notFoundError{
+        font-size: 6rem;
+    }
 }
