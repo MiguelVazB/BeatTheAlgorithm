@@ -25,19 +25,19 @@
 
 .difficultyOverlay{
     flex-direction: row;
-    align-items: center;  
 }
 
 .difficultySection{
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-bottom: 10rem;
 }
 
 .difficultySection p{
     font-size: 3rem;
     text-align: center;
+    margin: 0;
+    margin-bottom: 1rem;
 }
 
 .difficultyOptions{
@@ -47,11 +47,12 @@
 
 .algoDescription{
     position: relative;
-    flex: 1;
-    padding: 5rem;
-    font-size: 3rem;
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    font-size: 2em;
     text-align: left;
-    margin-bottom: 10rem;
 }
 
 .algoDescription .infoTitle{
@@ -60,19 +61,19 @@
     text-underline-offset: 1rem;
     color: rgba(97, 137, 47, 1);
     font-weight: bold;
+    margin: 0;
 }
 
 .nextOverlayButton{
-    position: absolute;
     display: none;
-    right: 0;
-    bottom: 0;
     font-size: 2rem;
     padding: 0.5rem 1.5rem;
     border-radius: 1.5rem;
     margin-right: 0.5rem;
+    width: fit-content;
     background-color: rgba(97, 137, 47, 1);
     cursor: pointer;
+    align-self: flex-end;
 }
 
 .gameInstructions{
@@ -90,7 +91,6 @@
 }
 
 .difficultyExplanation{
-    margin-top: 8rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -170,6 +170,10 @@
     }
     .algoDescription{
         text-align: left;
+        font-size: 2.5rem;
+    }
+    .description, .instructions{
+        margin-bottom: 0;
     }
     .difficultyExplanation{
         margin: 0;
@@ -203,8 +207,8 @@
 /* font resizing for overlay */
 @media (max-width: 560px){
     .algoDescription{
-        font-size: 2.5rem;
-        padding: 2rem;
+        font-size: 2rem;
+        padding: 1rem;
     }
     .winner{
         font-size: 3.5rem;
@@ -213,10 +217,10 @@
         font-size: 1rem;
     }
 }
-@media (max-width: 390px){
+@media (max-width: 330px){
     .algoDescription{
-        font-size: 2rem;
-        padding: 2rem;
+        font-size: 1.5rem;
+        padding: 1.5rem;
     }
     .winner{
         font-size: 2rem;
@@ -224,15 +228,13 @@
     .tryAgainBtn{
         font-size: 0.5rem;
     }
-}
-@media (max-width: 300px){
-    .algoDescription{
+    .nextOverlayButton{
         font-size: 1.5rem;
-        padding: 2rem;
     }
+}
+@media (max-width: 345px){
     .difficultySection p{
-        margin-top: 3rem;
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
     #difficulty{
         font-size: 1rem;
@@ -240,8 +242,14 @@
     .setDifficultyButton{
         font-size: 1rem;
     }
+    .difficultyOptions{
+        flex-wrap: wrap;
+    }
     .difficultyExplanation{
         margin-top: 1rem;
+    }
+    .difficultyExplanation div{
+        font-size: 1rem;
     }
     .winner{
         font-size: 2rem;
@@ -251,11 +259,5 @@
     }
     .nextOverlayButton{
         font-size: 1rem;
-    }
-}
-@media (min-width: 1025px) {
-    .algoDescription{
-        font-size: 2.5rem;
-        padding: 2rem;
     }
 }
