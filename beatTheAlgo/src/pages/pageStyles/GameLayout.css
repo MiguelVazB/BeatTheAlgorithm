@@ -232,7 +232,7 @@
         font-size: 1.5rem;
     }
 }
-@media (max-width: 345px){
+@media (max-width: 370px){
     .difficultySection p{
         font-size: 1.5rem;
     }
