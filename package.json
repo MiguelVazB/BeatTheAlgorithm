@@ -1,5 +1,5 @@
 {
-  "name": "beatthealgo",
+  "name": "beat_the_algorithm",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,6 +12,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-reveal": "^1.2.2",
     "react-router-dom": "^6.12.1"
   },
   "devDependencies": {
