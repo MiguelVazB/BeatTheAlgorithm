@@ -1,4 +1,5 @@
 import "./pageStyles/HomePage.css";
+import React from "react";
 import HeadAlgo from "../images/head-white.png";
 import Puzzle from "../images/puzzle.png";
 import Matrix from "../images/matrix.png";
@@ -6,6 +7,44 @@ import rightArrow from "../images/right-arrow.svg";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
+  // const challengeUserRef = React.useRef(null);
+  // const solveRef = React.useRef(null);
+  // const learnRef = React.useRef(null);
+
+  // React.useEffect(() => {
+  //   const observer = new IntersectionObserver((entries) => {
+  //     entries.forEach((entry) => {
+  //       if (entry.isIntersecting) {
+  //         // challengeUserRef.current.classList.add("animateFadeIn");
+  //         console.log(entry.current);
+  //         return;
+  //       }
+  //     });
+  //   });
+
+  //   if (challengeUserRef.current) {
+  //     observer.observe(challengeUserRef.current);
+  //   }
+  //   if (solveRef.current) {
+  //     observer.observe(solveRef.current);
+  //   }
+  //   if (learnRef.current) {
+  //     observer.observe(learnRef.current);
+  //   }
+
+  //   return () => {
+  //     if (challengeUserRef.current) {
+  //       observer.unobserve(challengeUserRef.current);
+  //     }
+  //     if (solveRef.current) {
+  //       observer.unobserve(solveRef.current);
+  //     }
+  //     if (learnRef.current) {
+  //       observer.unobserve(learnRef.current);
+  //     }
+  //   };
+  // }, []);
+
   return (
     <main className="homePage">
       <div className="challengeUser elementBox">
