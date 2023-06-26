@@ -14,6 +14,8 @@ export default function HomePage() {
   const challengeUserRef = React.useRef(null);
   const solveRef = React.useRef(null);
   const learnRef = React.useRef(null);
+  const readyQRef = React.useRef(null);
+  const startBtnRef = React.useRef(null);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
@@ -32,6 +34,10 @@ export default function HomePage() {
               setInterval(() => {
                 SetLearnBoxDisplayed(true);
               }, 1000);
+            } else if (entry.target.classList[0] === "readyQuestion") {
+              entry.target.classList.add("bounce");
+            } else if (entry.target.classList[1] === "startButton") {
+              entry.target.classList.add("buttonPulse");
             } else {
               entry.target.classList.add("animateFadeInRight");
               entry.target.style.opacity = 1;
@@ -50,6 +56,8 @@ export default function HomePage() {
     if (challengeUserRef.current) observer.observe(challengeUserRef.current);
     if (solveRef.current) observer.observe(solveRef.current);
     if (learnRef.current) observer.observe(learnRef.current);
+    if (readyQRef.current) observer.observe(readyQRef.current);
+    if (startBtnRef.current) observer.observe(startBtnRef.current);
     return () => {
       observer.disconnect();
     };
@@ -79,7 +87,9 @@ export default function HomePage() {
         <img src={Matrix} className="elementImage" />
       </div>
       <div className="ready">
-        <p className="readyQuestion">Ready to Beat the algorithms?</p>
+        <p ref={readyQRef} className="readyQuestion">
+          Ready to Beat the algorithms?
+        </p>
         <p>CLICK on the START BUTTON to start with Bubble Sort Algorithm</p>
         <p className="orStart">OR</p>
         <p>
@@ -87,7 +97,11 @@ export default function HomePage() {
           challenge
         </p>
       </div>
-      <Link className="elementBox startButton" to="algo/bubble_sort">
+      <Link
+        ref={startBtnRef}
+        className="elementBox startButton"
+        to="algo/bubble_sort"
+      >
         <p>Start</p>
         <img src={rightArrow} className="elementImage" />
       </Link>
