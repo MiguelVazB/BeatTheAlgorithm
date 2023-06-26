@@ -27,13 +27,13 @@ export default function HomePage() {
               entry.target.style.opacity = 1;
               setInterval(() => {
                 SetSolveBoxDisplayed(true);
-              }, 1000);
+              }, 500);
             } else if (entry.target.classList[0] === "learn") {
               entry.target.classList.add("animateFadeInRight");
               entry.target.style.opacity = 1;
               setInterval(() => {
                 SetLearnBoxDisplayed(true);
-              }, 1000);
+              }, 500);
             } else if (entry.target.classList[0] === "readyQuestion") {
               entry.target.classList.add("bounce");
             } else if (entry.target.classList[1] === "startButton") {
@@ -43,7 +43,7 @@ export default function HomePage() {
               entry.target.style.opacity = 1;
               setInterval(() => {
                 SetChallengeDisplayed(true);
-              }, 1000);
+              }, 500);
             }
           }
         });
