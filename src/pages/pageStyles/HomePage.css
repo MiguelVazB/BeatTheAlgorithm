@@ -85,8 +85,11 @@
     padding: 1em 5em;
     text-align: center;
     align-items: center;
-    margin: 0;
+    margin: 0 1rem;
     text-underline-offset: 0.2em;
+    background-image: linear-gradient(to left, #202020 , #222629);
+    box-shadow: 0px 0px 10px rgba(97, 137, 47, 1);
+    border-radius: 2rem;
 }
 
 .ready p{
@@ -120,6 +123,15 @@
     animation: diffuseRightAnimation 2s ease-in-out forwards;
 }
 
+.bounce{
+    animation: bounce 2s ease-in-out;
+    animation-iteration-count: 3;
+}
+
+.buttonPulse{
+    animation: pulse 1.5s infinite;
+}
+
 /* animations */
 
 @keyframes fadeInRight {
@@ -141,6 +153,19 @@
     100% {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0px 0px 15px whitesmoke;
+    }
+    100% {
+        transform: scale(1);
     }
 }
 
@@ -216,6 +241,22 @@
     }
 }
 
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+        border-bottom: white solid 2px;
+        padding-bottom: 1rem;
+    }
+    40% {
+        transform: translateY(-30px);
+        border: 0;
+    }
+    60% {
+        transform: translateY(-20px);
+        border: 0;
+    }
+}
+
 /* resizing for Mobile devices */
 
 @media (max-width: 950px){
@@ -269,6 +310,14 @@
 
     .ready p{
         margin: 0.5rem;
+    }
+    .diffuseLeft, .diffuseRight{
+        animation: none;
+    }
+    .ready{
+        background-image: linear-gradient(to left, #202020 , #222629);
+        box-shadow: 0px 0px 20px rgb(27, 49, 1);
+        border-radius: 2rem;
     }
 }
 
