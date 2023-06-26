@@ -7,57 +7,74 @@ import rightArrow from "../images/right-arrow.svg";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
-  // const challengeUserRef = React.useRef(null);
-  // const solveRef = React.useRef(null);
-  // const learnRef = React.useRef(null);
+  const [challengeDisplayed, SetChallengeDisplayed] = React.useState(false);
+  const [solveBoxDisplayed, SetSolveBoxDisplayed] = React.useState(false);
+  const [learnBoxDisplayed, SetLearnBoxDisplayed] = React.useState(false);
 
-  // React.useEffect(() => {
-  //   const observer = new IntersectionObserver((entries) => {
-  //     entries.forEach((entry) => {
-  //       if (entry.isIntersecting) {
-  //         // challengeUserRef.current.classList.add("animateFadeIn");
-  //         console.log(entry.current);
-  //         return;
-  //       }
-  //     });
-  //   });
+  const challengeUserRef = React.useRef(null);
+  const solveRef = React.useRef(null);
+  const learnRef = React.useRef(null);
 
-  //   if (challengeUserRef.current) {
-  //     observer.observe(challengeUserRef.current);
-  //   }
-  //   if (solveRef.current) {
-  //     observer.observe(solveRef.current);
-  //   }
-  //   if (learnRef.current) {
-  //     observer.observe(learnRef.current);
-  //   }
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target.classList[0] === "solve") {
+              entry.target.classList.add("animateFadeInLeft");
+              entry.target.style.opacity = 1;
+              setInterval(() => {
+                SetSolveBoxDisplayed(true);
+              }, 1000);
+            } else if (entry.target.classList[0] === "learn") {
+              entry.target.classList.add("animateFadeInRight");
+              entry.target.style.opacity = 1;
+              setInterval(() => {
+                SetLearnBoxDisplayed(true);
+              }, 1000);
+            } else {
+              entry.target.classList.add("animateFadeInRight");
+              entry.target.style.opacity = 1;
+              setInterval(() => {
+                SetChallengeDisplayed(true);
+              }, 1000);
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+      }
+    );
 
-  //   return () => {
-  //     if (challengeUserRef.current) {
-  //       observer.unobserve(challengeUserRef.current);
-  //     }
-  //     if (solveRef.current) {
-  //       observer.unobserve(solveRef.current);
-  //     }
-  //     if (learnRef.current) {
-  //       observer.unobserve(learnRef.current);
-  //     }
-  //   };
-  // }, []);
+    if (challengeUserRef.current) observer.observe(challengeUserRef.current);
+    if (solveRef.current) observer.observe(solveRef.current);
+    if (learnRef.current) observer.observe(learnRef.current);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (challengeDisplayed)
+      challengeUserRef.current.classList.add("diffuseLeft");
+    if (solveBoxDisplayed) solveRef.current.classList.add("diffuseRight");
+    if (learnBoxDisplayed) learnRef.current.classList.add("diffuseLeft");
+  }, [challengeDisplayed, solveBoxDisplayed, learnBoxDisplayed]);
 
   return (
     <main className="homePage">
-      <div className="challengeUser elementBox">
+      <div ref={challengeUserRef} className="challengeUser elementBox">
         <p>
           Do <span>YOU</span> have what it takes to Beat the Algorithm?
         </p>
         <img src={HeadAlgo} className="elementImage" />
       </div>
-      <div className="solve elementBox">
+      <div ref={solveRef} className="solve elementBox">
         <img src={Puzzle} className="elementImage" />
         <p>Beat the algorithm by solving a problem faster</p>
       </div>
-      <div className="learn elementBox">
+      <div ref={learnRef} className="learn elementBox">
         <p>Learn about algorithms by trying to beat them</p>
         <img src={Matrix} className="elementImage" />
       </div>
