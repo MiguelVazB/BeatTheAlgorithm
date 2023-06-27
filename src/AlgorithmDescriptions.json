@@ -7,6 +7,18 @@
             "intermediate": "Intermediate makes each move of the algorithm to take 200 ms or 1/5 of a second.",
             "hard": "Hard makes each move of the algorithm to take 100 ms or 1/10 of a second.",
             "impossible": "Impossible makes each move of the algorithm to take 10 ms or 1/100 of a second."
+        },
+        "detailedDescription": {
+            "simpleExplanation": "Bubble sort is a simple sorting algorithm that repeatedly steps through a list of elements, compares adjacent elements, and swaps them if they are in the wrong order. The algorithm gets its name from the way smaller elements \"bubble\" to the top of the list. This process is repeated until the entire list is sorted.", 
+            "steps": {
+                "step1": "Start with an unsorted list of elements.",
+                "step2": "Compare the first element with the second element. If the first element is greater than the second element, swap them. Otherwise, leave them as they are.",
+                "step3": "Move to the next pair of adjacent elements and repeat step 2. Continue this process until you reach the end of the list. At this point, the largest element in the list will be at the end.",
+                "step4": "Repeat steps 2 and 3 for all elements in the list except the last one, as the last element will already be in its correct position after the first pass.",
+                "step5": "Repeat steps 2-4 until the entire list is sorted. Each pass will place the next largest element in its proper position.",
+                "step6": "The algorithm terminates when no more swaps are needed, indicating that the list is sorted."
+            },
+            "timeComplexity": "Bubble sort has a time complexity of O(n^2) in the average and worst cases, where n is the number of elements in the list. It is not considered an efficient sorting algorithm for large lists"
         }
     }
 }
