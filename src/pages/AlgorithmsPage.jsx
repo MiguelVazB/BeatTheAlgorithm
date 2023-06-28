@@ -9,8 +9,9 @@ export default function AlgorithmsPage() {
 
   React.useEffect(() => {
     let algorithms = [];
-    for (let algo in AlgorithmDescriptions) {
-      if (AlgorithmDescriptions.hasOwnProperty(algo)) algorithms.push(algo);
+    for (let algorithm in AlgorithmDescriptions) {
+      if (AlgorithmDescriptions.hasOwnProperty(algorithm))
+        algorithms.push(algorithm);
     }
     setAlgorithmsToDisplay(algorithms);
   }, [AlgorithmDescriptions]);
