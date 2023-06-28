@@ -18,7 +18,7 @@
                 "step5": "Repeat steps 2-4 until the entire list is sorted. Each pass will place the next largest element in its proper position.",
                 "step6": "The algorithm terminates when no more swaps are needed, indicating that the list is sorted."
             },
-            "timeComplexity": "Bubble sort has a time complexity of O(n^2) in the average and worst cases, where n is the number of elements in the list. It is not considered an efficient sorting algorithm for large lists"
+            "timeComplexity": "Bubble sort has a time complexity of O(n^2) in the average and worst cases, where n is the number of elements in the list. It is not considered an efficient sorting algorithm for large lists."
         }
     }
 }
