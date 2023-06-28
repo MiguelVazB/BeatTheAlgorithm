@@ -42,6 +42,13 @@ export const AlgoMenu = ({ showMenuClick }) => {
         <Link className="aboutButtonMenu" to="about" onClick={showMenuClick}>
           About
         </Link>
+        <Link
+          className="aboutButtonMenu"
+          to="moreOnAlgorithms"
+          onClick={showMenuClick}
+        >
+          Learn More
+        </Link>
       </div>
     </div>
   );
