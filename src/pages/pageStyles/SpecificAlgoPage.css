@@ -1,0 +1,41 @@
+.specificAlgorithm{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    flex: 1;
+    row-gap: 3rem;
+    padding: 5em;
+    padding-top: 8em;
+    align-items: center;
+}
+
+.specificAlgorithm .name, .stepByStepContainer .algoSteps{
+    font-size: 4rem;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/* rgba(97, 137, 47, 1), rgba(32,32,32,1) */
+
+.simpleExplanation, .stepByStepContainer, .time{
+    padding: 3rem;
+    border-radius: 2rem;
+    background-image: linear-gradient(to right, rgba(32, 32, 32, 0.5) 40%, rgba(97, 137, 47, 0.5));
+}
+
+.specificAlgorithm .actionBtn{
+    animation: pulse infinite ease-in-out 3s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+        box-shadow: 0px 0px 15px whitesmoke;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
