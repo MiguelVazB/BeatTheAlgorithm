@@ -21,7 +21,7 @@ function App() {
         <Route path="moreOnAlgorithms" element={<AlgorithmsPage />} />
         <Route
           path="moreOnAlgorithms/bubble_sort"
-          element={<SpecificAlgoPage algo={["bubble_sort"]} />}
+          element={<SpecificAlgoPage algo="bubble_sort" />}
         />
 
         {/* Paths for algorithms */}
