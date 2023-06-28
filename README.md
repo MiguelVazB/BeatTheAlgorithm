@@ -1,6 +1,6 @@
 # Beat the Algorithm
 
-Beat the Algorithm is an interactive website that provides a platform for users to challenge themselves against various algorithms. The goal is to solve a given problem faster than the algorithm itself.
+Beat the Algorithm is an interactive website that provides a platform for users to challenge themselves against various algorithms. The goal is to solve a given problem faster than the algorithm itself. In the process, the user will learn about the inner working of the algorithms.
 
 ## How it Works
 
