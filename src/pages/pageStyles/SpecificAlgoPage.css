@@ -15,12 +15,20 @@
     font-weight: bold;
 }
 
-/* rgba(97, 137, 47, 1), rgba(32,32,32,1) */
-
-.simpleExplanation, .stepByStepContainer, .time{
+.simpleExplanation, .stepByStepContainer, .time, .algoImgContainer{
     padding: 3rem;
     border-radius: 2rem;
     background-image: linear-gradient(to right, rgba(32, 32, 32, 0.5) 40%, rgba(97, 137, 47, 0.5));
+}
+
+.algoImgContainer{
+    display: flex;
+    align-self: end;
+}
+
+.algoImgContainer img{
+    width: 100%;
+    border-radius: 1rem;
 }
 
 .specificAlgorithm .actionBtn{
@@ -37,5 +45,71 @@
     }
     100% {
         transform: scale(1);
+    }
+}
+
+/* mobile responsiveness */
+
+@media (max-width: 350px) {
+    .specificAlgorithm{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .simpleExplanation, .stepByStepContainer, .time, .algoImgContainer{
+        padding: 1.5rem;
+    }
+    .simpleExplanation .name, .stepByStepContainer .algoSteps{
+        font-size: 2rem;
+    }
+    .steps{
+        padding-left: 0;
+    }
+}
+
+@media (min-width: 351px) {
+    .specificAlgorithm{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .simpleExplanation, .stepByStepContainer, .time, .algoImgContainer{
+        padding: 1.5rem;
+    }
+    .simpleExplanation .name, .stepByStepContainer .algoSteps{
+        font-size: 2rem;
+    }
+    .steps{
+        padding-left: 0;
+    }
+}
+
+@media (min-width: 700px) {
+    .specificAlgorithm{
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    .simpleExplanation, .stepByStepContainer, .time, .algoImgContainer{
+        padding: 1.5rem;
+    }
+    .simpleExplanation .name, .stepByStepContainer .algoSteps{
+        font-size: 2.5rem;
+    }
+    .steps{
+        padding-left: 1rem;
+    }
+}
+
+@media (min-width: 700px) {
+    .specificAlgorithm{
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    .simpleExplanation, .stepByStepContainer, .time, .algoImgContainer{
+        padding: 2rem;
+    }
+    .simpleExplanation .name, .stepByStepContainer .algoSteps{
+        font-size: 3rem;
+    }
+    .steps{
+        padding-left: 1.5rem;
     }
 }
