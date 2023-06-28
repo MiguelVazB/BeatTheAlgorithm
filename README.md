@@ -32,7 +32,7 @@ To use Beat the Algorithm, follow these steps:
 
 1\. Clone the GitHub repository: `git clone https://github.com/MiguelVazB/BeatTheAlgorithm.git`
 
-2\. Navigate to the project directory: `cd beat the algorithm`
+2\. Navigate to the project directory: `cd BeatTheAlgorithm`
 
 3\. Install the dependencies: `npm install`
 
