@@ -72,7 +72,6 @@
     filter: invert(100%);
 }
 
-
 /* menu for mobile */
 @media (max-width: 950px) {
     .algoMenu {
@@ -96,6 +95,14 @@
         row-gap: 0;
         flex: 1;
         margin-bottom: 3rem;
+    }
+}
+@media (max-width: 320px){
+    .goBackArrow{
+        padding-left: 0.5rem;
+    }
+    .algoMenu h1{
+        padding-left: 2rem;
     }
 }
 
