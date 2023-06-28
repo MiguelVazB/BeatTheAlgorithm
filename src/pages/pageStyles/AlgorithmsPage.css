@@ -30,19 +30,6 @@
     text-underline-offset: 0.2rem;
 }
 
-.algorithm .dots{
-    display: flex;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    font-size: 2rem;
-    padding: 0.1rem;
-    padding-bottom: 0.8rem;
-    background-color: rgba(53, 57, 47, 1);
-    justify-content: center;
-}
-
 .actionBtn{
     flex: 1;
     text-decoration: none;
@@ -71,10 +58,6 @@
     .actionBtn{
         font-size: 1.5rem;
     }
-    .algorithm .dots{
-        font-size: 4rem;
-        padding-bottom: 2rem;
-    }
 }
 
 @media (min-width: 500px) {
@@ -86,10 +69,6 @@
     }
     .actionBtn{
         font-size: 2rem;
-    }
-    .algorithm .dots{
-        font-size: 5rem;
-        padding-bottom: 2rem;
     }
 }
 
@@ -114,10 +93,6 @@
     }
     .actionBtn{
         font-size: 3rem;
-    }
-    .algorithm .dots{
-        font-size: 6rem;
-        padding-bottom: 3rem;
     }
     .algoPage .algorithm{
         margin: 3rem;
