@@ -2,11 +2,12 @@ import React from "react";
 import "./pageStyles/GameLayout.css";
 import { generateXRandomNumbers } from "../utils/randomNumbers.jsx";
 import { BubbleSort, BubbleSortUser } from "../components/BubbleSort";
+import { SelectionSort, SelectionSortUser } from "../components/SelectionSort";
 import { Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 
 export default function GameLayout({ algo }) {
-  const [bubbleValues, setBubbleValues] = React.useState([]);
+  const [RandomValues, setRandomValues] = React.useState([]);
 
   const [countDownOver, setCountDownOver] = React.useState(false);
   const [showWinner, setShowWinner] = React.useState(false);
@@ -22,7 +23,7 @@ export default function GameLayout({ algo }) {
 
   React.useEffect(() => {
     let randomNumbers = generateXRandomNumbers(9);
-    setBubbleValues(randomNumbers);
+    setRandomValues(randomNumbers);
   }, []);
 
   React.useEffect(() => {
@@ -43,7 +44,17 @@ export default function GameLayout({ algo }) {
         return (
           <BubbleSort
             difficulty={difficulty ? difficulty : ""}
-            randomNumbers={bubbleValues}
+            randomNumbers={RandomValues}
+            countDownOver={countDownOver}
+            setWinner={setWinner}
+            winner={winner}
+          />
+        );
+      case "selection_sort":
+        return (
+          <SelectionSort
+            difficulty={difficulty ? difficulty : ""}
+            randomNumbers={RandomValues}
             countDownOver={countDownOver}
             setWinner={setWinner}
             winner={winner}
@@ -56,7 +67,14 @@ export default function GameLayout({ algo }) {
     switch (algo) {
       case "bubble_sort":
         return (
-          <BubbleSortUser randomNumbers={bubbleValues} setWinner={setWinner} />
+          <BubbleSortUser randomNumbers={RandomValues} setWinner={setWinner} />
+        );
+      case "selection_sort":
+        return (
+          <SelectionSortUser
+            randomNumbers={RandomValues}
+            setWinner={setWinner}
+          />
         );
     }
   }
