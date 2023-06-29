@@ -1,6 +1,6 @@
 import React from "react";
 import "./componentStyles/BubbleSort.css";
-import ArrowTop from "../images/arrow-top-white.svg";
+import { ArrowsComponent } from "./ArrowsComponent";
 
 export const BubbleSort = ({
   difficulty,
@@ -16,10 +16,11 @@ export const BubbleSort = ({
   const [startAlgo, setStartAlgo] = React.useState(false);
   const [bubbleIndicesClass, setBubbleIndicesClass] = React.useState([]);
 
-  const arrowRef = React.useRef(null);
-  const secondArrowRef = React.useRef(null);
   const winnerRef = React.useRef(winner);
   const bubblesRef = React.useRef(null);
+
+  const [firstArrowPosition, setFirstArrowPosition] = React.useState(0);
+  const [secondArrowPosition, setSecondArrowPosition] = React.useState(1);
 
   React.useEffect(() => {
     setValuesToSort(randomNumbers);
@@ -72,8 +73,8 @@ export const BubbleSort = ({
 
         if (index < randomNumbers.length) {
           if (j < randomNumbers.length - 1) {
-            displayFirstArrow(j);
-            displaySecondArrow(j + 1);
+            setFirstArrowPosition(j);
+            setSecondArrowPosition(j + 1);
             let firstValue = Number(updatedValues[j]);
             let secondValue = Number(updatedValues[j + 1]);
             if (firstValue > secondValue) {
@@ -129,40 +130,6 @@ export const BubbleSort = ({
     }
   }, [bubbleIndicesClass]);
 
-  function displayFirstArrow(index) {
-    if (showArrows) {
-      let firstArrowPos =
-        bubblesRef.current.children[index]?.getBoundingClientRect();
-      if (arrowRef.current) {
-        arrowRef.current.style.top = `${
-          firstArrowPos?.y - firstArrowPos?.height / 1.8
-        }px`;
-        arrowRef.current.style.left = `${
-          firstArrowPos?.x + firstArrowPos?.width / 4
-        }px`;
-        arrowRef.current.classList.add("arrowBrowserAnimate");
-        arrowRef.current.style.visibility = "visible";
-      }
-    }
-  }
-
-  function displaySecondArrow(index) {
-    if (showArrows) {
-      let secondArrowPos =
-        bubblesRef.current.children[index]?.getBoundingClientRect();
-      if (secondArrowRef.current) {
-        secondArrowRef.current.style.top = `${
-          secondArrowPos?.y - secondArrowPos?.height / 1.8
-        }px`;
-        secondArrowRef.current.style.left = `${
-          secondArrowPos?.x + secondArrowPos?.width / 4
-        }px`;
-        secondArrowRef.current.classList.add("arrowBrowserAnimate");
-        secondArrowRef.current.style.visibility = "visible";
-      }
-    }
-  }
-
   return (
     <div className="bubbleSort">
       <div ref={bubblesRef} className="algorithm">
@@ -180,13 +147,10 @@ export const BubbleSort = ({
         })}
       </div>
       {showArrows && (
-        <img src={ArrowTop} ref={arrowRef} className="arrowBrowser" />
-      )}
-      {showArrows && (
-        <img
-          src={ArrowTop}
-          ref={secondArrowRef}
-          className="arrowBrowser second"
+        <ArrowsComponent
+          firstArrowPos={firstArrowPosition}
+          secondArrowPos={secondArrowPosition}
+          valuesRef={bubblesRef}
         />
       )}
       <div className="temporaryBubble">
