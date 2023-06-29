@@ -10,41 +10,113 @@
 
 .aboutPage div{
     flex: 1;
-    margin: 1rem 4rem;
+    margin: 1rem 20rem;
     padding: 4rem;
     border: 0.5rem solid rgba(97, 137, 47, 1);
+    box-shadow: 0px 0px 2rem black;
     border-radius: 1rem;
     font-size: 2.5rem;
 }
 
-.welcome{
+.aboutPage .welcome{
     text-align: center;
+    padding: 1rem;
 }
 
 .welcome span{
     font-family: 'Inter', sans-serif;
     font-weight: bold;
+    display: block;
 }
 
 .aboutWebsite .webName{
     font-family: fantasy, 'Courier New', Courier, monospace;
-    font-size: 3rem;
 }
 
 .important{
     font-family: fantasy, 'Courier New', Courier, monospace;
     color: rgba(97, 137, 47, 1);
-    text-shadow: 0px 0px 10px black;
+    text-shadow: 0px 0px 20px black;
 }
 
 .aboutPage .aboutMeTitle, .aboutPage .inTouch{
     margin-top: 4rem;
     text-align: center;
-    padding-bottom: 2rem;
-    padding-top: 2rem;
+    padding: 1rem;
     margin-bottom: 0;
 }
 
 .aboutMe p{
     margin: 0;
+}
+
+/* mobile responsiveness */
+
+@media (max-width: 1385px){
+    .aboutPage div{
+        margin: 1rem 10rem;
+    }
+}
+
+@media (max-width: 1130px){
+    .aboutPage div{
+        margin: 1rem 6rem;
+    }
+}
+
+@media (max-width: 950px) {
+    .aboutPage div{
+        margin: 1rem 3rem;
+        padding: 3rem;
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .aboutPage div{
+        margin: 1rem 2.5rem;
+        padding: 2.5rem;
+        font-size: 1.5rem;
+    }
+    .aboutPage .aboutMeTitle, .aboutPage .inTouch{
+        margin-top: 3rem;
+    }
+}
+
+@media (max-width: 460px) {
+    .aboutPage div{
+        margin: 0.8rem 1.5rem;
+        padding: 2rem;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 334px) {
+    .aboutPage div{
+        margin: 0.5rem 1.2rem;
+        padding: 1.5rem;
+        font-size: 1rem;
+    }
+    .aboutPage div{
+        border-width: 0.3rem;
+    }
+}
+
+@media (max-width: 250px) {
+    .aboutPage div{
+        margin: 0.5rem 1rem;
+        padding: 1.2rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 200px){
+    .aboutPage div{
+        margin: 0.5rem 1rem;
+        padding: 1rem;
+        font-size: 0.5rem;
+    }
+    .aboutPage div{
+        border-width: 0.2rem;
+    }
 }
