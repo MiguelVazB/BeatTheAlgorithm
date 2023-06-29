@@ -1,0 +1,47 @@
+.arrowBrowser{
+    visibility: hidden;
+    position: absolute;
+    height: 4rem;
+    width: auto;
+}
+
+.second{
+    filter: brightness(70%);
+}
+
+.arrowBrowserAnimate{
+    animation: infinite arrowBrowserAnimation 1s ease-in-out;
+}
+
+@keyframes arrowBrowserAnimation{
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(0.3em);
+    }
+}
+
+@media (max-width: 1224px){
+    .arrowBrowser{
+        margin-top: -0.5rem;
+        height: 3rem;
+        width: auto;
+    }
+}
+
+@media (max-width: 860px){
+    .arrowBrowser{
+        margin-top: -1rem;
+        height: 2rem;
+        width: auto;
+    }
+}
+
+@media (max-width: 700px){
+    .arrowBrowser{
+        margin-top: -3.5rem;
+        height: 1.5rem;
+        width: auto;
+    }
+}
