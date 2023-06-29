@@ -126,10 +126,7 @@
     font-weight: bold;
     border: 5px solid rgba(97, 137, 47, 1);
     cursor: pointer;
-}
-
-.tryAgainBtn{
-    margin-bottom: 10rem;
+    text-decoration: none;
 }
 
 .computerSide{
