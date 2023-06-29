@@ -61,7 +61,6 @@ export const BubbleSort = ({
       }
 
       let updatedValues = [...valuesToSort];
-      setShowArrows(true);
 
       intervalAction = setInterval(() => {
         const currentWinner = winnerRef.current;
