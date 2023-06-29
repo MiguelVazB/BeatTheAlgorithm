@@ -80,15 +80,12 @@
         display: flex;
         justify-content: space-between;
     }
-
     .goBackArrow{
         display: block;
     }
-
     .menuButtons{
         display: flex;
     }
-
     .algoList{
         display: flex;
         flex-direction: column;
