@@ -86,7 +86,6 @@ export default function GameLayout({ algo }) {
   }
 
   function hideAndShowNextOverlay(overlay) {
-    console.log(overlay);
     if (overlay === "algoInfo") {
       algoInfoRef.current.style.display = "none";
       instructionsRef.current.style.display = "block";
