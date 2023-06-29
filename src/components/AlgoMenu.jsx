@@ -1,9 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Arrow from "../images/left-arrow.svg";
 import "./componentStyles/AlgoMenu.css";
 
 export const AlgoMenu = ({ showMenuClick }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="algoMenu">
       <img src={Arrow} onClick={showMenuClick} className="goBackArrow" />
@@ -11,43 +13,72 @@ export const AlgoMenu = ({ showMenuClick }) => {
       <div className="algoList">
         <Link
           className="algorithms"
-          to="algo/bubble_sort"
-          onClick={showMenuClick}
+          onClick={() => {
+            showMenuClick();
+            navigate("algo/bubble_sort");
+            window.location.reload();
+          }}
         >
           Bubble Sort
         </Link>
         <Link
           className="algorithms"
-          to="algo/selection_sort"
-          onClick={showMenuClick}
+          onClick={() => {
+            showMenuClick();
+            navigate("algo/selection_sort");
+            window.location.reload();
+          }}
         >
           Selection Sort
         </Link>
         <Link
           className="algorithms"
-          to="algo/heap_sort"
-          onClick={showMenuClick}
+          onClick={() => {
+            showMenuClick();
+            navigate("algo/heap_sort");
+            window.location.reload();
+          }}
         >
           Heap Sort
         </Link>
         <Link
           className="algorithms"
-          to="algo/merge_sort"
-          onClick={showMenuClick}
+          onClick={() => {
+            showMenuClick();
+            navigate("algo/merge_sort");
+            window.location.reload();
+          }}
         >
           Merge Sort
         </Link>
         <Link
           className="algorithms"
-          to="algo/quick_sort"
-          onClick={showMenuClick}
+          onClick={() => {
+            showMenuClick();
+            navigate("algo/quick_sort");
+            window.location.reload();
+          }}
         >
           Quick Sort
         </Link>
-        <Link className="algorithms" to="algo/dfs" onClick={showMenuClick}>
+        <Link
+          className="algorithms"
+          onClick={() => {
+            showMenuClick();
+            navigate("algo/dfs");
+            window.location.reload();
+          }}
+        >
           Depth-First Search
         </Link>
-        <Link className="algorithms" to="algo/bfs" onClick={showMenuClick}>
+        <Link
+          className="algorithms"
+          onClick={() => {
+            showMenuClick();
+            navigate("algo/bfs");
+            window.location.reload();
+          }}
+        >
           Breadth-First Search
         </Link>
       </div>
