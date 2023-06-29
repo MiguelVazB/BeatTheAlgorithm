@@ -2,6 +2,7 @@ import React from "react";
 import "./pageStyles/GameLayout.css";
 import { generateXRandomNumbers } from "../utils/randomNumbers.jsx";
 import { BubbleSort, BubbleSortUser } from "../components/BubbleSort";
+import { Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 
 export default function GameLayout({ algo }) {
@@ -163,6 +164,9 @@ export default function GameLayout({ algo }) {
           <button className="tryAgainBtn" onClick={restartGame}>
             {winner == "user" ? "Play Again" : "Try Again"}
           </button>
+          <Link className="tryAgainBtn" to={`/moreOnAlgorithms/${algo}`}>
+            Learn more
+          </Link>
         </div>
       )}
       <h1 className="algorithmDisplayed">
