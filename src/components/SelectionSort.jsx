@@ -8,9 +8,33 @@ export const SelectionSort = ({
   setWinner,
   winner,
 }) => {
-  return <div className="selectionSort">SelectionSort</div>;
+  return (
+    <div className="selectionSort">
+      <div className="numbersToSort">
+        {randomNumbers.map((number, index) => {
+          return (
+            <div className="values" key={`${number} ${index}`}>
+              {number}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
-export const SelectionSortUser = () => {
-  return <div>SelectionSort</div>;
+export const SelectionSortUser = ({ randomNumbers, setWinner }) => {
+  return (
+    <div className="selectionSortUser">
+      <div className="userValuesToSort">
+        {randomNumbers.map((number, index) => {
+          return (
+            <div className="values userValues" key={`${number} ${index}`}>
+              {number}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 };

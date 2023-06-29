@@ -4,3 +4,37 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+.numbersToSort{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.values{
+    padding: 2rem;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    font-size: 2rem;
+    border-radius: 1rem;
+}
+
+/* Selection Sort User styling */
+
+.selectionSortUser{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.userValuesToSort{
+    display: flex;
+    justify-content: space-between;
+}
+
+.userValues{
+    background-color: black;
+    color: white;
+}
