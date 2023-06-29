@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 
 export default function GameLayout({ algo }) {
-  const [RandomValues, setRandomValues] = React.useState([]);
+  const [randomValues, setRandomValues] = React.useState([]);
 
   const [countDownOver, setCountDownOver] = React.useState(false);
   const [showWinner, setShowWinner] = React.useState(false);
@@ -15,7 +15,7 @@ export default function GameLayout({ algo }) {
 
   const [difficulty, setDifficulty] = React.useState("");
 
-  const difficultyOverlay = React.useRef(null);
+  const difficultyOverlayRef = React.useRef(null);
   const countDownRef = React.useRef(null);
   const algoInfoRef = React.useRef(null);
   const instructionsRef = React.useRef(null);
@@ -28,7 +28,7 @@ export default function GameLayout({ algo }) {
 
   React.useEffect(() => {
     if (difficulty.length > 0) {
-      difficultyOverlay.current.style.display = "none";
+      difficultyOverlayRef.current.style.display = "none";
       countDownRef.current.style.visibility = "visible";
       countDown();
     }
@@ -44,7 +44,7 @@ export default function GameLayout({ algo }) {
         return (
           <BubbleSort
             difficulty={difficulty ? difficulty : ""}
-            randomNumbers={RandomValues}
+            randomNumbers={randomValues}
             countDownOver={countDownOver}
             setWinner={setWinner}
             winner={winner}
@@ -54,7 +54,7 @@ export default function GameLayout({ algo }) {
         return (
           <SelectionSort
             difficulty={difficulty ? difficulty : ""}
-            randomNumbers={RandomValues}
+            randomNumbers={randomValues}
             countDownOver={countDownOver}
             setWinner={setWinner}
             winner={winner}
@@ -67,12 +67,12 @@ export default function GameLayout({ algo }) {
     switch (algo) {
       case "bubble_sort":
         return (
-          <BubbleSortUser randomNumbers={RandomValues} setWinner={setWinner} />
+          <BubbleSortUser randomNumbers={randomValues} setWinner={setWinner} />
         );
       case "selection_sort":
         return (
           <SelectionSortUser
-            randomNumbers={RandomValues}
+            randomNumbers={randomValues}
             setWinner={setWinner}
           />
         );
@@ -115,7 +115,7 @@ export default function GameLayout({ algo }) {
 
   return (
     <main className="gameLayout">
-      <div className="overlay difficultyOverlay" ref={difficultyOverlay}>
+      <div className="overlay difficultyOverlay" ref={difficultyOverlayRef}>
         <div ref={algoInfoRef} className="algoDescription algoInfo">
           <p className="infoTitle">
             {String(algo)
