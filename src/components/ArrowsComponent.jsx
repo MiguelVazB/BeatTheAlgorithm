@@ -16,10 +16,10 @@ export const ArrowsComponent = ({
         valuesRef.current.children[firstArrowPos]?.getBoundingClientRect();
       if (arrowRef.current) {
         arrowRef.current.style.top = `${
-          firstValuePos?.y - firstValuePos?.height / 2
+          firstValuePos?.y - firstValuePos?.height / 1.8
         }px`;
         arrowRef.current.style.left = `${
-          firstValuePos?.x + firstValuePos?.width / 6
+          firstValuePos?.x + firstValuePos?.width / 4
         }px`;
         arrowRef.current.classList.add("arrowBrowserAnimate");
         arrowRef.current.style.visibility = "visible";
@@ -29,10 +29,10 @@ export const ArrowsComponent = ({
         valuesRef.current.children[secondArrowPos]?.getBoundingClientRect();
       if (secondArrowRef.current) {
         secondArrowRef.current.style.top = `${
-          secondValuePos?.y - secondValuePos?.height / 2
+          secondValuePos?.y - secondValuePos?.height / 1.8
         }px`;
         secondArrowRef.current.style.left = `${
-          secondValuePos?.x + secondValuePos?.width / 6
+          secondValuePos?.x + secondValuePos?.width / 4
         }px`;
         secondArrowRef.current.classList.add("arrowBrowserAnimate");
         secondArrowRef.current.style.visibility = "visible";
