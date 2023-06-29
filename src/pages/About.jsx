@@ -30,11 +30,14 @@ export default function About() {
       <div className="inTouch">Get in Touch</div>
       <div>
         I would love to hear from you! Whether you have a question, feedback, or
-        just want to say hello, feel free to reach out to me at
-        miguel.beatalgo@gmail.com. I value your input and am always looking for
-        ways to improve. Thank you for visiting Beat the Algorithm. I am
-        thrilled to have you here, and I look forward to you having fun beating
-        the algorithm!
+        just want to say hello, feel free to reach out to me at{" "}
+        <span className="important">miguel.beatalgo@gmail.com</span>. I value
+        your input and am always looking for ways to improve.{" "}
+        <span className="important">
+          Thank you for visiting Beat the Algorithm.
+        </span>{" "}
+        I am thrilled to have you here, and I look forward to you having fun
+        beating the algorithm!
       </div>
     </main>
   );
