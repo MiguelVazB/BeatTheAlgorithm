@@ -125,7 +125,7 @@ export default function GameLayout({ algo }) {
               })}
           </p>
           <p className="description">
-            {AlgorithmDescriptions[algo].description}
+            {AlgorithmDescriptions[algo]?.description}
           </p>
           <button
             className="nextOverlayButton"
@@ -150,23 +150,23 @@ export default function GameLayout({ algo }) {
           </div>
           <div className="difficultyExplanation">
             <div className="easy">
-              {AlgorithmDescriptions[algo].difficulty.easy}
+              {AlgorithmDescriptions[algo]?.difficulty.easy}
             </div>
             <div className="intermediate">
-              {AlgorithmDescriptions[algo].difficulty.intermediate}
+              {AlgorithmDescriptions[algo]?.difficulty.intermediate}
             </div>
             <div className="hard">
-              {AlgorithmDescriptions[algo].difficulty.hard}
+              {AlgorithmDescriptions[algo]?.difficulty.hard}
             </div>
             <div className="impossible">
-              {AlgorithmDescriptions[algo].difficulty.impossible}
+              {AlgorithmDescriptions[algo]?.difficulty.impossible}
             </div>
           </div>
         </div>
         <div ref={instructionsRef} className="algoDescription gameInstructions">
           <p className="infoTitle">Instructions</p>
           <p className="instructions">
-            {AlgorithmDescriptions[algo].instructions}
+            {AlgorithmDescriptions[algo]?.instructions}
           </p>
           <button
             className="nextOverlayButton"
