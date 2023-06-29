@@ -112,6 +112,7 @@
 .winner{
     justify-content: center;
     align-items: center;
+    text-align: center;
     font-size: 7rem;
     flex-direction: column;
 }
