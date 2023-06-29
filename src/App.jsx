@@ -30,10 +30,10 @@ function App() {
           path="algo/bubble_sort"
           element={<GameLayout algo="bubble_sort" />}
         />
-        <Route
+        {/* <Route
           path="algo/selection_sort"
           element={<GameLayout algo="selection_sort" />}
-        />
+        /> */}
         <Route path="algo/*" element={<WorkInProgressPage />} />
 
         <Route path="*" element={<NotFound />} />
