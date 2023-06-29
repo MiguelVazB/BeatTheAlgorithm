@@ -1,4 +1,5 @@
 import React from "react";
+import { ArrowsComponent } from "./ArrowsComponent";
 import "./componentStyles/SelectionSort.css";
 
 export const SelectionSort = ({
@@ -8,9 +9,23 @@ export const SelectionSort = ({
   setWinner,
   winner,
 }) => {
+  const valuesToSortRef = React.useRef(null);
+
+  const [firstArrowPosition, setFirstArrowPosition] = React.useState(0);
+  const [secondArrowPosition, setSecondArrowPosition] = React.useState(1);
+  const [showArrows, setShowArrows] = React.useState(false);
+
+  React.useEffect(() => {
+    if (countDownOver) {
+      setShowArrows(true);
+    } else {
+      setShowArrows(false);
+    }
+  }, [countDownOver]);
+
   return (
     <div className="selectionSort">
-      <div className="numbersToSort">
+      <div ref={valuesToSortRef} className="numbersToSort">
         {randomNumbers.map((number, index) => {
           return (
             <div className="values" key={`${number} ${index}`}>
@@ -19,6 +34,13 @@ export const SelectionSort = ({
           );
         })}
       </div>
+      {showArrows && (
+        <ArrowsComponent
+          firstArrowPos={firstArrowPosition}
+          secondArrowPos={secondArrowPosition}
+          valuesRef={valuesToSortRef}
+        />
+      )}
     </div>
   );
 };
