@@ -12,12 +12,15 @@
 }
 
 .values{
+    text-align: center;
+    width: 2rem;
+    height: 2rem;
     padding: 2rem;
     background-color: white;
     color: black;
     font-weight: bold;
     font-size: 2rem;
-    border-radius: 1rem;
+    border-radius: 1.5rem;
 }
 
 /* Selection Sort User styling */
