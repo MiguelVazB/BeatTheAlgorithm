@@ -9,8 +9,8 @@ export const BubbleSort = ({
   setWinner,
   winner,
 }) => {
-  const [valuesToSort, setValuesToSort] = React.useState([]);
-  const [bubbleValues, setBubbleValues] = React.useState([]);
+  const [valuesToSort, setValuesToSort] = React.useState([]); //stores original values
+  const [bubbleValues, setBubbleValues] = React.useState([]); //stores values being changed
   const [showArrows, setShowArrows] = React.useState(false);
   const [tempBubbleValue, setTempBubbleValue] = React.useState("");
   const [startAlgo, setStartAlgo] = React.useState(false);
@@ -42,7 +42,7 @@ export const BubbleSort = ({
     if (startAlgo) {
       let index = 0;
       let j = 0;
-      let intervalAction;
+      let bubbleSort;
 
       let difficultyTimeInterval;
 
@@ -63,12 +63,12 @@ export const BubbleSort = ({
 
       let updatedValues = [...valuesToSort];
 
-      intervalAction = setInterval(() => {
+      bubbleSort = setInterval(() => {
         const currentWinner = winnerRef.current;
 
         if (currentWinner === "user") {
           setShowArrows(false);
-          clearInterval(intervalAction);
+          clearInterval(bubbleSort);
         }
 
         if (index < randomNumbers.length) {
@@ -97,7 +97,7 @@ export const BubbleSort = ({
           }
         } else {
           setShowArrows(false);
-          clearInterval(intervalAction);
+          clearInterval(bubbleSort);
           setStartAlgo(false);
           setWinner("computer");
         }
