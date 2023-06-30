@@ -23,6 +23,17 @@
     border-radius: 1.5rem;
 }
 
+
+/* Styling for arrows */
+.selectionSort .arrowBrowser{
+    filter: brightness(0%);
+}
+
+.selectionSort .second{
+    filter: brightness(50%);
+}
+
+
 /* Selection Sort User styling */
 
 .selectionSortUser{
