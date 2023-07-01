@@ -6,6 +6,7 @@
 }
 
 .numbersToSort{
+    flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -21,6 +22,15 @@
     font-weight: bold;
     font-size: 2rem;
     border-radius: 1.5rem;
+}
+
+.valueSorted{
+    background-color:  rgba(97, 137, 47, 1);
+}
+
+.currentValues{
+    text-align: left;
+    font-size: 2rem;
 }
 
 
