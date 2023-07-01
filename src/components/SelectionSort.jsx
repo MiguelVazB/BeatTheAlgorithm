@@ -21,7 +21,7 @@ export const SelectionSort = ({
   const valuesToSortRef = React.useRef(null);
   const winnerRef = React.useRef(winner);
 
-  const [sortedValues, setSortedValues] = React.useState([]);
+  const [sortedIndices, setSortedIndices] = React.useState([]);
   const [currentSmallest, setCurrentSmallest] = React.useState("");
 
   React.useEffect(() => {
@@ -37,6 +37,14 @@ export const SelectionSort = ({
       setShowArrows(false);
     }
   }, [countDownOver]);
+
+  React.useEffect(() => {
+    if (sortedIndices.length > 0) {
+      for (let element in sortedIndices) {
+        valuesToSortRef.current.children[element].classList.add("valueSorted");
+      }
+    }
+  }, [sortedIndices]);
 
   // React.useEffect(() => {
   //   if (boxValues.length > 0) console.log("boxValues: " + boxValues);
@@ -76,7 +84,7 @@ export const SelectionSort = ({
           clearInterval(selectionSort);
         }
 
-        if (firstPos < randomNumbers.length - 1) {
+        if (firstPos < randomNumbers.length) {
           setFirstArrowPosition(firstPos);
           if (secondPos < randomNumbers.length) {
             setSecondArrowPosition(secondPos);
@@ -91,7 +99,7 @@ export const SelectionSort = ({
             let temp = updatedValues[firstPos];
             updatedValues[firstPos] = updatedValues[smallestValueIndex];
             updatedValues[smallestValueIndex] = temp;
-
+            setSortedIndices((prev) => [...prev, firstPos]);
             firstPos++;
             secondPos = firstPos + 1;
             smallestValueIndex = firstPos;
@@ -118,6 +126,14 @@ export const SelectionSort = ({
             </div>
           );
         })}
+      </div>
+      <div className="colorMeanings">
+        <div className="sortedColor">
+          <div id="sorted"></div>Sorted Values
+        </div>
+        <div className="unsortedColor">
+          <div id="unsorted"></div>Unsorted Values
+        </div>
       </div>
       {showArrows && (
         <ArrowsComponent
