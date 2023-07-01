@@ -21,6 +21,9 @@ export const SelectionSort = ({
   const valuesToSortRef = React.useRef(null);
   const winnerRef = React.useRef(winner);
 
+  const [sortedValues, setSortedValues] = React.useState([]);
+  const [currentSmallest, setCurrentSmallest] = React.useState("");
+
   React.useEffect(() => {
     setValuesToSort(randomNumbers);
     setBoxValues(randomNumbers);
@@ -81,15 +84,14 @@ export const SelectionSort = ({
             let smallestValue = Number(updatedValues[smallestValueIndex]);
             if (firstValue < smallestValue) {
               smallestValueIndex = secondPos;
-              // console.log("smallest:" + smallestValueIndex);
             }
+            setCurrentSmallest(updatedValues[smallestValueIndex]);
             secondPos++;
-            // console.log("second pos:" + secondPos);
           } else {
-            // console.log(smallestValueIndex);
             let temp = updatedValues[firstPos];
             updatedValues[firstPos] = updatedValues[smallestValueIndex];
             updatedValues[smallestValueIndex] = temp;
+
             firstPos++;
             secondPos = firstPos + 1;
             smallestValueIndex = firstPos;
@@ -102,6 +104,7 @@ export const SelectionSort = ({
           setWinner("computer");
         }
       }, difficultyTimeInterval);
+      winnerRef.current = winner;
     }
   }, [startAlgo, winner]);
 
@@ -123,6 +126,9 @@ export const SelectionSort = ({
           valuesRef={valuesToSortRef}
         />
       )}
+      <div className="currentValues">
+        <div>Current smallest: {currentSmallest}</div>
+      </div>
     </div>
   );
 };
