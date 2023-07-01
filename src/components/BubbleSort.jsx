@@ -112,21 +112,37 @@ export const BubbleSort = ({
       let firstIndex = bubbleIndicesClass[0];
       let secondIndex = bubbleIndicesClass[1];
 
-      // animation for first bubble
-      bubblesRef.current.children[firstIndex].style.animationName =
-        "moveBubbleRight";
-      bubblesRef.current.children[firstIndex].style.animationDuration =
-        difficulty === "Easy" ? "0.3s" : "0.1s";
-      bubblesRef.current.children[firstIndex].style.animationTimingFunction =
-        "ease-in-out";
+      let firstBubblePos =
+        bubblesRef.current.children[firstIndex].getBoundingClientRect();
+      let secondBubblePos =
+        bubblesRef.current.children[secondIndex].getBoundingClientRect();
+      let distanceX = secondBubblePos.x - firstBubblePos.x;
+      let distanceY = secondBubblePos.y - firstBubblePos.y;
+
+      bubblesRef?.current?.children[firstIndex].animate(
+        [
+          // keyframes
+          { transform: `translateX(${distanceX}px)` },
+          { transform: `translateX(${distanceY}px)` },
+        ],
+        {
+          duration: difficulty === "Easy" ? 300 : 100,
+          timingFunction: "ease-in-out",
+        }
+      );
 
       // animation for second bubble
-      bubblesRef.current.children[secondIndex].style.animationName =
-        "moveBubbleLeft";
-      bubblesRef.current.children[secondIndex].style.animationDuration =
-        difficulty === "Easy" ? "0.3s" : "0.1s";
-      bubblesRef.current.children[secondIndex].style.animationTimingFunction =
-        "ease-in-out";
+      bubblesRef?.current?.children[secondIndex].animate(
+        [
+          // keyframes
+          { transform: `translateX(${-1 * distanceX}px)` },
+          { transform: `translateX(${-1 * distanceY}px)` },
+        ],
+        {
+          duration: difficulty === "Easy" ? 300 : 100,
+          timingFunction: "ease-in-out",
+        }
+      );
     }
   }, [bubbleIndicesClass]);
 
