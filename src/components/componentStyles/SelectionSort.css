@@ -28,6 +28,35 @@
     background-color:  rgba(97, 137, 47, 1);
 }
 
+.colorMeanings{
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    flex: 0.25;
+}
+
+.sortedColor, .unsortedColor{
+    display: flex;
+    align-items: center;
+}
+
+#sorted, #unsorted{
+    display: inline-block;
+    margin: 0;
+    margin-right: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    align-items: center;
+}
+
+#sorted{
+    background-color:rgba(97, 137, 47, 1);
+}
+
+#unsorted{
+    background-color: white;
+}
+
 .currentValues{
     text-align: left;
     font-size: 2rem;
