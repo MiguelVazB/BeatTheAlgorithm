@@ -61,6 +61,7 @@
 .currentValues{
     text-align: left;
     font-size: 2rem;
+    margin-bottom: 2rem;
 }
 
 
@@ -101,4 +102,25 @@
 
 .obscureUnselected{
     opacity: 50%;
+}
+
+/* mobile responsiveness */
+
+@media (max-width: 1224px) {
+    .values{
+        width: 1.5rem;
+        height: 1.5rem;
+        padding: 1.5rem;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 860px) {
+    .values{
+        width: 1rem;
+        height: 1rem;
+        padding: 1rem;
+        font-size: 1rem;
+        border-radius: 1rem;
+    }
 }
