@@ -19,7 +19,7 @@ export const ArrowsComponent = ({
           firstValuePos?.y - firstValuePos?.height / 1.8
         }px`;
         arrowRef.current.style.left = `${
-          firstValuePos?.x + firstValuePos?.width / 4
+          firstValuePos?.x + firstValuePos?.width / 6
         }px`;
         arrowRef.current.classList.add("arrowBrowserAnimate");
         arrowRef.current.style.visibility = "visible";
@@ -32,7 +32,7 @@ export const ArrowsComponent = ({
           secondValuePos?.y - secondValuePos?.height / 1.8
         }px`;
         secondArrowRef.current.style.left = `${
-          secondValuePos?.x + secondValuePos?.width / 4
+          secondValuePos?.x + secondValuePos?.width / 6
         }px`;
         secondArrowRef.current.classList.add("arrowBrowserAnimate");
         secondArrowRef.current.style.visibility = "visible";
