@@ -123,6 +123,13 @@ export const SelectionSort = ({
           );
         })}
       </div>
+      {showArrows && (
+        <ArrowsComponent
+          firstArrowPos={firstArrowPosition}
+          secondArrowPos={secondArrowPosition}
+          valuesRef={valuesToSortRef}
+        />
+      )}
       <div className="colorMeanings">
         <div className="sortedColor">
           <div id="sorted"></div>Sorted Values
@@ -131,13 +138,6 @@ export const SelectionSort = ({
           <div id="unsorted"></div>Unsorted Values
         </div>
       </div>
-      {showArrows && (
-        <ArrowsComponent
-          firstArrowPos={firstArrowPosition}
-          secondArrowPos={secondArrowPosition}
-          valuesRef={valuesToSortRef}
-        />
-      )}
       <div className="currentValues">
         <div>Current smallest: {currentSmallest}</div>
       </div>
