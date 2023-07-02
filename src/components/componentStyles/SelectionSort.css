@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
 .values{
@@ -114,12 +115,19 @@
     }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 920px) {
     .userValuesToSort{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         place-items: center;
         row-gap: 1rem;
+    }
+    .userValuesToSort .values{
+        width: 2rem;
+        height: 2rem;
+        padding: 2rem;
+        font-size: 2rem;
+        border-radius: 1.5rem;
     }
     .currentValues{
         font-size: 1.5rem;
