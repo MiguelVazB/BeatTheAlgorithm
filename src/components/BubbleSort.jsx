@@ -117,13 +117,10 @@ export const BubbleSort = ({
       let secondBubblePos =
         bubblesRef.current.children[secondIndex].getBoundingClientRect();
       let distanceX = secondBubblePos.x - firstBubblePos.x;
-      let distanceY = secondBubblePos.y - firstBubblePos.y;
-
       bubblesRef?.current?.children[firstIndex].animate(
         [
           // keyframes
           { transform: `translateX(${distanceX}px)` },
-          { transform: `translateX(${distanceY}px)` },
         ],
         {
           duration: difficulty === "Easy" ? 300 : 100,
@@ -136,7 +133,6 @@ export const BubbleSort = ({
         [
           // keyframes
           { transform: `translateX(${-1 * distanceX}px)` },
-          { transform: `translateX(${-1 * distanceY}px)` },
         ],
         {
           duration: difficulty === "Easy" ? 300 : 100,
