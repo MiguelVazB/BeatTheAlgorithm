@@ -22,6 +22,7 @@
     font-weight: bold;
     font-size: 2rem;
     border-radius: 1.5rem;
+    cursor: not-allowed;
 }
 
 .valueSorted{
@@ -91,6 +92,7 @@
 .userValues{
     background-color: black;
     color: white;
+    cursor: pointer;
 }
 
 .highlightBox{
