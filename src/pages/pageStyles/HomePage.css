@@ -81,11 +81,11 @@
 .ready{
     display: flex;
     flex-direction: column;
-    font-size: 2.1em;
+    font-size: 1.5rem;
     padding: 1em 5em;
     text-align: center;
     align-items: center;
-    margin: 0 1rem;
+    margin: 1rem 1.5rem;
     text-underline-offset: 0.2em;
     background-image: linear-gradient(to left, #202020 , #222629);
     box-shadow: 0px 0px 10px rgba(97, 137, 47, 1);
@@ -98,7 +98,7 @@
 
 .ready .readyQuestion{
     font-weight: bold;
-    font-size: 3rem;
+    font-size: 2rem;
     margin-bottom: 1em;
 }
 
@@ -334,10 +334,10 @@
         font-size: 5.4rem;
     }
     .ready .readyQuestion{
-        font-size: 3.5rem;
+        font-size: 2rem;
     }
     .ready p{
-        font-size: 3rem;
+        font-size: 1.5rem;
     }
 }
 
@@ -346,10 +346,10 @@
         font-size: 4.2rem;
     }
     .ready .readyQuestion{
-        font-size: 4rem;
+        font-size: 2.5rem;
     }
     .ready p{
-        font-size: 3.5rem;
+        font-size: 2rem;
     }
 }
 
@@ -361,10 +361,10 @@
         font-size: 5.6rem;
     }
     .ready .readyQuestion{
-        font-size: 4.5rem;
+        font-size: 3rem;
     }
     .ready p{
-        font-size: 4rem;
+        font-size: 2.5rem;
     }
     .elementBox{
         margin-left: 4.5em;
@@ -380,10 +380,10 @@
         font-size: 7rem;
     }
     .ready .readyQuestion{
-        font-size: 5rem;
+        font-size: 3.5rem;
     }
     .ready p{
-        font-size: 4.5rem;
+        font-size: 3rem;
     }
     .elementBox{
         margin-left: 6em;
@@ -399,10 +399,10 @@
         font-size: 10rem;
     }
     .ready .readyQuestion{
-        font-size: 5.5rem;
+        font-size: 4rem;
     }
     .ready p{
-        font-size: 5rem;
+        font-size: 3.5rem;
     }
     .elementBox{
         margin-left: 7.5em;
