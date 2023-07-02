@@ -57,13 +57,13 @@ export const SelectionSort = ({
 
       switch (difficulty) {
         case "Easy":
-          difficultyTimeInterval = 500;
+          difficultyTimeInterval = 700;
           break;
         case "Intermediate":
-          difficultyTimeInterval = 200;
+          difficultyTimeInterval = 500;
           break;
         case "Hard":
-          difficultyTimeInterval = 100;
+          difficultyTimeInterval = 300;
           break;
         case "Impossible":
           difficultyTimeInterval = 10;
