@@ -3,6 +3,7 @@ import "./pageStyles/SpecificAlgoPage.css";
 import { Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 import BubbleSortImg from "../images/bubble_sort.jpg";
+import SelectionSortImg from "../images/selection_sort.jpg";
 
 export default function SpecificAlgoPage({ algo }) {
   const [algorithm, setAlgorithm] = React.useState("");
@@ -36,6 +37,8 @@ export default function SpecificAlgoPage({ algo }) {
     switch (algo) {
       case "bubble_sort":
         return BubbleSortImg;
+      case "selection_sort":
+        return SelectionSortImg;
     }
   }
 
