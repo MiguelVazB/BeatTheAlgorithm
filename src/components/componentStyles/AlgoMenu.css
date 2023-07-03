@@ -72,6 +72,23 @@
     filter: invert(100%);
 }
 
+.fadeInRight{
+    animation: fadeInRight 0.35s ease-in-out;
+}
+
+/* Animations */
+
+@keyframes fadeInRight{
+    0%{
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 /* menu for mobile */
 @media (max-width: 950px) {
     .algoMenu {

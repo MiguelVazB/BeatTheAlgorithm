@@ -7,7 +7,7 @@ export const AlgoMenu = ({ showMenuClick }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="algoMenu">
+    <div className="algoMenu fadeInRight">
       <img src={Arrow} onClick={showMenuClick} className="goBackArrow" />
       <h1>Algorithms</h1>
       <div className="algoList">
