@@ -23,6 +23,10 @@ function App() {
           path="moreOnAlgorithms/bubble_sort"
           element={<SpecificAlgoPage algo="bubble_sort" />}
         />
+        <Route
+          path="moreOnAlgorithms/selection_sort"
+          element={<SpecificAlgoPage algo="selection_sort" />}
+        />
 
         {/* Paths for algorithms */}
         <Route path="algo" element={<GameLayout algo="bubble_sort" />} />
@@ -34,6 +38,7 @@ function App() {
           path="algo/selection_sort"
           element={<GameLayout algo="selection_sort" />}
         />
+
         <Route path="algo/*" element={<WorkInProgressPage />} />
         <Route path="moreOnAlgorithms/*" element={<WorkInProgressPage />} />
 
