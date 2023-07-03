@@ -3,6 +3,7 @@ import "./pageStyles/GameLayout.css";
 import { generateXRandomNumbers } from "../utils/randomNumbers.jsx";
 import { BubbleSort, BubbleSortUser } from "../components/BubbleSort";
 import { SelectionSort, SelectionSortUser } from "../components/SelectionSort";
+import { HeapSort, HeapSortUser } from "../components/HeapSort";
 import { Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 
@@ -60,6 +61,16 @@ export default function GameLayout({ algo }) {
             winner={winner}
           />
         );
+      case "heap_sort":
+        return (
+          <HeapSort
+            difficulty={difficulty ? difficulty : ""}
+            randomNumbers={randomValues}
+            countDownOver={countDownOver}
+            setWinner={setWinner}
+            winner={winner}
+          />
+        );
     }
   }
 
@@ -76,6 +87,10 @@ export default function GameLayout({ algo }) {
             setWinner={setWinner}
           />
         );
+      case "heap_sort":
+        return (
+          <HeapSortUser randomNumbers={randomValues} setWinner={setWinner} />
+        );
     }
   }
 
@@ -89,7 +104,7 @@ export default function GameLayout({ algo }) {
         setCountDownOver(true);
         clearInterval(countDown);
       }
-    }, 1000); //put it back to 1000 ms = 1 second
+    }, 0); //put it back to 1000 ms = 1 second
   }
 
   function setDifficultyFunction() {
