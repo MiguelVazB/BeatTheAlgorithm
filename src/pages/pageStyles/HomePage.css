@@ -16,9 +16,10 @@
 }
 
 .elementBox p{
+    flex: 1;
     text-align: center;
-    padding: 0.5em;
-    margin: 0;
+    /* padding: 0.5em; */
+    margin: auto;
 }
 
 .elementBox p span{
@@ -318,6 +319,28 @@
         background-image: linear-gradient(to left, #202020 , #222629);
         box-shadow: 0px 0px 20px rgb(27, 49, 1);
         border-radius: 2rem;
+    }
+}
+
+@media (max-width: 410px){
+    .challengeUser p{
+        margin-top: 3em;
+    }
+    .elementBox p{
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 300px){
+    .elementBox{
+        padding: 1rem 3rem;
+    }
+    .challengeUser p{
+        margin-top: 6em;
+    }
+    .elementBox p{
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
     }
 }
 
