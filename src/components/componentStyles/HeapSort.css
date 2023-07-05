@@ -48,3 +48,7 @@
     background-color: green;
     box-shadow: 0px 0px 10px black;
 }
+
+.heapSort .arrowBrowser{
+    height: 3rem;
+}
