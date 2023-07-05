@@ -3,9 +3,11 @@ import React from "react";
 import "./componentStyles/ArrowsComponent.css";
 
 export const ArrowsComponent = ({
-  firstArrowPos,
-  secondArrowPos,
-  valuesRef,
+  firstArrowPos, // position of first arrow
+  secondArrowPos, // position of second arrow
+  valuesRef, // ref to elements
+  xOffset = 4, // offset to move arrow left or right
+  yOffset = 2, // offset to move arrow up and down
 }) => {
   const arrowRef = React.useRef(null);
   const secondArrowRef = React.useRef(null);
@@ -16,10 +18,10 @@ export const ArrowsComponent = ({
         valuesRef.current.children[firstArrowPos]?.getBoundingClientRect();
       if (arrowRef.current) {
         arrowRef.current.style.top = `${
-          firstValuePos?.y - firstValuePos?.height / 2
+          firstValuePos?.y - firstValuePos?.height / yOffset
         }px`;
         arrowRef.current.style.left = `${
-          firstValuePos?.x + firstValuePos?.width / 4
+          firstValuePos?.x + firstValuePos?.width / xOffset
         }px`;
         arrowRef.current.classList.add("arrowBrowserAnimate");
         arrowRef.current.style.visibility = "visible";
@@ -29,10 +31,10 @@ export const ArrowsComponent = ({
         valuesRef.current.children[secondArrowPos]?.getBoundingClientRect();
       if (secondArrowRef.current) {
         secondArrowRef.current.style.top = `${
-          secondValuePos?.y - secondValuePos?.height / 2
+          secondValuePos?.y - secondValuePos?.height / yOffset
         }px`;
         secondArrowRef.current.style.left = `${
-          secondValuePos?.x + secondValuePos?.width / 4
+          secondValuePos?.x + secondValuePos?.width / xOffset
         }px`;
         secondArrowRef.current.classList.add("arrowBrowserAnimate");
         secondArrowRef.current.style.visibility = "visible";
