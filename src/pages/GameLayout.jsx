@@ -23,7 +23,12 @@ export default function GameLayout({ algo }) {
   const difficultyRef = React.useRef(null);
 
   React.useEffect(() => {
-    let randomNumbers = generateXRandomNumbers(9);
+    let randomNumbers;
+    if (algo === "heap_sort") {
+      randomNumbers = generateXRandomNumbers(15);
+    } else {
+      randomNumbers = generateXRandomNumbers(9);
+    }
     setRandomValues(randomNumbers);
   }, []);
 
@@ -104,7 +109,7 @@ export default function GameLayout({ algo }) {
         setCountDownOver(true);
         clearInterval(countDown);
       }
-    }, 1000); //put it back to 1000 ms = 1 second
+    }, 0); //put it back to 1000 ms = 1 second
   }
 
   function setDifficultyFunction() {
