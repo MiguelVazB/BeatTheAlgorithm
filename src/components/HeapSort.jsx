@@ -11,25 +11,94 @@ export const HeapSort = ({
 }) => {
   const [valuesToSort, setValuesToSort] = React.useState([]); // stores original values
   const [circleValues, setCircleValues] = React.useState([]); // stores values being changed
-  const [heapArrValues, setHeapArrValues] = React.useState([]); // stores values for heap array
+  const [lines, setLines] = React.useState([]);
+  const [windowSize, setWindowSize] = React.useState([]);
   const [difficultyTimeInterval, setDifficultyTimeInterval] = React.useState(0);
 
   const [showArrows, setShowArrows] = React.useState(false);
 
   const [startAlgo, setStartAlgo] = React.useState(false);
-  const [showHeap, setShowHeap] = React.useState(false);
+  const winnerRef = React.useRef(winner);
 
   const binaryTreeRef = React.useRef(null);
-  const arrayValuesRef = React.useRef(null);
 
-  const [firstArrowPosition, setFirstArrowPosition] = React.useState(0);
-  const [secondArrowPosition, setSecondArrowPosition] = React.useState(1);
+  const [firstArrowPosition, setFirstArrowPosition] = React.useState(13);
+  const [secondArrowPosition, setSecondArrowPosition] = React.useState(14);
+
+  const [leftAndRightIndices, setLeftAndRightIndices] = React.useState([]);
+
+  // const [circleIndicesClass, setCircleIndicesClass] = React.useState([]);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setWindowSize([window.innerWidth, window.innerHeight]);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   React.useEffect(() => {
     setValuesToSort([...randomNumbers]);
     setCircleValues([...randomNumbers]);
-    setHeapArrValues([...randomNumbers]);
   }, [randomNumbers]);
+
+  React.useEffect(() => {
+    if (circleValues && binaryTreeRef.current) {
+      let updatedLines = [];
+      for (let i = 0; i < valuesToSort.length; i++) {
+        if (i === 0) {
+          const point1 =
+            binaryTreeRef.current.children[0].getBoundingClientRect();
+          const point2 =
+            binaryTreeRef.current.children[1].getBoundingClientRect();
+          const x1 = point1.left + point1.width / 2;
+          const y1 = point1.top + point1.height / 2;
+          const x2 = point2.left + point2.width / 2;
+          const y2 = point2.top + point2.height / 2;
+
+          let xLength = x2 - x1;
+          let yLength = y2 - y1;
+          let hypotenuse = Math.sqrt(xLength ** 2 + yLength ** 2);
+          let angle = Math.sin(yLength / xLength);
+          let angleDegrees = angle * (180 / Math.PI);
+
+          updatedLines.push(
+            <div
+              key={`${x1}-${x2}-${y2}`}
+              style={{
+                position: "absolute",
+                zIndex: -1,
+                right: `${x1}px`,
+                top: `${y2 - y1}px`,
+                width: `${hypotenuse}px`,
+                border: "2px dashed white",
+                transform: `rotate(${angleDegrees}deg)`,
+                transformOrigin: "top right",
+              }}
+            ></div>
+          );
+
+          setLines([...updatedLines]);
+        }
+      }
+      setLines(updatedLines);
+    }
+  }, [circleValues, windowSize]);
+
+  // React.useEffect(() => {
+  //   console.log(circleValues);
+  // }, [circleValues]);
+
+  // React.useEffect(() => {
+  //   if (showArrows) {
+  //     console.log("second = ", secondArrowPosition);
+  //     console.log("first = ", firstArrowPosition);
+  //   }
+  // }, [firstArrowPosition, secondArrowPosition]);
 
   React.useEffect(() => {
     if (difficulty) {
@@ -52,109 +121,185 @@ export const HeapSort = ({
 
   React.useEffect(() => {
     if (countDownOver) {
-      setShowArrows(true);
-      // setShowHeap(true);
       setStartAlgo(true);
+      setInterval(() => {
+        setShowArrows(true);
+      }, difficultyTimeInterval);
     } else {
       setShowArrows(false);
     }
   }, [countDownOver]);
 
-  // Build heap (rearrange array)
   // React.useEffect(() => {
-  //   if (showHeap) {
-  //     let i = parseInt(heapArrValues.length / 2 - 1);
+  //   if (circleIndicesClass.length > 0) {
+  //     let firstIndex = circleIndicesClass[0];
+  //     let secondIndex = circleIndicesClass[1];
+
+  //     let firstCirclePos =
+  //     circleValues.current.children[firstIndex].getBoundingClientRect();
+  //     let secondCirclePos =
+  //     circleValues.current.children[secondIndex].getBoundingClientRect();
+
+  //     if (firstIndex % 2 === 0){
+
+  //     }
+  //     let distanceX = secondCirclePos.x - firstCirclePos.x;
+  //   }
+  // }, [circleIndicesClass]);
+
+  // // maxHeapify function
+  // const maxHeapify = (arr, n, i) => {
+  //   let largest = i;
+  //   let l = 2 * i + 1; //left child index
+  //   let r = 2 * i + 2; //right child index
+
+  //   // console.log("index: ", arr[i]);
+  //   setFirstArrowPosition(i);
+
+  //   if (l < n) {
+  //     // console.log("left: ", arr[l]);
+  //     setTimeout(() => {
+  //       setSecondArrowPosition(l);
+  //     }, difficultyTimeInterval / 2);
+  //   }
+  //   if (l < n && arr[l] > arr[largest]) {
+  //     largest = l;
+  //   }
+
+  //   if (r < n) {
+  //     setTimeout(() => {
+  //       setFirstArrowPosition(i);
+  //       setSecondArrowPosition(r);
+  //     }, difficultyTimeInterval / 2);
+  //     // console.log("right: ", arr[r]);
+  //   }
+  //   if (r < n && arr[r] > arr[largest]) {
+  //     largest = r;
+  //   }
+
+  //   if (largest !== i) {
+  //     console.log(`swapping ${arr[i]} and ${arr[largest]}`);
+  //     setFirstArrowPosition(largest);
+  //     setSecondArrowPosition(i);
+  //     let temp = arr[i];
+  //     arr[i] = arr[largest];
+  //     arr[largest] = temp;
+  //     setCircleValues([...arr]);
+
+  //     // Recursively heapify
+  //     setTimeout(() => {
+  //       maxHeapify(arr, n, largest);
+  //       setCircleValues([...arr]);
+  //     }, 0);
+  //   }
+  // };
+
+  // // heap sort algorithm
+  // React.useEffect(() => {
+  //   if (startAlgo) {
+  //     let arrayLength = randomNumbers.length;
+
+  //     let updatedValues = [...valuesToSort];
+
+  //     // Build heap
+  //     let i = parseInt(arrayLength / 2 - 1);
 
   //     const buildHeapInterval = setInterval(() => {
+  //       const currentWinner = winnerRef.current;
   //       if (i >= 0) {
-  //         maxHeapify(heapArrValues, heapArrValues.length, i);
+  //         maxHeapify(updatedValues, arrayLength, i);
+  //         if (currentWinner === "user") {
+  //           setShowArrows(false);
+  //           clearInterval(buildHeapInterval);
+  //         }
   //         i--;
   //       } else {
   //         console.log("build done!");
   //         clearInterval(buildHeapInterval);
-  //         setCircleValues([...heapArrValues]);
-  //         setStartAlgo(true);
+  //         let j = arrayLength - 1;
+  //         if (currentWinner === "user") {
+  //           setShowArrows(false);
+  //           clearInterval(buildHeapInterval);
+  //         }
+  //         const extractInterval = setInterval(() => {
+  //           const currentWinner = winnerRef.current;
+  //           if (currentWinner === "user") {
+  //             setShowArrows(false);
+  //             clearInterval(buildHeapInterval);
+  //           }
+
+  //           if (j >= 0) {
+  //             // Move current root to end
+  //             setTimeout(() => {
+  //               setFirstArrowPosition(j);
+  //             }, difficultyTimeInterval / 2);
+  //             setTimeout(() => {
+  //               setSecondArrowPosition(0);
+  //             }, difficultyTimeInterval / 2);
+  //             let indices = [];
+  //             indices.push(0);
+  //             indices.push(j);
+  //             setCircleIndicesClass(indices);
+  //             let temp = updatedValues[0];
+  //             updatedValues[0] = updatedValues[j];
+  //             updatedValues[j] = temp;
+
+  //             // Call max heapify on the reduced heap
+  //             setTimeout(() => {
+  //               maxHeapify(updatedValues, j, 0);
+  //               setCircleValues([...updatedValues]);
+  //             }, difficultyTimeInterval);
+
+  //             j--;
+  //           } else {
+  //             setShowArrows(false);
+  //             clearInterval(extractInterval);
+  //             setStartAlgo(false);
+  //             setWinner("computer");
+  //           }
+  //         }, difficultyTimeInterval);
+  //         winnerRef.current = winner;
   //       }
   //     }, difficultyTimeInterval);
+  //     winnerRef.current = winner;
   //   }
-  // }, [showHeap]);
+  // }, [startAlgo, winner]);
 
-  // maxHeapify function
-  const maxHeapify = (arr, n, i) => {
-    let largest = i;
-    let l = 2 * i + 1; //left child index
-    let r = 2 * i + 2; //right child index
+  // heap sort algorithm
 
-    console.log("index: ", arr[i]);
-    setFirstArrowPosition(i);
+  function heapify(array, size, index) {
+    let top = array[index];
+    let larger;
 
-    if (l < n) {
-      console.log("left: ", arr[l]);
-      setSecondArrowPosition(l);
+    while (index < size / 2) {
+      let left = 2 * index + 1;
+      let right = 2 * index + 2;
+      if (right < size && array[right] > array[left]) larger = right;
+      else larger = left;
+      if (top >= array[larger]) break;
+      console.log("index: ", array[index]);
+      console.log("l: ", array[left]);
+      console.log("r: ", array[right]);
+      array[index] = array[larger];
+      index = larger;
+      console.log("***");
     }
-    if (l < n && arr[l] > arr[largest]) {
-      // console.log("left: ", l);
-      largest = l;
-    }
+    array[index] = top;
+  }
 
-    if (r < n) {
-      setSecondArrowPosition(r);
-      console.log("right: ", arr[r]);
-    }
-    if (r < n && arr[r] > arr[largest]) {
-      // console.log("right: ", r);
-      largest = r;
-    }
-
-    if (largest != i) {
-      console.log(`swapping ${arr[i]} and ${arr[largest]}`);
-      setFirstArrowPosition(largest);
-      setSecondArrowPosition(i);
-      let temp = arr[i];
-      arr[i] = arr[largest];
-      arr[largest] = temp;
-
-      // Recursively heapify
-      maxHeapify(arr, n, largest);
-    }
-    // setCircleValues([...arr]);
-  };
-
-  // extract element from heap one by one
   React.useEffect(() => {
     if (startAlgo) {
-      let arrayLength = randomNumbers.length;
+      let valuesArray = [...valuesToSort];
+      let arrayLength = valuesArray.length;
 
-      let updatedValues = [...valuesToSort];
-
-      // Build heap
       let i = parseInt(arrayLength / 2 - 1);
 
-      const buildHeapInterval = setInterval(() => {
+      const makeMaxHeap = setInterval(() => {
         if (i >= 0) {
-          maxHeapify(updatedValues, arrayLength, i);
+          heapify(valuesArray, arrayLength, i);
           i--;
         } else {
-          console.log("build done!");
-          clearInterval(buildHeapInterval);
-          let j = arrayLength - 1;
-          const extractInterval = setInterval(() => {
-            if (j >= 0) {
-              // Move current root to end
-              let temp = updatedValues[0];
-              updatedValues[0] = updatedValues[j];
-              updatedValues[j] = temp;
-
-              // Call max heapify on the reduced heap
-              maxHeapify(updatedValues, j, 0);
-
-              j--;
-            } else {
-              clearInterval(extractInterval);
-              console.log(updatedValues);
-              // setCircleValues([...updatedValues]);
-            }
-          }, difficultyTimeInterval);
+          clearInterval(makeMaxHeap);
         }
       }, difficultyTimeInterval);
     }
@@ -164,11 +309,9 @@ export const HeapSort = ({
     <div className="heapSort">
       <div className="originalValues">
         <div>Original Values:</div>
-        <div ref={arrayValuesRef} className="heapBuildValues">
-          {heapArrValues.map((value, index) => {
-            return <div key={`${value} ${index}`}>{value}</div>;
-          })}
-        </div>
+        {valuesToSort.map((value, index) => {
+          return <div key={`${value} ${index}`}>{value}</div>;
+        })}
       </div>
       <div ref={binaryTreeRef} className="binaryTree">
         {circleValues.map((value, index) => {
@@ -182,13 +325,14 @@ export const HeapSort = ({
           );
         })}
       </div>
+      {lines}
       {showArrows && (
         <ArrowsComponent
           firstArrowPos={firstArrowPosition}
           secondArrowPos={secondArrowPosition}
-          valuesRef={startAlgo ? binaryTreeRef : arrayValuesRef}
-          xOffset={startAlgo ? 6 : 20}
-          yOffset={startAlgo ? 2 : 1.5}
+          valuesRef={binaryTreeRef}
+          xOffset={6}
+          yOffset={0.7}
         />
       )}
     </div>
