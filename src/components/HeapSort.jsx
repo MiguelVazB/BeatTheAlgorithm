@@ -47,28 +47,38 @@ export const HeapSort = ({
   }, [randomNumbers]);
 
   React.useEffect(() => {
+    function getHypotenuseAndAngle(x1, y1, x2, y2) {
+      let xLength = x2 - x1;
+      let yLength = y2 - y1;
+      let hypotenuse = Math.sqrt(xLength ** 2 + yLength ** 2);
+      let angle = Math.tan(yLength / xLength);
+      let angleDegrees = angle * (180 / Math.PI);
+      return [hypotenuse, angleDegrees];
+    }
+
     if (circleValues && binaryTreeRef.current) {
       let updatedLines = [];
-      for (let i = 0; i < valuesToSort.length; i++) {
+      for (let i = 0; i < circleValues.length; i++) {
         if (i === 0) {
-          const point1 =
+          let point1 =
             binaryTreeRef.current.children[0].getBoundingClientRect();
-          const point2 =
+          let point2 =
             binaryTreeRef.current.children[1].getBoundingClientRect();
-          const x1 = point1.left + point1.width / 2;
-          const y1 = point1.top + point1.height / 2;
-          const x2 = point2.left + point2.width / 2;
-          const y2 = point2.top + point2.height / 2;
+          let x1 = point1.left + point1.width / 2;
+          let y1 = point1.top + point1.height / 2;
+          let x2 = point2.left + point2.width / 2;
+          let y2 = point2.top + point2.height / 2;
 
-          let xLength = x2 - x1;
-          let yLength = y2 - y1;
-          let hypotenuse = Math.sqrt(xLength ** 2 + yLength ** 2);
-          let angle = Math.sin(yLength / xLength);
-          let angleDegrees = angle * (180 / Math.PI);
+          let [hypotenuse, angleDegrees] = getHypotenuseAndAngle(
+            x1,
+            y1,
+            x2,
+            y2
+          );
 
           updatedLines.push(
             <div
-              key={`${x1}-${x2}-${y2}`}
+              key={`${i}${x1}-${x2}-${y2}`}
               style={{
                 position: "absolute",
                 zIndex: -1,
@@ -82,10 +92,84 @@ export const HeapSort = ({
             ></div>
           );
 
-          setLines([...updatedLines]);
+          point2 = binaryTreeRef.current.children[2].getBoundingClientRect();
+          x2 = point2.left + point2.width / 2;
+          y2 = point2.top + point2.height / 2;
+
+          [hypotenuse, angleDegrees] = getHypotenuseAndAngle(x1, y1, x2, y2);
+
+          updatedLines.push(
+            <div
+              key={`${i}${x1}-${x2}-${y2}`}
+              style={{
+                position: "absolute",
+                zIndex: -1,
+                left: `${x1}px`,
+                top: `${y2 - y1}px`,
+                width: `${hypotenuse}px`,
+                border: "2px dashed white",
+                transform: `rotate(${angleDegrees}deg)`,
+                transformOrigin: "top left",
+              }}
+            ></div>
+          );
+        } else if (i === 1) {
+          let point1 =
+            binaryTreeRef.current.children[1].getBoundingClientRect();
+          let point2 =
+            binaryTreeRef.current.children[3].getBoundingClientRect();
+          let x1 = point1.left + point1.width / 2;
+          let y1 = point1.top + point1.height / 2;
+          let x2 = point2.left + point2.width / 2;
+          let y2 = point2.top + point2.height / 2;
+
+          let [hypotenuse, angleDegrees] = getHypotenuseAndAngle(
+            x1,
+            y1,
+            x2,
+            y2
+          );
+
+          updatedLines.push(
+            <div
+              key={`${i}${x1}-${x2}-${y2}`}
+              style={{
+                position: "absolute",
+                zIndex: -1,
+                left: `${x2 - 30}px`,
+                bottom: `${y1 - 60}px`,
+                width: `${hypotenuse}px`,
+                border: "2px dashed white",
+                transform: `rotate(${angleDegrees}deg)`,
+                transformOrigin: "top left",
+              }}
+            ></div>
+          );
+
+          point2 = binaryTreeRef.current.children[4].getBoundingClientRect();
+          x2 = point2.left + point2.width / 2;
+          y2 = point2.top + point2.height / 2;
+
+          [hypotenuse, angleDegrees] = getHypotenuseAndAngle(x1, y1, x2, y2);
+
+          updatedLines.push(
+            <div
+              key={`${i}${x1}-${x2}-${y2}`}
+              style={{
+                position: "absolute",
+                zIndex: -1,
+                right: `${x2 - x1 - 60}px`,
+                bottom: `${y1 - 60}px`,
+                width: `${hypotenuse}px`,
+                border: "2px dashed white",
+                transform: `rotate(${angleDegrees}deg)`,
+                transformOrigin: "top right",
+              }}
+            ></div>
+          );
         }
       }
-      setLines(updatedLines);
+      setLines([...updatedLines]);
     }
   }, [circleValues, windowSize]);
 
