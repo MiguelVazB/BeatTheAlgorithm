@@ -83,7 +83,7 @@ export const HeapSort = ({
                 position: "absolute",
                 zIndex: -1,
                 right: `${x1}px`,
-                top: `${y2 - y1}px`,
+                top: `${y1 - 160}px`,
                 width: `${hypotenuse}px`,
                 border: "2px dashed white",
                 transform: `rotate(${angleDegrees}deg)`,
@@ -105,7 +105,7 @@ export const HeapSort = ({
                 position: "absolute",
                 zIndex: -1,
                 left: `${x1}px`,
-                top: `${y2 - y1}px`,
+                top: `${y1 - 160}px`,
                 width: `${hypotenuse}px`,
                 border: "2px dashed white",
                 transform: `rotate(${angleDegrees}deg)`,
@@ -113,65 +113,131 @@ export const HeapSort = ({
               }}
             ></div>
           );
-        } else if (i === 1) {
-          let point1 =
-            binaryTreeRef.current.children[1].getBoundingClientRect();
-          let point2 =
-            binaryTreeRef.current.children[3].getBoundingClientRect();
-          let x1 = point1.left + point1.width / 2;
-          let y1 = point1.top + point1.height / 2;
-          let x2 = point2.left + point2.width / 2;
-          let y2 = point2.top + point2.height / 2;
+        } else {
+          if (2 * i + 1 < circleValues.length) {
+            var point1 =
+              binaryTreeRef.current.children[i].getBoundingClientRect();
+            var point2 =
+              binaryTreeRef.current.children[2 * i + 1].getBoundingClientRect();
+            var x1 = point1.left + point1.width;
+            var y1 = point1.top + point1.height / 2;
+            var x2 = point2.left + point2.width / 2;
+            var y2 = point2.top + point2.height / 2;
 
-          let [hypotenuse, angleDegrees] = getHypotenuseAndAngle(
-            x1,
-            y1,
-            x2,
-            y2
-          );
+            console.log(binaryTreeRef.current.children[1]);
+            console.log(binaryTreeRef.current.children[3]);
 
-          updatedLines.push(
-            <div
-              key={`${i}${x1}-${x2}-${y2}`}
-              style={{
-                position: "absolute",
-                zIndex: -1,
-                left: `${x2 - 30}px`,
-                bottom: `${y1 - 60}px`,
-                width: `${hypotenuse}px`,
-                border: "2px dashed white",
-                transform: `rotate(${angleDegrees}deg)`,
-                transformOrigin: "top left",
-              }}
-            ></div>
-          );
+            var [hypotenuse, angleDegrees] = getHypotenuseAndAngle(
+              x1,
+              y1,
+              x2,
+              y2
+            );
 
-          point2 = binaryTreeRef.current.children[4].getBoundingClientRect();
-          x2 = point2.left + point2.width / 2;
-          y2 = point2.top + point2.height / 2;
+            updatedLines.push(
+              <div
+                key={`${i}${x1}-${x2}-${y2}`}
+                style={{
+                  position: "absolute",
+                  zIndex: -1,
+                  left: `${x2}px`,
+                  top: `${y2 - 160}px`,
+                  width: `${hypotenuse - 70}px`,
+                  border: "2px dashed white",
+                  transform: `rotate(${angleDegrees}deg)`,
+                  transformOrigin: "top left",
+                }}
+              ></div>
+            );
+          }
 
-          [hypotenuse, angleDegrees] = getHypotenuseAndAngle(x1, y1, x2, y2);
+          if (2 * i + 2 < circleValues.length) {
+            point2 =
+              binaryTreeRef.current.children[2 * i + 2].getBoundingClientRect();
+            x2 = point2.left + point2.width;
+            y2 = point2.top + point2.height / 3;
 
-          updatedLines.push(
-            <div
-              key={`${i}${x1}-${x2}-${y2}`}
-              style={{
-                position: "absolute",
-                zIndex: -1,
-                right: `${x2 - x1 - 60}px`,
-                bottom: `${y1 - 60}px`,
-                width: `${hypotenuse}px`,
-                border: "2px dashed white",
-                transform: `rotate(${angleDegrees}deg)`,
-                transformOrigin: "top right",
-              }}
-            ></div>
-          );
+            [hypotenuse, angleDegrees] = getHypotenuseAndAngle(x1, y1, x2, y2);
+
+            updatedLines.push(
+              <div
+                key={`${i}${x1}-${x2}-${y2}`}
+                style={{
+                  position: "absolute",
+                  zIndex: -1,
+                  left: `${x1 - 25}px`,
+                  top: `${y2 - 200}px`,
+                  width: `${hypotenuse - 10}px`,
+                  border: "2px dashed white",
+                  transform: `rotate(${angleDegrees}deg)`,
+                  transformOrigin: "top left",
+                }}
+              ></div>
+            );
+          }
         }
+        // } else if (i === 2) {
+        //   let point1 =
+        //     binaryTreeRef.current.children[2].getBoundingClientRect();
+        //   let point2 =
+        //     binaryTreeRef.current.children[5].getBoundingClientRect();
+        //   let x1 = point1.left + point1.width / 2;
+        //   let y1 = point1.top + point1.height / 2;
+        //   let x2 = point2.left + point2.width / 2;
+        //   let y2 = point2.top + point2.height / 2;
+
+        //   console.log(binaryTreeRef.current.children[1]);
+        //   console.log(binaryTreeRef.current.children[3]);
+
+        //   let [hypotenuse, angleDegrees] = getHypotenuseAndAngle(
+        //     x1,
+        //     y1,
+        //     x2,
+        //     y2
+        //   );
+
+        //   updatedLines.push(
+        //     <div
+        //       key={`${i}${x1}-${x2}-${y2}`}
+        //       style={{
+        //         position: "absolute",
+        //         zIndex: -1,
+        //         left: `${x2}px`,
+        //         top: `${y2 / 2.4}px`,
+        //         width: `${hypotenuse}px`,
+        //         border: "2px dashed white",
+        //         transform: `rotate(${angleDegrees}deg)`,
+        //         transformOrigin: "center",
+        //       }}
+        //     ></div>
+        //   );
+
+        //   point2 = binaryTreeRef.current.children[6].getBoundingClientRect();
+        //   x2 = point2.left + point2.width / 2;
+        //   y2 = point2.top + point2.height / 2;
+
+        //   [hypotenuse, angleDegrees] = getHypotenuseAndAngle(x1, y1, x2, y2);
+
+        //   updatedLines.push(
+        //     <div
+        //       key={`${i}${x1}-${x2}-${y2}`}
+        //       style={{
+        //         position: "absolute",
+        //         zIndex: -1,
+        //         left: `${x1}px`,
+        //         top: `${y2 / 2.8}px`,
+        //         width: `${hypotenuse}px`,
+        //         border: "2px dashed white",
+        //         transform: `rotate(${angleDegrees}deg)`,
+        //         transformOrigin: "top left",
+        //       }}
+        //     ></div>
+        //   );
+        // }
       }
       setLines([...updatedLines]);
     }
-  }, [circleValues, windowSize]);
+  }, [circleValues, windowSize, binaryTreeRef]);
 
   // React.useEffect(() => {
   //   console.log(circleValues);
