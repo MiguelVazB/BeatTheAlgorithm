@@ -1,18 +1,20 @@
 .heapSort{
     flex: 1;
+    overflow-x: auto;
+    overflow-y: visible;
     display: flex;
     flex-direction: column;
     position: relative;
-    justify-content: center;
 }
 
 .originalValues{
     display: flex;
     column-gap: 0.5rem;
     font-size: 1.2rem;
+    align-items: center;
 }
 
-.binaryTree {
+/* .binaryTree {
     display: grid;
     grid-template-columns: repeat(15, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -34,12 +36,12 @@
 .circleValue11 { grid-area: 4 / 9 / 5 / 10; }
 .circleValue12 { grid-area: 4 / 11 / 5 / 12; }
 .circleValue13 { grid-area: 4 / 13 / 5 / 14; }
-.circleValue14 { grid-area: 4 / 15 / 5 / 16; }
+.circleValue14 { grid-area: 4 / 15 / 5 / 16; } */
 
-/* .binaryTree{
+.binaryTree{
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(12, 0.9fr);
+    grid-template-rows: repeat(4, 0.5fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
 }
@@ -58,19 +60,19 @@
 .circleValue11 { grid-area: 4 / 5 / 5 / 10; }
 .circleValue12 { grid-area: 4 / 7 / 5 / 12; }
 .circleValue13 { grid-area: 4 / 8 / 5 / 14; }
-.circleValue14 { grid-area: 4 / 12 / 5 / 16; } */
+.circleValue14 { grid-area: 4 / 12 / 5 / 16; }
 
 .circleValue{
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0.1rem;
-    width: 5.2rem;
-    height: 5.2rem;
+    width: 5rem;
+    height: 5rem;
     place-self: center;
     border-radius: 100%;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 2.2rem;
     background-color: green;
     box-shadow: 0px 0px 10px black;
 }
@@ -79,12 +81,110 @@
     height: 3rem;
 }
 
-@media (max-width: 960px){
+@media (max-width: 1100px){
     .circleValue{
         background-color: red;
-        padding: 1rem;
+        padding: 0.2rem;
+        width: 4rem;
+        height: 4rem;
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 900px){
+    .heapSort{
+        justify-content: space-evenly;
+    }
+    .circleValue{
+        padding: 0.1rem;
+        background-color: aqua;
+        width: 3.5rem;
+        height: 3.5rem;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 780px) {
+    .circleValue{
+        background-color: purple;
+        padding: 0.1rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.2rem;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .circleValue{
+        background-color: pink;
+        padding: 0.2rem;
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 510px) {
+    .circleValue{
+        background-color: gray;
+        padding: 0.2rem;
+        width: 1.2rem;
+        height: 1.2rem;
+        font-size: 1rem;
+    }
+    .originalValues{
+        column-gap: 0.2rem;
+        font-size: 1rem;
+        margin-bottom: 4rem;
+        justify-content: space-between;
+    }
+    .originalValues .orValues{
+        flex: 1;
+        font-size: 0.8rem;
+        text-align: center;
+    }
+    .originalValues div{
+        text-align: center;
+    }
+}
+
+@media (max-width: 388px) {
+    .circleValue{
+        background-color: blue;
+        padding: 0.2rem;
         width: 1rem;
         height: 1rem;
-        font-size: 1rem;
+        font-size: 0.6rem;
+    }
+    .originalValues{
+        font-size: 0.8rem;
+        margin-bottom: 4rem;
+        justify-content: space-between;
+    }
+    .originalValues .orValues{
+        flex: 1;
+        font-size: 0.6rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 388px) {
+    .circleValue{
+        background-color: brown;
+        padding: 0.4rem;
+        width: 0.5rem;
+        height: 0.5rem;
+        font-size: 0.5rem;
+    }
+    .originalValues{
+        font-size: 0.8rem;
+        margin-bottom: 4rem;
+        justify-content: space-between;
+    }
+    .originalValues .orValues{
+        flex: 1;
+        font-size: 0.6rem;
+        text-align: center;
     }
 }
