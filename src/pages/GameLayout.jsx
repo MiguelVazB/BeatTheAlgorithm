@@ -214,7 +214,11 @@ export default function GameLayout({ algo }) {
           })}
         <span>{difficulty ? `(${difficulty})` : ""}</span>
       </h1>
-      <div className="computerSide">{getComputerSideComponent()}</div>
+      <div
+        className={algo === "heap_sort" ? "computerSideBigger" : "computerSide"}
+      >
+        {getComputerSideComponent()}
+      </div>
       <div className="userSide">{getUserSideComponent()}</div>
     </main>
   );
