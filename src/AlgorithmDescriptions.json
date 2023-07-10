@@ -23,7 +23,7 @@
     },
     "selection_sort": {
         "description": "Selection sort is a way to put numbers in order. You find the smallest number and put it in the first position. Then, you find the next smallest number and put it in the second position. Repeat this until all the numbers are sorted.",
-        "instructions": "Select a number by clicking it. This will select the value and you can put it in the correct box. Put them in the right order (from smallest to biggest) and Beat the Algorithm! The Reset button deletes your current attempt. Choose a difficulty and press start. Good Luck!",
+        "instructions": "Select a number by clicking it. This will select the value and you can put it in the correct box. Put them in the right order (from smallest to biggest) and Beat the Algorithm! Choose a difficulty and press start. Good Luck!",
         "difficulty": {
             "easy": "Easy makes each move of the algorithm to take 700 ms or 7/10 of a second.",
             "intermediate": "Intermediate makes each move of the algorithm to take 500 ms or 1/2 of a second.",
@@ -40,6 +40,30 @@
                 "step5": "Repeat steps 2-4 until the entire list is sorted."
             },
             "timeComplexity": "Selection sort has a time complexity of O(n^2) in the average and worst cases, where n is the number of elements in the list. Similar to bubble sort, it is not considered an efficient sorting algorithm for large lists. But, it is considered more efficient than bubble sort because of the number of swaps done by each."
+        }
+    },
+    "heap_sort": {
+        "description": "Heap sort puts numbers in order. It builds a special structure called a heap, where the biggest number is at the top. It swaps the biggest number with the last number, then fixes the heap. Repeat this process until all the numbers are sorted.",
+        "instructions": "Select a number by clicking it. This will select the value and you can put it in the correct box. If there is a value in that box, that value will be put into the selection box. Put them in the right order (from smallest to biggest) and Beat the Algorithm! Choose a difficulty and press start. Good Luck!",
+        "difficulty": {
+            "easy": "Easy makes each move of the algorithm to take 3 seconds.",
+            "intermediate": "Intermediate makes each move of the algorithm to take 2 seconds.",
+            "hard": "Hard makes each move of the algorithm to take 1 second.",
+            "impossible": "Impossible makes each move of the algorithm to take 100 ms or 1/10 of a second."
+        },
+        "detailedDescription": {
+            "simpleExplanation": "Heap sort is a comparison-based sorting algorithm that uses a binary heap data structure to sort elements. It involves two main steps: building a heap and repeatedly extracting the maximum element from the heap to place it in the sorted part of the list.", 
+            "steps": {
+                "step1": "Start with an unsorted list of elements.",
+                "step2": "Build a max heap from the list. This involves rearranging the elements so that they satisfy the heap property, where each parent node is greater than or equal to its child nodes. 1) To build the max heap, we start from the last non-leaf node and perform a \"heapify\" operation on each node, working backwards towards the root. 2) \"Heapify\" compares the node with its left and right child nodes, and if necessary, swaps the node with the larger child. This process is repeated recursively until the heap property is satisfied.",
+                "step3": "Once the max heap is built, the largest element will be at the root of the heap.",
+                "step4": "Swap the root element (the maximum) with the last element in the unsorted part of the list.",
+                "step5": "Decrease the heap size by 1 to exclude the sorted element from future consideration.",
+                "step6": "Perform a \"heapify\" operation on the new root element to maintain the heap property.",
+                "step7": "Repeat steps 4-6 until the heap size becomes 1.",
+                "step8": "The sorted list is obtained by reversing the elements obtained in step 4-7."
+            },
+            "timeComplexity": "Heap sort has a time complexity of O(n log n) in all cases, where n is the number of elements in the list. It is an efficient sorting algorithm, especially for large lists, but it requires additional space to store the heap structure."
         }
     }
 }
