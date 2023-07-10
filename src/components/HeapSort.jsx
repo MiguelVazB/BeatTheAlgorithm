@@ -438,10 +438,16 @@ export const HeapSort = ({
             setCircleValues([...valuesArray]);
             iteration++;
           } else {
-            setWinner("computer");
-            setStartAlgo(false);
-            clearInterval(interval);
-            setShowArrows(false);
+            if (currentWinner === "user") {
+              setStartAlgo(false);
+              clearInterval(interval);
+              setShowArrows(false);
+            } else {
+              setWinner("computer");
+              setStartAlgo(false);
+              clearInterval(interval);
+              setShowArrows(false);
+            }
           }
         }
       }, difficultyTimeInterval);
