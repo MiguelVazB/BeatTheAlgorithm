@@ -12,30 +12,6 @@
     align-items: center;
 }
 
-/* .binaryTree {
-    display: grid;
-    grid-template-columns: repeat(15, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-}
-    
-.circleValue0 { grid-area: 1 / 8 / 2 / 9; }
-.circleValue1 { grid-area: 2 / 4 / 3 / 5; }
-.circleValue2 { grid-area: 2 / 12 / 3 / 13; }
-.circleValue3 { grid-area: 3 / 2 / 4 / 3; }
-.circleValue4 { grid-area: 3 / 6 / 4 / 7; }
-.circleValue5 { grid-area: 3 / 10 / 4 / 11; }
-.circleValue6 { grid-area: 3 / 14 / 4 / 15; }
-.circleValue7 { grid-area: 4 / 1 / 5 / 2; }
-.circleValue8 { grid-area: 4 / 3 / 5 / 4; }
-.circleValue9 { grid-area: 4 / 5 / 5 / 6; }
-.circleValue10 { grid-area: 4 / 7 / 5 / 8; }
-.circleValue11 { grid-area: 4 / 9 / 5 / 10; }
-.circleValue12 { grid-area: 4 / 11 / 5 / 12; }
-.circleValue13 { grid-area: 4 / 13 / 5 / 14; }
-.circleValue14 { grid-area: 4 / 15 / 5 / 16; } */
-
 .binaryTree{
     margin-bottom: 2rem;
     display: grid;
