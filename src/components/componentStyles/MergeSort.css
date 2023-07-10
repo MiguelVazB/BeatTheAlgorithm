@@ -1,0 +1,26 @@
+.mergeSort{
+    display: flex;
+    flex: 1;
+}
+
+.valuesToSortContainer{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mergeSort .valueToSort{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    font-size: 2rem;
+    height: 4rem;
+    width: 4rem;
+    background-color: white;
+    color: black;
+    border-radius: 0;
+    border: 1px dashed black;
+    background-image: none;
+}
