@@ -24,6 +24,19 @@ export default function AlgorithmsPage() {
     <main className="algoPage">
       {displayAlgo &&
         algorithmsToDisplay.map((algorithm) => {
+          let algoEmoji;
+          switch (algorithm) {
+            case "bubble_sort":
+              algoEmoji = "🫧";
+              break;
+            case "selection_sort":
+              algoEmoji = "☐☑";
+              break;
+            case "heap_sort":
+              algoEmoji = "🌳";
+              break;
+          }
+
           let bubbleSort =
             AlgorithmDescriptions[algorithm]?.detailedDescription;
           return (
@@ -31,6 +44,7 @@ export default function AlgorithmsPage() {
               <div className="name">
                 {String(algorithm)
                   .split("_")
+                  .concat(algoEmoji ? algoEmoji : "")
                   .map((x) => {
                     return x.charAt(0).toUpperCase() + x.slice(1) + " ";
                   })}
