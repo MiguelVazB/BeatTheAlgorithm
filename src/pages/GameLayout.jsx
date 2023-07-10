@@ -4,6 +4,7 @@ import { generateXRandomNumbers } from "../utils/randomNumbers.jsx";
 import { BubbleSort, BubbleSortUser } from "../components/BubbleSort";
 import { SelectionSort, SelectionSortUser } from "../components/SelectionSort";
 import { HeapSort, HeapSortUser } from "../components/HeapSort";
+import { MergeSort, MergeSortUser } from "../components/MergeSort";
 import { Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 
@@ -26,6 +27,8 @@ export default function GameLayout({ algo }) {
     let randomNumbers;
     if (algo === "heap_sort") {
       randomNumbers = generateXRandomNumbers(15);
+    } else if (algo === "merge_sort") {
+      randomNumbers = generateXRandomNumbers(8);
     } else {
       randomNumbers = generateXRandomNumbers(9);
     }
@@ -76,6 +79,16 @@ export default function GameLayout({ algo }) {
             winner={winner}
           />
         );
+      case "merge_sort":
+        return (
+          <MergeSort
+            difficulty={difficulty ? difficulty : ""}
+            randomNumbers={randomValues}
+            countDownOver={countDownOver}
+            setWinner={setWinner}
+            winner={winner}
+          />
+        );
     }
   }
 
@@ -95,6 +108,10 @@ export default function GameLayout({ algo }) {
       case "heap_sort":
         return (
           <HeapSortUser randomNumbers={randomValues} setWinner={setWinner} />
+        );
+      case "merge_sort":
+        return (
+          <MergeSortUser randomNumbers={randomValues} setWinner={setWinner} />
         );
     }
   }
