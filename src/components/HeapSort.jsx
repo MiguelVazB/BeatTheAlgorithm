@@ -197,16 +197,16 @@ export const HeapSort = ({
     if (difficulty) {
       switch (difficulty) {
         case "Easy":
-          setDifficultyTimeInterval(2000);
+          setDifficultyTimeInterval(3000);
           break;
         case "Intermediate":
-          setDifficultyTimeInterval(200);
+          setDifficultyTimeInterval(2000);
           break;
         case "Hard":
-          setDifficultyTimeInterval(100);
+          setDifficultyTimeInterval(1000);
           break;
         case "Impossible":
-          setDifficultyTimeInterval(10);
+          setDifficultyTimeInterval(100);
           break;
       }
     }
@@ -486,13 +486,24 @@ export const HeapSort = ({
 export const HeapSortUser = ({ randomNumbers, setWinner }) => {
   const [userValues, setUserValues] = React.useState([]);
   const [selectedValue, setSelectedValue] = React.useState("");
+  const [valuesSorted, setValuesSorted] = React.useState([]);
 
   const valuesToSortRef = React.useRef(null);
   const selectedValueRef = React.useRef(null);
 
   React.useEffect(() => {
     setUserValues(randomNumbers);
+    let correctAnswer = [...randomNumbers];
+    setValuesSorted(correctAnswer.sort((a, b) => a - b));
   }, [randomNumbers]);
+
+  React.useEffect(() => {
+    if (userValues.length > 0 && userValues.length === randomNumbers.length) {
+      if (JSON.stringify(userValues) == JSON.stringify(valuesSorted)) {
+        setWinner("user");
+      }
+    }
+  }, [userValues]);
 
   React.useEffect(() => {
     if (selectedValue) {
