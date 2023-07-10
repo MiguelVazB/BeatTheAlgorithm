@@ -485,16 +485,61 @@ export const HeapSort = ({
 
 export const HeapSortUser = ({ randomNumbers, setWinner }) => {
   const [userValues, setUserValues] = React.useState([]);
+  const [selectedValue, setSelectedValue] = React.useState("");
+
+  const valuesToSortRef = React.useRef(null);
+  const selectedValueRef = React.useRef(null);
 
   React.useEffect(() => {
     setUserValues(randomNumbers);
   }, [randomNumbers]);
 
+  React.useEffect(() => {
+    if (selectedValue) {
+      selectedValueRef?.current?.classList.remove("nonHighlightSelectedValue");
+    } else {
+      selectedValueRef?.current?.classList.add("nonHighlightSelectedValue");
+    }
+  }, [selectedValue]);
+
+  function selectValueFunction(index, value) {
+    let tempArray = [...userValues];
+    if (selectedValue === "") {
+      tempArray[index] = "";
+      setUserValues([...tempArray]);
+      setSelectedValue(value);
+    } else {
+      let valueInBox = selectedValue;
+      setSelectedValue(value);
+      tempArray[index] = valueInBox;
+      setUserValues([...tempArray]);
+    }
+  }
+
   return (
     <div className="heapSortUser">
-      {userValues.map((value, index) => {
-        return <div key={`${value}+${index}`}>{value}</div>;
-      })}
+      <div className="selectedValueContainer">
+        <div
+          ref={selectedValueRef}
+          className="selectedValue nonHighlightSelectedValue"
+        >
+          {selectedValue}
+        </div>
+      </div>
+      <div ref={valuesToSortRef} className="valuesToSortUser">
+        {userValues.map((value, index) => {
+          return (
+            <div
+              className="userValues"
+              key={`${value}+${index}`}
+              onClick={() => selectValueFunction(index, value)}
+            >
+              <span className="indexPos">{index + 1}</span>
+              {value}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
