@@ -27,7 +27,8 @@ export const HeapSort = ({
 
   const [leftAndRightIndices, setLeftAndRightIndices] = React.useState([]);
 
-  const [circleIndicesClass, setCircleIndicesClass] = React.useState([]);
+  const [circleIndicesSwap, setCircleIndicesSwap] = React.useState([]);
+  const [firstAndLastSwap, setFirstAndLastSwap] = React.useState([]);
 
   React.useEffect(() => {
     setWindowSize([window.innerWidth, window.innerHeight]);
@@ -190,13 +191,7 @@ export const HeapSort = ({
       }
       setLines([...updatedLines]);
     }
-  }, [
-    circleValues,
-    windowSize,
-    binaryTreeRef,
-    secondArrowPosition,
-    firstArrowPosition,
-  ]);
+  }, [circleValues, windowSize, binaryTreeRef]);
 
   React.useEffect(() => {
     if (difficulty) {
@@ -229,25 +224,102 @@ export const HeapSort = ({
   }, [countDownOver]);
 
   React.useEffect(() => {
-    if (circleIndicesClass.length > 0) {
-      console.log(circleIndicesClass[0] + "-----" + circleIndicesClass[1]);
-      // let firstIndex = circleIndicesClass[0];
-      // let secondIndex = circleIndicesClass[1];
+    if (circleIndicesSwap.length > 0) {
+      // console.log(circleIndicesSwap[0] + "-----" + circleIndicesSwap[1]);
+      let firstIndex = circleIndicesSwap[0];
+      let secondIndex = circleIndicesSwap[1];
 
-      // let firstCirclePos =
-      //   circleValues?.current?.children[firstIndex].getBoundingClientRect();
-      // let secondCirclePos =
-      //   circleValues?.current?.children[secondIndex].getBoundingClientRect();
+      let firstCirclePos =
+        binaryTreeRef?.current?.children[firstIndex].getBoundingClientRect();
+      let secondCirclePos =
+        binaryTreeRef?.current?.children[secondIndex].getBoundingClientRect();
 
-      // if (firstIndex % 2 === 0) {
-      // }
-      // let distanceX = secondCirclePos.x - firstCirclePos.x;
+      if (secondIndex % 2 === 0) {
+        let distanceX = secondCirclePos.x - firstCirclePos.x;
+        let distanceY = secondCirclePos.y - firstCirclePos.y;
+
+        binaryTreeRef?.current?.children[firstIndex].animate(
+          [
+            // keyframes
+            { transform: `translate(${(0, 0)}px)`, opacity: 0.5 },
+            {
+              transform: `translate(${distanceX}px, ${distanceY}px)`,
+              opacity: 1,
+            },
+          ],
+          {
+            duration:
+              difficulty === "Easy"
+                ? difficultyTimeInterval / 10
+                : difficultyTimeInterval / 20,
+            timingFunction: "ease-in-out",
+          }
+        );
+        binaryTreeRef?.current?.children[secondIndex].animate(
+          [
+            // keyframes
+            { transform: `translate(${(0, 0)}px)`, opacity: 0.5 },
+            {
+              transform: `translate(${-distanceX}px, ${-distanceY}px)`,
+              opacity: 1,
+            },
+          ],
+          {
+            duration:
+              difficulty === "Easy"
+                ? difficultyTimeInterval / 10
+                : difficultyTimeInterval / 20,
+            timingFunction: "ease-in-out",
+          }
+        );
+      }
+      if (secondIndex % 2 !== 0) {
+        let distanceX = secondCirclePos.x - firstCirclePos.x;
+        let distanceY = secondCirclePos.y - firstCirclePos.y;
+
+        binaryTreeRef?.current?.children[secondIndex].animate(
+          [
+            // keyframes
+            { transform: `translate(${(0, 0)}px)`, opacity: 0.5 },
+            {
+              transform: `translate(${-distanceX}px, ${-distanceY}px)`,
+              opacity: 1,
+            },
+          ],
+          {
+            duration:
+              difficulty === "Easy"
+                ? difficultyTimeInterval / 10
+                : difficultyTimeInterval / 20,
+            timingFunction: "ease-in-out",
+          }
+        );
+        binaryTreeRef?.current?.children[firstIndex].animate(
+          [
+            // keyframes
+            { transform: `translate(${(0, 0)}px)`, opacity: 0.5 },
+            {
+              transform: `translate(${distanceX}px, ${distanceY}px)`,
+              opacity: 1,
+            },
+          ],
+          {
+            duration:
+              difficulty === "Easy"
+                ? difficultyTimeInterval / 10
+                : difficultyTimeInterval / 20,
+            timingFunction: "ease-in-out",
+          }
+        );
+      }
     }
-  }, [circleIndicesClass]);
+  }, [circleIndicesSwap]);
 
   React.useEffect(() => {
     if (leftAndRightIndices[0]) {
+      // setTimeout(() => {
       setSecondArrowPosition(leftAndRightIndices[0]);
+      // }, difficultyTimeInterval / 30);
     }
     if (leftAndRightIndices[1]) {
       setTimeout(() => {
@@ -256,15 +328,33 @@ export const HeapSort = ({
     }
   }, [leftAndRightIndices]);
 
+  React.useEffect(() => {
+    let firstNode;
+    if (firstAndLastSwap.length > 0) {
+      let firstIndex = firstAndLastSwap[0];
+      let secondIndex = firstAndLastSwap[1];
+      firstNode = binaryTreeRef?.current?.children[firstIndex];
+      let secondNode = binaryTreeRef?.current?.children[secondIndex];
+      firstNode.style.backgroundColor = "black";
+      secondNode.style.backgroundColor = "black";
+    }
+  }, [firstAndLastSwap]);
+
   // remove function for heap sort
 
   function remove(a, size) {
     let max = a[0];
     a[0] = a[size - 1];
+
     heapify(a, size - 1, 0);
-    setFirstArrowPosition(size - 1);
-    setSecondArrowPosition(0);
-    console.log("Comparison: Remove", max, a[0]);
+
+    setCircleIndicesSwap([0, size - 1]);
+    setFirstAndLastSwap([0, size - 1]);
+    // setTimeout(() => {
+    // setFirstArrowPosition(0);
+    // }, difficultyTimeInterval / 10);
+
+    // console.log("Comparison: Remove", max, a[0]);
     return max;
   }
 
@@ -275,17 +365,15 @@ export const HeapSort = ({
     const left = 2 * i + 1;
     const right = 2 * i + 2;
 
-    setTimeout(() => {
-      setFirstArrowPosition(i);
-    }, difficultyTimeInterval / 10);
+    setFirstArrowPosition(i);
 
     if (left < size && a[left] > a[largest]) {
-      console.log("Comparison: Left Child", a[i], a[left]);
+      // console.log("Comparison: Left Child", a[i], a[left]);
       largest = left;
     }
 
     if (right < size && a[right] > a[largest]) {
-      console.log("Comparison: Right Child", a[i], a[right]);
+      // console.log("Comparison: Right Child", a[i], a[right]);
       largest = right;
     }
 
@@ -298,12 +386,18 @@ export const HeapSort = ({
     }
 
     if (largest !== i) {
-      console.log("Comparison: Swap", a[i], a[largest]);
-      setFirstArrowPosition(i);
+      // console.log("Comparison: Swap", a[i], a[largest]);
+
+      swap(a, i, largest);
+      setCircleIndicesSwap([i, largest]);
+
+      setTimeout(() => {
+        setFirstArrowPosition(i);
+      }, difficultyTimeInterval / 10);
       setTimeout(() => {
         setSecondArrowPosition(largest);
       }, difficultyTimeInterval / 10);
-      swap(a, i, largest);
+
       heapify(a, size, largest);
     }
   }
@@ -323,6 +417,14 @@ export const HeapSort = ({
       let iteration = 0;
 
       let interval = setInterval(() => {
+        const currentWinner = winnerRef.current;
+
+        if (currentWinner === "user") {
+          setStartAlgo(false);
+          clearInterval(interval);
+          setShowArrows(false);
+        }
+
         if (i >= 0) {
           heapify(valuesArray, n, i);
           i--;
@@ -336,13 +438,14 @@ export const HeapSort = ({
             setCircleValues([...valuesArray]);
             iteration++;
           } else {
-            setShowArrows(false);
+            setWinner("computer");
+            setStartAlgo(false);
             clearInterval(interval);
-            console.log("original array:", randomNumbers);
-            console.log("Sorted Array:", valuesArray);
+            setShowArrows(false);
           }
         }
       }, difficultyTimeInterval);
+      winnerRef.current = winner;
     }
   }, [startAlgo, winner]);
 
