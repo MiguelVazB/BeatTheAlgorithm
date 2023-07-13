@@ -119,6 +119,7 @@
 }
 
 .winner{
+    margin-top: -4rem;
     justify-content: center;
     align-items: center;
     text-align: center;
