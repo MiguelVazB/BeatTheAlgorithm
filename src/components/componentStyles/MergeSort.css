@@ -7,13 +7,14 @@
     flex: 1;
     display: grid;
     align-items: center;
-    grid-template-columns: repeat(17, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    place-items: center;
+    grid-template-columns: repeat(17, 0.5fr);
+    grid-template-rows: repeat(4, 0.5fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
 }
     
-.valueToSort0 { grid-area: 1 / 2 / 2 / 3; }
+.valueToSort0 { grid-area: 1 / 2 / 2 / 3;}
 .valueToSort1 { grid-area: 1 / 4 / 2 / 5; }
 .valueToSort2 { grid-area: 1 / 6 / 2 / 7; }
 .valueToSort3 { grid-area: 1 / 8 / 2 / 9; }
@@ -21,38 +22,37 @@
 .valueToSort5 { grid-area: 1 / 12 / 2 / 13; }
 .valueToSort6 { grid-area: 1 / 14 / 2 / 15; }
 .valueToSort7 { grid-area: 1 / 16 / 2 / 17; }
-.valueToSort8 { grid-area: 2 / 2 / 3 / 3; }
-.valueToSort9 { grid-area: 2 / 3 / 3 / 4; }
-.valueToSort10 { grid-area: 2 / 6 / 3 / 7; }
-.valueToSort11 { grid-area: 2 / 7 / 3 / 8; }
-.valueToSort12 { grid-area: 2 / 10 / 3 / 11; }
-.valueToSort13 { grid-area: 2 / 11 / 3 / 12; }
-.valueToSort14 { grid-area: 2 / 14 / 3 / 15; }
-.valueToSort15 { grid-area: 2 / 15 / 3 / 16; }
-.valueToSort16 { grid-area: 3 / 3 / 4 / 4; }
-.valueToSort17 { grid-area: 3 / 4 / 4 / 5; }
-.valueToSort18 { grid-area: 3 / 5 / 4 / 6; }
-.valueToSort19 { grid-area: 3 / 6 / 4 / 7; }
-.valueToSort20 { grid-area: 3 / 11 / 4 / 12; }
-.valueToSort21 { grid-area: 3 / 12 / 4 / 13; }
-.valueToSort22 { grid-area: 3 / 13 / 4 / 14; }
-.valueToSort23 { grid-area: 3 / 14 / 4 / 15; }
-.valueToSort24 { grid-area: 4 / 6 / 5 / 7; }
-.valueToSort25 { grid-area: 4 / 7 / 5 / 8; }
-.valueToSort26 { grid-area: 4 / 8 / 5 / 9; }
-.valueToSort27 { grid-area: 4 / 9 / 5 / 10; }
-.valueToSort28 { grid-area: 4 / 10 / 5 / 11; }
-.valueToSort29 { grid-area: 4 / 11 / 5 / 12; }
-.valueToSort30 { grid-area: 4 / 12 / 5 / 13; }
-.valueToSort31 { grid-area: 4 / 13 / 5 / 14; }
+.valueToSort8 { grid-area: 2 / 2 / 3 / 4; }
+.valueToSort9 { grid-area: 2 / 3 / 3 / 5; }
+.valueToSort10 { grid-area: 2 / 6 / 3 / 8; }
+.valueToSort11 { grid-area: 2 / 7 / 3 / 9; }
+.valueToSort12 { grid-area: 2 / 10 / 3 / 12; }
+.valueToSort13 { grid-area: 2 / 11 / 3 / 13; }
+.valueToSort14 { grid-area: 2 / 14 / 3 / 16; }
+.valueToSort15 { grid-area: 2 / 15 / 3 / 17; }
+.valueToSort16 { grid-area: 3 / 3 / 4 / 5; }
+.valueToSort17 { grid-area: 3 / 4 / 4 / 6; }
+.valueToSort18 { grid-area: 3 / 5 / 4 / 7; }
+.valueToSort19 { grid-area: 3 / 6 / 4 / 8; }
+.valueToSort20 { grid-area: 3 / 11 / 4 / 13; }
+.valueToSort21 { grid-area: 3 / 12 / 4 / 14; }
+.valueToSort22 { grid-area: 3 / 13 / 4 / 15; }
+.valueToSort23 { grid-area: 3 / 14 / 4 / 16; }
+.valueToSort24 { grid-area: 4 / 5 / 5 / 7; }
+.valueToSort25 { grid-area: 4 / 6 / 5 / 8; }
+.valueToSort26 { grid-area: 4 / 7 / 5 / 9; }
+.valueToSort27 { grid-area: 4 / 8 / 5 / 10; }
+.valueToSort28 { grid-area: 4 / 9 / 5 / 11; }
+.valueToSort29 { grid-area: 4 / 10 / 5 / 12; }
+.valueToSort30 { grid-area: 4 / 11 / 5 / 13; }
+.valueToSort31 { grid-area: 4 / 12 / 5 / 14; }
 
 .valuesToSortContainer .valueToSort{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0;
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 2rem;
     padding: 1rem;
     background-color: white;
     color: black;
