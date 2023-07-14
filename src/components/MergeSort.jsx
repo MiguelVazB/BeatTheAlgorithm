@@ -19,20 +19,44 @@ export const MergeSort = ({
   const winnerRef = React.useRef(winner);
   const mergeSortValuesRef = React.useRef(null);
 
+  const [startArrowMovement, setStartArrowMovement] = React.useState(false);
+
   const [firstArrowPosition, setFirstArrowPosition] = React.useState(0);
   const [secondArrowPosition, setSecondArrowPosition] = React.useState(1);
 
-  const [firstIndexPosition, setFirstIndexPosition] = React.useState(0);
-  const [secondIndexPosition, setSecondIndexPosition] = React.useState(1);
+  const positionRef = React.useRef(firstArrowPosition);
 
   React.useEffect(() => {
     if (countDownOver) {
       setShowArrows(true);
+      setStartArrowMovement(true);
       setStartAlgo(true);
     } else {
       setShowArrows(false);
+      setStartArrowMovement(false);
     }
   }, [countDownOver]);
+
+  //updated position ref
+  React.useEffect(() => {
+    if (firstArrowPosition) {
+      positionRef.current = firstArrowPosition;
+    }
+  }, [firstArrowPosition]);
+
+  // move arrows
+  React.useEffect(() => {
+    if (startArrowMovement) {
+      const arrowMovementInterval = setInterval(() => {
+        if (startAlgo === false || positionRef.current === 22) {
+          clearInterval(arrowMovementInterval);
+          setShowArrows(false);
+        }
+        setFirstArrowPosition((prev) => prev + 2);
+        setSecondArrowPosition((prev) => prev + 2);
+      }, difficultyTimeInterval / 1.25); //1.25 - 1.3
+    }
+  }, [startArrowMovement]);
 
   React.useEffect(() => {
     if (difficulty) {
@@ -58,13 +82,7 @@ export const MergeSort = ({
     setSquareValues([...randomNumbers]);
   }, [randomNumbers]);
 
-  React.useEffect(() => {
-    if (firstIndexPosition && secondIndexPosition) {
-      setFirstArrowPosition((prev) => prev + 2);
-      setSecondArrowPosition((prev) => prev + 2);
-    }
-  }, [firstIndexPosition, secondIndexPosition]);
-
+  // merge sort algorithm
   React.useEffect(() => {
     if (startAlgo && valuesToSort.length > 0) {
       const mergeSort = (arr) => {
@@ -103,7 +121,7 @@ export const MergeSort = ({
           console.log("partition: ", partition);
           merge(left, right, leftLimit, rightLimit, sorted, buffer);
 
-          // console.log("PartitionSorted:", buffer.slice(left, rightLimit));
+          console.log("PartitionSorted:", buffer.slice(left, rightLimit));
           setSquareValues((prev) => {
             return [...prev, ...buffer.slice(left, rightLimit)];
           });
@@ -118,11 +136,6 @@ export const MergeSort = ({
         let i = left;
         while (left < leftLimit && right < rightLimit) {
           console.log(`left: ${sorted[left]}, right: ${sorted[leftLimit]}`);
-          // setFirstArrowPosition(left);
-          // setSecondArrowPosition(leftLimit);
-          setFirstIndexPosition((prev) => prev + 1);
-          setSecondIndexPosition((prev) => prev + 1);
-
           if (sorted[left] <= sorted[right]) {
             buffer[i++] = sorted[left++];
           } else {
@@ -131,22 +144,16 @@ export const MergeSort = ({
         }
         while (left < leftLimit) {
           console.log(`left: ${sorted[left]}`);
-          // setFirstArrowPosition(left);
-          setFirstIndexPosition((prev) => prev + 1);
           buffer[i++] = sorted[left++];
         }
         while (right < rightLimit) {
           console.log(`right: ${sorted[leftLimit]}`);
-          // setSecondArrowPosition(leftLimit);
           buffer[i++] = sorted[right++];
         }
         for (let j = left; j < right; j++) {
           sorted[j] = buffer[j];
         }
       };
-
-      // let tempArray = [18, 12, 16, 22, 28, 5, 9];
-      // mergeSort(tempArray);
 
       console.log("Original array:", valuesToSort);
       mergeSort(valuesToSort);
