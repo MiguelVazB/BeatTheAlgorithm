@@ -11,6 +11,7 @@ export const MergeSort = ({
 }) => {
   const [valuesToSort, setValuesToSort] = React.useState([]); // stores original values
   const [squareValues, setSquareValues] = React.useState([]); // stores values being changed
+  const [squareColors, setSquareColors] = React.useState([]); // stores colors of the values
 
   const [showArrows, setShowArrows] = React.useState(false);
   const [difficultyTimeInterval, setDifficultyTimeInterval] = React.useState(0);
@@ -26,6 +27,8 @@ export const MergeSort = ({
 
   const positionRef = React.useRef(firstArrowPosition);
 
+  // const [swapPosition, setSwapPosition] = React.useState([]);
+
   React.useEffect(() => {
     if (countDownOver) {
       setShowArrows(true);
@@ -37,24 +40,122 @@ export const MergeSort = ({
     }
   }, [countDownOver]);
 
-  //updated position ref
   React.useEffect(() => {
-    if (firstArrowPosition) {
+    if (startAlgo) {
+      // update position ref with firstArrowPosition
       positionRef.current = firstArrowPosition;
+
+      // swap first and second values
+      if (squareColors.length === 4) {
+        setClassColorFunc(firstArrowPosition);
+        setClassColorFunc(secondArrowPosition);
+      }
     }
-  }, [firstArrowPosition]);
+  }, [firstArrowPosition, secondArrowPosition]);
+
+  function setClassColorFunc(currentArrowPos) {
+    let colorIndex;
+    let valuePointed = Number(
+      mergeSortValuesRef?.current?.children[currentArrowPos]?.innerHTML
+    );
+    let valueToCompare;
+    squareColors.forEach((array, index) => {
+      if (colorIndex) return;
+      array.forEach((value) => {
+        valueToCompare = Number(
+          mergeSortValuesRef?.current?.children[value]?.innerHTML
+        );
+        if (valueToCompare === valuePointed) colorIndex = index;
+        return;
+      });
+    });
+    switch (colorIndex) {
+      case 0:
+        mergeSortValuesRef?.current?.children[currentArrowPos].classList.add(
+          "squaresColor1"
+        );
+        break;
+      case 1:
+        mergeSortValuesRef?.current?.children[currentArrowPos].classList.add(
+          "squaresColor2"
+        );
+        break;
+      case 2:
+        mergeSortValuesRef?.current?.children[currentArrowPos].classList.add(
+          "squaresColor3"
+        );
+        break;
+      case 3:
+        mergeSortValuesRef?.current?.children[currentArrowPos].classList.add(
+          "squaresColor4"
+        );
+        break;
+    }
+  }
+
+  // React.useEffect(() => {
+  //   if (swapPosition.length > 0) {
+  //     console.log(swapPosition);
+  //     let firstIndex = swapPosition[0];
+  //     let secondIndex = swapPosition[1];
+
+  //     let firstValuePos =
+  //       mergeSortValuesRef?.current?.children[
+  //         firstIndex
+  //       ].getBoundingClientRect();
+  //     let secondValuePos =
+  //       mergeSortValuesRef?.current?.children[
+  //         secondIndex
+  //       ].getBoundingClientRect();
+  //   }
+  // }, [swapPosition]);
+
+  React.useEffect(() => {
+    if (squareColors.length > 0) {
+      console.log(squareColors);
+      squareColors.forEach((array, index) => {
+        array.forEach((value) => {
+          switch (index) {
+            case 0:
+              mergeSortValuesRef?.current?.children[value].classList.add(
+                "squaresColor1"
+              );
+              break;
+            case 1:
+              mergeSortValuesRef?.current?.children[value].classList.add(
+                "squaresColor2"
+              );
+              break;
+            case 2:
+              mergeSortValuesRef?.current?.children[value].classList.add(
+                "squaresColor3"
+              );
+              break;
+            case 3:
+              mergeSortValuesRef?.current?.children[value].classList.add(
+                "squaresColor4"
+              );
+              break;
+          }
+        });
+      });
+    }
+  }, [squareColors]);
 
   // move arrows
   React.useEffect(() => {
     if (startArrowMovement) {
       const arrowMovementInterval = setInterval(() => {
-        if (startAlgo === false || positionRef.current === 22) {
+        if (positionRef.current >= 32) {
           clearInterval(arrowMovementInterval);
+          setShowArrows(false);
+        }
+        if (positionRef.current > 20) {
           setShowArrows(false);
         }
         setFirstArrowPosition((prev) => prev + 2);
         setSecondArrowPosition((prev) => prev + 2);
-      }, difficultyTimeInterval / 1.25); //1.25 - 1.3
+      }, difficultyTimeInterval / 1.3); //1.25 - 1.3
     }
   }, [startArrowMovement]);
 
@@ -82,6 +183,11 @@ export const MergeSort = ({
     setSquareValues([...randomNumbers]);
   }, [randomNumbers]);
 
+  React.useEffect(() => {
+    if (squareValues.length > 8) {
+    }
+  }, [squareValues]);
+
   // merge sort algorithm
   React.useEffect(() => {
     if (startAlgo && valuesToSort.length > 0) {
@@ -95,10 +201,12 @@ export const MergeSort = ({
         const sortingInterval = setInterval(() => {
           if (step >= n) {
             setShowArrows(false);
-            setWinner("computer");
-            setStartAlgo(false);
             console.log("Sorted array:", sorted);
             clearInterval(sortingInterval);
+            setTimeout(() => {
+              setWinner("computer");
+              setStartAlgo(false);
+            }, difficultyTimeInterval * 2);
             return;
           }
 
@@ -125,6 +233,7 @@ export const MergeSort = ({
           setSquareValues((prev) => {
             return [...prev, ...buffer.slice(left, rightLimit)];
           });
+          setColorsToSquaresFunc(left, rightLimit);
 
           i += 2 * step;
         }, difficultyTimeInterval);
@@ -159,6 +268,15 @@ export const MergeSort = ({
       mergeSort(valuesToSort);
     }
   }, [startAlgo, winner]);
+
+  function setColorsToSquaresFunc(left, right) {
+    setSquareColors((prevColors) => {
+      if (prevColors.length < 4) {
+        return [...prevColors, [left + 8, right + 7]];
+      }
+      return prevColors;
+    });
+  }
 
   return (
     <div className="mergeSort">
