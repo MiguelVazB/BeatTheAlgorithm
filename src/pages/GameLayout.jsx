@@ -1,6 +1,9 @@
 import React from "react";
 import "./pageStyles/GameLayout.css";
-import { generateXRandomNumbers } from "../utils/randomNumbers.jsx";
+import {
+  generateXRandomNumbers,
+  generateXUniqueRandomNumbers,
+} from "../utils/randomNumbers.jsx";
 import { BubbleSort, BubbleSortUser } from "../components/BubbleSort";
 import { SelectionSort, SelectionSortUser } from "../components/SelectionSort";
 import { HeapSort, HeapSortUser } from "../components/HeapSort";
@@ -28,7 +31,7 @@ export default function GameLayout({ algo }) {
     if (algo === "heap_sort") {
       randomNumbers = generateXRandomNumbers(15);
     } else if (algo === "merge_sort") {
-      randomNumbers = generateXRandomNumbers(8);
+      randomNumbers = generateXUniqueRandomNumbers(8);
     } else {
       randomNumbers = generateXRandomNumbers(9);
     }
