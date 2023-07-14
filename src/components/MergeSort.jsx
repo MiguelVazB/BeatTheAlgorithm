@@ -128,7 +128,7 @@ export const MergeSort = ({
   React.useEffect(() => {
     if (startArrowMovement) {
       const arrowMovementInterval = setInterval(() => {
-        if (positionRef.current >= 32) {
+        if (positionRef.current >= 32 || winner === "user") {
           clearInterval(arrowMovementInterval);
           setShowArrows(false);
         }
@@ -148,10 +148,10 @@ export const MergeSort = ({
           setDifficultyTimeInterval(3000);
           break;
         case "Intermediate":
-          setDifficultyTimeInterval(2000);
+          setDifficultyTimeInterval(1500);
           break;
         case "Hard":
-          setDifficultyTimeInterval(1000);
+          setDifficultyTimeInterval(500);
           break;
         case "Impossible":
           setDifficultyTimeInterval(100);
@@ -189,12 +189,14 @@ export const MergeSort = ({
             return;
           }
           if (step >= n) {
-            setShowArrows(false);
             // console.log("Sorted array:", sorted);
-            clearInterval(sortingInterval);
+            setShowArrows(false);
             setTimeout(() => {
-              setWinner("computer");
+              if (winnerRef.current !== "user") {
+                setWinner("computer");
+              }
               setStartAlgo(false);
+              clearInterval(sortingInterval);
             }, difficultyTimeInterval * 2);
             return;
           }
@@ -300,13 +302,24 @@ export const MergeSort = ({
 export const MergeSortUser = ({ randomNumbers, setWinner }) => {
   const [valuesToSortUser, setValuesToSortUser] = React.useState([]);
   const [userAttempt, setUserAttempt] = React.useState([]);
+  const [sortedArray, setSortedArray] = React.useState([]);
 
   const valuesToSortRef = React.useRef(null);
 
   React.useEffect(() => {
     setValuesToSortUser(randomNumbers);
     setUserAttempt([" ", " ", " ", " ", " ", " ", " ", " "]);
+    let temp = [...randomNumbers];
+    setSortedArray(temp.sort((a, b) => a - b));
   }, [randomNumbers]);
+
+  React.useEffect(() => {
+    if (userAttempt.length > 0) {
+      if (JSON.stringify(userAttempt) === JSON.stringify(sortedArray)) {
+        setWinner("user");
+      }
+    }
+  }, [userAttempt]);
 
   function selectValue(value, index) {
     // check for empty spot
