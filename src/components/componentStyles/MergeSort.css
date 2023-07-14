@@ -60,3 +60,16 @@
     border: 3px dashed black;
     background-image: none;
 }
+
+.valuesToSortContainer .squaresColor1{
+    background-color: lightgoldenrodyellow;
+}
+.valuesToSortContainer .squaresColor2{
+    background-color: lightpink;
+}
+.valuesToSortContainer .squaresColor3{
+    background-color: lightblue;
+}
+.valuesToSortContainer .squaresColor4{
+    background-color: lightcoral;
+}
