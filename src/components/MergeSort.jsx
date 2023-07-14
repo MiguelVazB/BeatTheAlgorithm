@@ -301,22 +301,88 @@ export const MergeSortUser = ({ randomNumbers, setWinner }) => {
   const [valuesToSortUser, setValuesToSortUser] = React.useState([]);
   const [userAttempt, setUserAttempt] = React.useState([]);
 
+  const valuesToSortRef = React.useRef(null);
+
   React.useEffect(() => {
     setValuesToSortUser(randomNumbers);
+    setUserAttempt([" ", " ", " ", " ", " ", " ", " ", " "]);
   }, [randomNumbers]);
+
+  function selectValue(value, index) {
+    // check for empty spot
+    let availableIndex;
+    for (let i = 0; i < userAttempt.length; i++) {
+      if (String(userAttempt[i]) === String(" ")) {
+        availableIndex = i;
+        break;
+      }
+    }
+    // update attempt
+    setUserAttempt((prev) => {
+      let updatedArray = [...prev];
+      updatedArray[availableIndex] = value;
+      return [...updatedArray];
+    });
+    //update values to sort
+    setValuesToSortUser((prev) => {
+      let updatedValuesToSort = [...prev];
+      updatedValuesToSort[index] = " ";
+      return [...updatedValuesToSort];
+    });
+    valuesToSortRef?.current?.children[index]?.classList.add("valueClicked");
+  }
+
+  function removeValue(value, index) {
+    // check for empty spot
+    let availableIndex;
+    for (let i = 0; i < valuesToSortUser.length; i++) {
+      if (String(valuesToSortUser[i]) === String(" ")) {
+        availableIndex = i;
+        break;
+      }
+    }
+    //update values to sort
+    setValuesToSortUser((prev) => {
+      let updatedValuesToSort = [...prev];
+      updatedValuesToSort[availableIndex] = value;
+      return [...updatedValuesToSort];
+    });
+    // update attempt
+    setUserAttempt((prev) => {
+      let updatedArray = [...prev];
+      updatedArray[index] = " ";
+      return [...updatedArray];
+    });
+  }
 
   return (
     <div className="mergeSortUser">
-      <div className="valuesToSortUserContainer">
-        {valuesToSortUser.map((value, index) => {
+      <div className="userAttemptContainer">
+        {userAttempt.map((value, index) => {
           return (
-            <div className="valuesToSortUser" key={`user${value} ${index}`}>
+            <div
+              className="userAttempt"
+              key={`attempt${index}`}
+              onClick={() => removeValue(value, index)}
+            >
               {value}
             </div>
           );
         })}
       </div>
-      <div className="userAttempt"></div>
+      <div ref={valuesToSortRef} className="valuesToSortUserContainer">
+        {valuesToSortUser.map((value, index) => {
+          return (
+            <div
+              className="valueToSortMerge"
+              key={`user${value} ${index}`}
+              onClick={() => selectValue(value, index)}
+            >
+              {value}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
