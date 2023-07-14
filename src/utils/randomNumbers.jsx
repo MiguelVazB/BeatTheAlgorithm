@@ -14,4 +14,22 @@ function generateXRandomNumbers(quantity) {
   return randomNumbers;
 }
 
-export { generateXRandomNumbers };
+function generateXUniqueRandomNumbers(quantity) {
+  const randomNumbers = [];
+
+  while (randomNumbers.length < quantity) {
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
+    if (!randomNumbers.includes(randomNumber)) {
+      randomNumbers.push(randomNumber);
+    }
+  }
+
+  for (let i = randomNumbers.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [randomNumbers[i], randomNumbers[j]] = [randomNumbers[j], randomNumbers[i]];
+  }
+
+  return randomNumbers;
+}
+
+export { generateXRandomNumbers, generateXUniqueRandomNumbers };
