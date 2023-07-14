@@ -93,26 +93,8 @@ export const MergeSort = ({
     }
   }
 
-  // React.useEffect(() => {
-  //   if (swapPosition.length > 0) {
-  //     console.log(swapPosition);
-  //     let firstIndex = swapPosition[0];
-  //     let secondIndex = swapPosition[1];
-
-  //     let firstValuePos =
-  //       mergeSortValuesRef?.current?.children[
-  //         firstIndex
-  //       ].getBoundingClientRect();
-  //     let secondValuePos =
-  //       mergeSortValuesRef?.current?.children[
-  //         secondIndex
-  //       ].getBoundingClientRect();
-  //   }
-  // }, [swapPosition]);
-
   React.useEffect(() => {
     if (squareColors.length > 0) {
-      console.log(squareColors);
       squareColors.forEach((array, index) => {
         array.forEach((value) => {
           switch (index) {
@@ -199,9 +181,16 @@ export const MergeSort = ({
         let i = 0;
 
         const sortingInterval = setInterval(() => {
+          const currentWinner = winnerRef.current;
+          if (currentWinner === "user") {
+            setShowArrows(false);
+            setStartAlgo(false);
+            clearInterval(sortingInterval);
+            return;
+          }
           if (step >= n) {
             setShowArrows(false);
-            console.log("Sorted array:", sorted);
+            // console.log("Sorted array:", sorted);
             clearInterval(sortingInterval);
             setTimeout(() => {
               setWinner("computer");
@@ -225,11 +214,11 @@ export const MergeSort = ({
           let leftLimit = right;
           let rightLimit = Math.min(right + step, n);
 
-          let partition = sorted.slice(left, rightLimit);
-          console.log("partition: ", partition);
+          // let partition = sorted.slice(left, rightLimit);
+          // console.log("partition: ", partition);
           merge(left, right, leftLimit, rightLimit, sorted, buffer);
 
-          console.log("PartitionSorted:", buffer.slice(left, rightLimit));
+          // console.log("PartitionSorted:", buffer.slice(left, rightLimit));
           setSquareValues((prev) => {
             return [...prev, ...buffer.slice(left, rightLimit)];
           });
@@ -237,6 +226,7 @@ export const MergeSort = ({
 
           i += 2 * step;
         }, difficultyTimeInterval);
+        winnerRef.current = winner;
 
         return sorted;
       };
@@ -244,7 +234,7 @@ export const MergeSort = ({
       const merge = (left, right, leftLimit, rightLimit, sorted, buffer) => {
         let i = left;
         while (left < leftLimit && right < rightLimit) {
-          console.log(`left: ${sorted[left]}, right: ${sorted[leftLimit]}`);
+          // console.log(`left: ${sorted[left]}, right: ${sorted[leftLimit]}`);
           if (sorted[left] <= sorted[right]) {
             buffer[i++] = sorted[left++];
           } else {
@@ -252,11 +242,11 @@ export const MergeSort = ({
           }
         }
         while (left < leftLimit) {
-          console.log(`left: ${sorted[left]}`);
+          // console.log(`left: ${sorted[left]}`);
           buffer[i++] = sorted[left++];
         }
         while (right < rightLimit) {
-          console.log(`right: ${sorted[leftLimit]}`);
+          // console.log(`right: ${sorted[leftLimit]}`);
           buffer[i++] = sorted[right++];
         }
         for (let j = left; j < right; j++) {
@@ -264,7 +254,7 @@ export const MergeSort = ({
         }
       };
 
-      console.log("Original array:", valuesToSort);
+      // console.log("Original array:", valuesToSort);
       mergeSort(valuesToSort);
     }
   }, [startAlgo, winner]);
@@ -308,5 +298,25 @@ export const MergeSort = ({
 // user merge sort
 
 export const MergeSortUser = ({ randomNumbers, setWinner }) => {
-  return <div>hi</div>;
+  const [valuesToSortUser, setValuesToSortUser] = React.useState([]);
+  const [userAttempt, setUserAttempt] = React.useState([]);
+
+  React.useEffect(() => {
+    setValuesToSortUser(randomNumbers);
+  }, [randomNumbers]);
+
+  return (
+    <div className="mergeSortUser">
+      <div className="valuesToSortUserContainer">
+        {valuesToSortUser.map((value, index) => {
+          return (
+            <div className="valuesToSortUser" key={`user${value} ${index}`}>
+              {value}
+            </div>
+          );
+        })}
+      </div>
+      <div className="userAttempt"></div>
+    </div>
+  );
 };
