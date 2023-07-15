@@ -129,7 +129,7 @@ export default function GameLayout({ algo }) {
         setCountDownOver(true);
         clearInterval(countDown);
       }
-    }, 0); //put it back to 1000 ms = 1 second
+    }, 1000); //put it back to 1000 ms = 1 second
   }
 
   function setDifficultyFunction() {
