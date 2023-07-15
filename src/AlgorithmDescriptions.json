@@ -66,5 +66,25 @@
             },
             "timeComplexity": "Heap sort has a time complexity of O(n log n) in all cases, where n is the number of elements in the list. The build heap operation takes O(n) time, and each extraction of the minimum element takes O(log n) time. Since we perform these operations n times, the overall time complexity is O(n log n). Heap sort has a relatively efficient runtime, making it suitable for large lists."
         }
+    },
+    "merge_sort": {
+        "description": "Merge sort works by dividing the list into smaller parts, sorting them individually, and then merging them back together to obtain a sorted list. It uses the idea of dividing and merging to efficiently sort the numbers.",
+        "instructions": "Select a number by clicking it. This will select the value and put it in the white list of values on top. You can remove the values from the list on top by clicking it. Put them in the right order (from smallest to biggest) and Beat the Algorithm! Choose a difficulty and press start. Good Luck!",
+        "difficulty": {
+            "easy": "Easy makes each move of the algorithm to take 3 seconds.",
+            "intermediate": "Intermediate makes each move of the algorithm to take 1.5 seconds.",
+            "hard": "Hard makes each move of the algorithm to take half a second.",
+            "impossible": "Impossible makes each move of the algorithm to take 100 ms or 1/10 of a second."
+        },
+        "detailedDescription": {
+            "simpleExplanation": "Merge sort is a divide-and-conquer sorting algorithm that recursively divides the unsorted list into smaller sublists, sorts them independently, and then merges them back together to obtain the sorted list. The bottom-up approach is an iterative variant of merge sort that avoids recursive function calls.", 
+            "steps": {
+                "step1": "Start with an unsorted list of elements.",
+                "step2": "Divide the list into sublists of size 1. Each sublist of size 1 is already considered sorted.",
+                "step3": "Merge adjacent pairs of sublists to create sorted sublists of size 2.",
+                "step4": "Repeat step 3, merging adjacent pairs of sorted sublists to create larger sorted sublists until there is only one sorted sublist remaining, which is the sorted list."
+            },
+            "timeComplexity": "Merge sort has a time complexity of O(n log n) in all cases, where n is the number of elements in the list. It is an efficient sorting algorithm and guarantees consistent performance, making it suitable for large lists. However, merge sort requires additional space to store temporary sublists during the merging process."
+        }
     }
 }
