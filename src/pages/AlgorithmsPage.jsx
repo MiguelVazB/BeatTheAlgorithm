@@ -35,6 +35,9 @@ export default function AlgorithmsPage() {
             case "heap_sort":
               algoEmoji = "🌳";
               break;
+            case "merge_sort":
+              algoEmoji = "➗👑";
+              break;
           }
 
           let bubbleSort =
