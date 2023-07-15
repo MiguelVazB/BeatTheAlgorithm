@@ -5,6 +5,7 @@ import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 import BubbleSortImg from "../images/bubble_sort.jpg";
 import SelectionSortImg from "../images/selection_sort.jpg";
 import HeapSortImg from "../images/heap_sort.jpg";
+import MergeSortImg from "../images/merge_sort.jpg";
 
 export default function SpecificAlgoPage({ algo }) {
   const [algorithm, setAlgorithm] = React.useState("");
@@ -42,6 +43,8 @@ export default function SpecificAlgoPage({ algo }) {
         return SelectionSortImg;
       case "heap_sort":
         return HeapSortImg;
+      case "merge_sort":
+        return MergeSortImg;
     }
   }
 
