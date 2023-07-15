@@ -60,6 +60,7 @@
     border-radius: 0;
     border: 3px dashed black;
     background-image: none;
+    cursor: not-allowed;
 }
 
 .valuesToSortContainer .squaresColor1{
@@ -110,16 +111,16 @@
     background-color: white;
     border: 5px dashed black;
     border-radius: 0.5rem;
-    height: 3rem;
-    width: 3rem;
+    height: 2.5rem;
+    width: 2.5rem;
     padding: 0.5rem;
 }
 
 .valuesToSortUserContainer .valueToSortMerge{
     border-radius: 1rem;
     display: flex;
-    height: 5rem;
-    width: 5rem;
+    height: 4.5rem;
+    width: 4.5rem;
     padding: 0.5rem;
     justify-content: center;
     align-items: center;
