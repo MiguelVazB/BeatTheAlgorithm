@@ -4,12 +4,13 @@
 }
 
 .valuesToSortContainer {
+    margin: -1rem;
     flex: 1;
     display: grid;
     align-items: center;
     place-items: center;
-    grid-template-columns: repeat(17, 0.5fr);
-    grid-template-rows: repeat(4, 0.5fr);
+    grid-template-columns: repeat(17, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
 }
@@ -118,4 +119,48 @@
     color: black;
     background-color: white;
     border: 5px dashed black;
+}
+
+/* mobile responsiveness */
+
+@media (max-width: 1124px) {
+    .valuesToSortContainer .valueToSort{
+        padding: 0.5rem;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 800px) {
+    .valuesToSortContainer .valueToSort{
+        padding: 0.2rem;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .valuesToSortContainer .valueToSort{
+        font-size: 1.1rem;
+        width: 1rem;
+        height: 1rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .valuesToSortContainer .valueToSort{
+        padding: 0.15rem;
+        font-size: 0.75rem;
+        width: 1rem;
+        height: 1rem;
+        border: 2px dashed black;
+    }
+}
+
+@media (max-width: 380px) {
+    .valuesToSortContainer .valueToSort{
+        border: 1px dashed black;
+        font-size: 0.5rem;
+        padding: 0.25rem;
+        width: 0.5rem;
+        height: 0.5rem;
+    }
 }
