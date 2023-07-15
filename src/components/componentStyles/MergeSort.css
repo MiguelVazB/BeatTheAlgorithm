@@ -92,16 +92,6 @@
     padding: 1rem;
 }
 
-.valuesToSortUserContainer .valueToSortMerge{
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    background-color: black;
-    box-shadow: 10px 10px 10px black;
-    cursor: pointer;
-}
-
 .userAttemptContainer{
     flex: 0.5;
     padding: 1rem;
@@ -119,6 +109,24 @@
     color: black;
     background-color: white;
     border: 5px dashed black;
+    border-radius: 0.5rem;
+    height: 3rem;
+    width: 3rem;
+    padding: 0.5rem;
+}
+
+.valuesToSortUserContainer .valueToSortMerge{
+    border-radius: 1rem;
+    display: flex;
+    height: 5rem;
+    width: 5rem;
+    padding: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    box-shadow: 5px 5px 10px black;
+    cursor: pointer;
+    min-width: fit-content;
 }
 
 /* mobile responsiveness */
@@ -128,12 +136,20 @@
         padding: 0.5rem;
         font-size: 1.5rem;
     }
+    .mergeSort .arrowBrowser{
+        margin-top: -3.5rem;
+        margin-left: -0.2rem;
+    }
 }
 
 @media (max-width: 800px) {
     .valuesToSortContainer .valueToSort{
         padding: 0.2rem;
         font-size: 1.2rem;
+    }
+    .mergeSort .arrowBrowser{
+        margin-top: -3.5rem;
+        margin-left: 0;
     }
 }
 
@@ -153,6 +169,9 @@
         height: 1rem;
         border: 2px dashed black;
     }
+    .mergeSort .arrowBrowser{
+        margin-top: -5rem;
+    }
 }
 
 @media (max-width: 380px) {
@@ -162,5 +181,64 @@
         padding: 0.25rem;
         width: 0.5rem;
         height: 0.5rem;
+    }
+    .mergeSort .arrowBrowser{
+        margin-top: -5.5rem;
+        margin-left: 0;
+        height: 1.2rem;
+    }
+}
+
+/* user side responsiveness */
+
+@media (max-width: 1050px){
+    .valuesToSortUserContainer .valueToSortMerge{
+        width: 3.5rem;
+        height: 3.5rem;
+        font-size: 2rem;
+    }
+    .userAttemptContainer .userAttempt{
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+@media (max-width: 860px){
+    .valuesToSortUserContainer .valueToSortMerge{
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.5rem;
+    }
+    .userAttemptContainer .userAttempt{
+        font-size: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}
+
+@media (max-width: 736px){
+    .valuesToSortUserContainer .valueToSortMerge{
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.5rem;
+    }
+    .userAttemptContainer .userAttempt{
+        font-size: 1.2rem;
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+}
+
+@media (max-width: 672px){
+    .mergeSortUser .valuesToSortUserContainer, .userAttemptContainer{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        row-gap: 1rem;
+        column-gap: 0;
+        align-items: center;
+        place-items: center;
+        padding: 0;
     }
 }
