@@ -46,6 +46,10 @@ function App() {
           path="algo/heap_sort"
           element={<GameLayout algo="heap_sort" />}
         />
+        <Route
+          path="algo/merge_sort"
+          element={<GameLayout algo="merge_sort" />}
+        />
 
         <Route path="algo/*" element={<WorkInProgressPage />} />
         <Route path="moreOnAlgorithms/*" element={<WorkInProgressPage />} />
