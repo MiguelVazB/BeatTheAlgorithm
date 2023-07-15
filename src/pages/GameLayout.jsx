@@ -10,6 +10,8 @@ import { HeapSort, HeapSortUser } from "../components/HeapSort";
 import { MergeSort, MergeSortUser } from "../components/MergeSort";
 import { Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
+import CountDownSound from "../sounds/CountDownSound.mp3";
+import StartSound from "../sounds/startSound.wav";
 
 export default function GameLayout({ algo }) {
   const [randomValues, setRandomValues] = React.useState([]);
@@ -39,7 +41,7 @@ export default function GameLayout({ algo }) {
   }, []);
 
   React.useEffect(() => {
-    if (difficulty.length > 0) {
+    if (difficulty.length > 0 && countDownOver === false) {
       difficultyOverlayRef.current.style.display = "none";
       countDownRef.current.style.visibility = "visible";
       countDown();
@@ -128,6 +130,13 @@ export default function GameLayout({ algo }) {
         countDownRef.current.style.display = "none";
         setCountDownOver(true);
         clearInterval(countDown);
+        let startAudio = new Audio(StartSound);
+        startAudio.volume = 0.2;
+        startAudio.play();
+      } else {
+        let countDown = new Audio(CountDownSound);
+        countDown.volume = 0.2;
+        countDown.play();
       }
     }, 1000); //put it back to 1000 ms = 1 second
   }
