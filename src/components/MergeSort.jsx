@@ -27,8 +27,6 @@ export const MergeSort = ({
 
   const positionRef = React.useRef(firstArrowPosition);
 
-  // const [swapPosition, setSwapPosition] = React.useState([]);
-
   React.useEffect(() => {
     if (countDownOver) {
       setShowArrows(true);
@@ -289,7 +287,7 @@ export const MergeSort = ({
           firstArrowPos={firstArrowPosition}
           secondArrowPos={secondArrowPosition}
           valuesRef={mergeSortValuesRef}
-          xOffset={100}
+          xOffset={20}
           yOffset={1}
         />
       )}
