@@ -168,8 +168,28 @@
 .BackgroundSongBtn{
     cursor: pointer;
     position: absolute;
-    top: 0;
+    top: -0.2rem;
     right: 0.5rem;
+    animation: buttonPulse 1s ease-in-out;
+    animation-iteration-count: 6;
+    opacity: 0.7;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.BackgroundSongBtn:hover{
+    opacity: 1;
+}
+
+@keyframes buttonPulse {
+    0%{
+        scale: 1;
+    }
+    50%{
+        scale: 1.2;
+    }
+    100%{
+        scale: 1;
+    }
 }
 
 .userSide{
