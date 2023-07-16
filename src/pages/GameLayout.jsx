@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 import CountDownSound from "../sounds/CountDownSound.mp3";
 import StartSound from "../sounds/startSound.wav";
+import gameSound from "../sounds/gameSound.mp3";
 
 export default function GameLayout({ algo }) {
   const [randomValues, setRandomValues] = React.useState([]);
@@ -27,6 +28,9 @@ export default function GameLayout({ algo }) {
   const algoInfoRef = React.useRef(null);
   const instructionsRef = React.useRef(null);
   const difficultyRef = React.useRef(null);
+
+  const backgroundMusicRef = React.useRef(null);
+  const [songPlaying, setSongPlaying] = React.useState(true);
 
   React.useEffect(() => {
     let randomNumbers;
@@ -51,6 +55,23 @@ export default function GameLayout({ algo }) {
   React.useEffect(() => {
     setShowWinner(winner);
   }, [winner]);
+
+  React.useEffect(() => {
+    if (countDownOver && !winner.length) {
+      if (!backgroundMusicRef.current) {
+        backgroundMusicRef.current = new Audio(gameSound);
+        backgroundMusicRef.current.volume = 0.05;
+      }
+      setTimeout(() => {
+        backgroundMusicRef.current.play();
+      }, 500);
+    } else {
+      if (backgroundMusicRef.current) {
+        backgroundMusicRef.current.pause();
+        backgroundMusicRef.current.currentTime = 0;
+      }
+    }
+  }, [countDownOver, winner]);
 
   function getComputerSideComponent() {
     switch (algo) {
@@ -131,11 +152,11 @@ export default function GameLayout({ algo }) {
         setCountDownOver(true);
         clearInterval(countDown);
         let startAudio = new Audio(StartSound);
-        startAudio.volume = 0.2;
+        startAudio.volume = 0.4;
         startAudio.play();
       } else {
         let countDown = new Audio(CountDownSound);
-        countDown.volume = 0.2;
+        countDown.volume = 0.5;
         countDown.play();
       }
     }, 1000); //put it back to 1000 ms = 1 second
@@ -159,6 +180,16 @@ export default function GameLayout({ algo }) {
     } else {
       instructionsRef.current.style.display = "none";
       difficultyRef.current.style.display = "flex";
+    }
+  }
+
+  function muteSong() {
+    if (backgroundMusicRef?.current?.paused === true) {
+      backgroundMusicRef?.current?.play();
+      setSongPlaying(true);
+    } else {
+      backgroundMusicRef?.current?.pause();
+      setSongPlaying(false);
     }
   }
 
@@ -235,14 +266,21 @@ export default function GameLayout({ algo }) {
           </Link>
         </div>
       )}
-      <h1 className="algorithmDisplayed">
-        {String(algo)
-          .split("_")
-          .map((x) => {
-            return x.charAt(0).toUpperCase() + x.slice(1) + " ";
-          })}
-        <span>{difficulty ? `(${difficulty})` : ""}</span>
-      </h1>
+      <div className="algorithmDisplayed">
+        <div className="nameAndDifficulty">
+          {String(algo)
+            .split("_")
+            .map((x) => {
+              return x.charAt(0).toUpperCase() + x.slice(1) + " ";
+            })}
+          <span>{difficulty ? `(${difficulty})` : ""}</span>
+        </div>
+        {countDownOver && (
+          <div className="BackgroundSongBtn" onClick={() => muteSong()}>
+            {songPlaying ? "🔊" : "🔇"}
+          </div>
+        )}
+      </div>
       <div
         className={
           algo === "heap_sort" || algo === "merge_sort"
