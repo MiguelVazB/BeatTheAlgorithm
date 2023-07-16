@@ -1,4 +1,6 @@
 import "./pageStyles/About.css";
+import gitHubLogo from "../images/githubLogo.png";
+import { Link } from "react-router-dom";
 
 export default function About() {
   return (
@@ -38,6 +40,16 @@ export default function About() {
         </span>{" "}
         I am thrilled to have you here, and I look forward to you having fun
         beating the algorithm!
+      </div>
+      <div>
+        <Link
+          to="https://github.com/MiguelVazB/BeatTheAlgorithm"
+          target="_blank"
+          className="gitHubLink"
+        >
+          <img src={gitHubLogo} />
+          https://github.com/MiguelVazB/BeatTheAlgorithm
+        </Link>
       </div>
     </main>
   );

@@ -50,6 +50,29 @@
     margin: 0;
 }
 
+.gitHubLink{
+    flex: 1;
+    font-size: 1.5ch;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+
+.gitHubLink:hover{
+    scale: 1.05;
+}
+
+.gitHubLink img{
+    width: 3rem;
+    height: auto;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+}
+
 /* mobile responsiveness */
 
 @media (max-width: 1385px){
@@ -81,6 +104,12 @@
     .aboutPage .aboutMeTitle, .aboutPage .inTouch{
         margin-top: 3rem;
     }
+    .gitHubLink{
+        font-size: 1.2ch;
+    }
+    .gitHubLink img{
+        width: 2rem;
+    }
 }
 
 @media (max-width: 460px) {
@@ -99,6 +128,12 @@
     }
     .aboutPage div{
         border-width: 0.3rem;
+    }
+    .gitHubLink{
+        font-size: 1ch;
+    }
+    .gitHubLink img{
+        width: 1.2rem;
     }
 }
 
