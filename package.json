@@ -1,7 +1,7 @@
 {
-  "homepage": "http://MiguelVazB.github.io/BeatTheAlgorithm",
+  "homepage": "https://miguelvazb.github.io/BeatTheAlgorithm/",
   "name": "beat_the_algorithm",
-  "private": true,
+  "private": false,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
