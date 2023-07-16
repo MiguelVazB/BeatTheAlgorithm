@@ -143,10 +143,10 @@ export const MergeSort = ({
     if (difficulty) {
       switch (difficulty) {
         case "Easy":
-          setDifficultyTimeInterval(3000);
+          setDifficultyTimeInterval(2500);
           break;
         case "Intermediate":
-          setDifficultyTimeInterval(1500);
+          setDifficultyTimeInterval(1000);
           break;
         case "Hard":
           setDifficultyTimeInterval(500);
