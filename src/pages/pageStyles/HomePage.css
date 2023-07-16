@@ -130,7 +130,7 @@
 }
 
 .buttonPulse{
-    animation: pulse 1.5s infinite;
+    animation: pulse 3s infinite ease-in-out;
 }
 
 /* animations */
