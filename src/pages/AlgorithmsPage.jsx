@@ -59,11 +59,6 @@ export default function AlgorithmsPage() {
                 </Link>
                 <Link
                   className="actionBtn"
-                  onClick={{
-                    if(algorithmsToDisplay) {
-                      setAlgorithmsToDisplay([algorithmsToDisplay]);
-                    },
-                  }}
                   to={`/moreOnAlgorithms/${algorithm}`}
                 >
                   Learn More
