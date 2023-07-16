@@ -13,6 +13,8 @@ import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 import CountDownSound from "../sounds/CountDownSound.mp3";
 import StartSound from "../sounds/startSound.wav";
 import gameSound from "../sounds/gameSound.mp3";
+import userWonSound from "../sounds/userWonSound.mp3";
+import algoWonSound from "../sounds/algoWonSound.mp3";
 
 export default function GameLayout({ algo }) {
   const [randomValues, setRandomValues] = React.useState([]);
@@ -54,6 +56,15 @@ export default function GameLayout({ algo }) {
 
   React.useEffect(() => {
     setShowWinner(winner);
+    if (winner === "user") {
+      let userWin = new Audio(userWonSound);
+      userWin.volume = 0.5;
+      userWin.play();
+    } else if (winner === "computer") {
+      let algoWin = new Audio(algoWonSound);
+      algoWin.volume = 0.5;
+      algoWin.play();
+    }
   }, [winner]);
 
   React.useEffect(() => {
