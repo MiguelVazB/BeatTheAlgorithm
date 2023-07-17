@@ -82,6 +82,12 @@ export default function GameLayout({ algo }) {
         backgroundMusicRef.current.currentTime = 0;
       }
     }
+    return () => {
+      if (backgroundMusicRef.current) {
+        backgroundMusicRef.current.pause();
+        backgroundMusicRef.current.currentTime = 0;
+      }
+    };
   }, [countDownOver, winner]);
 
   function getComputerSideComponent() {
