@@ -58,7 +58,7 @@ function App() {
         <Route path="/algo/*" element={<WorkInProgressPage />} />
         <Route path="/moreOnAlgorithms/*" element={<WorkInProgressPage />} />
 
-        <Route path="*" element={<NotFound />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
   );
