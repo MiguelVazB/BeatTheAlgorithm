@@ -14,6 +14,7 @@ export default function NavBar() {
   React.useEffect(() => {
     if (showMenu) {
       document.body.style.overflow = "hidden";
+      document.querySelector(".algoMenu").style.overflow = "auto";
     } else {
       document.body.style.overflow = "auto";
     }
