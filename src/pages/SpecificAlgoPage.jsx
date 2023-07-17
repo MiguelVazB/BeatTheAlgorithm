@@ -71,7 +71,7 @@ export default function SpecificAlgoPage({ algo }) {
         </ol>
       </div>
       <div className="explanation time">{algorithm.timeComplexity}</div>
-      <Link className="actionBtn" to={`/BeatTheAlgorithm/algo/${algo}`}>
+      <Link className="actionBtn" to={`/algo/${algo}`}>
         Play
       </Link>
     </div>

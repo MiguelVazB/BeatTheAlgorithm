@@ -54,15 +54,12 @@ export default function AlgorithmsPage() {
               </div>
               <div className="explanation">{bubbleSort?.simpleExplanation}</div>
               <div className="MoreOnAlgoLinks">
-                <Link
-                  className="actionBtn"
-                  to={`/BeatTheAlgorithm/algo/${algorithm}`}
-                >
+                <Link className="actionBtn" to={`/algo/${algorithm}`}>
                   Play
                 </Link>
                 <Link
                   className="actionBtn"
-                  to={`/BeatTheAlgorithm/moreOnAlgorithms/${algorithm}`}
+                  to={`/moreOnAlgorithms/${algorithm}`}
                 >
                   Learn More
                 </Link>
