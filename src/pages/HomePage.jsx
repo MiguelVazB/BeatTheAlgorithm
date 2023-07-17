@@ -100,7 +100,7 @@ export default function HomePage() {
       <Link
         ref={startBtnRef}
         className="elementBox startButton"
-        to="algo/bubble_sort"
+        to="/BeatTheAlgorithm/algo/bubble_sort"
       >
         <p>Start</p>
         <img src={rightArrow} className="elementImage" />

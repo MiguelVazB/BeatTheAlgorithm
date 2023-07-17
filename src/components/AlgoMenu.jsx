@@ -15,7 +15,7 @@ export const AlgoMenu = ({ showMenuClick }) => {
           className="algorithms"
           onClick={() => {
             showMenuClick();
-            navigate("algo/bubble_sort");
+            navigate("/BeatTheAlgorithm/algo/bubble_sort");
             window.location.reload();
           }}
         >
@@ -25,7 +25,7 @@ export const AlgoMenu = ({ showMenuClick }) => {
           className="algorithms"
           onClick={() => {
             showMenuClick();
-            navigate("algo/selection_sort");
+            navigate("/BeatTheAlgorithm/algo/selection_sort");
             window.location.reload();
           }}
         >
@@ -35,7 +35,7 @@ export const AlgoMenu = ({ showMenuClick }) => {
           className="algorithms"
           onClick={() => {
             showMenuClick();
-            navigate("algo/heap_sort");
+            navigate("/BeatTheAlgorithm/algo/heap_sort");
             window.location.reload();
           }}
         >
@@ -45,7 +45,7 @@ export const AlgoMenu = ({ showMenuClick }) => {
           className="algorithms"
           onClick={() => {
             showMenuClick();
-            navigate("algo/merge_sort");
+            navigate("/BeatTheAlgorithm/algo/merge_sort");
             window.location.reload();
           }}
         >
@@ -55,7 +55,7 @@ export const AlgoMenu = ({ showMenuClick }) => {
           className="algorithms"
           onClick={() => {
             showMenuClick();
-            navigate("algo/quick_sort");
+            navigate("/BeatTheAlgorithm/algo/quick_sort");
             window.location.reload();
           }}
         >
@@ -65,7 +65,7 @@ export const AlgoMenu = ({ showMenuClick }) => {
           className="algorithms"
           onClick={() => {
             showMenuClick();
-            navigate("algo/dfs");
+            navigate("/BeatTheAlgorithm/algo/dfs");
             window.location.reload();
           }}
         >
@@ -75,7 +75,7 @@ export const AlgoMenu = ({ showMenuClick }) => {
           className="algorithms"
           onClick={() => {
             showMenuClick();
-            navigate("algo/bfs");
+            navigate("/BeatTheAlgorithm/algo/bfs");
             window.location.reload();
           }}
         >
@@ -83,15 +83,23 @@ export const AlgoMenu = ({ showMenuClick }) => {
         </Link>
       </div>
       <div className="menuButtons">
-        <Link className="homeButtonMenu" to="/" onClick={showMenuClick}>
+        <Link
+          className="homeButtonMenu"
+          to="/BeatTheAlgorithm/"
+          onClick={showMenuClick}
+        >
           Home
         </Link>
-        <Link className="aboutButtonMenu" to="about" onClick={showMenuClick}>
+        <Link
+          className="aboutButtonMenu"
+          to="/BeatTheAlgorithm/about"
+          onClick={showMenuClick}
+        >
           About
         </Link>
         <Link
           className="aboutButtonMenu"
-          to="moreOnAlgorithms"
+          to="/BeatTheAlgorithm/moreOnAlgorithms"
           onClick={showMenuClick}
         >
           Learn More

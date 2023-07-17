@@ -19,24 +19,32 @@ export default function NavBar() {
             <div></div>
             <div></div>
           </div>
-          <Link className="navFont" to="/" onClick={() => setShowMenu(false)}>
+          <Link
+            className="navFont"
+            to="/BeatTheAlgorithm/"
+            onClick={() => setShowMenu(false)}
+          >
             <p>Beat the Algorithm</p>
           </Link>
         </div>
         <div className="links">
-          <Link className="navFont" to="/" onClick={() => setShowMenu(false)}>
+          <Link
+            className="navFont"
+            to="/BeatTheAlgorithm/"
+            onClick={() => setShowMenu(false)}
+          >
             <p>Home</p>
           </Link>
           <Link
             className="navFont"
-            to="moreOnAlgorithms"
+            to="/BeatTheAlgorithm/moreOnAlgorithms"
             onClick={() => setShowMenu(false)}
           >
             <p>More on Algorithms</p>
           </Link>
           <Link
             className="navFont"
-            to="about"
+            to="/BeatTheAlgorithm/about"
             onClick={() => setShowMenu(false)}
           >
             <p>About</p>

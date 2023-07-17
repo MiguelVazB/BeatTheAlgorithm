@@ -272,7 +272,10 @@ export default function GameLayout({ algo }) {
           <button className="tryAgainBtn" onClick={restartGame}>
             {winner == "user" ? "Play Again" : "Try Again"}
           </button>
-          <Link className="tryAgainBtn" to={`/moreOnAlgorithms/${algo}`}>
+          <Link
+            className="tryAgainBtn"
+            to={`/BeatTheAlgorithm/moreOnAlgorithms/${algo}`}
+          >
             Learn more
           </Link>
         </div>
