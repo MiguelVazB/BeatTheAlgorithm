@@ -48,7 +48,7 @@ export default function About() {
           className="gitHubLink"
         >
           <img src={gitHubLogo} />
-          https://github.com/MiguelVazB/BeatTheAlgorithm
+          <p>https://github.com/MiguelVazB/BeatTheAlgorithm</p>
         </Link>
       </div>
     </main>

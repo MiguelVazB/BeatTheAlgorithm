@@ -54,12 +54,13 @@
 .gitHubLink{
     flex: 1;
     font-size: 1.5ch;
-    flex-wrap: wrap;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     font-weight: bold;
+    flex-wrap: wrap;
+    word-break: break-all;
 }
 
 .gitHubLink:hover{
@@ -71,7 +72,6 @@
     height: auto;
     margin-right: 1rem;
     margin-left: 1rem;
-    margin-bottom: 0.5rem;
 }
 
 /* mobile responsiveness */
@@ -131,7 +131,7 @@
         border-width: 0.3rem;
     }
     .gitHubLink{
-        font-size: 1ch;
+        font-size: 0.9ch;
     }
     .gitHubLink img{
         width: 1.2rem;

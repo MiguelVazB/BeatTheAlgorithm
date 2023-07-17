@@ -94,7 +94,7 @@
 /* menu for mobile */
 @media (max-width: 950px) {
     .algoMenu {
-        height: 100vh;
+        height: 100dvh;
         width: auto;
         display: flex;
         justify-content: space-between;
