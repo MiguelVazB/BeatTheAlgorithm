@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import React from "react";
 import { useState } from "react";
 import "./componentStyles/NavBar.css";
 import { AlgoMenu } from "./AlgoMenu";
@@ -9,6 +10,14 @@ export default function NavBar() {
   function showMenuClick() {
     setShowMenu((prev) => !prev);
   }
+
+  React.useEffect(() => {
+    if (showMenu) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [showMenu]);
 
   return (
     <>
