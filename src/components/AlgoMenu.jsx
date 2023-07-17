@@ -6,6 +6,13 @@ import "./componentStyles/AlgoMenu.css";
 export const AlgoMenu = ({ showMenuClick }) => {
   const navigate = useNavigate();
 
+  function handleClick() {
+    showMenuClick();
+    setTimeout(() => {
+      navigate(0);
+    });
+  }
+
   return (
     <div className="algoMenu fadeInRight">
       <img src={Arrow} onClick={showMenuClick} className="goBackArrow" />
@@ -13,11 +20,8 @@ export const AlgoMenu = ({ showMenuClick }) => {
       <div className="algoList">
         <Link
           className="algorithms"
-          onClick={() => {
-            showMenuClick();
-            navigate("/algo/bubble_sort");
-            window.location.reload();
-          }}
+          to="/algo/bubble_sort"
+          onClick={handleClick}
         >
           Bubble Sort
         </Link>
