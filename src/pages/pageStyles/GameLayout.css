@@ -168,7 +168,7 @@
 .BackgroundSongBtn{
     cursor: pointer;
     position: absolute;
-    top: -0.2rem;
+    top: 0;
     right: 0.5rem;
     animation: buttonPulse 1s ease-in-out;
     animation-iteration-count: 6;
@@ -282,6 +282,9 @@
     }
 }
 @media (max-width: 370px){
+    .algorithmDisplayed{
+        font-size: 1em;
+    }
     .difficultySection p{
         font-size: 1.5rem;
     }
