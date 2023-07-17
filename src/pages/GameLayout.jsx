@@ -71,7 +71,7 @@ export default function GameLayout({ algo }) {
     if (countDownOver && !winner.length) {
       if (!backgroundMusicRef.current) {
         backgroundMusicRef.current = new Audio(gameSound);
-        backgroundMusicRef.current.volume = 0.05;
+        backgroundMusicRef.current.volume = 0.1;
       }
       setTimeout(() => {
         backgroundMusicRef.current.play();
