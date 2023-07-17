@@ -26,7 +26,7 @@ export default function About() {
           driving force behind this website. As the sole creator and founder, I
           am passionate about algorithms and web development. I've always been
           in love with technology and the things we can do with it. I strive to
-          improving myself and get better through hard work and perseverance.
+          improve myself and get better through hard work and perseverance.
         </p>
       </div>
       <div className="inTouch">Get in Touch</div>
@@ -38,7 +38,7 @@ export default function About() {
         <span className="important">
           Thank you for visiting Beat the Algorithm.
         </span>{" "}
-        I am thrilled to have you here, and I look forward to you having fun
+        I am thrilled to have you here and I can't wait for you to have fun
         beating the algorithm!
       </div>
       <div>
