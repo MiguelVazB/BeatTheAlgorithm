@@ -27,62 +27,32 @@ export const AlgoMenu = ({ showMenuClick }) => {
         </Link>
         <Link
           className="algorithms"
-          onClick={() => {
-            showMenuClick();
-            navigate("/algo/selection_sort");
-            window.location.reload();
-          }}
+          to="/algo/selection_sort"
+          onClick={handleClick}
         >
           Selection Sort
         </Link>
-        <Link
-          className="algorithms"
-          onClick={() => {
-            showMenuClick();
-            navigate("/algo/heap_sort");
-            window.location.reload();
-          }}
-        >
+        <Link className="algorithms" to="/algo/heap_sort" onClick={handleClick}>
           Heap Sort
         </Link>
         <Link
           className="algorithms"
-          onClick={() => {
-            showMenuClick();
-            navigate("/algo/merge_sort");
-            window.location.reload();
-          }}
+          to="/algo/merge_sort"
+          onClick={handleClick}
         >
           Merge Sort
         </Link>
         <Link
           className="algorithms"
-          onClick={() => {
-            showMenuClick();
-            navigate("/algo/quick_sort");
-            window.location.reload();
-          }}
+          to="/algo/quick_sort"
+          onClick={handleClick}
         >
           Quick Sort
         </Link>
-        <Link
-          className="algorithms"
-          onClick={() => {
-            showMenuClick();
-            navigate("/algo/dfs");
-            window.location.reload();
-          }}
-        >
+        <Link className="algorithms" to="/algo/dfs" onClick={handleClick}>
           Depth-First Search
         </Link>
-        <Link
-          className="algorithms"
-          onClick={() => {
-            showMenuClick();
-            navigate("/algo/bfs");
-            window.location.reload();
-          }}
-        >
+        <Link className="algorithms" to="/algo/bfs" onClick={handleClick}>
           Breadth-First Search
         </Link>
       </div>
