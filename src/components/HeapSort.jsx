@@ -12,7 +12,7 @@ export const HeapSort = ({
   const [valuesToSort, setValuesToSort] = React.useState([]); // stores original values
   const [circleValues, setCircleValues] = React.useState([]); // stores values being changed
   const [lines, setLines] = React.useState([]);
-  const [windowSize, setWindowSize] = React.useState([]);
+  const [containerRect, setContainerRect] = React.useState(null);
   const [difficultyTimeInterval, setDifficultyTimeInterval] = React.useState(0);
 
   const [showArrows, setShowArrows] = React.useState(false);
@@ -31,167 +31,136 @@ export const HeapSort = ({
   const [firstAndLastSwap, setFirstAndLastSwap] = React.useState([]);
 
   React.useEffect(() => {
-    setWindowSize([window.innerWidth, window.innerHeight]);
-    const handleResize = () => {
-      setWindowSize([window.innerWidth, window.innerHeight]);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  React.useEffect(() => {
     setValuesToSort([...randomNumbers]);
     setCircleValues([...randomNumbers]);
   }, [randomNumbers]);
 
-  // draw lines that connect the nodes
   React.useEffect(() => {
-    function getHypotenuseAndAngle(x1, y1, x2, y2) {
-      let xLength = x2 - x1;
-      let yLength = y2 - y1;
-      let hypotenuse = Math.sqrt(xLength ** 2 + yLength ** 2);
-      let angle = Math.tan(yLength / xLength);
-      let angleDegrees = angle * (180 / Math.PI);
-      return [hypotenuse, angleDegrees];
+    setContainerRect(binaryTreeRef.current.getBoundingClientRect());
+  }, [circleValues]);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (binaryTreeRef.current) {
+        const rect = binaryTreeRef.current.getBoundingClientRect();
+        setContainerRect(rect);
+      }
+    };
+
+    if (binaryTreeRef.current) {
+      const rect = binaryTreeRef.current.getBoundingClientRect();
+      setContainerRect(rect);
     }
 
-    if (circleValues && binaryTreeRef.current) {
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // draw lines that connect the nodes
+  React.useEffect(() => {
+    const updateLines = () => {
+      if (!containerRect) return;
       let updatedLines = [];
       for (let i = 0; i < circleValues.length; i++) {
         if (i === 0) {
+          let containerX = containerRect.left + window.scrollX;
+          let containerY = containerRect.top + window.scrollY;
+          let containerWidth = containerRect.width;
+          let containerHeight = containerRect.height;
+
           let point1 =
             binaryTreeRef.current.children[0].getBoundingClientRect();
+          let x1 = point1.left + point1.width / 2 - containerX;
+          let y1 = point1.top + point1.height / 2 - containerY;
+
           let point2 =
             binaryTreeRef.current.children[1].getBoundingClientRect();
-          let x1 = point1.left + point1.width / 2;
-          let y1 = point1.top + point1.height / 2;
-          let x2 = point2.left + point2.width / 2;
-          let y2 = point2.top + point2.height / 2;
+          let x2 = point2.left + point2.width / 2 - containerX;
+          let y2 = point2.top + point2.height / 2 - containerY;
 
-          let [hypotenuse, angleDegrees] = getHypotenuseAndAngle(
-            x1,
-            y1,
-            x2,
-            y2
-          );
+          const svgStyle = {
+            width: containerWidth,
+            height: containerHeight,
+            position: "absolute",
+            top: 0,
+            left: 0,
+          };
 
           updatedLines.push(
             <div
+              className="lineContainer"
               key={`${i}${x1}-${x2}-${y2}`}
               style={{
                 position: "absolute",
-                zIndex: -1,
-                right: `${x1}px`,
-                top: `${windowSize[0] <= 900 ? y1 - 140 : y1 - 160}px`,
-                width: `${hypotenuse - 30}px`,
-                border:
-                  windowSize[0] <= 900
-                    ? "1.5px dashed white"
-                    : "2px dashed white",
-                transform: `rotate(${angleDegrees}deg)`,
-                transformOrigin: "top right",
+                width: "100%",
+                height: "100%",
               }}
-            ></div>
+            >
+              <svg style={svgStyle}>
+                <line
+                  className="treeEdge"
+                  x1={x1}
+                  y1={y1 + point1.height / 4}
+                  x2={x2}
+                  y2={y2 + point2.height / 4}
+                />
+              </svg>
+            </div>
           );
 
           point2 = binaryTreeRef.current.children[2].getBoundingClientRect();
-          x2 = point2.left + point2.width / 2;
-          y2 = point2.top + point2.height / 2;
-
-          [hypotenuse, angleDegrees] = getHypotenuseAndAngle(x1, y1, x2, y2);
+          x2 = point2.left + point2.width / 2 - containerX;
+          y2 = point2.top + point2.height / 2 - containerY;
 
           updatedLines.push(
             <div
+              className="lineContainer"
               key={`${i}${x1}-${x2}-${y2}`}
               style={{
                 position: "absolute",
-                zIndex: -1,
-                left: `${x1}px`,
-                top: `${windowSize[0] <= 900 ? y1 - 140 : y1 - 160}px`,
-                width: `${hypotenuse - 30}px`,
-                border:
-                  windowSize[0] <= 900
-                    ? "1.5px dashed white"
-                    : "2px dashed white",
-                transform: `rotate(${angleDegrees}deg)`,
-                transformOrigin: "top left",
+                width: "100%",
+                height: "100%",
               }}
-            ></div>
+            >
+              <svg style={svgStyle}>
+                <line
+                  className="treeEdge"
+                  x1={x1}
+                  y1={y1 + point1.height / 4}
+                  x2={x2}
+                  y2={y2 + point2.height / 4}
+                />
+              </svg>
+            </div>
           );
-        } else {
-          if (2 * i + 1 < circleValues.length) {
-            var point1 =
-              binaryTreeRef.current.children[i].getBoundingClientRect();
-            var point2 =
-              binaryTreeRef.current.children[2 * i + 1].getBoundingClientRect();
-            var x1 = point1.left + point1.width;
-            var y1 = point1.top + point1.height / 2;
-            var x2 = point2.left + point2.width / 2;
-            var y2 = point2.top + point2.height / 2;
-
-            var [hypotenuse, angleDegrees] = getHypotenuseAndAngle(
-              x1,
-              y1,
-              x2,
-              y2
-            );
-
-            updatedLines.push(
-              <div
-                key={`${i}${x1}-${x2}-${y2}`}
-                style={{
-                  position: "absolute",
-                  zIndex: -1,
-                  left: `${x2 - 10}px`,
-                  top: `${windowSize[0] <= 900 ? y2 - 150 : y2 - 160}px`,
-                  width: `${hypotenuse - 30}px`,
-                  border:
-                    windowSize[0] <= 900
-                      ? "1.5px dashed white"
-                      : "2px dashed white",
-                  transform: `rotate(${angleDegrees}deg)`,
-                  transformOrigin: "top left",
-                }}
-              ></div>
-            );
-          }
-
-          if (2 * i + 2 < circleValues.length) {
-            point2 =
-              binaryTreeRef.current.children[2 * i + 2].getBoundingClientRect();
-            x2 = point2.left + point2.width;
-            y2 = point2.top + point2.height / 3;
-
-            [hypotenuse, angleDegrees] = getHypotenuseAndAngle(x1, y1, x2, y2);
-
-            updatedLines.push(
-              <div
-                key={`${i}${x1}-${x2}-${y2}`}
-                style={{
-                  position: "absolute",
-                  zIndex: -1,
-                  left: `${x1 - 25}px`,
-                  top: `${windowSize[0] <= 900 ? y2 - 165 : y2 - 210}px`,
-                  width: `${hypotenuse}px`,
-                  border:
-                    windowSize[0] <= 900
-                      ? "1.5px dashed white"
-                      : "2px dashed white",
-                  transform: `rotate(${angleDegrees}deg)`,
-                  transformOrigin: "top left",
-                }}
-              ></div>
-            );
-          }
         }
       }
       setLines([...updatedLines]);
-    }
-  }, [circleValues, windowSize, binaryTreeRef]);
+    };
+
+    updateLines();
+  }, [circleValues, binaryTreeRef, containerRect]);
+
+  // function calculateTopRight(y) {
+  //   if (windowSize[0] <= 388) {
+  //     return y - 150;
+  //   } else if (windowSize[0] <= 900) {
+  //     return y - 165;
+  //   } else if (windowSize[0] > 900) {
+  //     return y - 210;
+  //   }
+  // }
+
+  // function calculateTopLeft(y) {
+  //   if (windowSize[0] <= 388) {
+  //     return y - 140;
+  //   } else if (windowSize[0] <= 900) {
+  //     return y - 140;
+  //   } else if (windowSize[0] > 900) {
+  //     return y - 160;
+  //   }
+  // }
 
   React.useEffect(() => {
     if (difficulty) {
