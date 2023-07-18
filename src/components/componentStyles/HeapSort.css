@@ -57,6 +57,16 @@
     height: 3rem;
 }
 
+.lineContainer{
+    z-index: -1;
+}
+
+.treeEdge{
+    stroke: white;
+    stroke-dasharray: 6,6;
+    stroke-width: 4;
+}
+
 /* user side */
 
 .heapSortUser{
@@ -138,9 +148,9 @@
 }
 
 @media (max-width: 900px){
-    .heapSort{
+    /* .heapSort{
         justify-content: space-evenly;
-    }
+    } */
     .circleValue{
         padding: 0.1rem;
         width: 3.5rem;
@@ -228,11 +238,11 @@
         padding: 0.2rem;
         width: 1rem;
         height: 1rem;
-        font-size: 0.6rem;
+        font-size: 0.7rem;
     }
     .originalValues{
         font-size: 0.8rem;
-        margin-bottom: 4rem;
+        margin-bottom: 2rem;
         justify-content: space-between;
     }
     .originalValues .orValues{
@@ -266,7 +276,7 @@
     }
     .originalValues{
         font-size: 0.8rem;
-        margin-bottom: 4rem;
+        margin-bottom: 2rem;
         justify-content: space-between;
     }
     .originalValues .orValues{
