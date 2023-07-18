@@ -46,10 +46,10 @@ function App() {
           path="/algo/selection_sort"
           element={<GameLayout algo="selection_sort" />}
         />
-        <Route
+        {/* <Route
           path="/algo/heap_sort"
           element={<GameLayout algo="heap_sort" />}
-        />
+        /> */}
         <Route
           path="/algo/merge_sort"
           element={<GameLayout algo="merge_sort" />}
