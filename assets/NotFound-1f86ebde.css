@@ -1,0 +1,1 @@
+.notFound{display:flex;flex-direction:column;color:#fff;flex:1;padding-top:15em;justify-content:center}.notFoundContainer{margin:1rem;font-family:Stencil Std,fantasy;font-size:4rem;color:#fff;text-align:center}.notFoundError{margin:0;font-size:10rem}@media (max-width: 415px){.notFoundError{font-size:6rem}}
