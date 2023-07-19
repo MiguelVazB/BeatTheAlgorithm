@@ -84,3 +84,13 @@
         padding-right: 1em;
     }
 }
+
+@media (max-width: 237px){
+    .navFont{
+        font-size: 0.8rem;
+    }
+    .hamburgerMenu{
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}
