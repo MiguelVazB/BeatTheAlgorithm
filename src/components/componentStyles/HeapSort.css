@@ -3,6 +3,8 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    row-gap: 1rem;
+    overflow: visible;
 }
 
 .originalValues{
@@ -13,7 +15,7 @@
 }
 
 .binaryTree{
-    margin-bottom: 2rem;
+    overflow: visible;
     display: grid;
     grid-template-columns: repeat(12, 0.9fr);
     grid-template-rows: repeat(4, 0.5fr);
@@ -138,150 +140,145 @@
 
 /* Mobile responsiveness */
 
-@media (max-width: 1100px){
+@media (max-width: 1070px){
     .circleValue{
-        padding: 0.2rem;
+        padding: 0.3rem;
         width: 4rem;
         height: 4rem;
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
 }
 
-@media (max-width: 900px){
-    /* .heapSort{
-        justify-content: space-evenly;
-    } */
+@media (max-width: 950px){
+    .binaryTree{
+        row-gap: 1rem;
+    }
     .circleValue{
-        padding: 0.1rem;
         width: 3.5rem;
         height: 3.5rem;
+        font-size: 2rem;
+    }
+    .lineContainer{
+        top: 1rem;
+    }
+    .heapSort .arrowBrowser{
+        height: 2.5rem;
+        margin-left: -0.2rem;
+    }
+}
+
+@media (max-width: 850px){
+    .binaryTree{
+        row-gap: 1.3rem;
+    }
+    .circleValue{
+        width: 3rem;
+        height: 3rem;
+        font-size: 2rem;
+    }
+    .heapSort .arrowBrowser{
+        height: 2.5rem;
+        margin-left: -0.4rem;
+        margin-top: -1.8rem;
+    }
+}
+
+@media (max-width: 756px){
+    .binaryTree{
+        row-gap: 1.4rem;
+    }
+    .circleValue{
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 2rem;
+    }
+    .heapSort .arrowBrowser{
+        height: 2.2rem;
+        margin-left: -0.5rem;
+        margin-top: -2.8rem;
+    }
+}
+
+@media (max-width: 635px){
+    .binaryTree{
+        row-gap: 1.5rem;
+    }
+    .originalValues{
+        font-size: 1rem;
+    }
+    .circleValue{
+        width: 2rem;
+        height: 2rem;
         font-size: 1.5rem;
     }
     .heapSort .arrowBrowser{
-        margin-top: -2rem;
-        height: 2rem;
+        height: 1.5rem;
+        margin-left: -0.4rem;
+        margin-top: -3.8rem;
     }
 }
 
-@media (max-width: 780px) {
+@media (max-width: 540px){ 
+    .binaryTree{
+        row-gap: 2rem;
+    }
+    .originalValues{
+        font-size: 0.8rem;
+    }
     .circleValue{
-        padding: 0.1rem;
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 1.2rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 1.3rem;
     }
     .heapSort .arrowBrowser{
-        margin-top: -4rem;
-        margin-left: -0.4rem;
-        height: 1.5rem;
-    }
-    .heapSortUser .valuesToSortUser{
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        place-items: center;
-        row-gap: 0.1rem;
-        column-gap: 1rem;
+        height: 1.2rem;
+        margin-left: -0.5rem;
+        margin-top: -4.8rem;
     }
 }
 
-
-@media (max-width: 600px) {
-    .circleValue{
-        padding: 0.2rem;
-        width: 2rem;
-        height: 2rem;
-        font-size: 1rem;
+@media (max-width: 450px){ 
+    .binaryTree{
+        row-gap: 3rem;
     }
-}
-
-@media (max-width: 510px) {
+    .originalValues{
+        font-size: 0.6rem;
+    }
     .circleValue{
         padding: 0.2rem;
         width: 1.2rem;
         height: 1.2rem;
         font-size: 1rem;
     }
-    .originalValues{
-        column-gap: 0.2rem;
-        font-size: 1rem;
-        margin-bottom: 4rem;
-        justify-content: space-between;
-    }
-    .originalValues .orValues{
-        flex: 1;
-        font-size: 0.8rem;
-        text-align: center;
-    }
-    .originalValues div{
-        text-align: center;
+    .lineContainer{
+        top: 1.5rem;
     }
     .heapSort .arrowBrowser{
-        margin-top: -5.8rem;
-        margin-left: -0.7rem;
-        height: 1rem;
-    }
-    .valuesToSortUser .userValues{
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 1.5rem;
-    }
-    .selectedValue{
-        width: 3.5rem;
-        height: 3.5rem;
-        font-size: 1.5rem;
+        height: 1.2rem;
+        margin-left: -0.8rem;
+        margin-top: -5.5rem;
     }
 }
 
-@media (max-width: 388px) {
-    .circleValue{
-        padding: 0.2rem;
-        width: 1rem;
-        height: 1rem;
-        font-size: 0.7rem;
+@media (max-width: 350px){ 
+    .binaryTree{
+        row-gap: 3.5rem;
     }
     .originalValues{
-        font-size: 0.8rem;
-        margin-bottom: 2rem;
-        justify-content: space-between;
-    }
-    .originalValues .orValues{
-        flex: 1;
         font-size: 0.6rem;
-        text-align: center;
+    }
+    .circleValue{
+        padding: 0.1rem;
+        width: 1.1rem;
+        height: 1.1rem;
+        font-size: 0.8rem;
+    }
+    .lineContainer{
+        top: 2rem;
     }
     .heapSort .arrowBrowser{
-        height: 0.8rem;
-        margin-top: -6rem;
-        margin-left: -0.6rem;
-    }
-    .valuesToSortUser .userValues{
-        width: 2rem;
-        height: 2rem;
-        font-size: 1.2rem;
-    }
-    .selectedValue{
-        width: 3rem;
-        height: 3rem;
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 288px) {
-    .circleValue{
-        padding: 0.4rem;
-        width: 0.4rem;
-        height: 0.4rem;
-        font-size: 0.7rem;
-    }
-    .originalValues{
-        font-size: 0.8rem;
-        margin-bottom: 2rem;
-        justify-content: space-between;
-    }
-    .originalValues .orValues{
-        flex: 1;
-        font-size: 0.6rem;
-        text-align: center;
+        height: 1rem;
+        margin-left: -0.8rem;
+        margin-top: -5.7rem;
     }
 }
