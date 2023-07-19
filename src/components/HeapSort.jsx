@@ -92,7 +92,7 @@ export const HeapSort = ({
               style={{
                 position: "absolute",
                 width: "100%",
-                height: "100%",
+                height: "auto",
               }}
             >
               <svg style={svgStyle}>
@@ -118,7 +118,7 @@ export const HeapSort = ({
               style={{
                 position: "absolute",
                 width: "100%",
-                height: "100%",
+                height: "auto",
               }}
             >
               <svg style={svgStyle}>
@@ -151,7 +151,7 @@ export const HeapSort = ({
                 style={{
                   position: "absolute",
                   width: "100%",
-                  height: "100%",
+                  height: "auto",
                 }}
               >
                 <svg style={svgStyle}>
@@ -180,7 +180,7 @@ export const HeapSort = ({
                 style={{
                   position: "absolute",
                   width: "100%",
-                  height: "100%",
+                  height: "auto",
                 }}
               >
                 <svg style={svgStyle}>
@@ -202,26 +202,6 @@ export const HeapSort = ({
 
     updateLines();
   }, [circleValues, binaryTreeRef, containerRect]);
-
-  // function calculateTopRight(y) {
-  //   if (windowSize[0] <= 388) {
-  //     return y - 150;
-  //   } else if (windowSize[0] <= 900) {
-  //     return y - 165;
-  //   } else if (windowSize[0] > 900) {
-  //     return y - 210;
-  //   }
-  // }
-
-  // function calculateTopLeft(y) {
-  //   if (windowSize[0] <= 388) {
-  //     return y - 140;
-  //   } else if (windowSize[0] <= 900) {
-  //     return y - 140;
-  //   } else if (windowSize[0] > 900) {
-  //     return y - 160;
-  //   }
-  // }
 
   React.useEffect(() => {
     if (difficulty) {

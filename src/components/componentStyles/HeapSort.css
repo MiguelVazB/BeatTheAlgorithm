@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    row-gap: 1rem;
+    row-gap: 0.5rem;
     overflow: visible;
 }
 
@@ -44,8 +44,8 @@
     justify-content: center;
     align-items: center;
     padding: 0.1rem;
-    width: 5rem;
-    height: 5rem;
+    width: 4.5rem;
+    height: 4.5rem;
     place-self: center;
     border-radius: 100%;
     font-weight: bold;
@@ -106,9 +106,8 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    flex-wrap: wrap;
     row-gap: 1rem;
-    column-gap: 3rem;
+    column-gap: 0rem;
 }
 
 .valuesToSortUser .userValues{
@@ -118,7 +117,7 @@
     font-weight: bold;
     width: 3rem;
     height: 3rem;
-    font-size: 2rem;
+    font-size: clamp(0.5rem 3rem 5rem);
     border-radius: 0.5rem;
     box-shadow: 4px 4px 1px black;
     text-align: center;
@@ -146,6 +145,14 @@
         width: 4rem;
         height: 4rem;
         font-size: 2.2rem;
+    }
+    .valuesToSortUser .userValues{
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    .selectedValue{
+        width: 3.5rem;
+        height: 3.5rem;
     }
 }
 
@@ -184,6 +191,17 @@
 }
 
 @media (max-width: 756px){
+    .heapSort{
+        row-gap: 0;
+    }
+    .valuesToSortUser .userValues{
+        width: 2rem;
+        height: 2rem;
+    }
+    .selectedValue{
+        width: 3rem;
+        height: 3rem;
+    }
     .binaryTree{
         row-gap: 1.4rem;
     }
@@ -202,6 +220,14 @@
 @media (max-width: 635px){
     .binaryTree{
         row-gap: 1.5rem;
+    }
+    .heapSortUser .valuesToSortUser{
+        flex-wrap: wrap;
+        column-gap: 2rem;
+    }
+    .valuesToSortUser .userValues{
+        width: 2rem;
+        height: 2rem;
     }
     .originalValues{
         font-size: 1rem;
@@ -251,7 +277,7 @@
         font-size: 1rem;
     }
     .lineContainer{
-        top: 1.5rem;
+        top: 0.5rem;
     }
     .heapSort .arrowBrowser{
         height: 1.2rem;
@@ -274,11 +300,22 @@
         font-size: 0.8rem;
     }
     .lineContainer{
-        top: 2rem;
+        top: 1.2rem;
     }
     .heapSort .arrowBrowser{
         height: 1rem;
         margin-left: -0.8rem;
         margin-top: -5.7rem;
+    }
+    .heapSortUser .valuesToSortUser{
+        column-gap: 1rem;
+    }
+    .valuesToSortUser .userValues{
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    .selectedValue{
+        width: 2.5rem;
+        height: 2.5rem;
     }
 }
