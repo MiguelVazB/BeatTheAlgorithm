@@ -1,5 +1,6 @@
 import React from "react";
 import "./pageStyles/GameLayout.css";
+import "./pageStyles/AlgorithmsPage.css";
 import {
   generateXRandomNumbers,
   generateXUniqueRandomNumbers,
