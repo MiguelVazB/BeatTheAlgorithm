@@ -112,7 +112,7 @@ export default function GameLayout({ algo }) {
       }
       setTimeout(() => {
         backgroundMusicRef.current.play();
-      }, 500);
+      });
     } else {
       if (backgroundMusicRef.current) {
         backgroundMusicRef.current.pause();
