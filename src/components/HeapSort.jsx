@@ -63,12 +63,18 @@ export const HeapSort = ({
       if (!containerRect) return;
       let updatedLines = [];
       for (let i = 0; i < circleValues.length; i++) {
+        let containerX = containerRect.left + window.scrollX;
+        let containerY = containerRect.top + window.scrollY;
+        let containerWidth = containerRect.width;
+        let containerHeight = containerRect.height;
+        const svgStyle = {
+          width: containerWidth,
+          height: containerHeight,
+          position: "absolute",
+          top: 0,
+          left: 0,
+        };
         if (i === 0) {
-          let containerX = containerRect.left + window.scrollX;
-          let containerY = containerRect.top + window.scrollY;
-          let containerWidth = containerRect.width;
-          let containerHeight = containerRect.height;
-
           let point1 =
             binaryTreeRef.current.children[0].getBoundingClientRect();
           let x1 = point1.left + point1.width / 2 - containerX;
@@ -78,14 +84,6 @@ export const HeapSort = ({
             binaryTreeRef.current.children[1].getBoundingClientRect();
           let x2 = point2.left + point2.width / 2 - containerX;
           let y2 = point2.top + point2.height / 2 - containerY;
-
-          const svgStyle = {
-            width: containerWidth,
-            height: containerHeight,
-            position: "absolute",
-            top: 0,
-            left: 0,
-          };
 
           updatedLines.push(
             <div
@@ -134,6 +132,69 @@ export const HeapSort = ({
               </svg>
             </div>
           );
+        } else {
+          if (2 * i + 1 < circleValues.length) {
+            var point1 =
+              binaryTreeRef.current.children[i].getBoundingClientRect();
+            var x1 = point1.left + point1.width / 2 - containerX;
+            var y1 = point1.top + point1.height / 2 - containerY;
+
+            var point2 =
+              binaryTreeRef.current.children[2 * i + 1].getBoundingClientRect();
+            var x2 = point2.left + point2.width / 2 - containerX;
+            var y2 = point2.top + point2.height / 2 - containerY;
+
+            updatedLines.push(
+              <div
+                className="lineContainer"
+                key={`${i}${x1}-${x2}-${y2}`}
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <svg style={svgStyle}>
+                  <line
+                    className="treeEdge"
+                    x1={x1}
+                    y1={y1 + point1.height / 4}
+                    x2={x2}
+                    y2={y2 + point2.height / 4}
+                  />
+                </svg>
+              </div>
+            );
+          }
+
+          if (2 * i + 2 < circleValues.length) {
+            point2 =
+              binaryTreeRef.current.children[2 * i + 2].getBoundingClientRect();
+            x2 = point2.left + point2.width / 2 - containerX;
+            y2 = point2.top + point2.height / 2 - containerY;
+
+            updatedLines.push(
+              <div
+                className="lineContainer"
+                key={`${i}${x1}-${x2}-${y2}`}
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <svg style={svgStyle}>
+                  <line
+                    className="treeEdge"
+                    x1={x1}
+                    y1={y1 + point1.height / 4}
+                    x2={x2}
+                    y2={y2 + point2.height / 4}
+                  />
+                </svg>
+              </div>
+            );
+          }
         }
       }
       setLines([...updatedLines]);
