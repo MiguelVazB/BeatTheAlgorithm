@@ -117,7 +117,7 @@
     font-weight: bold;
     width: 3rem;
     height: 3rem;
-    font-size: clamp(0.5rem 3rem 5rem);
+    font-size: clamp(1.2rem, 2vw, 2.5rem);
     border-radius: 0.5rem;
     box-shadow: 4px 4px 1px black;
     text-align: center;
