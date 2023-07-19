@@ -4,10 +4,46 @@ import {
   generateXRandomNumbers,
   generateXUniqueRandomNumbers,
 } from "../utils/randomNumbers.jsx";
-import { BubbleSort, BubbleSortUser } from "../components/BubbleSort";
-import { SelectionSort, SelectionSortUser } from "../components/SelectionSort";
-import { HeapSort, HeapSortUser } from "../components/HeapSort";
-import { MergeSort, MergeSortUser } from "../components/MergeSort";
+const BubbleSort = React.lazy(() =>
+  import("../components/BubbleSort").then((module) => ({
+    default: module.BubbleSort,
+  }))
+);
+const BubbleSortUser = React.lazy(() =>
+  import("../components/BubbleSort").then((module) => ({
+    default: module.BubbleSortUser,
+  }))
+);
+const SelectionSort = React.lazy(() =>
+  import("../components/SelectionSort").then((module) => ({
+    default: module.SelectionSort,
+  }))
+);
+const SelectionSortUser = React.lazy(() =>
+  import("../components/SelectionSort").then((module) => ({
+    default: module.SelectionSortUser,
+  }))
+);
+const HeapSort = React.lazy(() =>
+  import("../components/HeapSort").then((module) => ({
+    default: module.HeapSort,
+  }))
+);
+const HeapSortUser = React.lazy(() =>
+  import("../components/HeapSort").then((module) => ({
+    default: module.HeapSortUser,
+  }))
+);
+const MergeSort = React.lazy(() =>
+  import("../components/MergeSort").then((module) => ({
+    default: module.MergeSort,
+  }))
+);
+const MergeSortUser = React.lazy(() =>
+  import("../components/MergeSort").then((module) => ({
+    default: module.MergeSortUser,
+  }))
+);
 import { Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 import CountDownSound from "../sounds/CountDownSound.mp3";
