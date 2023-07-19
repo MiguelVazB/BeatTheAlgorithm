@@ -49,7 +49,7 @@ export default function HomePage() {
         });
       },
       {
-        threshold: 0.5,
+        threshold: 0.7,
       }
     );
 
