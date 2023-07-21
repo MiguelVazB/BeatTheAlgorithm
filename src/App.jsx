@@ -44,6 +44,10 @@ function App() {
             path="/moreOnAlgorithms/merge_sort"
             element={<SpecificAlgoPage algo="merge_sort" />}
           />
+          <Route
+            path="/moreOnAlgorithms/quick_sort"
+            element={<SpecificAlgoPage algo="quick_sort" />}
+          />
 
           {/* Paths for algorithms */}
           <Route path="/algo" element={<GameLayout algo="bubble_sort" />} />
@@ -62,6 +66,10 @@ function App() {
           <Route
             path="/algo/merge_sort"
             element={<GameLayout algo="merge_sort" />}
+          />
+          <Route
+            path="/algo/quick_sort"
+            element={<GameLayout algo="quick_sort" />}
           />
 
           <Route path="/algo/*" element={<WorkInProgressPage />} />
