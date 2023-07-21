@@ -45,6 +45,17 @@ const MergeSortUser = React.lazy(() =>
     default: module.MergeSortUser,
   }))
 );
+const QuickSort = React.lazy(() =>
+  import("../components/QuickSort").then((module) => ({
+    default: module.QuickSort,
+  }))
+);
+const QuickSortUser = React.lazy(() =>
+  import("../components/QuickSort").then((module) => ({
+    default: module.QuickSortUser,
+  }))
+);
+
 import { Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 import CountDownSound from "../sounds/CountDownSound.mp3";
@@ -169,6 +180,16 @@ export default function GameLayout({ algo }) {
             winner={winner}
           />
         );
+      case "quick_sort":
+        return (
+          <QuickSort
+            difficulty={difficulty ? difficulty : ""}
+            randomNumbers={randomValues}
+            countDownOver={countDownOver}
+            setWinner={setWinner}
+            winner={winner}
+          />
+        );
     }
   }
 
@@ -192,6 +213,10 @@ export default function GameLayout({ algo }) {
       case "merge_sort":
         return (
           <MergeSortUser randomNumbers={randomValues} setWinner={setWinner} />
+        );
+      case "quick_sort":
+        return (
+          <QuickSortUser randomNumbers={randomValues} setWinner={setWinner} />
         );
     }
   }
