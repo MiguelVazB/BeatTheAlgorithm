@@ -64,6 +64,8 @@ import gameSound from "../sounds/gameSound.mp3";
 import userWonSound from "../sounds/userWonSound.mp3";
 import algoWonSound from "../sounds/algoWonSound.mp3";
 
+import { GameContext } from "../utils/gameContext";
+
 export default function GameLayout({ algo }) {
   const [randomValues, setRandomValues] = React.useState([]);
 
@@ -141,83 +143,30 @@ export default function GameLayout({ algo }) {
   function getComputerSideComponent() {
     switch (algo) {
       case "bubble_sort":
-        return (
-          <BubbleSort
-            difficulty={difficulty ? difficulty : ""}
-            randomNumbers={randomValues}
-            countDownOver={countDownOver}
-            setWinner={setWinner}
-            winner={winner}
-          />
-        );
+        return <BubbleSort />;
       case "selection_sort":
-        return (
-          <SelectionSort
-            difficulty={difficulty ? difficulty : ""}
-            randomNumbers={randomValues}
-            countDownOver={countDownOver}
-            setWinner={setWinner}
-            winner={winner}
-          />
-        );
+        return <SelectionSort />;
       case "heap_sort":
-        return (
-          <HeapSort
-            difficulty={difficulty ? difficulty : ""}
-            randomNumbers={randomValues}
-            countDownOver={countDownOver}
-            setWinner={setWinner}
-            winner={winner}
-          />
-        );
+        return <HeapSort />;
       case "merge_sort":
-        return (
-          <MergeSort
-            difficulty={difficulty ? difficulty : ""}
-            randomNumbers={randomValues}
-            countDownOver={countDownOver}
-            setWinner={setWinner}
-            winner={winner}
-          />
-        );
+        return <MergeSort />;
       case "quick_sort":
-        return (
-          <QuickSort
-            difficulty={difficulty ? difficulty : ""}
-            randomNumbers={randomValues}
-            countDownOver={countDownOver}
-            setWinner={setWinner}
-            winner={winner}
-          />
-        );
+        return <QuickSort />;
     }
   }
 
   function getUserSideComponent() {
     switch (algo) {
       case "bubble_sort":
-        return (
-          <BubbleSortUser randomNumbers={randomValues} setWinner={setWinner} />
-        );
+        return <BubbleSortUser />;
       case "selection_sort":
-        return (
-          <SelectionSortUser
-            randomNumbers={randomValues}
-            setWinner={setWinner}
-          />
-        );
+        return <SelectionSortUser />;
       case "heap_sort":
-        return (
-          <HeapSortUser randomNumbers={randomValues} setWinner={setWinner} />
-        );
+        return <HeapSortUser />;
       case "merge_sort":
-        return (
-          <MergeSortUser randomNumbers={randomValues} setWinner={setWinner} />
-        );
+        return <MergeSortUser />;
       case "quick_sort":
-        return (
-          <QuickSortUser randomNumbers={randomValues} setWinner={setWinner} />
-        );
+        return <QuickSortUser />;
     }
   }
 
@@ -360,16 +309,26 @@ export default function GameLayout({ algo }) {
           </div>
         )}
       </div>
-      <div
-        className={
-          algo === "heap_sort" || algo === "merge_sort"
-            ? "computerSideBigger"
-            : "computerSide"
-        }
+      <GameContext.Provider
+        value={{
+          difficulty: difficulty,
+          randomNumbers: randomValues,
+          countDownOver: countDownOver,
+          setWinner: setWinner,
+          winner: winner,
+        }}
       >
-        {getComputerSideComponent()}
-      </div>
-      <div className="userSide">{getUserSideComponent()}</div>
+        <div
+          className={
+            algo === "heap_sort" || algo === "merge_sort"
+              ? "computerSideBigger"
+              : "computerSide"
+          }
+        >
+          {getComputerSideComponent()}
+        </div>
+        <div className="userSide">{getUserSideComponent()}</div>
+      </GameContext.Provider>
     </main>
   );
 }
