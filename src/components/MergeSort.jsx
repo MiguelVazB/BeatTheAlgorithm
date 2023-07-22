@@ -1,14 +1,12 @@
 import React from "react";
 import { ArrowsComponent } from "./ArrowsComponent";
+import { useContext } from "react";
+import { GameContext } from "../utils/gameContext";
 import "./componentStyles/MergeSort.css";
 
-export const MergeSort = ({
-  difficulty,
-  randomNumbers,
-  countDownOver,
-  setWinner,
-  winner,
-}) => {
+export const MergeSort = () => {
+  const gameProperties = useContext(GameContext);
+
   const [valuesToSort, setValuesToSort] = React.useState([]); // stores original values
   const [squareValues, setSquareValues] = React.useState([]); // stores values being changed
   const [squareColors, setSquareColors] = React.useState([]); // stores colors of the values
@@ -17,7 +15,7 @@ export const MergeSort = ({
   const [difficultyTimeInterval, setDifficultyTimeInterval] = React.useState(0);
 
   const [startAlgo, setStartAlgo] = React.useState(false);
-  const winnerRef = React.useRef(winner);
+  const winnerRef = React.useRef(gameProperties.winner);
   const mergeSortValuesRef = React.useRef(null);
 
   const [startArrowMovement, setStartArrowMovement] = React.useState(false);
@@ -28,7 +26,7 @@ export const MergeSort = ({
   const positionRef = React.useRef(firstArrowPosition);
 
   React.useEffect(() => {
-    if (countDownOver) {
+    if (gameProperties.countDownOver) {
       setShowArrows(true);
       setStartArrowMovement(true);
       setStartAlgo(true);
@@ -36,7 +34,7 @@ export const MergeSort = ({
       setShowArrows(false);
       setStartArrowMovement(false);
     }
-  }, [countDownOver]);
+  }, [gameProperties.countDownOver]);
 
   React.useEffect(() => {
     if (startAlgo) {
@@ -126,7 +124,7 @@ export const MergeSort = ({
   React.useEffect(() => {
     if (startArrowMovement) {
       const arrowMovementInterval = setInterval(() => {
-        if (positionRef.current >= 32 || winner === "user") {
+        if (positionRef.current >= 32 || gameProperties.winner === "user") {
           clearInterval(arrowMovementInterval);
           setShowArrows(false);
         }
@@ -140,8 +138,8 @@ export const MergeSort = ({
   }, [startArrowMovement]);
 
   React.useEffect(() => {
-    if (difficulty) {
-      switch (difficulty) {
+    if (gameProperties.difficulty) {
+      switch (gameProperties.difficulty) {
         case "Easy":
           setDifficultyTimeInterval(2500);
           break;
@@ -156,12 +154,12 @@ export const MergeSort = ({
           break;
       }
     }
-  }, [difficulty]);
+  }, [gameProperties.difficulty]);
 
   React.useEffect(() => {
-    setValuesToSort([...randomNumbers]);
-    setSquareValues([...randomNumbers]);
-  }, [randomNumbers]);
+    setValuesToSort([...gameProperties.randomNumbers]);
+    setSquareValues([...gameProperties.randomNumbers]);
+  }, [gameProperties.randomNumbers]);
 
   React.useEffect(() => {
     if (squareValues.length > 8) {
@@ -191,7 +189,7 @@ export const MergeSort = ({
             setShowArrows(false);
             setTimeout(() => {
               if (winnerRef.current !== "user") {
-                setWinner("computer");
+                gameProperties.setWinner("computer");
               }
               setStartAlgo(false);
               clearInterval(sortingInterval);
@@ -226,7 +224,7 @@ export const MergeSort = ({
 
           i += 2 * step;
         }, difficultyTimeInterval);
-        winnerRef.current = winner;
+        winnerRef.current = gameProperties.winner;
 
         return sorted;
       };
@@ -257,7 +255,7 @@ export const MergeSort = ({
       // console.log("Original array:", valuesToSort);
       mergeSort(valuesToSort);
     }
-  }, [startAlgo, winner]);
+  }, [startAlgo, gameProperties.winner]);
 
   function setColorsToSquaresFunc(left, right) {
     setSquareColors((prevColors) => {
@@ -297,7 +295,9 @@ export const MergeSort = ({
 
 // user merge sort
 
-export const MergeSortUser = ({ randomNumbers, setWinner }) => {
+export const MergeSortUser = () => {
+  const gameProperties = useContext(GameContext);
+
   const [valuesToSortUser, setValuesToSortUser] = React.useState([]);
   const [userAttempt, setUserAttempt] = React.useState([]);
   const [sortedArray, setSortedArray] = React.useState([]);
@@ -305,16 +305,16 @@ export const MergeSortUser = ({ randomNumbers, setWinner }) => {
   const valuesToSortRef = React.useRef(null);
 
   React.useEffect(() => {
-    setValuesToSortUser(randomNumbers);
+    setValuesToSortUser(gameProperties.randomNumbers);
     setUserAttempt([" ", " ", " ", " ", " ", " ", " ", " "]);
-    let temp = [...randomNumbers];
+    let temp = [...gameProperties.randomNumbers];
     setSortedArray(temp.sort((a, b) => a - b));
-  }, [randomNumbers]);
+  }, [gameProperties.randomNumbers]);
 
   React.useEffect(() => {
     if (userAttempt.length > 0) {
       if (JSON.stringify(userAttempt) === JSON.stringify(sortedArray)) {
-        setWinner("user");
+        gameProperties.setWinner("user");
       }
     }
   }, [userAttempt]);

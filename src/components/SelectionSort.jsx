@@ -1,14 +1,12 @@
 import React from "react";
 import { ArrowsComponent } from "./ArrowsComponent";
+import { useContext } from "react";
+import { GameContext } from "../utils/gameContext";
 import "./componentStyles/SelectionSort.css";
 
-export const SelectionSort = ({
-  difficulty,
-  randomNumbers,
-  countDownOver,
-  setWinner,
-  winner,
-}) => {
+export const SelectionSort = () => {
+  const gameProperties = useContext(GameContext);
+
   const [firstArrowPosition, setFirstArrowPosition] = React.useState(0);
   const [secondArrowPosition, setSecondArrowPosition] = React.useState(1);
   const [showArrows, setShowArrows] = React.useState(false);
@@ -19,24 +17,24 @@ export const SelectionSort = ({
   const [boxValues, setBoxValues] = React.useState([]); // stores values being changed
 
   const valuesToSortRef = React.useRef(null);
-  const winnerRef = React.useRef(winner);
+  const winnerRef = React.useRef(gameProperties.winner);
 
   const [sortedIndices, setSortedIndices] = React.useState([]);
   const [currentSmallest, setCurrentSmallest] = React.useState("");
 
   React.useEffect(() => {
-    setValuesToSort(randomNumbers);
-    setBoxValues(randomNumbers);
-  }, [randomNumbers]);
+    setValuesToSort(gameProperties.randomNumbers);
+    setBoxValues(gameProperties.randomNumbers);
+  }, [gameProperties.randomNumbers]);
 
   React.useEffect(() => {
-    if (countDownOver) {
+    if (gameProperties.countDownOver) {
       setShowArrows(true);
       setStartAlgo(true);
     } else {
       setShowArrows(false);
     }
-  }, [countDownOver]);
+  }, [gameProperties.countDownOver]);
 
   React.useEffect(() => {
     if (sortedIndices.length > 0) {
@@ -55,7 +53,7 @@ export const SelectionSort = ({
 
       let difficultyTimeInterval;
 
-      switch (difficulty) {
+      switch (gameProperties.difficulty) {
         case "Easy":
           difficultyTimeInterval = 700;
           break;
@@ -80,9 +78,9 @@ export const SelectionSort = ({
           clearInterval(selectionSort);
         }
 
-        if (firstPos < randomNumbers.length) {
+        if (firstPos < gameProperties.randomNumbers.length) {
           setFirstArrowPosition(firstPos);
-          if (secondPos < randomNumbers.length) {
+          if (secondPos < gameProperties.randomNumbers.length) {
             setSecondArrowPosition(secondPos);
             let firstValue = Number(updatedValues[secondPos]);
             let smallestValue = Number(updatedValues[smallestValueIndex]);
@@ -105,12 +103,12 @@ export const SelectionSort = ({
           setShowArrows(false);
           clearInterval(selectionSort);
           setStartAlgo(false);
-          setWinner("computer");
+          gameProperties.setWinner("computer");
         }
       }, difficultyTimeInterval);
-      winnerRef.current = winner;
+      winnerRef.current = gameProperties.winner;
     }
-  }, [startAlgo, winner]);
+  }, [startAlgo, gameProperties.winner]);
 
   return (
     <div className="selectionSort">
@@ -145,7 +143,9 @@ export const SelectionSort = ({
   );
 };
 
-export const SelectionSortUser = ({ randomNumbers, setWinner }) => {
+export const SelectionSortUser = () => {
+  const gameProperties = useContext(GameContext);
+
   const [highlightSelectedBoxes, setHighlightSelectedBoxes] = React.useState(
     []
   );
@@ -155,17 +155,20 @@ export const SelectionSortUser = ({ randomNumbers, setWinner }) => {
   const userValuesToSortRef = React.useRef(null);
 
   React.useEffect(() => {
-    if (randomNumbers.length > 0) {
-      setBoxValues(randomNumbers);
-      let correctAnswer = [...randomNumbers];
+    if (gameProperties.randomNumbers.length > 0) {
+      setBoxValues(gameProperties.randomNumbers);
+      let correctAnswer = [...gameProperties.randomNumbers];
       setValuesSorted(correctAnswer.sort((a, b) => a - b));
     }
-  }, [randomNumbers]);
+  }, [gameProperties.randomNumbers]);
 
   React.useEffect(() => {
-    if (boxValues.length > 0 && boxValues.length === randomNumbers.length) {
+    if (
+      boxValues.length > 0 &&
+      boxValues.length === gameProperties.randomNumbers.length
+    ) {
       if (JSON.stringify(boxValues) == JSON.stringify(valuesSorted)) {
-        setWinner("user");
+        gameProperties.setWinner("user");
       }
     }
   }, [boxValues]);
@@ -194,7 +197,7 @@ export const SelectionSortUser = ({ randomNumbers, setWinner }) => {
             { transform: `translateX(${distance}px)` },
           ],
           {
-            duration: difficulty === "Easy" ? 500 : 100,
+            duration: gameProperties.difficulty === "Easy" ? 500 : 100,
             timingFunction: "ease-in-out",
           }
         );
@@ -204,7 +207,7 @@ export const SelectionSortUser = ({ randomNumbers, setWinner }) => {
             { transform: `translateX(${-1 * distance}px)` },
           ],
           {
-            duration: difficulty === "Easy" ? 500 : 100,
+            duration: gameProperties.difficulty === "Easy" ? 500 : 100,
             timingFunction: "ease-in-out",
           }
         );
@@ -229,7 +232,7 @@ export const SelectionSortUser = ({ randomNumbers, setWinner }) => {
             updatedValues[secondBoxIndex] = temp;
             setBoxValues(updatedValues);
           },
-          difficulty === "Easy" ? 500 : 100
+          gameProperties.difficulty === "Easy" ? 500 : 100
         );
       } else {
         //add highlight

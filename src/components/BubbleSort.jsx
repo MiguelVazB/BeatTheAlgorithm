@@ -1,14 +1,12 @@
 import React from "react";
 import "./componentStyles/BubbleSort.css";
+import { useContext } from "react";
+import { GameContext } from "../utils/gameContext";
 import { ArrowsComponent } from "./ArrowsComponent";
 
-export const BubbleSort = ({
-  difficulty,
-  randomNumbers,
-  countDownOver,
-  setWinner,
-  winner,
-}) => {
+export const BubbleSort = () => {
+  const gameProperties = useContext(GameContext);
+
   const [valuesToSort, setValuesToSort] = React.useState([]); //stores original values
   const [bubbleValues, setBubbleValues] = React.useState([]); //stores values being changed
   const [showArrows, setShowArrows] = React.useState(false);
@@ -16,25 +14,25 @@ export const BubbleSort = ({
   const [startAlgo, setStartAlgo] = React.useState(false);
   const [bubbleIndicesClass, setBubbleIndicesClass] = React.useState([]);
 
-  const winnerRef = React.useRef(winner);
+  const winnerRef = React.useRef(gameProperties.winner);
   const bubblesRef = React.useRef(null);
 
   const [firstArrowPosition, setFirstArrowPosition] = React.useState(0);
   const [secondArrowPosition, setSecondArrowPosition] = React.useState(1);
 
   React.useEffect(() => {
-    setValuesToSort(randomNumbers);
-    setBubbleValues(randomNumbers);
-  }, [randomNumbers]);
+    setValuesToSort(gameProperties.randomNumbers);
+    setBubbleValues(gameProperties.randomNumbers);
+  }, [gameProperties.randomNumbers]);
 
   React.useEffect(() => {
-    if (countDownOver) {
+    if (gameProperties.countDownOver) {
       setShowArrows(true);
       setStartAlgo(true);
     } else {
       setShowArrows(false);
     }
-  }, [countDownOver]);
+  }, [gameProperties.countDownOver]);
 
   // Bubble sort algorithm using setInterval and useEffect
 
@@ -46,7 +44,7 @@ export const BubbleSort = ({
 
       let difficultyTimeInterval;
 
-      switch (difficulty) {
+      switch (gameProperties.difficulty) {
         case "Easy":
           difficultyTimeInterval = 500;
           break;
@@ -71,8 +69,8 @@ export const BubbleSort = ({
           clearInterval(bubbleSort);
         }
 
-        if (index < randomNumbers.length) {
-          if (j < randomNumbers.length - 1) {
+        if (index < gameProperties.randomNumbers.length) {
+          if (j < gameProperties.randomNumbers.length - 1) {
             setFirstArrowPosition(j);
             setSecondArrowPosition(j + 1);
             let firstValue = Number(updatedValues[j]);
@@ -99,13 +97,13 @@ export const BubbleSort = ({
           setShowArrows(false);
           clearInterval(bubbleSort);
           setStartAlgo(false);
-          setWinner("computer");
+          gameProperties.setWinner("computer");
         }
       }, difficultyTimeInterval);
 
-      winnerRef.current = winner;
+      winnerRef.current = gameProperties.winner;
     }
-  }, [startAlgo, winner]);
+  }, [startAlgo, gameProperties.winner]);
 
   React.useEffect(() => {
     if (bubbleIndicesClass.length > 0) {
@@ -123,7 +121,7 @@ export const BubbleSort = ({
           { transform: `translateX(${distanceX}px)` },
         ],
         {
-          duration: difficulty === "Easy" ? 300 : 100,
+          duration: gameProperties.difficulty === "Easy" ? 300 : 100,
           timingFunction: "ease-in-out",
         }
       );
@@ -135,7 +133,7 @@ export const BubbleSort = ({
           { transform: `translateX(${-1 * distanceX}px)` },
         ],
         {
-          duration: difficulty === "Easy" ? 300 : 100,
+          duration: gameProperties.difficulty === "Easy" ? 300 : 100,
           timingFunction: "ease-in-out",
         }
       );
@@ -184,21 +182,26 @@ export const BubbleSort = ({
 
 /* BubbleSort for the user */
 
-export const BubbleSortUser = ({ randomNumbers, setWinner }) => {
+export const BubbleSortUser = () => {
+  const gameProperties = useContext(GameContext);
+
   const [userValues, setUserValues] = React.useState([]);
   const [valuesSorted, setValuesSorted] = React.useState([]);
   const [userAttempt, setUserAttempt] = React.useState([]);
 
   React.useEffect(() => {
-    setUserValues(randomNumbers);
-    let correctAnswer = [...randomNumbers];
+    setUserValues(gameProperties.randomNumbers);
+    let correctAnswer = [...gameProperties.randomNumbers];
     setValuesSorted(correctAnswer.sort((a, b) => a - b));
-  }, [randomNumbers]);
+  }, [gameProperties.randomNumbers]);
 
   React.useEffect(() => {
-    if (userAttempt.length > 0 && userAttempt.length === randomNumbers.length) {
+    if (
+      userAttempt.length > 0 &&
+      userAttempt.length === gameProperties.randomNumbers.length
+    ) {
       if (JSON.stringify(userAttempt) == JSON.stringify(valuesSorted)) {
-        setWinner("user");
+        gameProperties.setWinner("user");
       }
     }
   }, [userAttempt]);

@@ -1,14 +1,12 @@
 import React from "react";
 import { ArrowsComponent } from "./ArrowsComponent";
+import { useContext } from "react";
+import { GameContext } from "../utils/gameContext";
 import "./componentStyles/HeapSort.css";
 
-export const HeapSort = ({
-  difficulty,
-  randomNumbers,
-  countDownOver,
-  setWinner,
-  winner,
-}) => {
+export const HeapSort = () => {
+  const gameProperties = useContext(GameContext);
+
   const [valuesToSort, setValuesToSort] = React.useState([]); // stores original values
   const [circleValues, setCircleValues] = React.useState([]); // stores values being changed
   const [lines, setLines] = React.useState([]);
@@ -18,7 +16,7 @@ export const HeapSort = ({
   const [showArrows, setShowArrows] = React.useState(false);
 
   const [startAlgo, setStartAlgo] = React.useState(false);
-  const winnerRef = React.useRef(winner);
+  const winnerRef = React.useRef(gameProperties.winner);
 
   const binaryTreeRef = React.useRef(null);
 
@@ -31,9 +29,9 @@ export const HeapSort = ({
   const [firstAndLastSwap, setFirstAndLastSwap] = React.useState([]);
 
   React.useEffect(() => {
-    setValuesToSort([...randomNumbers]);
-    setCircleValues([...randomNumbers]);
-  }, [randomNumbers]);
+    setValuesToSort([...gameProperties.randomNumbers]);
+    setCircleValues([...gameProperties.randomNumbers]);
+  }, [gameProperties.randomNumbers]);
 
   React.useEffect(() => {
     setContainerRect(binaryTreeRef.current.getBoundingClientRect());
@@ -204,8 +202,8 @@ export const HeapSort = ({
   }, [circleValues, binaryTreeRef, containerRect]);
 
   React.useEffect(() => {
-    if (difficulty) {
-      switch (difficulty) {
+    if (gameProperties.difficulty) {
+      switch (gameProperties.difficulty) {
         case "Easy":
           setDifficultyTimeInterval(3000);
           break;
@@ -220,10 +218,10 @@ export const HeapSort = ({
           break;
       }
     }
-  }, [difficulty]);
+  }, [gameProperties.difficulty]);
 
   React.useEffect(() => {
-    if (countDownOver) {
+    if (gameProperties.countDownOver) {
       setStartAlgo(true);
       setInterval(() => {
         setShowArrows(true);
@@ -231,7 +229,7 @@ export const HeapSort = ({
     } else {
       setShowArrows(false);
     }
-  }, [countDownOver]);
+  }, [gameProperties.countDownOver]);
 
   React.useEffect(() => {
     if (circleIndicesSwap.length > 0) {
@@ -259,7 +257,7 @@ export const HeapSort = ({
           ],
           {
             duration:
-              difficulty === "Easy"
+              gameProperties.difficulty === "Easy"
                 ? difficultyTimeInterval / 10
                 : difficultyTimeInterval / 20,
             timingFunction: "ease-in-out",
@@ -276,7 +274,7 @@ export const HeapSort = ({
           ],
           {
             duration:
-              difficulty === "Easy"
+              gameProperties.difficulty === "Easy"
                 ? difficultyTimeInterval / 10
                 : difficultyTimeInterval / 20,
             timingFunction: "ease-in-out",
@@ -298,7 +296,7 @@ export const HeapSort = ({
           ],
           {
             duration:
-              difficulty === "Easy"
+              gameProperties.difficulty === "Easy"
                 ? difficultyTimeInterval / 10
                 : difficultyTimeInterval / 20,
             timingFunction: "ease-in-out",
@@ -315,7 +313,7 @@ export const HeapSort = ({
           ],
           {
             duration:
-              difficulty === "Easy"
+              gameProperties.difficulty === "Easy"
                 ? difficultyTimeInterval / 10
                 : difficultyTimeInterval / 20,
             timingFunction: "ease-in-out",
@@ -360,11 +358,6 @@ export const HeapSort = ({
 
     setCircleIndicesSwap([0, size - 1]);
     setFirstAndLastSwap([0, size - 1]);
-    // setTimeout(() => {
-    // setFirstArrowPosition(0);
-    // }, difficultyTimeInterval / 10);
-
-    // console.log("Comparison: Remove", max, a[0]);
     return max;
   }
 
@@ -453,7 +446,7 @@ export const HeapSort = ({
               clearInterval(interval);
               setShowArrows(false);
             } else {
-              setWinner("computer");
+              gameProperties.setWinner("computer");
               setStartAlgo(false);
               clearInterval(interval);
               setShowArrows(false);
@@ -461,9 +454,9 @@ export const HeapSort = ({
           }
         }
       }, difficultyTimeInterval);
-      winnerRef.current = winner;
+      winnerRef.current = gameProperties.winner;
     }
-  }, [startAlgo, winner]);
+  }, [startAlgo, gameProperties.winner]);
 
   return (
     <div className="heapSort">
@@ -499,7 +492,9 @@ export const HeapSort = ({
   );
 };
 
-export const HeapSortUser = ({ randomNumbers, setWinner }) => {
+export const HeapSortUser = () => {
+  const gameProperties = useContext(GameContext);
+
   const [userValues, setUserValues] = React.useState([]);
   const [selectedValue, setSelectedValue] = React.useState("");
   const [valuesSorted, setValuesSorted] = React.useState([]);
@@ -508,15 +503,18 @@ export const HeapSortUser = ({ randomNumbers, setWinner }) => {
   const selectedValueRef = React.useRef(null);
 
   React.useEffect(() => {
-    setUserValues(randomNumbers);
-    let correctAnswer = [...randomNumbers];
+    setUserValues(gameProperties.randomNumbers);
+    let correctAnswer = [...gameProperties.randomNumbers];
     setValuesSorted(correctAnswer.sort((a, b) => a - b));
-  }, [randomNumbers]);
+  }, [gameProperties.randomNumbers]);
 
   React.useEffect(() => {
-    if (userValues.length > 0 && userValues.length === randomNumbers.length) {
+    if (
+      userValues.length > 0 &&
+      userValues.length === gameProperties.randomNumbers.length
+    ) {
       if (JSON.stringify(userValues) == JSON.stringify(valuesSorted)) {
-        setWinner("user");
+        gameProperties.setWinner("user");
       }
     }
   }, [userValues]);
