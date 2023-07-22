@@ -2,7 +2,6 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
 .quickSort .numbersToSort{
@@ -23,4 +22,9 @@
     background-color: greenyellow;
     box-shadow: 3px 4px 1px darkgreen;
     cursor: pointer;
+}
+
+.pivot{
+    text-align: left;
+    font-size: clamp(0.5rem, 2rem, 5rem);
 }
