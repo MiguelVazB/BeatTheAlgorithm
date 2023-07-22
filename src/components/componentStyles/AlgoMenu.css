@@ -39,12 +39,11 @@
     font-size: 1.8rem;
     color: white;
     text-decoration: none;
-    transition: background-image, scale 0.4s ease-in-out;
+    transition: background-image 0.4s ease-in-out;
 }
 
 .algoList .algorithms:hover{
     background-image: linear-gradient(to bottom, rgba(32, 32, 32, 0.5), rgba(97, 137, 47, 0.5));
-    scale: 1.2;
 }
 
 .menuButtons{
