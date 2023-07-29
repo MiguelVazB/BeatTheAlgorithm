@@ -8,10 +8,12 @@ export const QuickSort = () => {
   const gameProperties = useContext(GameContext);
 
   const [firstArrowPosition, setFirstArrowPosition] = React.useState(0);
-  const [secondArrowPosition, setSecondArrowPosition] = React.useState(1);
+  const [secondArrowPosition, setSecondArrowPosition] = React.useState(0);
   const [showArrows, setShowArrows] = React.useState(false);
 
   const [startAlgo, setStartAlgo] = React.useState(false);
+  const [difficultyTimeInterval, setDifficultyTimeInterval] =
+    React.useState(10000);
 
   const [valuesToSort, setValuesToSort] = React.useState([]); // stores original values
   const [boxValues, setBoxValues] = React.useState([]); // stores values being changed
@@ -20,6 +22,8 @@ export const QuickSort = () => {
   const winnerRef = React.useRef(gameProperties.winner);
 
   const [pivotValue, setPivotValue] = React.useState("");
+  const [arrowsStack, setArrowsStack] = React.useState([]);
+  const [swapsStack, setSwapsStack] = React.useState([]);
 
   React.useEffect(() => {
     setValuesToSort(gameProperties.randomNumbers);
@@ -30,31 +34,50 @@ export const QuickSort = () => {
     if (gameProperties.countDownOver) {
       setShowArrows(true);
       setStartAlgo(true);
+      setShowArrows(true);
     } else {
       setShowArrows(false);
     }
   }, [gameProperties.countDownOver]);
 
-  // quick sort algorithm
+  // display the arrows in the right position
   React.useEffect(() => {
-    let difficultyTimeInterval;
+    console.log(arrowsStack);
+    if (arrowsStack.length > 0) {
+      const arrowsInterval = setInterval(() => {
+        if (arrowsStack.length <= 0) {
+          clearInterval(arrowsInterval);
+        }
+        let firstArrow = arrowsStack.shift();
+        let secondArrow = arrowsStack.shift();
+        // console.log(`firstArrow: ${firstArrow}, secondArrow ${secondArrow}`);
+        setFirstArrowPosition(firstArrow);
+        setSecondArrowPosition(secondArrow);
+      }, difficultyTimeInterval / arrowsStack.length);
+    }
+  }, [arrowsStack]);
 
+  React.useEffect(() => {}, [swapsStack]);
+
+  // Quick sort algorithm
+  React.useEffect(() => {
     switch (gameProperties.difficulty) {
       case "Easy":
-        difficultyTimeInterval = 700;
+        setDifficultyTimeInterval(10000);
         break;
       case "Intermediate":
-        difficultyTimeInterval = 500;
+        setDifficultyTimeInterval(5000);
         break;
       case "Hard":
-        difficultyTimeInterval = 300;
+        setDifficultyTimeInterval(3000);
         break;
       case "Impossible":
-        difficultyTimeInterval = 10;
+        setDifficultyTimeInterval(1000);
         break;
     }
 
     const swap = (arr, left, right) => {
+      console.log(`swap ${left}, ${right}`);
       [arr[left], arr[right]] = [arr[right], arr[left]];
     };
 
@@ -63,7 +86,10 @@ export const QuickSort = () => {
       let i = low;
       //Partition the array into two parts using the pivot
       for (let j = low; j < high; j++) {
+        console.log(`i: ${j}, high: ${high}`);
+        setArrowsStack((prev) => [...prev, j, high]);
         if (arr[j] <= pivot) {
+          setSwapsStack((prev) => [...prev, i, j]);
           swap(arr, i, j);
           i++;
         }
@@ -115,6 +141,14 @@ export const QuickSort = () => {
           );
         })}
       </div>
+      {showArrows && (
+        <ArrowsComponent
+          firstArrowPos={firstArrowPosition}
+          secondArrowPos={secondArrowPosition}
+          valuesRef={valuesToSortRef}
+          yOffset={2}
+        />
+      )}
     </div>
   );
 };
