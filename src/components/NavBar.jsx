@@ -29,25 +29,57 @@ export default function NavBar() {
             <div></div>
             <div></div>
           </div>
-          <Link className="navFont" to="/" onClick={() => setShowMenu(false)}>
+          <Link
+            className="navFont"
+            to="/"
+            onClick={() => {
+              setShowMenu(false);
+              window.scrollTo({
+                top: 0,
+                behavior: "instant",
+              });
+            }}
+          >
             <p>Beat the Algorithm</p>
           </Link>
         </div>
         <div className="links">
-          <Link className="navFont" to="/" onClick={() => setShowMenu(false)}>
+          <Link
+            className="navFont"
+            to="/"
+            onClick={() => {
+              setShowMenu(false);
+              window.scrollTo({
+                top: 0,
+                behavior: "instant",
+              });
+            }}
+          >
             <p>Home</p>
           </Link>
           <Link
             className="navFont"
             to="/moreOnAlgorithms"
-            onClick={() => setShowMenu(false)}
+            onClick={() => {
+              setShowMenu(false);
+              window.scrollTo({
+                top: 0,
+                behavior: "instant",
+              });
+            }}
           >
             <p>More on Algorithms</p>
           </Link>
           <Link
             className="navFont"
             to="/about"
-            onClick={() => setShowMenu(false)}
+            onClick={() => {
+              setShowMenu(false);
+              window.scrollTo({
+                top: 0,
+                behavior: "instant",
+              });
+            }}
           >
             <p>About</p>
           </Link>
