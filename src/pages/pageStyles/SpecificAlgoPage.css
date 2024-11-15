@@ -32,7 +32,12 @@
 }
 
 .specificAlgorithm .actionBtn{
-    animation: pulse infinite ease-in-out 3s;
+    animation: pulse infinite ease-in-out 5s;
+}
+
+.specificAlgorithm .actionBtn:hover{
+    animation-play-state: paused;
+    background-color: rgba(97, 137, 47, 1);
 }
 
 @keyframes pulse {
@@ -41,7 +46,7 @@
     }
     50% {
         transform: scale(1.2);
-        box-shadow: 0px 0px 15px whitesmoke;
+        box-shadow: 0px 0px 15px 5px rgba(97, 137, 47, 1);
     }
     100% {
         transform: scale(1);
