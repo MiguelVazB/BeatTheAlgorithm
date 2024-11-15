@@ -53,6 +53,9 @@ import gameSound from "../sounds/gameSound.mp3";
 import userWonSound from "../sounds/userWonSound.mp3";
 import algoWonSound from "../sounds/algoWonSound.mp3";
 
+import { useWindowSize } from "react-use";
+import Confetti from "react-confetti";
+
 export default function GameLayout({ algo }) {
   const [randomValues, setRandomValues] = React.useState([]);
 
@@ -71,6 +74,8 @@ export default function GameLayout({ algo }) {
 
   const backgroundMusicRef = React.useRef(null);
   const [songPlaying, setSongPlaying] = React.useState(true);
+
+  const { width, height } = useWindowSize();
 
   React.useEffect(() => {
     let randomNumbers;
@@ -302,9 +307,10 @@ export default function GameLayout({ algo }) {
           >{`Next >`}</button>
         </div>
       </div>
-      <div className="overlay countDown" ref={countDownRef}></div>
+      <div className="overlay countDown" ref={countDownRef} />
       {showWinner && (
         <div className="overlay winner">
+          {showWinner === "user" && <Confetti width={width} height={height} />}
           {winner == "user" ? "YOU Beat the Algorithm!!!" : "Algorithm Won!"}
           <button className="tryAgainBtn" onClick={restartGame}>
             {winner == "user" ? "Play Again" : "Try Again"}
