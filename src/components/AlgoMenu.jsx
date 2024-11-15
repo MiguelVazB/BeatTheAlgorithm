@@ -49,12 +49,12 @@ export const AlgoMenu = ({ showMenuClick }) => {
         >
           Quick Sort
         </Link>
-        <Link className="algorithms" to="/algo/dfs" onClick={handleClick}>
+        {/* <Link className="algorithms" to="/algo/dfs" onClick={handleClick}>
           Depth-First Search
         </Link>
         <Link className="algorithms" to="/algo/bfs" onClick={handleClick}>
           Breadth-First Search
-        </Link>
+        </Link> */}
       </div>
       <div className="menuButtons">
         <Link className="homeButtonMenu" to="/" onClick={showMenuClick}>

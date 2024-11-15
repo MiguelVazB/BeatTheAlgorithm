@@ -27,7 +27,7 @@
 .algoList{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     row-gap: 3rem;
 }
 
