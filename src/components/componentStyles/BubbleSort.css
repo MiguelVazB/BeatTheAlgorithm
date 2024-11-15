@@ -123,16 +123,25 @@
     flex: 1;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .resetBtn{
     font-size: 1rem;
-    height: 3rem;
+    font-weight: bold;
     color: white;
     background-color: rgba(32,32,32, 0.5);
     padding: 1rem 2rem;
+    margin: auto;
     border-radius: 1rem;
     cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resetBtn:hover{
+    background-color: rgba(97, 137, 47, 1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Animations */
