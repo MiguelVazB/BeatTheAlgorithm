@@ -67,6 +67,7 @@ export default function GameLayout({ algo }) {
   const algoInfoRef = React.useRef(null);
   const instructionsRef = React.useRef(null);
   const difficultyRef = React.useRef(null);
+  const difficulties = ["easy", "intermediate", "hard", "impossible"];
 
   const backgroundMusicRef = React.useRef(null);
   const [songPlaying, setSongPlaying] = React.useState(true);
@@ -283,18 +284,11 @@ export default function GameLayout({ algo }) {
             </button>
           </div>
           <div className="difficultyExplanation">
-            <div className="easy">
-              {AlgorithmDescriptions[algo]?.difficulty.easy}
-            </div>
-            <div className="intermediate">
-              {AlgorithmDescriptions[algo]?.difficulty.intermediate}
-            </div>
-            <div className="hard">
-              {AlgorithmDescriptions[algo]?.difficulty.hard}
-            </div>
-            <div className="impossible">
-              {AlgorithmDescriptions[algo]?.difficulty.impossible}
-            </div>
+            {difficulties.map((level) => (
+              <div key={level} className={level}>
+                {AlgorithmDescriptions[algo]?.difficulty[level]}
+              </div>
+            ))}
           </div>
         </div>
         <div ref={instructionsRef} className="algoDescription gameInstructions">
