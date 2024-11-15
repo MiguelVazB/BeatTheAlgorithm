@@ -26,6 +26,11 @@
     font-weight: bold;
 }
 
+.elementBox p span:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .challengeUser p{
     font-size: 3.5em;
 }
