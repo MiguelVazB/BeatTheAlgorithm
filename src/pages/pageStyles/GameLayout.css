@@ -45,6 +45,7 @@
 
 .difficultyOptions{
     display: flex;
+    gap: 1rem;
     justify-content: center;
 }
 
@@ -92,6 +93,15 @@
     font-size: 1.8rem;
     border-radius: 0.8rem;
     cursor: pointer;
+}
+
+.setDifficultyButton{
+    transition: background-color 0.2s ease-in-out;
+}
+
+.setDifficultyButton:hover{
+    background-color: rgba(97, 137, 47, 1);
+    color: white;
 }
 
 .setDifficultyButton{
