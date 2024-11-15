@@ -1,6 +1,15 @@
 import React from "react";
 import "./pageStyles/GameLayout.css";
 import "./pageStyles/AlgorithmsPage.css";
+import { Link } from "react-router-dom";
+import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
+import CountDownSound from "../sounds/CountDownSound.mp3";
+import StartSound from "../sounds/startSound.wav";
+import gameSound from "../sounds/gameSound.mp3";
+import userWonSound from "../sounds/userWonSound.mp3";
+import algoWonSound from "../sounds/algoWonSound.mp3";
+import { useWindowSize } from "react-use";
+import Confetti from "react-confetti";
 import {
   generateXRandomNumbers,
   generateXUniqueRandomNumbers,
@@ -45,16 +54,6 @@ const MergeSortUser = React.lazy(() =>
     default: module.MergeSortUser,
   }))
 );
-import { Link } from "react-router-dom";
-import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
-import CountDownSound from "../sounds/CountDownSound.mp3";
-import StartSound from "../sounds/startSound.wav";
-import gameSound from "../sounds/gameSound.mp3";
-import userWonSound from "../sounds/userWonSound.mp3";
-import algoWonSound from "../sounds/algoWonSound.mp3";
-
-import { useWindowSize } from "react-use";
-import Confetti from "react-confetti";
 
 export default function GameLayout({ algo }) {
   const [randomValues, setRandomValues] = React.useState([]);
