@@ -6,6 +6,7 @@ html, body, .App{
     height: 100vh;
     width: auto;
     background-image: linear-gradient(to right, #202020 , #222629);
+    scrollbar-width: thin;
 }
 
 .loading-container {
