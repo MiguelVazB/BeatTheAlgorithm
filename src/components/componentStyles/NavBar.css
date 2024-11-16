@@ -38,8 +38,9 @@
 }
 
 .navFont p:hover {
-    text-shadow: 0px 0px 2px white;
-    scale: 1.06;
+    color: #61b15a;
+    text-shadow: 0px 0px 2px black;
+    scale: 1.05;
 }
 
 .links {
