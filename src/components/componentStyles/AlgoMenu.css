@@ -1,5 +1,5 @@
 .algoMenu {
-    position: absolute;
+    position: relative;
     left: 0;
     right: 0;
     top: 0;
@@ -14,6 +14,12 @@
     overflow-x: hidden;
     scrollbar-width: thin;
     opacity: 0.95;
+    min-width: 320px;
+    max-width: 90vw;
+    max-height: 100vh;
+    margin: auto 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    border-radius: 0 18px 18px 0;
 }
 
 .algoMenu h1{
@@ -77,55 +83,99 @@
     filter: invert(100%);
 }
 
-.fadeInRight{
-    animation: fadeInRight 0.35s ease-in-out;
+.fadeIn {
+    animation: fadeInOverlay 0.3s forwards;
+}
+.fadeOut {
+    animation: fadeOutOverlay 0.3s forwards;
+}
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fadeOutOverlay {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
 
-/* Animations */
-
-@keyframes fadeInRight{
-    0%{
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    100%{
-        transform: translateX(0);
-        opacity: 1;
-    }
+.fadeInRight {
+    animation: fadeInRight 0.35s cubic-bezier(.4,0,.2,1) forwards;
+}
+.fadeOutRight {
+    animation: fadeOutRight 0.3s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes fadeOutRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(-100%); opacity: 0; }
 }
 
 /* menu for mobile */
 @media (max-width: 950px) {
-    .algoMenu {
-        height: 100dvh;
-        width: auto;
-        display: flex;
-        justify-content: space-between;
-        opacity: 1;
+  .algoMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    min-width: unset;
+    max-width: unset;
+    max-height: unset;
+    border-radius: 0;
+    margin: 0;
+    justify-content: space-around;
+    box-shadow: none;
+    background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 1), rgba(97, 137, 47, 1));
+    z-index: 2000;
+    overflow-y: auto;
+    animation: slideDownFadeIn 0.45s cubic-bezier(.4,0,.2,1) both;
+  }
+
+  .algoMenu.hide {
+    animation: slideUpFadeOut 0.35s cubic-bezier(.4,0,.2,1) both;
+  }
+
+  @keyframes slideDownFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-40px) scale(0.98);
     }
-    .goBackArrow{
-        display: block;
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
-    .menuButtons{
-        display: flex;
+  }
+
+  @keyframes slideUpFadeOut {
+    from {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
-    .algoList{
-        display: flex;
-        flex-direction: column;
-        row-gap: 0;
-        flex: 1;
-        margin-bottom: 3rem;
+    to {
+      opacity: 0;
+      transform: translateY(-40px) scale(0.98);
     }
-}
-@media (max-width: 320px){
-    .goBackArrow{
-        padding-left: 0.5rem;
-    }
-    .algoMenu h1{
-        padding-left: 2rem;
-    }
+  }
+
+  .menuButtons{
+    margin-top: 1rem;
+  }
 }
 
+@media (min-width: 750px) and (max-width: 950px) {
+    .algoMenu h1{
+        font-size: 3rem;
+    }
+
+    .algoMenu .algoList a{
+        font-size: 2.7rem;
+    }
+
+    .menuButtons a{
+        font-size: 2rem;
+    }
+}
 
 /* menu for rest of devices */
 @media (min-width: 951px){
@@ -158,5 +208,16 @@
     .algoList{
         flex: 1;
         margin-bottom: 5rem;
+    }
+
+    .algoMenuOverlay {
+        position: fixed;
+        z-index: 1000;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(20, 24, 28, 0.65);
+        display: flex;
+        align-items: stretch;
+        justify-content: flex-start;
+        transition: background 0.3s;
     }
 }
