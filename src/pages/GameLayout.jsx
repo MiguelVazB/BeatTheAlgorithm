@@ -215,9 +215,13 @@ export default function GameLayout({ algo }) {
         startAudio.volume = 0.4;
         startAudio.play();
       } else {
-        let countDown = new Audio(CountDownSound);
-        countDown.volume = 0.5;
-        countDown.play();
+        // Debug: log the path to make sure it's correct
+        console.log("CountDownSound path:", CountDownSound);
+        let countDownAudio = new Audio(CountDownSound);
+        countDownAudio.volume = 0.5;
+        countDownAudio.play().catch((e) => {
+          console.error("Failed to play countdown sound:", e);
+        });
       }
     }, 1000); //put it back to 1000 ms = 1 second
   }
