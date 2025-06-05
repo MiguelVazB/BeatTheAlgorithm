@@ -3,7 +3,7 @@ import "./pageStyles/GameLayout.css";
 import "./pageStyles/AlgorithmsPage.css";
 import { Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
-import CountDownSound from "../sounds/CountDownSound.mp3";
+import CountDownSound from "../sounds/countDownSound.mp3";
 import StartSound from "../sounds/startSound.wav";
 import gameSound from "../sounds/gameSound.mp3";
 import userWonSound from "../sounds/userWonSound.mp3";
