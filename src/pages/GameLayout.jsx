@@ -217,9 +217,7 @@ export default function GameLayout({ algo }) {
       } else {
         let countDownAudio = new Audio(CountDownSound);
         countDownAudio.volume = 0.5;
-        countDownAudio.play().catch((e) => {
-          console.error("Failed to play countdown sound:", e);
-        });
+        countDownAudio.play();
       }
     }, 1000); //put it back to 1000 ms = 1 second
   }
