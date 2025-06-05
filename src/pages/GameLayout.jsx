@@ -215,8 +215,6 @@ export default function GameLayout({ algo }) {
         startAudio.volume = 0.4;
         startAudio.play();
       } else {
-        // Debug: log the path to make sure it's correct
-        console.log("CountDownSound path:", CountDownSound);
         let countDownAudio = new Audio(CountDownSound);
         countDownAudio.volume = 0.5;
         countDownAudio.play().catch((e) => {
