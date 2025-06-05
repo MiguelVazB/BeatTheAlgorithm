@@ -3,7 +3,7 @@ import "./pageStyles/GameLayout.css";
 import "./pageStyles/AlgorithmsPage.css";
 import { Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
-import CountDownSound from "../sounds/countDownSound.mp3";
+import countDownSound from "../sounds/countDownSound.mp3";
 import StartSound from "../sounds/startSound.wav";
 import gameSound from "../sounds/gameSound.mp3";
 import userWonSound from "../sounds/userWonSound.mp3";
@@ -215,7 +215,7 @@ export default function GameLayout({ algo }) {
         startAudio.volume = 0.4;
         startAudio.play();
       } else {
-        let countDownAudio = new Audio(CountDownSound);
+        let countDownAudio = new Audio(countDownSound);
         countDownAudio.volume = 0.5;
         countDownAudio.play();
       }
