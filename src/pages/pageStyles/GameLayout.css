@@ -270,6 +270,7 @@
 
 /* font resizing for overlay */
 @media (max-width: 560px){
+    
     .algoDescription{
         font-size: 2rem;
         padding: 1rem;
@@ -335,4 +336,78 @@
     .computerSideBigger{
         flex: 1;
     }
+}
+
+.difficultySelection.modern-card {
+  background: #fff;
+  height: min-content;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  margin: 2rem auto;
+  max-width: 420px;
+  text-align: center;
+}
+
+.difficultySelection .modern-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+.difficultySelection .modern-select {
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-right: 1rem;
+  background: #f9f9f9;
+  transition: border 0.2s;
+}
+.difficultySelection .modern-select:focus {
+  border: 1.5px solid rgba(97, 137, 47, 1);
+  outline: none;
+}
+
+.difficultySelection .modern-btn {
+  background: rgba(97, 137, 47, 1); /* Keep the original green color */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.difficultySelection .modern-btn:hover {
+  background: #5a7c2b; /* Slightly darker green for hover */
+  transform: translateY(-2px) scale(1.04);
+}
+
+.difficultySelection .modern-difficulty-explanation {
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.difficultySelection .modern-difficulty-level {
+  font-size: 0.98rem;
+  color: #555;
+  background: #f3f6fa;
+  border-radius: 6px;
+  padding: 0.5rem 0.8rem;
+  text-align: left;
+}
+.difficultySelection .modern-difficulty-level.easy {
+  border-left: 4px solid #4caf50;
+}
+.difficultySelection .modern-difficulty-level.intermediate {
+  border-left: 4px solid #ff9800;
+}
+.difficultySelection .modern-difficulty-level.hard {
+  border-left: 4px solid #f44336;
+}
+.difficultySelection .modern-difficulty-level.impossible {
+  border-left: 4px solid #6a1b9a;
 }

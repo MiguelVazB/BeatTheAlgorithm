@@ -14,7 +14,6 @@ export default function HomePage() {
   const challengeUserRef = React.useRef(null);
   const solveRef = React.useRef(null);
   const learnRef = React.useRef(null);
-  const readyQRef = React.useRef(null);
   const startBtnRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -34,8 +33,6 @@ export default function HomePage() {
               setInterval(() => {
                 SetLearnBoxDisplayed(true);
               }, 500);
-            } else if (entry.target.classList[0] === "readyQuestion") {
-              entry.target.classList.add("bounce");
             } else if (entry.target.classList[1] === "startButton") {
               entry.target.classList.add("buttonPulse");
             } else {
@@ -56,7 +53,6 @@ export default function HomePage() {
     if (challengeUserRef.current) observer.observe(challengeUserRef.current);
     if (solveRef.current) observer.observe(solveRef.current);
     if (learnRef.current) observer.observe(learnRef.current);
-    if (readyQRef.current) observer.observe(readyQRef.current);
     if (startBtnRef.current) observer.observe(startBtnRef.current);
     return () => {
       observer.disconnect();
@@ -87,14 +83,14 @@ export default function HomePage() {
         <img src={Matrix} className="elementImage" />
       </div>
       <div className="ready">
-        <p ref={readyQRef} className="readyQuestion">
-          Ready to Beat the algorithms?
+        <p className="readyQuestion">
+          Ready to Beat the Algorithm?
         </p>
-        <p>CLICK on the START BUTTON to start with Bubble Sort Algorithm</p>
-        <p className="orStart">OR</p>
         <p>
-          CLICK on the MENU on the TOP LEFT to choose the algorithm YOU want to
-          challenge
+          Click <b>Start</b> to begin with Bubble Sort
+        </p>
+        <p>
+          or use the Menu to choose another algorithm
         </p>
       </div>
       <Link

@@ -63,6 +63,7 @@ export default function GameLayout({ algo }) {
   const [winner, setWinner] = React.useState("");
 
   const [difficulty, setDifficulty] = React.useState("");
+  const [selectedDifficulty, setSelectedDifficulty] = React.useState("easy");
 
   const difficultyOverlayRef = React.useRef(null);
   const countDownRef = React.useRef(null);
@@ -271,28 +272,32 @@ export default function GameLayout({ algo }) {
             onClick={() => hideAndShowNextOverlay("algoInfo")}
           >{`Next >`}</button>
         </div>
-        <div ref={difficultyRef} className="difficultySection">
-          <p>Choose Difficulty:</p>
+        <div ref={difficultyRef} className="difficultySection modern-card difficultySelection">
+          <p className="modern-title">Choose Difficulty</p>
           <div className="difficultyOptions">
-            <select name="difficulty" id="difficulty">
+            <select
+              name="difficulty"
+              id="difficulty"
+              className="modern-select"
+              value={selectedDifficulty}
+              onChange={(e) => setSelectedDifficulty(e.target.value)}
+            >
               <option value="easy">Easy</option>
               <option value="intermediate">Intermediate</option>
               <option value="hard">Hard</option>
               <option value="impossible">Impossible</option>
             </select>
             <button
-              className="setDifficultyButton"
+              className="setDifficultyButton modern-btn"
               onClick={setDifficultyFunction}
             >
               Start
             </button>
           </div>
-          <div className="difficultyExplanation">
-            {difficulties.map((level) => (
-              <div key={level} className={level}>
-                {AlgorithmDescriptions[algo]?.difficulty[level]}
-              </div>
-            ))}
+          <div className="difficultyExplanation modern-difficulty-explanation">
+            <div className={`modern-difficulty-level ${selectedDifficulty}`}>
+              {AlgorithmDescriptions[algo]?.difficulty[selectedDifficulty]}
+            </div>
           </div>
         </div>
         <div ref={instructionsRef} className="algoDescription gameInstructions">
