@@ -3,11 +3,11 @@ import "./pageStyles/GameLayout.css";
 import "./pageStyles/AlgorithmsPage.css";
 import { Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
-const countDownSound = "/sounds/countDownSound.mp3";
-const StartSound = "/sounds/startSound.wav";
-const gameSound = "/sounds/gameSound.mp3";
-const userWonSound = "/sounds/userWonSound.mp3";
-const algoWonSound = "/sounds/algoWonSound.mp3";
+const countDownSound = "/BeatTheAlgorithm/sounds/countDownSound.mp3";
+const StartSound = "/BeatTheAlgorithm/sounds/startSound.wav";
+const gameSound = "/BeatTheAlgorithm/sounds/gameSound.mp3";
+const userWonSound = "/BeatTheAlgorithm/sounds/userWonSound.mp3";
+const algoWonSound = "/BeatTheAlgorithm/sounds/algoWonSound.mp3";
 import { useWindowSize } from "react-use";
 import Confetti from "react-confetti";
 import {
