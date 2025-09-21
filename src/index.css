@@ -3,10 +3,11 @@
 html, body, .App{
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100dvh;
     width: auto;
     background-image: linear-gradient(to right, #202020 , #222629);
     scrollbar-width: thin;
+    overflow-x: hidden;
 }
 
 .loading-container {
