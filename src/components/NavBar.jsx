@@ -1,15 +1,44 @@
 import { Link } from "react-router-dom";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./componentStyles/NavBar.css";
 import { AlgoMenu } from "./AlgoMenu";
 
 export default function NavBar() {
   const [showMenu, setShowMenu] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   function showMenuClick() {
     setShowMenu((prev) => !prev);
   }
+
+  function toggleMobileMenu() {
+    setIsMobileMenuOpen((prev) => !prev);
+  }
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      const mobileMenu = document.querySelector(".mobile-menu");
+      const mobileMenuButton = document.querySelector(".mobile-menu-button");
+
+      if (
+        mobileMenu &&
+        !mobileMenu.contains(event.target) &&
+        !mobileMenuButton.contains(event.target)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    }
+
+    if (isMobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   React.useEffect(() => {
     if (showMenu) {
@@ -20,72 +49,127 @@ export default function NavBar() {
     }
   }, [showMenu]);
 
+  // Handle scroll locking for mobile menu
+  React.useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else if (!showMenu) {
+      // Only unlock if the algo menu isn't open
+      document.body.style.overflow = "auto";
+    }
+  }, [isMobileMenuOpen, showMenu]);
+
+  // Close mobile menu on navigation
+  const handleNavClick = () => {
+    setShowMenu(false);
+    setIsMobileMenuOpen(false);
+    window.scrollTo({
+      top: 0,
+      behavior: "instant",
+    });
+  };
+
   return (
-    <>
-      <nav className="navBar">
-        <div className="logo">
-          <div className="hamburgerMenu" onClick={showMenuClick}>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-          <Link
-            className="navFont"
-            to="/"
-            onClick={() => {
-              setShowMenu(false);
-              window.scrollTo({
-                top: 0,
-                behavior: "instant",
-              });
-            }}
-          >
-            <p>Beat the Algorithm</p>
-          </Link>
-        </div>
-        <div className="links">
-          <Link
-            className="navFont"
-            to="/"
-            onClick={() => {
-              setShowMenu(false);
-              window.scrollTo({
-                top: 0,
-                behavior: "instant",
-              });
-            }}
-          >
-            <p>Home</p>
-          </Link>
-          <Link
-            className="navFont"
-            to="/moreOnAlgorithms"
-            onClick={() => {
-              setShowMenu(false);
-              window.scrollTo({
-                top: 0,
-                behavior: "instant",
-              });
-            }}
-          >
-            <p>More on Algorithms</p>
-          </Link>
-          <Link
-            className="navFont"
-            to="/about"
-            onClick={() => {
-              setShowMenu(false);
-              window.scrollTo({
-                top: 0,
-                behavior: "instant",
-              });
-            }}
-          >
-            <p>About</p>
-          </Link>
-        </div>
-        {showMenu && <AlgoMenu showMenuClick={showMenuClick} />}
+    <header className="navbar-container">
+      <div className="logo">
+        <Link to="/" onClick={handleNavClick}>
+          <img
+            src={"./beatthealgo.png"}
+            alt="Logo"
+            className="logo-icon"
+          />
+        </Link>
+        <Link className="logo-text" to="/" onClick={handleNavClick}>
+          Beat the Algorithm
+        </Link>
+      </div>
+
+      {/* Desktop Navigation */}
+      <nav className="desktop-nav">
+        <Link
+          to="/"
+          className="nav-link"
+          onClick={handleNavClick}
+        >
+          Home
+        </Link>
+        <Link
+          to="/moreOnAlgorithms"
+          className="nav-link"
+          onClick={handleNavClick}
+        >
+          Algorithms
+        </Link>
+        <Link
+          to="/about"
+          className="nav-link"
+          onClick={handleNavClick}
+        >
+          About
+        </Link>
       </nav>
-    </>
+
+      <div className="action-container">
+        <Link
+          to="/algo/bubble_sort"
+          className="start-challenge-button"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <span>Start Challenge</span>
+          <span className="material-icon">play_arrow</span>
+        </Link>
+
+        {/* Hamburger Menu Button */}
+        <button
+          className="mobile-menu-button"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle menu"
+        >
+          <span className="material-icon">
+            {isMobileMenuOpen ? "close" : "menu"}
+          </span>
+        </button>
+
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
+          <div className="mobile-menu">
+            <nav className="mobile-nav">
+              <Link
+                to="/"
+                className="mobile-nav-link"
+                onClick={handleNavClick}
+              >
+                Home
+              </Link>
+              <Link
+                to="/moreOnAlgorithms"
+                className="mobile-nav-link"
+                onClick={handleNavClick}
+              >
+                Algorithms
+              </Link>
+              <Link
+                to="/about"
+                className="mobile-nav-link"
+                onClick={handleNavClick}
+              >
+                About
+              </Link>
+              <Link
+                to="/algo/bubble_sort"
+                className="mobile-nav-link mobile-start-button"
+                onClick={handleNavClick}
+              >
+                <span>Start Challenge</span>
+                <span className="material-icon">play_arrow</span>
+              </Link>
+            </nav>
+          </div>
+        )}
+      </div>
+
+      {/* AlgoMenu overlay */}
+      {showMenu && <AlgoMenu showMenuClick={showMenuClick} />}
+    </header>
   );
 }
