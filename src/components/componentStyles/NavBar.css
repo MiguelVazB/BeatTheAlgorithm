@@ -32,7 +32,10 @@
 }
 
 .logo-text {
-  color: white;
+  background: linear-gradient(to right, #164B9D, #33B64E);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.25;
