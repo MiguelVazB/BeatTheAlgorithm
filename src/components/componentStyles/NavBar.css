@@ -86,6 +86,9 @@
   border-radius: 0.375rem;
   height: 2.75rem;
   padding: 0 1.5rem;
+  background: linear-gradient(to right, #164B9D, #33B64E);
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
   background-color: white;
   color: black;
   font-size: 1rem;
@@ -93,11 +96,12 @@
   line-height: normal;
   letter-spacing: 0.015em;
   text-decoration: none;
-  transition: all 0.3s;
+  transition: background-size 0.5s ease-in-out, transform 0.5s, box-shadow 0.5s, color 0.5s;
 }
 
 .start-challenge-button:hover {
-  background-color: #e5e5e5;
+  background-size: 100% 100%;
+  color: white;
   transform: scale(1.05);
   box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.2);
 }
