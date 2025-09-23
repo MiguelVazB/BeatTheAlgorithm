@@ -28,41 +28,11 @@ function App() {
 
           {/* Paths for moreOnAlgorithms */}
           <Route path="/moreOnAlgorithms" element={<AlgorithmsPage />} />
-          <Route
-            path="/moreOnAlgorithms/bubble_sort"
-            element={<SpecificAlgoPage algo="bubble_sort" />}
-          />
-          <Route
-            path="/moreOnAlgorithms/selection_sort"
-            element={<SpecificAlgoPage algo="selection_sort" />}
-          />
-          <Route
-            path="/moreOnAlgorithms/heap_sort"
-            element={<SpecificAlgoPage algo="heap_sort" />}
-          />
-          <Route
-            path="/moreOnAlgorithms/merge_sort"
-            element={<SpecificAlgoPage algo="merge_sort" />}
-          />
+          <Route path="/moreOnAlgorithms/:algoname" element={<SpecificAlgoPage />} />
 
           {/* Paths for algorithms */}
           <Route path="/algo" element={<GameLayout algo="bubble_sort" />} />
-          <Route
-            path="/algo/bubble_sort"
-            element={<GameLayout algo="bubble_sort" />}
-          />
-          <Route
-            path="/algo/selection_sort"
-            element={<GameLayout algo="selection_sort" />}
-          />
-          <Route
-            path="/algo/heap_sort"
-            element={<GameLayout algo="heap_sort" />}
-          />
-          <Route
-            path="/algo/merge_sort"
-            element={<GameLayout algo="merge_sort" />}
-          />
+          <Route path="/algo/:algoname" element={<GameLayout />} />
 
           <Route path="/algo/*" element={<WorkInProgressPage />} />
           <Route path="/moreOnAlgorithms/*" element={<WorkInProgressPage />} />
