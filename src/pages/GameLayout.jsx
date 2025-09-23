@@ -1,7 +1,7 @@
 import React from "react";
 import "./pageStyles/GameLayout.css";
 import "./pageStyles/AlgorithmsPage.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 const countDownSound = "/BeatTheAlgorithm/sounds/countDownSound.mp3";
 const StartSound = "/BeatTheAlgorithm/sounds/startSound.wav";
@@ -55,7 +55,10 @@ const MergeSortUser = React.lazy(() =>
   }))
 );
 
-export default function GameLayout({ algo }) {
+export default function GameLayout({ algo: propAlgo }) {
+  const { algoname } = useParams();
+  const algo = algoname || propAlgo;
+
   const [randomValues, setRandomValues] = React.useState([]);
 
   const [countDownOver, setCountDownOver] = React.useState(false);
