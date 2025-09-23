@@ -513,9 +513,10 @@
   }
 }
 
-@media (min-width: 1024px) {
-  .hero-section {
-    padding: 8rem 1rem;
+/* Add mobile-specific adjustments */
+@media (max-width: 767px) {
+  .featured-algorithms {
+    padding: 3rem 1rem; /* Reduced vertical padding for better mobile visibility */
   }
 }
 
