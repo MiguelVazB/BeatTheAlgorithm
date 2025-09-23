@@ -20,53 +20,63 @@ export default function AlgorithmsPage() {
     if (algorithmsToDisplay) setDisplayAlgo(true);
   }, [algorithmsToDisplay]);
 
+  const getEmoji = (algorithm) => {
+    switch (algorithm) {
+      case "bubble_sort":
+        return "🫧";
+      case "selection_sort":
+        return "☐☑";
+      case "heap_sort":
+        return "🌳";
+      case "merge_sort":
+        return "➗👑";
+      default:
+        return "";
+    }
+  };
+
   return (
     <main className="algoPage">
-      {displayAlgo &&
-        algorithmsToDisplay.map((algorithm) => {
-          let algoEmoji;
-          switch (algorithm) {
-            case "bubble_sort":
-              algoEmoji = "🫧";
-              break;
-            case "selection_sort":
-              algoEmoji = "☐☑";
-              break;
-            case "heap_sort":
-              algoEmoji = "🌳";
-              break;
-            case "merge_sort":
-              algoEmoji = "➗👑";
-              break;
-          }
-
-          let bubbleSort =
-            AlgorithmDescriptions[algorithm]?.detailedDescription;
-          return (
-            <div key={algorithm} className="algorithm">
-              <div className="name">
-                {String(algorithm)
+      <div className="page-header">
+        <h2>Select Your Challenge</h2>
+        <p>
+          Choose an algorithm to test your skills against. Each challenge offers a unique problem-solving experience.
+        </p>
+      </div>
+      
+      <div className="algorithms-sections">
+        <div className="algorithm-category">
+          <h3>Sorting Algorithms</h3>
+          <div className="algorithm-grid">
+            {displayAlgo &&
+              algorithmsToDisplay.map((algorithm) => {
+                const emoji = getEmoji(algorithm);
+                const algoName = algorithm
                   .split("_")
-                  .concat(algoEmoji ? algoEmoji : "")
-                  .map((x) => {
-                    return x.charAt(0).toUpperCase() + x.slice(1) + " ";
-                  })}
-              </div>
-              <div className="explanation">{bubbleSort?.simpleExplanation}</div>
-              <div className="MoreOnAlgoLinks">
-                <Link className="actionBtn" to={`/algo/${algorithm}`}>
-                  Play
-                </Link>
-                <Link
-                  className="actionBtn"
-                  to={`/moreOnAlgorithms/${algorithm}`}
-                >
-                  Learn More
-                </Link>
-              </div>
-            </div>
-          );
-        })}
+                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ");
+                const description = AlgorithmDescriptions[algorithm]?.detailedDescription?.simpleExplanation || "";
+                
+                return (
+                  <div key={algorithm} className="algorithm-card">
+                    <div className="card-header">
+                      <h4>{algoName} {emoji}</h4>
+                    </div>
+                    <p className="card-description">{description}</p>
+                    <div className="card-actions">
+                      <Link className="challenge-button" to={`/algo/${algorithm}`}>
+                        Challenge
+                      </Link>
+                      <Link className="learn-more-button" to={`/moreOnAlgorithms/${algorithm}`}>
+                        Learn More
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
