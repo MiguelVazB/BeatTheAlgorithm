@@ -1,7 +1,7 @@
 import React from "react";
 import "./pageStyles/GameLayout.css";
 import "./pageStyles/AlgorithmsPage.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, Navigate } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 const countDownSound = "/BeatTheAlgorithm/sounds/countDownSound.mp3";
 const StartSound = "/BeatTheAlgorithm/sounds/startSound.wav";
@@ -58,6 +58,15 @@ const MergeSortUser = React.lazy(() =>
 export default function GameLayout({ algo: propAlgo }) {
   const { algoname } = useParams();
   const algo = algoname || propAlgo;
+
+  // Validate that the algorithm is supported
+  const supportedAlgorithms = ["bubble_sort", "selection_sort", "heap_sort", "merge_sort"];
+  const isValidAlgorithm = supportedAlgorithms.includes(algo);
+
+  // Redirect to not found page if algorithm is not supported
+  if (!isValidAlgorithm) {
+    return <Navigate to="/not-found" replace />;
+  }
 
   const [randomValues, setRandomValues] = React.useState([]);
 
