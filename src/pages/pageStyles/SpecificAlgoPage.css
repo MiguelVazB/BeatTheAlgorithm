@@ -1,23 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
 
-:root {
-  --primary-color: #00ff99;
-  --secondary-color: #1a1a1a;
-  --tertiary-color: #333333;
-  --text-primary: #ffffff;
-  --text-secondary: #cccccc;
-  --navbar-height: 4rem;
-  --animation-timing: cubic-bezier(0.16, 1, 0.3, 1);
-  --glow-blue: rgba(56, 189, 248, 0.35);
-  --glow-green: rgba(0, 255, 153, 0.35);
-  --glow-purple: rgba(168, 85, 247, 0.35);
-}
+/* SpecificAlgoPage.css - Uses global CSS variables from index.css */
 
 .specific-algo-page {
   min-height: 100vh;
-  background-color: #000000;
+  background-color: var(--background-color);
   color: var(--text-primary);
-  font-family: "Space Grotesk", "Noto Sans", sans-serif;
+  font-family: var(--font-family-primary);
   position: relative;
   overflow-x: hidden;
 }

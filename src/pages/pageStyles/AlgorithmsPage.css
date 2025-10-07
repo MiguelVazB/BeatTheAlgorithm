@@ -1,18 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
 
-:root {
-  --primary-color: #00ff99;
-  --secondary-color: #1a1a1a;
-  --tertiary-color: #333333;
-  --text-primary: #ffffff;
-  --text-secondary: #cccccc;
-}
+/* AlgorithmsPage.css - Uses global CSS variables from index.css */
 
 .algoPage {
   min-height: 100vh;
-  background-color: #000000;
+  background-color: var(--background-color);
   color: var(--text-primary);
-  font-family: "Space Grotesk", "Noto Sans", sans-serif;
+  font-family: var(--font-family-primary);
   padding: 3rem 2rem;
   max-width: none;
   margin: 0 auto;

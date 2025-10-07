@@ -1,14 +1,7 @@
-:root {
-  --primary-color: #00FF00;
-  --background-color: #000000;
-  --card-background: #121212;
-  --border-color: #333333;
-  --text-color: #FFFFFF;
-  --text-muted: #888888;
-}
+/* GameLayout.css - Uses global CSS variables from index.css */
 
 .gameLayout {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-family-primary);
   padding-top: 5rem;
   margin: 0;
   background-color: var(--background-color);
@@ -17,7 +10,7 @@
   right: 0;
   left: 0;
   bottom: 0;
-  color: var(--text-color);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   text-align: end;

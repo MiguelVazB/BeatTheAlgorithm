@@ -1,31 +1,208 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
 
-html, body, .App{
+/* Global CSS Variables - Consistent Theme */
+:root {
+  /* Primary Colors */
+  --primary-color: #00ff99; /* Cyan-green from AlgorithmsPage */
+  --secondary-color: #1a1a1a; /* Dark gray for cards */
+  --tertiary-color: #333333; /* Medium gray for borders */
+
+  /* Background Colors */
+  --background-color: #000000; /* Pure black */
+  --card-background: #121212; /* Slightly lighter black for cards */
+
+  /* Text Colors */
+  --text-primary: #ffffff; /* Pure white */
+  --text-secondary: #cccccc; /* Light gray */
+  --text-muted: #888888; /* Muted gray */
+
+  /* Button Colors */
+  --button-hover-bg: #e5e5e5; /* Light gray for button hovers */
+
+  /* Border and UI */
+  --border-color: #333333; /* Consistent border color */
+  --border-radius: 0.5rem; /* Standard border radius */
+  --border-radius-lg: 0.75rem; /* Large border radius */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.3s ease-in-out;
+  --transition-slow: 0.5s ease-in-out;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* Typography */
+  --font-family-primary: 'Space Grotesk', 'Inter', sans-serif;
+  --font-family-secondary: 'Inter', sans-serif;
+
+  /* Glow Effects */
+  --glow-primary: rgba(0, 255, 153, 0.35);
+  --glow-blue: rgba(56, 189, 248, 0.35);
+  --glow-purple: rgba(168, 85, 247, 0.35);
+  --glow-white: rgba(255, 255, 255, 0.15);
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(to right, #164B9D, var(--primary-color));
+
+  /* Animation */
+  --animation-timing: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Global Base Styles */
+html, body, .App {
     margin: 0;
     padding: 0;
     height: 100dvh;
     width: auto;
-    background-image: linear-gradient(to right, #202020 , #222629);
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    font-family: var(--font-family-primary);
     scrollbar-width: thin;
     overflow-x: hidden;
 }
 
+/* Global Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-primary);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+p {
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Global Button Styles */
+.btn, button, .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.btn-primary, .btn-primary:hover {
+  background-color: var(--primary-color);
+  color: #000000;
+  border-color: var(--primary-color);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border-color: var(--tertiary-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--tertiary-color);
+  color: var(--text-primary);
+}
+
+/* Global Card Styles */
+.card {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow);
+  transition: all var(--transition-normal);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(0, 255, 153, 0.3);
+}
+
+/* Global Link Styles */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--text-primary);
+}
+
+/* Global Input Styles */
+input, textarea, select {
+  background-color: var(--secondary-color);
+  border: 1px solid var(--tertiary-color);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: var(--font-family-secondary);
+  transition: border-color var(--transition-fast);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 255, 153, 0.2);
+}
+
+/* Global Utility Classes */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+
+.bg-primary { background-color: var(--primary-color); }
+.bg-secondary { background-color: var(--secondary-color); }
+.bg-card { background-color: var(--card-background); }
+
+.border-primary { border-color: var(--primary-color); }
+.border-secondary { border-color: var(--tertiary-color); }
+
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow { box-shadow: var(--shadow); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+
+.rounded { border-radius: var(--border-radius); }
+.rounded-lg { border-radius: var(--border-radius-lg); }
+
+/* Loading Styles */
 .loading-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
 }
-  
+
 .loading-icon {
     width: 4em;
     height: 4em;
-    border: 5px solid #ccc;
-    border-top: 5px solid darkgreen;
+    border: 5px solid var(--tertiary-color);
+    border-top: 5px solid var(--primary-color);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
-  
+
 @keyframes spin {
     from {
         transform: rotate(0deg);

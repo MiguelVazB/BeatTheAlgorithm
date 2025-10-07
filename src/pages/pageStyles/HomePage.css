@@ -1,22 +1,13 @@
-/* Base styles */
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
-
-:root {
-  --animation-timing: cubic-bezier(0.16, 1, 0.3, 1); /* Smooth easing function */
-  --glow-blue: rgba(56, 189, 248, 0.35);
-  --glow-green: rgba(74, 222, 128, 0.35);
-  --glow-purple: rgba(168, 85, 247, 0.35);
-  --glow-white: rgba(255, 255, 255, 0.15);
-}
+/* HomePage.css - Uses global CSS variables from index.css */
 
 .homePage {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
-  background-color: #000;
-  color: white;
-  font-family: "Space Grotesk", "Noto Sans", sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  font-family: var(--font-family-primary);
   position: relative;
 }
 

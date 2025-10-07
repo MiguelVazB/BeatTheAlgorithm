@@ -1,27 +1,31 @@
-.notFound{
+/* NotFoundPage.css - Uses global CSS variables from index.css */
+
+.notFound {
     display: flex;
     flex-direction: column;
-    color: white;
+    color: var(--text-primary);
     flex: 1;
-    padding-top: 15em;
+    padding-top: 15rem;
     justify-content: center;
+    background-color: var(--background-color);
+    font-family: var(--font-family-primary);
 }
 
-.notFoundContainer{
+.notFoundContainer {
     margin: 1rem;
-    font-family: Stencil Std, fantasy;
+    font-family: var(--font-family-primary);
     font-size: 4rem;
-    color: white;
+    color: var(--text-primary);
     text-align: center;
 }
 
-.notFoundError{
+.notFoundError {
     margin: 0;
     font-size: 10rem;
 }
 
 @media (max-width: 415px) {
-    .notFoundError{
+    .notFoundError {
         font-size: 6rem;
     }
 }

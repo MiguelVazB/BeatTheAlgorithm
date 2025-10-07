@@ -1,158 +1,214 @@
-.aboutPage{
-    display: flex;
-    color: white;
-    flex: 1;
-    display: flex;
+/* About.css - Uses global CSS variables from index.css */
+
+.aboutPage {
+  font-family: var(--font-family-primary);
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding: 6rem 2rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome {
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--text-primary);
+  position: relative;
+}
+
+.welcome span {
+  color: var(--primary-color);
+  text-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+}
+
+.welcome::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+}
+
+.aboutWebsite {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.aboutWebsite::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), transparent);
+}
+
+.webName {
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.important {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-shadow: 0 0 5px rgba(0, 255, 153, 0.3);
+}
+
+.aboutMeTitle, .inTouch {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+  position: relative;
+}
+
+.aboutMeTitle::after, .inTouch::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+}
+
+.aboutMe {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.aboutMe::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), transparent);
+}
+
+.aboutMe p {
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.aboutPage > div:not(.welcome):not(.aboutMeTitle):not(.inTouch):not(.aboutMe):not(.aboutWebsite) {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.aboutPage > div:not(.welcome):not(.aboutMeTitle):not(.inTouch):not(.aboutMe):not(.aboutWebsite)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), transparent);
+}
+
+.gitHubLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+  margin-top: 1.5rem;
+}
+
+.gitHubLink:hover {
+  background-color: rgba(0, 255, 153, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 255, 153, 0.25);
+}
+
+.gitHubLink img {
+  width: 2rem;
+  height: 2rem;
+  filter: brightness(0) invert(1);
+}
+
+.gitHubLink p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .aboutPage {
+    padding: 5rem 1rem 1.5rem;
+  }
+
+  .welcome {
+    font-size: 2.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .aboutWebsite, .aboutMe, .aboutPage > div:not(.welcome):not(.aboutMeTitle):not(.inTouch):not(.aboutMe):not(.aboutWebsite) {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .aboutMeTitle, .inTouch {
+    font-size: 1.75rem;
+  }
+
+  .aboutMe p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome {
+    font-size: 1.75rem;
+  }
+
+  .aboutMeTitle, .inTouch {
+    font-size: 1.5rem;
+  }
+
+  .gitHubLink {
     flex-direction: column;
-    padding-top: 7em;
-    justify-content: center;
-}
-
-.aboutPage div{
-    flex: 1;
-    margin: 1rem 20rem;
-    padding: 4rem;
-    border: 0.5rem solid rgba(97, 137, 47, 1);
-    box-shadow: 0px 0px 2rem black;
-    border-radius: 1rem;
-    font-size: 2.5rem;
-    word-wrap: break-word;
-}
-
-.aboutPage .welcome{
     text-align: center;
-    padding: 1rem;
-}
-
-.welcome span{
-    font-family: 'Inter', sans-serif;
-    font-weight: bold;
-    display: block;
-}
-
-.aboutWebsite .webName{
-    font-family: fantasy, 'Courier New', Courier, monospace;
-}
-
-.important{
-    font-family: fantasy, 'Courier New', Courier, monospace;
-    color: rgba(97, 137, 47, 1);
-    text-shadow: 0px 0px 20px black;
-}
-
-.aboutPage .aboutMeTitle, .aboutPage .inTouch{
-    margin-top: 4rem;
-    text-align: center;
-    padding: 1rem;
-    margin-bottom: 0;
-}
-
-.aboutMe p{
-    margin: 0;
-}
-
-.gitHubLink{
-    flex: 1;
-    font-size: 1.5ch;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-    flex-wrap: wrap;
-    word-break: break-all;
-}
-
-.gitHubLink:hover{
-    scale: 1.05;
-}
-
-.gitHubLink img{
-    width: 3rem;
-    height: auto;
-    margin-right: 1rem;
-    margin-left: 1rem;
-}
-
-/* mobile responsiveness */
-
-@media (max-width: 1385px){
-    .aboutPage div{
-        margin: 1rem 10rem;
-    }
-}
-
-@media (max-width: 1130px){
-    .aboutPage div{
-        margin: 1rem 6rem;
-    }
-}
-
-@media (max-width: 950px) {
-    .aboutPage div{
-        margin: 1rem 3rem;
-        padding: 3rem;
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 640px) {
-    .aboutPage div{
-        margin: 1rem 2.5rem;
-        padding: 2.5rem;
-        font-size: 1.5rem;
-    }
-    .aboutPage .aboutMeTitle, .aboutPage .inTouch{
-        margin-top: 3rem;
-    }
-    .gitHubLink{
-        font-size: 1.2ch;
-    }
-    .gitHubLink img{
-        width: 2rem;
-    }
-}
-
-@media (max-width: 460px) {
-    .aboutPage div{
-        margin: 0.8rem 1.5rem;
-        padding: 2rem;
-        font-size: 1.2rem;
-    }
-}
-
-@media (max-width: 334px) {
-    .aboutPage div{
-        margin: 0.5rem 1.2rem;
-        padding: 1.5rem;
-        font-size: 1rem;
-    }
-    .aboutPage div{
-        border-width: 0.3rem;
-    }
-    .gitHubLink{
-        font-size: 0.9ch;
-    }
-    .gitHubLink img{
-        width: 1.2rem;
-    }
-}
-
-@media (max-width: 250px) {
-    .aboutPage div{
-        margin: 0.5rem 1rem;
-        padding: 1.2rem;
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 200px){
-    .aboutPage div{
-        margin: 0.5rem 1rem;
-        padding: 1rem;
-        font-size: 0.5rem;
-    }
-    .aboutPage div{
-        border-width: 0.2rem;
-    }
+    gap: 0.5rem;
+  }
 }
