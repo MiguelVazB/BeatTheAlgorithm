@@ -99,13 +99,16 @@
   height: 3rem;
   padding: 0 2rem;
   margin-top: 1rem;
+  background: var(--gradient-brand);
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
   background-color: white;
   color: black;
   font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.5;
   letter-spacing: 0.015em;
-  transition: all 0.5s var(--animation-timing);
+  transition: background-size 0.5s ease-in-out, transform 0.5s, box-shadow 0.5s, color 0.5s;
   text-decoration: none;
   isolation: isolate;
 }
@@ -121,9 +124,10 @@
 }
 
 .start-button:hover {
-  background-color: #f0f0f0;
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.1);
+  background-size: 100% 100%;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.2);
 }
 
 .start-button:hover .button-glow {
@@ -358,21 +362,25 @@
   margin-top: 2.5rem;
   margin-left: auto;
   margin-right: auto;
+  background: var(--gradient-brand);
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
   background-color: white;
   color: black;
   font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.5;
   letter-spacing: 0.015em;
-  transition: all 0.5s var(--animation-timing);
+  transition: background-size 0.5s ease-in-out, transform 0.5s, box-shadow 0.5s, color 0.5s;
   text-decoration: none;
   isolation: isolate;
 }
 
 .view-all-button:hover {
-  background-color: #f0f0f0;
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.1);
+  background-size: 100% 100%;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.2);
 }
 
 .view-all-button:hover .button-glow {
