@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowsComponent } from "./ArrowsComponent";
+import { getDifficultyTimeInterval } from "../utils/difficultyConfig";
 import "./componentStyles/HeapSort.css";
 
 export const HeapSort = ({
@@ -13,7 +14,6 @@ export const HeapSort = ({
   const [circleValues, setCircleValues] = React.useState([]); // stores values being changed
   const [lines, setLines] = React.useState([]);
   const [containerRect, setContainerRect] = React.useState(null);
-  const [difficultyTimeInterval, setDifficultyTimeInterval] = React.useState(0);
 
   const [showArrows, setShowArrows] = React.useState(false);
 
@@ -204,30 +204,11 @@ export const HeapSort = ({
   }, [circleValues, binaryTreeRef, containerRect]);
 
   React.useEffect(() => {
-    if (difficulty) {
-      switch (difficulty) {
-        case "Easy":
-          setDifficultyTimeInterval(3000);
-          break;
-        case "Intermediate":
-          setDifficultyTimeInterval(2000);
-          break;
-        case "Hard":
-          setDifficultyTimeInterval(1000);
-          break;
-        case "Impossible":
-          setDifficultyTimeInterval(100);
-          break;
-      }
-    }
-  }, [difficulty]);
-
-  React.useEffect(() => {
     if (countDownOver) {
       setStartAlgo(true);
       setInterval(() => {
         setShowArrows(true);
-      }, difficultyTimeInterval);
+      }, getDifficultyTimeInterval(difficulty));
     } else {
       setShowArrows(false);
     }
@@ -260,8 +241,8 @@ export const HeapSort = ({
           {
             duration:
               difficulty === "Easy"
-                ? difficultyTimeInterval / 10
-                : difficultyTimeInterval / 20,
+                ? getDifficultyTimeInterval(difficulty) / 10
+                : getDifficultyTimeInterval(difficulty) / 20,
             timingFunction: "ease-in-out",
           }
         );
@@ -277,8 +258,8 @@ export const HeapSort = ({
           {
             duration:
               difficulty === "Easy"
-                ? difficultyTimeInterval / 10
-                : difficultyTimeInterval / 20,
+                ? getDifficultyTimeInterval(difficulty) / 10
+                : getDifficultyTimeInterval(difficulty) / 20,
             timingFunction: "ease-in-out",
           }
         );
@@ -299,8 +280,8 @@ export const HeapSort = ({
           {
             duration:
               difficulty === "Easy"
-                ? difficultyTimeInterval / 10
-                : difficultyTimeInterval / 20,
+                ? getDifficultyTimeInterval(difficulty) / 10
+                : getDifficultyTimeInterval(difficulty) / 20,
             timingFunction: "ease-in-out",
           }
         );
@@ -316,8 +297,8 @@ export const HeapSort = ({
           {
             duration:
               difficulty === "Easy"
-                ? difficultyTimeInterval / 10
-                : difficultyTimeInterval / 20,
+                ? getDifficultyTimeInterval(difficulty) / 10
+                : getDifficultyTimeInterval(difficulty) / 20,
             timingFunction: "ease-in-out",
           }
         );
@@ -327,14 +308,12 @@ export const HeapSort = ({
 
   React.useEffect(() => {
     if (leftAndRightIndices[0]) {
-      // setTimeout(() => {
       setSecondArrowPosition(leftAndRightIndices[0]);
-      // }, difficultyTimeInterval / 30);
     }
     if (leftAndRightIndices[1]) {
       setTimeout(() => {
         setSecondArrowPosition(leftAndRightIndices[1]);
-      }, difficultyTimeInterval / 10);
+      }, getDifficultyTimeInterval(difficulty) / 10);
     }
   }, [leftAndRightIndices]);
 
@@ -360,9 +339,6 @@ export const HeapSort = ({
 
     setCircleIndicesSwap([0, size - 1]);
     setFirstAndLastSwap([0, size - 1]);
-    // setTimeout(() => {
-    // setFirstArrowPosition(0);
-    // }, difficultyTimeInterval / 10);
 
     // console.log("Comparison: Remove", max, a[0]);
     return max;
@@ -403,10 +379,10 @@ export const HeapSort = ({
 
       setTimeout(() => {
         setFirstArrowPosition(i);
-      }, difficultyTimeInterval / 10);
+      }, getDifficultyTimeInterval(difficulty) / 10);
       setTimeout(() => {
         setSecondArrowPosition(largest);
-      }, difficultyTimeInterval / 10);
+      }, getDifficultyTimeInterval(difficulty) / 10);
 
       heapify(a, size, largest);
     }
@@ -460,7 +436,7 @@ export const HeapSort = ({
             }
           }
         }
-      }, difficultyTimeInterval);
+      }, getDifficultyTimeInterval(difficulty));
       winnerRef.current = winner;
     }
   }, [startAlgo, winner]);

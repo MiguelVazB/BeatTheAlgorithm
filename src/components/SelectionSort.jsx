@@ -1,6 +1,8 @@
 import React from "react";
 import { ArrowsComponent } from "./ArrowsComponent";
 import "./componentStyles/SelectionSort.css";
+import { getDifficultyTimeInterval } from "../utils/difficultyConfig";
+import { animateSwap } from "../utils/animationUtils";
 
 export const SelectionSort = ({
   difficulty,
@@ -53,22 +55,7 @@ export const SelectionSort = ({
       let smallestValueIndex = firstPos;
       let selectionSort;
 
-      let difficultyTimeInterval;
-
-      switch (difficulty) {
-        case "Easy":
-          difficultyTimeInterval = 700;
-          break;
-        case "Intermediate":
-          difficultyTimeInterval = 500;
-          break;
-        case "Hard":
-          difficultyTimeInterval = 300;
-          break;
-        case "Impossible":
-          difficultyTimeInterval = 10;
-          break;
-      }
+      const difficultyTimeInterval = getDifficultyTimeInterval('selection_sort', difficulty?.toLowerCase());
 
       let updatedValues = [...valuesToSort];
 
@@ -176,38 +163,12 @@ export const SelectionSortUser = ({ randomNumbers, setWinner }) => {
         // animate swap
         let firstBoxIndex = highlightSelectedBoxes[0];
         let secondBoxIndex = highlightSelectedBoxes[1];
-        let firstBoxPos =
-          userValuesToSortRef?.current?.children[
-            firstBoxIndex
-          ].getBoundingClientRect();
-        let secondBoxPos =
-          userValuesToSortRef?.current?.children[
-            secondBoxIndex
-          ].getBoundingClientRect();
-        let distance =
-          secondBoxIndex > firstBoxIndex
-            ? secondBoxPos.x - firstBoxPos.x
-            : secondBoxPos.x - firstBoxPos.x;
-        userValuesToSortRef?.current?.children[firstBoxIndex].animate(
-          [
-            // keyframes
-            { transform: `translateX(${distance}px)` },
-          ],
-          {
-            duration: difficulty === "Easy" ? 500 : 100,
-            timingFunction: "ease-in-out",
-          }
-        );
-        userValuesToSortRef?.current?.children[secondBoxIndex].animate(
-          [
-            // keyframes
-            { transform: `translateX(${-1 * distance}px)` },
-          ],
-          {
-            duration: difficulty === "Easy" ? 500 : 100,
-            timingFunction: "ease-in-out",
-          }
-        );
+
+        const firstElement = userValuesToSortRef.current.children[firstBoxIndex];
+        const secondElement = userValuesToSortRef.current.children[secondBoxIndex];
+
+        animateSwap(firstElement, secondElement, difficulty === "Easy" ? 500 : 100);
+
         // remove highlight
         for (let i = 0; i < highlightSelectedBoxes.length; i++) {
           userValuesToSortRef?.current?.children[

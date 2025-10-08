@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowsComponent } from "./ArrowsComponent";
+import { getDifficultyTimeInterval } from "../utils/difficultyConfig";
 import "./componentStyles/MergeSort.css";
 
 export const MergeSort = ({
@@ -14,7 +15,6 @@ export const MergeSort = ({
   const [squareColors, setSquareColors] = React.useState([]); // stores colors of the values
 
   const [showArrows, setShowArrows] = React.useState(false);
-  const [difficultyTimeInterval, setDifficultyTimeInterval] = React.useState(0);
 
   const [startAlgo, setStartAlgo] = React.useState(false);
   const winnerRef = React.useRef(winner);
@@ -135,38 +135,14 @@ export const MergeSort = ({
         }
         setFirstArrowPosition((prev) => prev + 2);
         setSecondArrowPosition((prev) => prev + 2);
-      }, difficultyTimeInterval / 1.3); //1.25 - 1.3
+      }, getDifficultyTimeInterval(difficulty) / 1.3); //1.25 - 1.3
     }
   }, [startArrowMovement]);
-
-  React.useEffect(() => {
-    if (difficulty) {
-      switch (difficulty) {
-        case "Easy":
-          setDifficultyTimeInterval(2500);
-          break;
-        case "Intermediate":
-          setDifficultyTimeInterval(1000);
-          break;
-        case "Hard":
-          setDifficultyTimeInterval(500);
-          break;
-        case "Impossible":
-          setDifficultyTimeInterval(100);
-          break;
-      }
-    }
-  }, [difficulty]);
 
   React.useEffect(() => {
     setValuesToSort([...randomNumbers]);
     setSquareValues([...randomNumbers]);
   }, [randomNumbers]);
-
-  React.useEffect(() => {
-    if (squareValues.length > 8) {
-    }
-  }, [squareValues]);
 
   // merge sort algorithm
   React.useEffect(() => {
@@ -195,7 +171,7 @@ export const MergeSort = ({
               }
               setStartAlgo(false);
               clearInterval(sortingInterval);
-            }, difficultyTimeInterval * 2);
+            }, getDifficultyTimeInterval(difficulty) * 2);
             return;
           }
 
@@ -225,7 +201,7 @@ export const MergeSort = ({
           setColorsToSquaresFunc(left, rightLimit);
 
           i += 2 * step;
-        }, difficultyTimeInterval);
+        }, getDifficultyTimeInterval(difficulty));
         winnerRef.current = winner;
 
         return sorted;

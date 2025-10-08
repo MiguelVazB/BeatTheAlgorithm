@@ -1,6 +1,8 @@
 import React from "react";
 import "./componentStyles/BubbleSort.css";
 import { ArrowsComponent } from "./ArrowsComponent";
+import { getDifficultyTimeInterval } from "../utils/difficultyConfig";
+import { animateSwap } from "../utils/animationUtils";
 
 export const BubbleSort = ({
   difficulty,
@@ -9,8 +11,8 @@ export const BubbleSort = ({
   setWinner,
   winner,
 }) => {
-  const [valuesToSort, setValuesToSort] = React.useState([]); //stores original values
-  const [bubbleValues, setBubbleValues] = React.useState([]); //stores values being changed
+  const [valuesToSort, setValuesToSort] = React.useState([]);
+  const [bubbleValues, setBubbleValues] = React.useState([]);
   const [showArrows, setShowArrows] = React.useState(false);
   const [tempBubbleValue, setTempBubbleValue] = React.useState("");
   const [startAlgo, setStartAlgo] = React.useState(false);
@@ -37,29 +39,13 @@ export const BubbleSort = ({
   }, [countDownOver]);
 
   // Bubble sort algorithm using setInterval and useEffect
-
   React.useEffect(() => {
     if (startAlgo) {
       let index = 0;
       let j = 0;
       let bubbleSort;
 
-      let difficultyTimeInterval;
-
-      switch (difficulty) {
-        case "Easy":
-          difficultyTimeInterval = 500;
-          break;
-        case "Intermediate":
-          difficultyTimeInterval = 200;
-          break;
-        case "Hard":
-          difficultyTimeInterval = 100;
-          break;
-        case "Impossible":
-          difficultyTimeInterval = 10;
-          break;
-      }
+      const difficultyTimeInterval = getDifficultyTimeInterval('bubble_sort', difficulty?.toLowerCase());
 
       let updatedValues = [...valuesToSort];
 
@@ -112,33 +98,10 @@ export const BubbleSort = ({
       let firstIndex = bubbleIndicesClass[0];
       let secondIndex = bubbleIndicesClass[1];
 
-      let firstBubblePos =
-        bubblesRef.current.children[firstIndex].getBoundingClientRect();
-      let secondBubblePos =
-        bubblesRef.current.children[secondIndex].getBoundingClientRect();
-      let distanceX = secondBubblePos.x - firstBubblePos.x;
-      bubblesRef?.current?.children[firstIndex].animate(
-        [
-          // keyframes
-          { transform: `translateX(${distanceX}px)` },
-        ],
-        {
-          duration: difficulty === "Easy" ? 300 : 100,
-          timingFunction: "ease-in-out",
-        }
-      );
+      const firstBubble = bubblesRef.current.children[firstIndex];
+      const secondBubble = bubblesRef.current.children[secondIndex];
 
-      // animation for second bubble
-      bubblesRef?.current?.children[secondIndex].animate(
-        [
-          // keyframes
-          { transform: `translateX(${-1 * distanceX}px)` },
-        ],
-        {
-          duration: difficulty === "Easy" ? 300 : 100,
-          timingFunction: "ease-in-out",
-        }
-      );
+      animateSwap(firstBubble, secondBubble, difficulty === "Easy" ? 300 : 100);
     }
   }, [bubbleIndicesClass]);
 
