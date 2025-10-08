@@ -110,14 +110,14 @@ export default function SpecificAlgoPage() {
                 </div>
                 <div className="complexity-card">
                   <h3>Space Complexity</h3>
-                  <p>O(1) for Bubble and Selection Sort, O(n) for Merge Sort, O(1) for Heap Sort</p>
+                  <p>{algorithm?.spaceComplexity}</p>
                 </div>
               </div>
             </section>
             
             <section id="applications" className="content-section">
               <h2>Real-World Applications</h2>
-              <p>{algoName} is widely used in sorting large datasets and is a fundamental algorithm in computer science. It's efficient for in-memory sorting and forms the basis for many other algorithms.</p>
+              <p>{algorithm?.realWorldApplications}</p>
             </section>
             
             <div className="action-section">

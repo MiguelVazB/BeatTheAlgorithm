@@ -18,7 +18,9 @@
                 "step5": "Repeat steps 2-4 until the entire list is sorted. Each pass will place the next largest element in its proper position.",
                 "step6": "The algorithm terminates when no more swaps are needed, indicating that the list is sorted."
             },
-            "timeComplexity": "Bubble sort has a time complexity of O(n^2) in the average and worst cases, where n is the number of elements in the list. It is not considered an efficient sorting algorithm for large lists."
+            "timeComplexity": "Bubble sort has a time complexity of O(n^2) in the average and worst cases, where n is the number of elements in the list. It is not considered an efficient sorting algorithm for large lists.",
+            "spaceComplexity": "Bubble sort has a space complexity of O(1), as it performs sorting in-place without requiring additional memory beyond the input array.",
+            "realWorldApplications": "Bubble sort is rarely used in production code due to its poor performance, but it finds applications in educational contexts for teaching sorting concepts, and in scenarios with very small datasets or nearly sorted data where its simplicity is beneficial."
         }
     },
     "selection_sort": {
@@ -39,7 +41,9 @@
                 "step4": "Move the boundary of the sorted part one element to the right.",
                 "step5": "Repeat steps 2-4 until the entire list is sorted."
             },
-            "timeComplexity": "Selection sort has a time complexity of O(n^2) in the average and worst cases, where n is the number of elements in the list. Similar to bubble sort, it is not considered an efficient sorting algorithm for large lists. But, it is considered more efficient than bubble sort because of the number of swaps done by each."
+            "timeComplexity": "Selection sort has a time complexity of O(n^2) in the average and worst cases, where n is the number of elements in the list. Similar to bubble sort, it is not considered an efficient sorting algorithm for large lists. But, it is considered more efficient than bubble sort because of the number of swaps done by each.",
+            "spaceComplexity": "Selection sort has a space complexity of O(1), as it performs sorting in-place without requiring additional memory beyond the input array.",
+            "realWorldApplications": "Selection sort is useful when the cost of swapping elements is high, as it performs at most n-1 swaps. It is commonly used in scenarios with small datasets, embedded systems with limited memory, and when stability is not a requirement."
         }
     },
     "heap_sort": {
@@ -64,7 +68,9 @@
                 "step8": "Repeat steps 4-7 until the heap size becomes 1.",
                 "step9": "The sorted list is obtained by placing the extracted elements in reverse order."
             },
-            "timeComplexity": "Heap sort has a time complexity of O(n log n) in all cases, where n is the number of elements in the list. The build heap operation takes O(n) time, and each extraction of the minimum element takes O(log n) time. Since we perform these operations n times, the overall time complexity is O(n log n). Heap sort has a relatively efficient runtime, making it suitable for large lists."
+            "timeComplexity": "Heap sort has a time complexity of O(n log n) in all cases, where n is the number of elements in the list. The build heap operation takes O(n) time, and each extraction of the minimum element takes O(log n) time. Since we perform these operations n times, the overall time complexity is O(n log n). Heap sort has a relatively efficient runtime, making it suitable for large lists.",
+            "spaceComplexity": "Heap sort has a space complexity of O(1), as it performs sorting in-place using the input array itself to build the heap structure.",
+            "realWorldApplications": "Heap sort is widely used in priority queues, operating systems for job scheduling, and embedded systems. It is also used in algorithms that need to find the k largest or smallest elements efficiently, and in external sorting where memory is limited."
         }
     },
     "merge_sort": {
@@ -84,7 +90,9 @@
                 "step3": "Merge adjacent pairs of sublists to create sorted sublists of size 2.",
                 "step4": "Repeat step 3, merging adjacent pairs of sorted sublists to create larger sorted sublists until there is only one sorted sublist remaining, which is the sorted list."
             },
-            "timeComplexity": "Merge sort has a time complexity of O(n log n) in all cases, where n is the number of elements in the list. It is an efficient sorting algorithm and guarantees consistent performance, making it suitable for large lists. However, merge sort requires additional space to store temporary sublists during the merging process."
+            "timeComplexity": "Merge sort has a time complexity of O(n log n) in all cases, where n is the number of elements in the list. It is an efficient sorting algorithm and guarantees consistent performance, making it suitable for large lists. However, merge sort requires additional space to store temporary sublists during the merging process.",
+            "spaceComplexity": "Merge sort has a space complexity of O(n), as it requires additional memory equal to the size of the input array to store temporary sublists during the merging process.",
+            "realWorldApplications": "Merge sort is widely used in external sorting for large datasets that don't fit in memory, stable sorting requirements, and parallel processing environments. It is commonly used in programming languages' standard libraries, database systems, and file sorting applications."
         }
     }
 }
