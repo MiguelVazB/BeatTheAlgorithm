@@ -235,9 +235,8 @@ export default function GameLayout({ algo: propAlgo }) {
   }
 
   function setDifficultyFunction() {
-    let difficultySelected = document.querySelector("#difficulty").value;
     setDifficulty(
-      difficultySelected.charAt(0).toUpperCase() + difficultySelected.slice(1)
+      selectedDifficulty.charAt(0).toUpperCase() + selectedDifficulty.slice(1)
     );
   }
 
@@ -287,18 +286,34 @@ export default function GameLayout({ algo: propAlgo }) {
         <div ref={difficultyRef} className="difficultySection modern-card difficultySelection">
           <p className="modern-title">Choose Difficulty</p>
           <div className="difficultyOptions">
-            <select
-              name="difficulty"
-              id="difficulty"
-              className="modern-select"
-              value={selectedDifficulty}
-              onChange={(e) => setSelectedDifficulty(e.target.value)}
-            >
-              <option value="easy">Easy</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="hard">Hard</option>
-              <option value="impossible">Impossible</option>
-            </select>
+            {width >= 768 ? (
+              // Desktop: Show difficulty buttons
+              <div className="difficulty-buttons">
+                {difficulties.map((diff) => (
+                  <button
+                    key={diff}
+                    className={`difficulty-btn ${selectedDifficulty === diff ? `active ${diff}` : ''}`}
+                    onClick={() => setSelectedDifficulty(diff)}
+                  >
+                    {diff.charAt(0).toUpperCase() + diff.slice(1)}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              // Mobile: Show select dropdown
+              <select
+                name="difficulty"
+                id="difficulty"
+                className="modern-select"
+                value={selectedDifficulty}
+                onChange={(e) => setSelectedDifficulty(e.target.value)}
+              >
+                <option value="easy">Easy</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="hard">Hard</option>
+                <option value="impossible">Impossible</option>
+              </select>
+            )}
             <button
               className="setDifficultyButton modern-btn"
               onClick={setDifficultyFunction}
