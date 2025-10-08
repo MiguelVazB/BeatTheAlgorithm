@@ -74,7 +74,7 @@ export default function NavBar() {
       <div className="logo">
         <Link to="/" onClick={handleNavClick}>
           <img
-            src={"./beatthealgo.png"}
+            src="/beatthealgo.png"
             alt="Logo"
             className="logo-icon"
           />
