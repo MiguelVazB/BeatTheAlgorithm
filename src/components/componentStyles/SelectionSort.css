@@ -66,10 +66,6 @@
 
 
 /* Styling for arrows */
-.selectionSort .arrowBrowser{
-    filter: brightness(0%);
-}
-
 .selectionSort .second{
     filter: brightness(50%);
 }
