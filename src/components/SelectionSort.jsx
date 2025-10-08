@@ -55,7 +55,7 @@ export const SelectionSort = ({
       let smallestValueIndex = firstPos;
       let selectionSort;
 
-      const difficultyTimeInterval = getDifficultyTimeInterval('selection_sort', difficulty?.toLowerCase());
+      const difficultyTimeInterval = getDifficultyTimeInterval('selection_sort', difficulty);
 
       let updatedValues = [...valuesToSort];
 

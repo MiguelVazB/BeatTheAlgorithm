@@ -27,5 +27,5 @@ export const DIFFICULTY_CONFIG = {
 };
 
 export const getDifficultyTimeInterval = (algorithm, difficulty) => {
-  return DIFFICULTY_CONFIG[algorithm]?.[difficulty] || 500;
+  return DIFFICULTY_CONFIG[algorithm]?.[difficulty?.toLowerCase()] || 500;
 };

@@ -135,7 +135,7 @@ export const MergeSort = ({
         }
         setFirstArrowPosition((prev) => prev + 2);
         setSecondArrowPosition((prev) => prev + 2);
-      }, getDifficultyTimeInterval(difficulty) / 1.3); //1.25 - 1.3
+      }, getDifficultyTimeInterval('merge_sort', difficulty) / 1.3); //1.25 - 1.3
     }
   }, [startArrowMovement]);
 
@@ -171,7 +171,7 @@ export const MergeSort = ({
               }
               setStartAlgo(false);
               clearInterval(sortingInterval);
-            }, getDifficultyTimeInterval(difficulty) * 2);
+            }, getDifficultyTimeInterval('merge_sort', difficulty) * 2);
             return;
           }
 
@@ -201,7 +201,7 @@ export const MergeSort = ({
           setColorsToSquaresFunc(left, rightLimit);
 
           i += 2 * step;
-        }, getDifficultyTimeInterval(difficulty));
+        }, getDifficultyTimeInterval('merge_sort', difficulty));
         winnerRef.current = winner;
 
         return sorted;

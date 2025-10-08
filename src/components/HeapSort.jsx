@@ -208,7 +208,7 @@ export const HeapSort = ({
       setStartAlgo(true);
       setInterval(() => {
         setShowArrows(true);
-      }, getDifficultyTimeInterval(difficulty));
+      }, getDifficultyTimeInterval('heap_sort', difficulty));
     } else {
       setShowArrows(false);
     }
@@ -240,9 +240,9 @@ export const HeapSort = ({
           ],
           {
             duration:
-              difficulty === "Easy"
-                ? getDifficultyTimeInterval(difficulty) / 10
-                : getDifficultyTimeInterval(difficulty) / 20,
+              difficulty === "easy"
+                ? getDifficultyTimeInterval('heap_sort', difficulty) / 10
+                : getDifficultyTimeInterval('heap_sort', difficulty) / 20,
             timingFunction: "ease-in-out",
           }
         );
@@ -257,9 +257,9 @@ export const HeapSort = ({
           ],
           {
             duration:
-              difficulty === "Easy"
-                ? getDifficultyTimeInterval(difficulty) / 10
-                : getDifficultyTimeInterval(difficulty) / 20,
+              difficulty === "easy"
+                ? getDifficultyTimeInterval('heap_sort', difficulty) / 10
+                : getDifficultyTimeInterval('heap_sort', difficulty) / 20,
             timingFunction: "ease-in-out",
           }
         );
@@ -279,9 +279,9 @@ export const HeapSort = ({
           ],
           {
             duration:
-              difficulty === "Easy"
-                ? getDifficultyTimeInterval(difficulty) / 10
-                : getDifficultyTimeInterval(difficulty) / 20,
+              difficulty === "easy"
+                ? getDifficultyTimeInterval('heap_sort', difficulty) / 10
+                : getDifficultyTimeInterval('heap_sort', difficulty) / 20,
             timingFunction: "ease-in-out",
           }
         );
@@ -296,9 +296,9 @@ export const HeapSort = ({
           ],
           {
             duration:
-              difficulty === "Easy"
-                ? getDifficultyTimeInterval(difficulty) / 10
-                : getDifficultyTimeInterval(difficulty) / 20,
+              difficulty === "easy"
+                ? getDifficultyTimeInterval('heap_sort', difficulty) / 10
+                : getDifficultyTimeInterval('heap_sort', difficulty) / 20,
             timingFunction: "ease-in-out",
           }
         );
@@ -313,7 +313,7 @@ export const HeapSort = ({
     if (leftAndRightIndices[1]) {
       setTimeout(() => {
         setSecondArrowPosition(leftAndRightIndices[1]);
-      }, getDifficultyTimeInterval(difficulty) / 10);
+      }, getDifficultyTimeInterval('heap_sort', difficulty) / 10);
     }
   }, [leftAndRightIndices]);
 

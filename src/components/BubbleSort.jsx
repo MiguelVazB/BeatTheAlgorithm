@@ -45,7 +45,7 @@ export const BubbleSort = ({
       let j = 0;
       let bubbleSort;
 
-      const difficultyTimeInterval = getDifficultyTimeInterval('bubble_sort', difficulty?.toLowerCase());
+      const difficultyTimeInterval = getDifficultyTimeInterval('bubble_sort', difficulty);
 
       let updatedValues = [...valuesToSort];
 
