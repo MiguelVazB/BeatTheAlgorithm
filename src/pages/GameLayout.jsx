@@ -1,15 +1,11 @@
 import React from "react";
 import "./pageStyles/GameLayout.css";
 import "./pageStyles/AlgorithmsPage.css";
-import { Link, useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
-const countDownSound = "/BeatTheAlgorithm/sounds/countDownSound.mp3";
-const StartSound = "/BeatTheAlgorithm/sounds/startSound.wav";
-const gameSound = "/BeatTheAlgorithm/sounds/gameSound.mp3";
-const userWonSound = "/BeatTheAlgorithm/sounds/userWonSound.mp3";
-const algoWonSound = "/BeatTheAlgorithm/sounds/algoWonSound.mp3";
 import { useWindowSize } from "react-use";
-import Confetti from "react-confetti";
+import { useSortingGame } from "../hooks/useSortingGame";
+import { WinnerOverlay, AlgorithmHeader, GameContainer } from "../components/common/SortingGameUI";
 import {
   generateXRandomNumbers,
   generateXUniqueRandomNumbers,
@@ -68,24 +64,30 @@ export default function GameLayout({ algo: propAlgo }) {
     return <Navigate to="/not-found" replace />;
   }
 
+  // Use the common sorting game hook
+  const {
+    countDownOver,
+    showWinner,
+    winner,
+    difficulty,
+    selectedDifficulty,
+    songPlaying,
+    countDownRef,
+    difficultyOverlayRef,
+    setWinner,
+    setDifficulty,
+    setSelectedDifficulty,
+    startCountDown,
+    toggleMusic,
+    resetGame
+  } = useSortingGame(algo);
+
   const [randomValues, setRandomValues] = React.useState([]);
 
-  const [countDownOver, setCountDownOver] = React.useState(false);
-  const [showWinner, setShowWinner] = React.useState(false);
-  const [winner, setWinner] = React.useState("");
-
-  const [difficulty, setDifficulty] = React.useState("");
-  const [selectedDifficulty, setSelectedDifficulty] = React.useState("easy");
-
-  const difficultyOverlayRef = React.useRef(null);
-  const countDownRef = React.useRef(null);
   const algoInfoRef = React.useRef(null);
   const instructionsRef = React.useRef(null);
   const difficultyRef = React.useRef(null);
   const difficulties = ["easy", "intermediate", "hard", "impossible"];
-
-  const backgroundMusicRef = React.useRef(null);
-  const [songPlaying, setSongPlaying] = React.useState(true);
 
   const { width, height } = useWindowSize();
 
@@ -102,55 +104,17 @@ export default function GameLayout({ algo: propAlgo }) {
   }, []);
 
   React.useEffect(() => {
-    if (difficulty.length > 0 && countDownOver === false) {
-      difficultyOverlayRef.current.style.display = "none";
-      countDownRef.current.style.visibility = "visible";
-      countDown();
+    if (difficulty.length > 0 && !countDownOver) {
+      startCountDown();
     }
   }, [difficulty]);
-
-  React.useEffect(() => {
-    setShowWinner(winner);
-    if (winner === "user") {
-      let userWin = new Audio(userWonSound);
-      userWin.volume = 0.5;
-      userWin.play();
-    } else if (winner === "computer") {
-      let algoWin = new Audio(algoWonSound);
-      algoWin.volume = 0.5;
-      algoWin.play();
-    }
-  }, [winner]);
-
-  React.useEffect(() => {
-    if (countDownOver && !winner.length) {
-      if (!backgroundMusicRef.current) {
-        backgroundMusicRef.current = new Audio(gameSound);
-        backgroundMusicRef.current.volume = 0.1;
-      }
-      setTimeout(() => {
-        backgroundMusicRef.current.play();
-      });
-    } else {
-      if (backgroundMusicRef.current) {
-        backgroundMusicRef.current.pause();
-        backgroundMusicRef.current.currentTime = 0;
-      }
-    }
-    return () => {
-      if (backgroundMusicRef.current) {
-        backgroundMusicRef.current.pause();
-        backgroundMusicRef.current.currentTime = 0;
-      }
-    };
-  }, [countDownOver, winner]);
 
   function getComputerSideComponent() {
     switch (algo) {
       case "bubble_sort":
         return (
           <BubbleSort
-            difficulty={difficulty ? difficulty : ""}
+            difficulty={difficulty}
             randomNumbers={randomValues}
             countDownOver={countDownOver}
             setWinner={setWinner}
@@ -160,7 +124,7 @@ export default function GameLayout({ algo: propAlgo }) {
       case "selection_sort":
         return (
           <SelectionSort
-            difficulty={difficulty ? difficulty : ""}
+            difficulty={difficulty}
             randomNumbers={randomValues}
             countDownOver={countDownOver}
             setWinner={setWinner}
@@ -170,7 +134,7 @@ export default function GameLayout({ algo: propAlgo }) {
       case "heap_sort":
         return (
           <HeapSort
-            difficulty={difficulty ? difficulty : ""}
+            difficulty={difficulty}
             randomNumbers={randomValues}
             countDownOver={countDownOver}
             setWinner={setWinner}
@@ -180,7 +144,7 @@ export default function GameLayout({ algo: propAlgo }) {
       case "merge_sort":
         return (
           <MergeSort
-            difficulty={difficulty ? difficulty : ""}
+            difficulty={difficulty}
             randomNumbers={randomValues}
             countDownOver={countDownOver}
             setWinner={setWinner}
@@ -214,34 +178,10 @@ export default function GameLayout({ algo: propAlgo }) {
     }
   }
 
-  function countDown() {
-    let countDownValue = 3;
-    const countDown = setInterval(() => {
-      countDownRef.current.innerHTML = countDownValue;
-      countDownValue -= 1;
-      if (countDownValue < 0) {
-        countDownRef.current.style.display = "none";
-        setCountDownOver(true);
-        clearInterval(countDown);
-        let startAudio = new Audio(StartSound);
-        startAudio.volume = 0.4;
-        startAudio.play();
-      } else {
-        let countDownAudio = new Audio(countDownSound);
-        countDownAudio.volume = 0.5;
-        countDownAudio.play();
-      }
-    }, 1000); //put it back to 1000 ms = 1 second
-  }
-
   function setDifficultyFunction() {
     setDifficulty(
       selectedDifficulty.charAt(0).toUpperCase() + selectedDifficulty.slice(1)
     );
-  }
-
-  function restartGame() {
-    window.location.reload(false);
   }
 
   function hideAndShowNextOverlay(overlay) {
@@ -251,16 +191,6 @@ export default function GameLayout({ algo: propAlgo }) {
     } else {
       instructionsRef.current.style.display = "none";
       difficultyRef.current.style.display = "flex";
-    }
-  }
-
-  function muteSong() {
-    if (backgroundMusicRef?.current?.paused === true) {
-      backgroundMusicRef?.current?.play();
-      setSongPlaying(true);
-    } else {
-      backgroundMusicRef?.current?.pause();
-      setSongPlaying(false);
     }
   }
 
@@ -340,42 +270,19 @@ export default function GameLayout({ algo: propAlgo }) {
       </div>
       <div className="overlay countDown" ref={countDownRef} />
       {showWinner && (
-        <div className="overlay winner">
-          {showWinner === "user" && <Confetti width={width} height={height} />}
-          {winner == "user" ? "YOU Beat the Algorithm!!!" : "Algorithm Won!"}
-          <button className="tryAgainBtn" onClick={restartGame}>
-            {winner == "user" ? "Play Again" : "Try Again"}
-          </button>
-          <Link className="tryAgainBtn" to={`/moreOnAlgorithms/${algo}`}>
-            Learn more
-          </Link>
-        </div>
+        <WinnerOverlay winner={winner} algo={algo} onRestart={resetGame} />
       )}
-      <div className="algorithmDisplayed">
-        <div className="nameAndDifficulty">
-          {String(algo)
-            .split("_")
-            .map((x) => {
-              return x.charAt(0).toUpperCase() + x.slice(1) + " ";
-            })}
-          <span>{difficulty ? `(${difficulty})` : ""}</span>
-        </div>
-        {countDownOver && (
-          <div className="BackgroundSongBtn" onClick={() => muteSong()}>
-            {songPlaying ? "🔊" : "🔇"}
-          </div>
-        )}
-      </div>
-      <div
-        className={
-          algo === "heap_sort" || algo === "merge_sort"
-            ? "computerSideBigger"
-            : "computerSide"
-        }
-      >
-        {getComputerSideComponent()}
-      </div>
-      <div className="userSide">{getUserSideComponent()}</div>
+      <AlgorithmHeader
+        algo={algo}
+        difficulty={difficulty}
+        songPlaying={songPlaying}
+        onToggleMusic={toggleMusic}
+      />
+      <GameContainer
+        algo={algo}
+        computerSide={getComputerSideComponent()}
+        userSide={getUserSideComponent()}
+      />
     </main>
   );
 }
