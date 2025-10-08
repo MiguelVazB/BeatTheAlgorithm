@@ -22,8 +22,8 @@ export const HeapSort = ({
 
   const binaryTreeRef = React.useRef(null);
 
-  const [firstArrowPosition, setFirstArrowPosition] = React.useState(13);
-  const [secondArrowPosition, setSecondArrowPosition] = React.useState(14);
+  const [firstArrowPosition, setFirstArrowPosition] = React.useState(-1);
+  const [secondArrowPosition, setSecondArrowPosition] = React.useState(-1);
 
   const [leftAndRightIndices, setLeftAndRightIndices] = React.useState([]);
 
@@ -324,8 +324,8 @@ export const HeapSort = ({
       let secondIndex = firstAndLastSwap[1];
       firstNode = binaryTreeRef?.current?.children[firstIndex];
       let secondNode = binaryTreeRef?.current?.children[secondIndex];
-      firstNode.style.backgroundColor = "black";
-      secondNode.style.backgroundColor = "black";
+      firstNode.style.backgroundColor = "#164B9D";
+      secondNode.style.backgroundColor = "#164B9D";
     }
   }, [firstAndLastSwap]);
 
@@ -379,10 +379,10 @@ export const HeapSort = ({
 
       setTimeout(() => {
         setFirstArrowPosition(i);
-      }, getDifficultyTimeInterval(difficulty) / 10);
+      }, getDifficultyTimeInterval('heap_sort', difficulty) / 10);
       setTimeout(() => {
         setSecondArrowPosition(largest);
-      }, getDifficultyTimeInterval(difficulty) / 10);
+      }, getDifficultyTimeInterval('heap_sort', difficulty) / 10);
 
       heapify(a, size, largest);
     }
@@ -436,7 +436,7 @@ export const HeapSort = ({
             }
           }
         }
-      }, getDifficultyTimeInterval(difficulty));
+      }, getDifficultyTimeInterval('heap_sort', difficulty));
       winnerRef.current = winner;
     }
   }, [startAlgo, winner]);
