@@ -246,7 +246,7 @@
   width: 100%;
   aspect-ratio: 16/9;
   background-size: cover;
-  background-position: center;
+  background-position: left;
   border-radius: 0.375rem;
   overflow: hidden;
   z-index: 2;
