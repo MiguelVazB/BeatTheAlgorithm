@@ -3,16 +3,17 @@
 .navbar-container {
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 600; /* Above mobile menu */
   display: flex;
   align-items: center;
   justify-content: space-between;
   white-space: nowrap;
   border-bottom: 1px solid var(--border-color);
-  background-color: rgba(0, 0, 0, 0.9); /* More opaque background */
+  background-color: rgba(0, 0, 0, 0.95); /* More opaque background */
   padding: 1rem 2.5rem;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  pointer-events: auto;
 }
 
 /* Logo section */
@@ -21,7 +22,8 @@
   align-items: center;
   gap: 1rem;
   color: var(--text-primary);
-  z-index: 60; /* Above mobile menu */
+  z-index: 601; /* Above navbar */
+  position: relative;
 }
 
 .logo-icon {
@@ -74,7 +76,8 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  z-index: 60; /* Above mobile menu */
+  z-index: 601; /* Above navbar */
+  position: relative;
 }
 
 .start-challenge-button {
@@ -133,7 +136,18 @@
   border: none;
   color: var(--text-primary);
   cursor: pointer;
-  z-index: 501; /* Above mobile menu */
+  z-index: 602; /* Above everything */
+  position: relative;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s;
+  pointer-events: auto;
+}
+
+.mobile-menu-button.open {
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 @media (min-width: 768px) {
@@ -159,20 +173,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: fadeIn 0.3s ease-out;
-  width: 100vw; /* Ensure full width */
-  height: 100vh; /* Ensure full height */
-  overflow-y: auto; /* Allow scrolling if menu items don't fit */
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
   overflow-x: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.mobile-menu.open {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Mobile nav needs explicit background too */
