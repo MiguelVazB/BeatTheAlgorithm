@@ -140,7 +140,7 @@
   background: linear-gradient(90deg, var(--primary-color), transparent);
 }
 
-.gitHubLink {
+.linkedinLink {
   display: flex;
   justify-content: center;
   width: fit-content;
@@ -157,19 +157,19 @@
   margin: 1.5rem auto 0;
 }
 
-.gitHubLink:hover {
+.linkedinLink:hover {
   background-color: rgba(0, 255, 153, 0.1);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 255, 153, 0.25);
 }
 
-.gitHubLink img {
+.linkedinLink img {
   width: 2rem;
   height: 2rem;
   filter: brightness(0) invert(1);
 }
 
-.gitHubLink p {
+.linkedinLink p {
   margin: 0;
   font-size: 1rem;
 }
@@ -208,7 +208,7 @@
     font-size: 1.5rem;
   }
 
-  .gitHubLink {
+  .linkedinLink {
     flex-direction: column;
     text-align: center;
     gap: 0.5rem;

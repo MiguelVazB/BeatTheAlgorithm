@@ -1,5 +1,5 @@
 import "./pageStyles/About.css";
-import gitHubLogo from "../images/githubLogo.png";
+import gitHubLogo from "../images/LinkedinLogo.png";
 import { Link } from "react-router-dom";
 
 export default function About() {
@@ -43,12 +43,12 @@ export default function About() {
       </div>
       <div>
         <Link
-          to="https://github.com/MiguelVazB/BeatTheAlgorithm"
+          to="https://www.linkedin.com/in/miguel-vazquez-software-engineer/"
           target="_blank"
-          className="gitHubLink"
+          className="linkedinLink"
         >
           <img src={gitHubLogo} />
-          <p>https://github.com/MiguelVazB/BeatTheAlgorithm</p>
+          <p>LinkedIn Profile</p>
         </Link>
       </div>
     </main>
