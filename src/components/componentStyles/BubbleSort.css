@@ -115,6 +115,10 @@
     justify-content: space-evenly;
 }
 
+.userBubbles{
+    cursor: pointer;
+}
+
 .userBubbles p{
     margin: 0;
 }
