@@ -33,6 +33,22 @@
   z-index: -1;
 }
 
+/* Add the HomePage subtle grid pattern in the background */
+.page-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: -1;
+}
+
 .left-sidebar {
   position: fixed;
   top: var(--navbar-height);
@@ -93,6 +109,7 @@
   margin-right: 14rem;
   margin-top: var(--navbar-height);
   overflow-y: auto;
+  padding-bottom: 2rem; /* Add bottom padding for mobile scrolling */
 }
 
 .content-wrapper {
@@ -256,31 +273,6 @@
   transform: translateX(0);
 }
 
-.visual-container {
-  position: relative;
-  overflow: hidden;
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 1.5rem;
-  transition: all 0.4s var(--animation-timing);
-}
-
-.visual-container img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16/9;
-  object-fit: cover;
-  transition: transform 0.6s var(--animation-timing);
-}
-
-.content-section:hover .visual-container {
-  border-color: var(--primary-color);
-}
-
-.content-section:hover .visual-container img {
-  transform: scale(1.05);
-}
-
 .complexity-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -437,6 +429,14 @@
   }
 }
 
+/* Medium screens (tablets) */
+@media (max-width: 1024px) {
+  .content-wrapper {
+    max-width: 100%;
+    padding: 1.25rem;
+  }
+}
+
 @media (max-width: 768px) {
   .left-sidebar {
     display: none;
@@ -452,10 +452,55 @@
   }
   
   .content-wrapper {
-    padding: 1.5rem;
+    padding: 1rem;
+    max-width: 100%;
   }
   
   .content-section {
-    padding: 1.5rem;
+    padding: 1rem;
+  }
+}
+
+/* Extra small screens (phones) */
+@media (max-width: 480px) {
+  .content-wrapper {
+    padding: 0.5rem;
+  }
+  
+  .content-section {
+    padding: 0.75rem;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+    text-align: center;
+  }
+  
+  .page-subtitle {
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .complexity-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .complexity-card {
+    padding: 1rem;
+  }
+  
+  .array-visualization {
+    justify-content: center;
+    gap: 0.25rem;
+  }
+  
+  .subarrays-visualization {
+    gap: 0.25rem;
+  }
+  
+  .subarray {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
   }
 }

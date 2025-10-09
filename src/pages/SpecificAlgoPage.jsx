@@ -2,16 +2,22 @@ import React from "react";
 import "./pageStyles/SpecificAlgoPage.css";
 import { Link, useParams } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
-import BubbleSortImg from "../images/bubble_sort.jpg";
-import SelectionSortImg from "../images/selection_sort.jpg";
-import HeapSortImg from "../images/heap_sort.jpg";
-import MergeSortImg from "../images/merge_sort.jpg";
+import StepByStepVisualizer from "../components/StepByStepVisualizer";
 
 export default function SpecificAlgoPage() {
   const { algoname } = useParams();
   const [algorithm, setAlgorithm] = React.useState(null);
   const [algoName, setAlgoName] = React.useState("");
   const [steps, setSteps] = React.useState([]);
+  const [sampleData, setSampleData] = React.useState([]);
+
+  // Sample data for each algorithm
+  const algorithmSamples = {
+    bubble_sort: [64, 34, 25, 12, 22, 11, 90],
+    selection_sort: [64, 25, 12, 22, 11, 34, 90],
+    heap_sort: [12, 11, 13, 5, 6, 7, 15],
+    merge_sort: [38, 27, 43, 3, 9, 82, 10]
+  };
 
   React.useEffect(() => {
     if (algoname && AlgorithmDescriptions[algoname]) {
@@ -22,6 +28,8 @@ export default function SpecificAlgoPage() {
           .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
           .join(" ")
       );
+      // Set sample data for the algorithm
+      setSampleData([...algorithmSamples[algoname] || [1, 2, 3, 4, 5]]);
     }
   }, [algoname]);
 
@@ -31,21 +39,6 @@ export default function SpecificAlgoPage() {
       setSteps(algoSteps);
     }
   }, [algorithm]);
-
-  function getAlgoImage() {
-    switch (algoname) {
-      case "bubble_sort":
-        return BubbleSortImg;
-      case "selection_sort":
-        return SelectionSortImg;
-      case "heap_sort":
-        return HeapSortImg;
-      case "merge_sort":
-        return MergeSortImg;
-      default:
-        return "";
-    }
-  }
 
   const allAlgorithms = Object.keys(AlgorithmDescriptions);
 
@@ -93,14 +86,16 @@ export default function SpecificAlgoPage() {
                 ))}
               </ol>
             </section>
-            
+
             <section id="visual-example" className="content-section">
-              <h2>Visual Example</h2>
-              <div className="visual-container">
-                <img src={getAlgoImage()} alt={`${algoName} visualization`} />
-              </div>
+              <h2>Step-by-Step Visualization</h2>
+              <StepByStepVisualizer
+                algorithm={algoname}
+                steps={steps}
+                sampleData={sampleData}
+              />
             </section>
-            
+
             <section id="complexity" className="content-section">
               <h2>Complexity Analysis</h2>
               <div className="complexity-grid">
