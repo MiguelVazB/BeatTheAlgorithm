@@ -119,6 +119,9 @@ export default function SpecificAlgoPage() {
               <Link className="play-button" to={`/algo/${algoname}`}>
                 Play Challenge
               </Link>
+              <Link className="more-algorithms-button" to="/moreOnAlgorithms">
+                More Algorithms
+              </Link>
             </div>
           </div>
         </main>
