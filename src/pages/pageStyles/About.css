@@ -141,7 +141,9 @@
 }
 
 .gitHubLink {
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
+  width: fit-content;
   align-items: center;
   gap: 1rem;
   color: var(--primary-color);
@@ -152,7 +154,7 @@
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
   background-color: var(--card-background);
-  margin-top: 1.5rem;
+  margin: 1.5rem auto 0;
 }
 
 .gitHubLink:hover {
