@@ -158,22 +158,35 @@ export default function GameLayout({ algo: propAlgo }) {
     switch (algo) {
       case "bubble_sort":
         return (
-          <BubbleSortUser randomNumbers={randomValues} setWinner={setWinner} />
+          <BubbleSortUser 
+            randomNumbers={randomValues} 
+            setWinner={setWinner} 
+            difficulty={difficulty}
+          />
         );
       case "selection_sort":
         return (
           <SelectionSortUser
             randomNumbers={randomValues}
             setWinner={setWinner}
+            difficulty={difficulty}
           />
         );
       case "heap_sort":
         return (
-          <HeapSortUser randomNumbers={randomValues} setWinner={setWinner} />
+          <HeapSortUser 
+            randomNumbers={randomValues} 
+            setWinner={setWinner} 
+            difficulty={difficulty}
+          />
         );
       case "merge_sort":
         return (
-          <MergeSortUser randomNumbers={randomValues} setWinner={setWinner} />
+          <MergeSortUser 
+            randomNumbers={randomValues} 
+            setWinner={setWinner}
+            difficulty={difficulty}
+          />
         );
     }
   }

@@ -88,6 +88,7 @@
 
 .userValues{
     background-color: black;
+    border: 1px solid var(--primary-color);
     color: white;
     cursor: pointer;
 }

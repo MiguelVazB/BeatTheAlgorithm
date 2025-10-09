@@ -132,7 +132,7 @@ export const SelectionSort = ({
   );
 };
 
-export const SelectionSortUser = ({ randomNumbers, setWinner }) => {
+export const SelectionSortUser = ({ randomNumbers, setWinner, difficulty = "easy" }) => {
   const [highlightSelectedBoxes, setHighlightSelectedBoxes] = React.useState(
     []
   );
@@ -167,7 +167,7 @@ export const SelectionSortUser = ({ randomNumbers, setWinner }) => {
         const firstElement = userValuesToSortRef.current.children[firstBoxIndex];
         const secondElement = userValuesToSortRef.current.children[secondBoxIndex];
 
-        animateSwap(firstElement, secondElement, difficulty === "Easy" ? 500 : 100);
+        animateSwap(firstElement, secondElement, difficulty === "easy" ? 500 : 100);
 
         // remove highlight
         for (let i = 0; i < highlightSelectedBoxes.length; i++) {
@@ -190,7 +190,7 @@ export const SelectionSortUser = ({ randomNumbers, setWinner }) => {
             updatedValues[secondBoxIndex] = temp;
             setBoxValues(updatedValues);
           },
-          difficulty === "Easy" ? 500 : 100
+          difficulty === "easy" ? 500 : 100
         );
       } else {
         //add highlight
