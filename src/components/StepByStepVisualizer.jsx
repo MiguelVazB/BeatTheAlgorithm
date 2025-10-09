@@ -1,5 +1,5 @@
 import React from "react";
-import "../componentStyles/StepByStepVisualizer.css";
+import "./componentStyles/StepByStepVisualizer.css";
 
 const StepByStepVisualizer = ({ algorithm, steps, sampleData }) => {
   const [currentStepIndex, setCurrentStepIndex] = React.useState(0);
