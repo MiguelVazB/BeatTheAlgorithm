@@ -1,5 +1,3 @@
-// src/components/common/SortingGameUI.jsx
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
