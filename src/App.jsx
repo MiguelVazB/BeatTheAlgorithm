@@ -1,5 +1,5 @@
-import { Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { lazy, Suspense, useLayoutEffect } from "react";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const AlgorithmsPage = lazy(() => import("./pages/AlgorithmsPage"));
@@ -11,6 +11,19 @@ const WorkInProgressPage = lazy(() => import("./pages/WorkInProgressPage"));
 const SpecificAlgoPage = lazy(() => import("./pages/SpecificAlgoPage"));
 
 function App() {
+  const location = useLocation();
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    
+    const appElement = document.querySelector('.App');
+    if (appElement) {
+      appElement.scrollTop = 0;
+    }
+  }, [location.pathname]);
+  
   return (
     <div className="App">
       <Suspense
