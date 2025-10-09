@@ -54,7 +54,7 @@
   top: var(--navbar-height);
   left: 0;
   height: calc(100vh - var(--navbar-height));
-  width: 18rem;
+  width: 16rem;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
   background-color: rgba(0, 0, 0, 0.8);
@@ -418,7 +418,7 @@
   top: var(--navbar-height);
   right: 17px;
   height: calc(100vh - var(--navbar-height));
-  width: 14rem;
+  width: 12rem;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
   background-color: rgba(0, 0, 0, 0.8);
@@ -468,12 +468,17 @@
 }
 
 @media (max-width: 1280px) {
+  .left-sidebar {
+    width: max-content;
+  }
+
   .right-sidebar {
     display: none;
   }
   
   .main-content {
     margin-right: 0;
+    margin-left: 12rem;
   }
 }
 
