@@ -1,4 +1,3 @@
-// src/utils/difficultyConfig.js
 export const DIFFICULTY_CONFIG = {
   bubble_sort: {
     easy: 500,
