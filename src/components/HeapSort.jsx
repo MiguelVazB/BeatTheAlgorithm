@@ -467,7 +467,7 @@ export const HeapSort = ({
           firstArrowPos={firstArrowPosition}
           secondArrowPos={secondArrowPosition}
           valuesRef={binaryTreeRef}
-          xOffset={100}
+          xOffset={1}
           yOffset={1}
         />
       )}
