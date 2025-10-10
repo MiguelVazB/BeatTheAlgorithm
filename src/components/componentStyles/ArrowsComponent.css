@@ -25,7 +25,6 @@
 
 @media (max-width: 1224px){
     .arrowBrowser{
-        margin-top: -2em;
         height: 3em;
         width: auto;
     }
@@ -33,7 +32,6 @@
 
 @media (max-width: 860px){
     .arrowBrowser{
-        margin-top: -2.5em;
         height: 2em;
         width: auto;
     }
@@ -41,7 +39,6 @@
 
 @media (max-width: 700px){
     .arrowBrowser{
-        margin-top: -4em;
         height: 1.5em;
         width: auto;
     }
