@@ -1,8 +1,9 @@
 .arrowBrowser{
     visibility: hidden;
-    position: absolute;
+    position: fixed;
     height: 4rem;
     width: auto;
+    z-index: 100;
 }
 
 .second{
@@ -18,7 +19,7 @@
         transform: translateY(0);
     }
     50% {
-        transform: translateY(0.3em);
+        transform: translateY(-0.3em);
     }
 }
 
