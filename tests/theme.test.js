@@ -12,7 +12,7 @@ const { act, create } = TestRenderer;
 let server;
 let NavBar;
 before(async () => {
-  server = await createServer({ server: { middlewareMode: true, watch: null, hmr: false }, appType: 'custom', optimizeDeps: { noDiscovery: true, include: [] } });
+  server = await createServer({ server: { middlewareMode: true, watch: null, hmr: false, ws: false }, appType: 'custom', optimizeDeps: { noDiscovery: true, include: [] } });
   ({ default: NavBar } = await server.ssrLoadModule('/src/components/NavBar.jsx'));
 });
 after(async () => { await server?.close(); });

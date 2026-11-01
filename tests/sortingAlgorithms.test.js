@@ -87,6 +87,47 @@ test('frames are independent snapshots, including completed merge passes', () =>
   assert.deepEqual(frames[0].passes[0].values, [3, 2, 1]);
 });
 
+test('quick sort partitions around the last value and never touches a fixed pivot again', () => {
+  for (const input of cases) {
+    const fixed = new Set();
+    for (const frame of createSortingSteps('quick_sort', input)) {
+      for (const index of [...frame.comparedIndices, ...frame.swappedIndices]) assert.ok(!fixed.has(index), 'revisited a final pivot');
+      if (frame.partitionRange) {
+        const [start, end] = frame.partitionRange;
+        assert.ok(start >= 0 && end <= input.length && start < end);
+        assert.ok(frame.pivotIndex >= start && frame.pivotIndex < end);
+        for (const index of [...frame.comparedIndices, ...frame.swappedIndices]) assert.ok(index >= start && index < end);
+        if (frame.type === 'partition') assert.equal(frame.pivotIndex, end - 1);
+        if (frame.type === 'compare') assert.equal(frame.comparedIndices[1], frame.pivotIndex);
+        if (frame.type === 'pivot-fixed') {
+          const pivot = frame.values[frame.pivotIndex];
+          assert.ok(frame.values.slice(start, frame.pivotIndex).every((value) => value <= pivot));
+          assert.ok(frame.values.slice(frame.pivotIndex + 1, end).every((value) => value > pivot));
+          assert.ok(!fixed.has(frame.pivotIndex), 'fixed the same pivot twice');
+          fixed.add(frame.pivotIndex);
+        }
+      }
+    }
+    assert.equal(fixed.size, input.length, 'every value must reach a final position');
+  }
+});
+
+test('quick sort exposes the quadratic worst case for ordered or equal inputs', () => {
+  for (const input of [[1, 2, 3, 4, 5], [5, 4, 3, 2, 1], [2, 2, 2, 2, 2]]) {
+    const frames = createSortingSteps('quick_sort', input);
+    assert.equal(frames.filter((frame) => frame.type === 'compare').length, input.length * (input.length - 1) / 2);
+  }
+  const frames = createSortingSteps('quick_sort', [8, 2, 7, 1, 3, 5]);
+  const partition = frames.find((frame) => frame.type === 'partition');
+  const fixed = frames.find((frame) => frame.type === 'pivot-fixed');
+  assert.deepEqual(fixed.values, [2, 1, 3, 5, 7, 8]);
+  assert.equal(fixed.pivotIndex, 3);
+  fixed.values[0] = 999;
+  fixed.partitionRange[0] = 999;
+  assert.deepEqual(partition.values, [8, 2, 7, 1, 3, 5]);
+  assert.deepEqual(partition.partitionRange, [0, 6]);
+});
+
 test('answer validation rejects incomplete, sparse, and duplicate-cheating answers', () => {
   assert.equal(isSortedAnswer([1, 1, 2], [2, 1, 1]), true);
   for (const answer of [[1, 2], [1, 2, 2], [null, 1, 2], Array(3), [1, 2, undefined], [2, 1, 1]]) assert.equal(isSortedAnswer(answer, [2, 1, 1]), false);
