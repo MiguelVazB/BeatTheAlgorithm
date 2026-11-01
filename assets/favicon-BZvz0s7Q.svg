@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+  <title>Beat the Algorithm</title>
+  <style>
+    rect { fill: #202622; }
+    path { stroke: #f5f3ec; }
+    @media (prefers-color-scheme: dark) {
+      rect { fill: #3b4c36; }
+      path { stroke: #f0f3eb; }
+    }
+  </style>
+  <rect width="40" height="40" rx="12" />
+  <path d="M4 16v3m5-8v8m5-13v13m5-8v8" transform="translate(8 8)" stroke-width="2.8" stroke-linecap="round" />
+</svg>

@@ -2,13 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image" href="./beatthealgo.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/BeatTheAlgorithm/beatthealgo.png?v=sorting-bars-1" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/BeatTheAlgorithm/assets/favicon-BZvz0s7Q.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        var saved;
+        try { saved = window.localStorage.getItem('beat-the-algorithm-theme'); } catch (_) {}
+        document.documentElement.dataset.theme = saved === 'light' || saved === 'dark' ? saved :
+          (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      }());
+    </script>
     <meta name="description" content="Beat the Algorithm is an interactive website that provides a platform for users to challenge themselves against various algorithms. The goal is to solve a given problem faster than the algorithm itself. In the process, the users will learn about the inner workings of the algorithms.">
     <meta name="author" content="Miguel Vazquez">
     <title>Beat the Algorithm</title>
-    <script type="module" crossorigin src="/BeatTheAlgorithm/assets/index-ItJXxZpU.js"></script>
-    <link rel="stylesheet" crossorigin href="/BeatTheAlgorithm/assets/index-DbAJHsdN.css">
+    <script type="module" crossorigin src="/BeatTheAlgorithm/assets/index-CG1xxfnZ.js"></script>
+    <link rel="stylesheet" crossorigin href="/BeatTheAlgorithm/assets/index-mH1svIl6.css">
   </head>
   <body>
     <div id="root"></div>
