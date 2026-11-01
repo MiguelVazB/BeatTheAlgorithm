@@ -1,0 +1,117 @@
+export const SORTING_ALGORITHMS = ['bubble_sort', 'selection_sort', 'heap_sort', 'merge_sort'];
+
+export function isSortedAnswer(answer, original) {
+  if (!original.length || answer.length !== original.length || Array.from(answer).some((value) => !Number.isFinite(value))) return false;
+  const expected = [...original].sort((a, b) => a - b);
+  return answer.every((value, index) => value === expected[index]);
+}
+
+// Immutable frames let the game and lesson replay the same actual operations.
+export function createSortingSteps(algorithm, input) {
+  if (!SORTING_ALGORITHMS.includes(algorithm)) throw new RangeError(`Unknown sorting algorithm: ${algorithm}`);
+  if (!Array.isArray(input) || Array.from(input).some((value) => !Number.isFinite(value))) throw new TypeError('Sorting needs finite numbers.');
+  const values = [...input];
+  const steps = [];
+  let sortedIndices = [];
+  const passes = algorithm === 'merge_sort' ? [{ size: 1, values: [...values] }] : [];
+  const emit = (type, description, details = {}) => steps.push({
+    type, description, values: [...values], comparedIndices: [], swappedIndices: [],
+    sortedIndices: [...sortedIndices], heapSize: values.length, minimumIndex: null,
+    passes: passes.map((pass) => ({ ...pass, values: [...pass.values] })), ...details,
+  });
+  emit('start', 'Start with the unsorted list.');
+
+  if (algorithm === 'bubble_sort') {
+    for (let end = values.length - 1; end > 0; end -= 1) {
+      let swapped = false;
+      for (let i = 0; i < end; i += 1) {
+        emit('compare', `Compare neighboring values ${values[i]} and ${values[i + 1]}.`, { comparedIndices: [i, i + 1] });
+        if (values[i] > values[i + 1]) {
+          const temporaryValue = values[i];
+          [values[i], values[i + 1]] = [values[i + 1], values[i]];
+          swapped = true;
+          emit('swap', 'Swap the neighbors so the smaller value comes first.', { swappedIndices: [i, i + 1], temporaryValue });
+        }
+      }
+      sortedIndices = Array.from({ length: values.length - end }, (_, i) => end + i);
+      emit('pass', 'The largest remaining value is now in its final position.');
+      if (!swapped) break;
+    }
+  }
+
+  if (algorithm === 'selection_sort') {
+    for (let start = 0; start < values.length - 1; start += 1) {
+      let minimumIndex = start;
+      for (let candidate = start + 1; candidate < values.length; candidate += 1) {
+        emit('compare', `Compare ${values[candidate]} with the current minimum, ${values[minimumIndex]}.`, { comparedIndices: [minimumIndex, candidate], minimumIndex });
+        if (values[candidate] < values[minimumIndex]) {
+          minimumIndex = candidate;
+          emit('minimum', `${values[minimumIndex]} is the new minimum in the unsorted part.`, { minimumIndex });
+        }
+      }
+      if (minimumIndex !== start) {
+        [values[start], values[minimumIndex]] = [values[minimumIndex], values[start]];
+        emit('swap', 'Move the minimum into the first unsorted position.', { swappedIndices: [start, minimumIndex], minimumIndex: start });
+      }
+      sortedIndices = Array.from({ length: start + 1 }, (_, i) => i);
+      emit('pass', `${values[start]} is now in its final position.`, { minimumIndex: start });
+    }
+  }
+
+  if (algorithm === 'heap_sort') {
+    const siftDown = (root, size) => {
+      while (root * 2 + 1 < size) {
+        let largest = root;
+        const left = root * 2 + 1;
+        const right = left + 1;
+        emit('compare', `Compare ${values[left]} with ${values[largest]} in the max heap.`, { comparedIndices: [largest, left], heapSize: size });
+        if (values[left] > values[largest]) largest = left;
+        if (right < size) {
+          emit('compare', `Compare ${values[right]} with the largest candidate, ${values[largest]}.`, { comparedIndices: [largest, right], heapSize: size });
+          if (values[right] > values[largest]) largest = right;
+        }
+        if (largest === root) break;
+        [values[root], values[largest]] = [values[largest], values[root]];
+        emit('swap', 'Move the larger child up to restore the max-heap property.', { swappedIndices: [root, largest], heapSize: size });
+        root = largest;
+      }
+    };
+    for (let root = Math.floor(values.length / 2) - 1; root >= 0; root -= 1) siftDown(root, values.length);
+    if (values.length) emit('heap-built', 'The max heap is built. Its root holds the largest remaining value.');
+    for (let end = values.length - 1; end > 0; end -= 1) {
+      [values[0], values[end]] = [values[end], values[0]];
+      sortedIndices = Array.from({ length: values.length - end }, (_, i) => end + i);
+      emit('extract', 'Move the maximum to the sorted end and shrink the heap.', { swappedIndices: [0, end], heapSize: end });
+      siftDown(0, end);
+      emit('heap-restored', 'The remaining max heap is ready for the next extraction.', { heapSize: end });
+    }
+  }
+
+  if (algorithm === 'merge_sort') {
+    for (let size = 1; size < values.length; size *= 2) {
+      for (let start = 0; start + size < values.length; start += size * 2) {
+        const middle = start + size;
+        const end = Math.min(start + size * 2, values.length);
+        const merged = [];
+        let left = start;
+        let right = middle;
+        while (left < middle && right < end) {
+          emit('compare', `Compare ${values[left]} with ${values[right]}; take ${Math.min(values[left], values[right])} next.`, { comparedIndices: [left, right], mergingRange: [start, end], mergeBuffer: [...merged], chosenIndex: values[left] <= values[right] ? left : right });
+          // Taking the left value on equality makes merge sort stable.
+          if (values[left] <= values[right]) merged.push(values[left++]);
+          else merged.push(values[right++]);
+        }
+        while (left < middle) merged.push(values[left++]);
+        while (right < end) merged.push(values[right++]);
+        values.splice(start, merged.length, ...merged);
+        emit('merge', `These two runs now form one sorted run of ${merged.length} values.`, { mergingRange: [start, end], mergeBuffer: [...merged] });
+      }
+      passes.push({ size: Math.min(size * 2, values.length), values: [...values] });
+      emit('pass', `This pass is complete. Sorted runs now contain up to ${Math.min(size * 2, values.length)} values.`);
+    }
+  }
+
+  sortedIndices = values.map((_, index) => index);
+  emit('done', 'The entire list is sorted from smallest to largest.', { heapSize: algorithm === 'heap_sort' ? 0 : values.length });
+  return steps;
+}

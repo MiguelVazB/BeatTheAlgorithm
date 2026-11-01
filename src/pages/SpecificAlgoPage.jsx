@@ -52,7 +52,7 @@ export default function SpecificAlgoPage() {
           </nav>
           <div className="lesson-toc">
             <p className="lesson-nav-label">On this page</p>
-            <nav aria-label="On this page">{sections.map(([id, title]) => <a key={id} href={`#${id}`}>{title}</a>)}</nav>
+            <nav aria-label="On this page">{sections.map(([id, title]) => <a key={id} href={`#${id}`} onClick={(event) => { event.preventDefault(); document.getElementById(id)?.scrollIntoView(); }}>{title}</a>)}</nav>
           </div>
           <div className="lesson-sidebar-note"><Icon name="play" size={18} /><p>Ready to put it into practice?</p><Link to={`/algo/${algoname}`}>Take the challenge <Icon name="arrow-up-right" size={13} /></Link></div>
         </aside>
@@ -73,7 +73,7 @@ export default function SpecificAlgoPage() {
           <section id="visual-example" className="lesson-section lesson-visual-section">
             <div className="lesson-section-heading"><span>02</span><h2>See it in action</h2></div>
             <p>Move through each step at your own pace, or press play to follow along.</p>
-            <StepByStepVisualizer key={algoname} algorithm={algoname} steps={steps} sampleData={algorithmSamples[algoname]} />
+            <StepByStepVisualizer key={algoname} algorithm={algoname} sampleData={algorithmSamples[algoname]} />
           </section>
 
           <section id="steps" className="lesson-section">

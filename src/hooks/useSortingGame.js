@@ -1,108 +1,65 @@
-// src/hooks/useSortingGame.js
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { SoundManager } from '../utils/soundManager';
-import { getDifficultyTimeInterval } from '../utils/difficultyConfig';
 import { createCountDown } from '../utils/animationUtils';
 
-export const useSortingGame = (algorithm) => {
+export const useSortingGame = () => {
   const [countDownOver, setCountDownOver] = useState(false);
-  const [showWinner, setShowWinner] = useState(false);
-  const [winner, setWinner] = useState("");
-  const [difficulty, setDifficulty] = useState("");
-  const [selectedDifficulty, setSelectedDifficulty] = useState("easy");
+  const [winner, setWinnerState] = useState('');
+  const [difficulty, setDifficulty] = useState('');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('easy');
   const [songPlaying, setSongPlaying] = useState(true);
-
-  const winnerRef = useRef(winner);
+  const winnerRef = useRef('');
+  const startedRef = useRef(false);
   const backgroundMusicRef = useRef(null);
+  const countDownTimerRef = useRef(null);
   const countDownRef = useRef(null);
   const difficultyOverlayRef = useRef(null);
 
-  // Update winner ref when winner changes
+  // Claim the winner synchronously: a pending computer tick cannot overwrite a user win.
+  const setWinner = useCallback((contender) => {
+    if (!startedRef.current || winnerRef.current || !['user', 'computer'].includes(contender)) return;
+    winnerRef.current = contender;
+    setWinnerState(contender);
+  }, []);
+
   useEffect(() => {
-    winnerRef.current = winner;
+    if (winner === 'user') SoundManager.play('userWon');
+    if (winner === 'computer') SoundManager.play('algoWon');
   }, [winner]);
 
-  // Handle winner sounds and display
   useEffect(() => {
-    setShowWinner(winner);
-    if (winner === "user") {
-      SoundManager.play('userWon');
-    } else if (winner === "computer") {
-      SoundManager.play('algoWon');
-    }
-  }, [winner]);
-
-  // Handle background music
-  useEffect(() => {
-    if (countDownOver && !winner.length) {
-      if (!backgroundMusicRef.current) {
-        backgroundMusicRef.current = SoundManager.createBackgroundMusic();
-      }
-      setTimeout(() => {
-        backgroundMusicRef.current?.play();
-      }, 100);
+    let timer;
+    if (countDownOver && !winner && songPlaying) {
+      if (!backgroundMusicRef.current) backgroundMusicRef.current = SoundManager.createBackgroundMusic();
+      timer = setTimeout(() => { backgroundMusicRef.current?.play().catch(() => {}); }, 100);
     } else {
-      if (backgroundMusicRef.current) {
-        backgroundMusicRef.current.pause();
-        backgroundMusicRef.current.currentTime = 0;
-      }
+      backgroundMusicRef.current?.pause();
+      if (winner && backgroundMusicRef.current) backgroundMusicRef.current.currentTime = 0;
     }
+    return () => { clearTimeout(timer); backgroundMusicRef.current?.pause(); };
+  }, [countDownOver, winner, songPlaying]);
 
-    return () => {
-      if (backgroundMusicRef.current) {
-        backgroundMusicRef.current.pause();
-        backgroundMusicRef.current.currentTime = 0;
-      }
-    };
-  }, [countDownOver, winner]);
+  useEffect(() => () => {
+    clearInterval(countDownTimerRef.current);
+    backgroundMusicRef.current?.pause();
+  }, []);
 
-  const startCountDown = () => {
-    if (difficulty.length > 0 && !countDownOver) {
-      difficultyOverlayRef.current.style.display = "none";
-      countDownRef.current.style.visibility = "visible";
-
-      createCountDown(countDownRef, () => {
-        setCountDownOver(true);
-        SoundManager.play('start', 0.4);
-      });
-    }
-  };
-
-  const toggleMusic = () => {
-    if (backgroundMusicRef.current) {
-      if (backgroundMusicRef.current.paused) {
-        backgroundMusicRef.current.play();
-        setSongPlaying(true);
-      } else {
-        backgroundMusicRef.current.pause();
-        setSongPlaying(false);
-      }
-    }
-  };
-
-  const resetGame = () => {
-    window.location.reload(false);
-  };
+  const startCountDown = useCallback(() => {
+    if (!difficulty || countDownOver || countDownTimerRef.current !== null || !countDownRef.current) return;
+    if (difficultyOverlayRef.current) difficultyOverlayRef.current.style.display = 'none';
+    countDownRef.current.style.visibility = 'visible';
+    countDownTimerRef.current = createCountDown(countDownRef, () => {
+      countDownTimerRef.current = null;
+      startedRef.current = true;
+      setCountDownOver(true);
+      SoundManager.play('start', 0.4);
+    });
+  }, [difficulty, countDownOver]);
 
   return {
-    // State
-    countDownOver,
-    showWinner,
-    winner,
-    difficulty,
-    selectedDifficulty,
-    songPlaying,
-
-    // Refs
-    countDownRef,
-    difficultyOverlayRef,
-
-    // Actions
-    setWinner,
-    setDifficulty,
-    setSelectedDifficulty,
-    startCountDown,
-    toggleMusic,
-    resetGame
+    countDownOver, showWinner: Boolean(winner), winner, difficulty, selectedDifficulty, songPlaying,
+    countDownRef, difficultyOverlayRef, setWinner, setDifficulty, setSelectedDifficulty,
+    startCountDown, toggleMusic: () => setSongPlaying((playing) => !playing),
+    resetGame: () => window.location.reload(),
   };
 };

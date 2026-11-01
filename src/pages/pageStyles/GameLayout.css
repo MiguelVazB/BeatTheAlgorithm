@@ -51,6 +51,11 @@
 .gameLayout .game-board-content { display: flex; min-height: 180px; min-width: 0; }
 .gameLayout .computerSideBigger .game-board-content { min-height: 335px; }
 .gameLayout .game-boards-large .userSide .game-board-content { min-height: 200px; }
+.gameLayout .sort-step-description { margin: 8px 0 0; color: var(--text-secondary); font-size: 12px; line-height: 1.7; min-height: 40px; }
+.gameLayout .sort-heap-size { white-space: nowrap; color: var(--text-muted); }
+.gameLayout .sort-value-sorted { background: #e3edda !important; border-color: #b8cba7 !important; color: #3f5832 !important; }
+.gameLayout .sort-value-active { background: #f8dfd0 !important; border-color: #de9975 !important; color: #8b411f !important; }
+.gameLayout :is(.userValues, .userBubbles, .resetBtn):disabled { cursor: default; }
 
 .gameLayout .overlay { position: fixed; z-index: 700; inset: 0; display: flex; justify-content: center; align-items: center; padding: 28px; overflow-y: auto; background: #20262266; backdrop-filter: blur(6px); }
 .gameLayout .game-setup-card, .gameLayout .game-result-card { position: relative; width: min(620px, 100%); max-height: calc(100dvh - 56px); overflow-y: auto; padding: 30px 36px; border: 1px solid #e4e5dd; border-radius: 20px; background: #fff; box-shadow: 0 20px 90px #20262226; text-align: left; }

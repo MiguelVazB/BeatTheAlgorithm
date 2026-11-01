@@ -5,6 +5,7 @@ import { useParams, Navigate, Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 import Icon from "../components/Icon";
 import { useSortingGame } from "../hooks/useSortingGame";
+import { getDifficultyDescription } from "../utils/difficultyConfig";
 import { WinnerOverlay, AlgorithmHeader, GameContainer, GameDialog } from "../components/common/SortingGameUI";
 import {
   generateXRandomNumbers,
@@ -87,7 +88,7 @@ function SortingGame({ algo }) {
     startCountDown,
     toggleMusic,
     resetGame
-  } = useSortingGame(algo);
+  } = useSortingGame();
 
   const [randomValues, setRandomValues] = React.useState([]);
 
@@ -118,7 +119,7 @@ function SortingGame({ algo }) {
     if (difficulty.length > 0 && !countDownOver) {
       startCountDown();
     }
-  }, [difficulty]);
+  }, [difficulty, countDownOver, startCountDown]);
 
   function getComputerSideComponent() {
     switch (algo) {
@@ -170,6 +171,7 @@ function SortingGame({ algo }) {
       case "bubble_sort":
         return (
           <BubbleSortUser 
+            active={countDownOver && !winner}
             randomNumbers={randomValues} 
             setWinner={setWinner} 
             difficulty={difficulty}
@@ -178,6 +180,7 @@ function SortingGame({ algo }) {
       case "selection_sort":
         return (
           <SelectionSortUser
+            active={countDownOver && !winner}
             randomNumbers={randomValues}
             setWinner={setWinner}
             difficulty={difficulty}
@@ -186,6 +189,7 @@ function SortingGame({ algo }) {
       case "heap_sort":
         return (
           <HeapSortUser 
+            active={countDownOver && !winner}
             randomNumbers={randomValues} 
             setWinner={setWinner} 
             difficulty={difficulty}
@@ -194,6 +198,7 @@ function SortingGame({ algo }) {
       case "merge_sort":
         return (
           <MergeSortUser 
+            active={countDownOver && !winner}
             randomNumbers={randomValues} 
             setWinner={setWinner}
             difficulty={difficulty}
@@ -232,14 +237,14 @@ function SortingGame({ algo }) {
                 heap_sort: "Pick up a number, then click a position to place it. If that position is filled, you’ll pick up its number. Arrange the whole row from smallest to largest.",
                 merge_sort: "Select numbers from smallest to largest to fill your answer row above. Click a number in your answer to send it back and try again.",
               })[algo]}</p>
-              <div className="game-setup-note"><Icon name="check" size={18} /><span>Same numbers. Same goal. Sort your list before the computer.</span></div>
+              <div className="game-setup-note"><Icon name="check" size={18} /><span>Same numbers. Same goal. Your moves don’t have to follow the algorithm; finish with the correct order before the computer.</span></div>
             </>}
             {setupStep === 2 && <>
               <p>The difficulty controls how quickly the computer sorts. Start easy and work your way up.</p>
               <div className="difficulty-buttons" role="group" aria-label="Computer difficulty">
                 {difficulties.map((diff, index) => <button key={diff} type="button" className={`difficulty-btn ${selectedDifficulty === diff ? "active" : ""}`} aria-pressed={selectedDifficulty === diff} onClick={() => setSelectedDifficulty(diff)}><span className="difficulty-bars" aria-hidden="true">{[0, 1, 2, 3].map((bar) => <i key={bar} className={bar <= index ? "filled" : ""} />)}</span>{diff.charAt(0).toUpperCase() + diff.slice(1)}</button>)}
               </div>
-              <p className="difficultyExplanation">{AlgorithmDescriptions[algo]?.difficulty[selectedDifficulty]}</p>
+              <p className="difficultyExplanation">{getDifficultyDescription(algo, selectedDifficulty)}</p>
             </>}
           </div>
           <div className="game-setup-actions">

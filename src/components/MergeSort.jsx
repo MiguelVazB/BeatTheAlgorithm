@@ -1,375 +1,40 @@
-import React from "react";
-import { ArrowsComponent } from "./ArrowsComponent";
-import { getDifficultyTimeInterval } from "../utils/difficultyConfig";
-import "./componentStyles/MergeSort.css";
+import { useEffect, useRef, useState } from 'react';
+import { ArrowsComponent } from './ArrowsComponent';
+import { useSortingAnimation } from '../hooks/useSortingAnimation';
+import { isSortedAnswer } from '../utils/sortingAlgorithms';
+import { createMergeBoard, moveMergeValue } from '../utils/sortingGameState';
+import { sortingProps, playerProps } from './common/sortingProps';
+import './componentStyles/MergeSort.css';
 
-export const MergeSort = ({
-  difficulty,
-  randomNumbers,
-  countDownOver,
-  setWinner,
-  winner,
-}) => {
-  const [valuesToSort, setValuesToSort] = React.useState([]); // stores original values
-  const [squareValues, setSquareValues] = React.useState([]); // stores values being changed
-  const [squareColors, setSquareColors] = React.useState([]); // stores colors of the values
-
-  const [showArrows, setShowArrows] = React.useState(false);
-
-  const [startAlgo, setStartAlgo] = React.useState(false);
-  const winnerRef = React.useRef(winner);
-  const mergeSortValuesRef = React.useRef(null);
-
-  const [startArrowMovement, setStartArrowMovement] = React.useState(false);
-
-  const [firstArrowPosition, setFirstArrowPosition] = React.useState(0);
-  const [secondArrowPosition, setSecondArrowPosition] = React.useState(1);
-
-  const positionRef = React.useRef(firstArrowPosition);
-
-  React.useEffect(() => {
-    if (countDownOver) {
-      setShowArrows(true);
-      setStartArrowMovement(true);
-      setStartAlgo(true);
-    } else {
-      setShowArrows(false);
-      setStartArrowMovement(false);
-    }
-  }, [countDownOver]);
-
-  React.useEffect(() => {
-    if (startAlgo) {
-      // update position ref with firstArrowPosition
-      positionRef.current = firstArrowPosition;
-
-      // swap first and second values
-      if (squareColors.length === 4) {
-        setClassColorFunc(firstArrowPosition);
-        setClassColorFunc(secondArrowPosition);
-      }
-    }
-  }, [firstArrowPosition, secondArrowPosition]);
-
-  function setClassColorFunc(currentArrowPos) {
-    let colorIndex;
-    let valuePointed = Number(
-      mergeSortValuesRef?.current?.children[currentArrowPos]?.innerHTML
-    );
-    let valueToCompare;
-    squareColors.forEach((array, index) => {
-      if (colorIndex) return;
-      array.forEach((value) => {
-        valueToCompare = Number(
-          mergeSortValuesRef?.current?.children[value]?.innerHTML
-        );
-        if (valueToCompare === valuePointed) colorIndex = index;
-        return;
-      });
-    });
-    switch (colorIndex) {
-      case 0:
-        mergeSortValuesRef?.current?.children[currentArrowPos].classList.add(
-          "squaresColor1"
-        );
-        break;
-      case 1:
-        mergeSortValuesRef?.current?.children[currentArrowPos].classList.add(
-          "squaresColor2"
-        );
-        break;
-      case 2:
-        mergeSortValuesRef?.current?.children[currentArrowPos].classList.add(
-          "squaresColor3"
-        );
-        break;
-      case 3:
-        mergeSortValuesRef?.current?.children[currentArrowPos].classList.add(
-          "squaresColor4"
-        );
-        break;
-    }
-  }
-
-  React.useEffect(() => {
-    if (squareColors.length > 0) {
-      squareColors.forEach((array, index) => {
-        array.forEach((value) => {
-          switch (index) {
-            case 0:
-              mergeSortValuesRef?.current?.children[value].classList.add(
-                "squaresColor1"
-              );
-              break;
-            case 1:
-              mergeSortValuesRef?.current?.children[value].classList.add(
-                "squaresColor2"
-              );
-              break;
-            case 2:
-              mergeSortValuesRef?.current?.children[value].classList.add(
-                "squaresColor3"
-              );
-              break;
-            case 3:
-              mergeSortValuesRef?.current?.children[value].classList.add(
-                "squaresColor4"
-              );
-              break;
-          }
-        });
-      });
-    }
-  }, [squareColors]);
-
-  // move arrows
-  React.useEffect(() => {
-    if (startArrowMovement) {
-      const arrowMovementInterval = setInterval(() => {
-        if (positionRef.current >= 32 || winner === "user") {
-          clearInterval(arrowMovementInterval);
-          setShowArrows(false);
-        }
-        if (positionRef.current > 20) {
-          setShowArrows(false);
-        }
-        setFirstArrowPosition((prev) => prev + 2);
-        setSecondArrowPosition((prev) => prev + 2);
-      }, getDifficultyTimeInterval('merge_sort', difficulty) / 1.3); //1.25 - 1.3
-    }
-  }, [startArrowMovement]);
-
-  React.useEffect(() => {
-    setValuesToSort([...randomNumbers]);
-    setSquareValues([...randomNumbers]);
-  }, [randomNumbers]);
-
-  // merge sort algorithm
-  React.useEffect(() => {
-    if (startAlgo && valuesToSort.length > 0) {
-      const mergeSort = (arr) => {
-        let sorted = Array.from(arr);
-        let n = sorted.length;
-        let buffer = new Array(n);
-        let step = 1;
-        let i = 0;
-
-        const sortingInterval = setInterval(() => {
-          const currentWinner = winnerRef.current;
-          if (currentWinner === "user") {
-            setShowArrows(false);
-            setStartAlgo(false);
-            clearInterval(sortingInterval);
-            return;
-          }
-          if (step >= n) {
-            // console.log("Sorted array:", sorted);
-            setShowArrows(false);
-            setTimeout(() => {
-              if (winnerRef.current !== "user") {
-                setWinner("computer");
-              }
-              setStartAlgo(false);
-              clearInterval(sortingInterval);
-            }, getDifficultyTimeInterval('merge_sort', difficulty) * 2);
-            return;
-          }
-
-          if (i >= n) {
-            let temp = sorted;
-            sorted = buffer;
-            buffer = temp;
-            step *= 2;
-            i = 0;
-            return;
-          }
-
-          let leftStart = i;
-          let left = leftStart;
-          let right = Math.min(left + step, n);
-          let leftLimit = right;
-          let rightLimit = Math.min(right + step, n);
-
-          // let partition = sorted.slice(left, rightLimit);
-          // console.log("partition: ", partition);
-          merge(left, right, leftLimit, rightLimit, sorted, buffer);
-
-          // console.log("PartitionSorted:", buffer.slice(left, rightLimit));
-          setSquareValues((prev) => {
-            return [...prev, ...buffer.slice(left, rightLimit)];
-          });
-          setColorsToSquaresFunc(left, rightLimit);
-
-          i += 2 * step;
-        }, getDifficultyTimeInterval('merge_sort', difficulty));
-        winnerRef.current = winner;
-
-        return sorted;
-      };
-
-      const merge = (left, right, leftLimit, rightLimit, sorted, buffer) => {
-        let i = left;
-        while (left < leftLimit && right < rightLimit) {
-          // console.log(`left: ${sorted[left]}, right: ${sorted[leftLimit]}`);
-          if (sorted[left] <= sorted[right]) {
-            buffer[i++] = sorted[left++];
-          } else {
-            buffer[i++] = sorted[right++];
-          }
-        }
-        while (left < leftLimit) {
-          // console.log(`left: ${sorted[left]}`);
-          buffer[i++] = sorted[left++];
-        }
-        while (right < rightLimit) {
-          // console.log(`right: ${sorted[leftLimit]}`);
-          buffer[i++] = sorted[right++];
-        }
-        for (let j = left; j < right; j++) {
-          sorted[j] = buffer[j];
-        }
-      };
-
-      // console.log("Original array:", valuesToSort);
-      mergeSort(valuesToSort);
-    }
-  }, [startAlgo, winner]);
-
-  function setColorsToSquaresFunc(left, right) {
-    setSquareColors((prevColors) => {
-      if (prevColors.length < 4) {
-        return [...prevColors, [left + 8, right + 7]];
-      }
-      return prevColors;
-    });
-  }
-
+export const MergeSort = (props) => {
+  const frame = useSortingAnimation('merge_sort', props);
+  const valuesRef = useRef(null);
   return (
     <div className="mergeSort">
-      <div ref={mergeSortValuesRef} className="valuesToSortContainer">
-        {squareValues.map((value, index) => {
-          return (
-            <div
-              className={`valueToSort valueToSort${index}`}
-              key={`${value} ${index}`}
-            >
-              {value}
-            </div>
-          );
-        })}
+      <div className="merge-current-board">
+        <div ref={valuesRef} className="merge-current-values" style={{ '--value-count': frame.values.length }}>{frame.values.map((value, index) => <div className={`merge-current-value ${frame.comparedIndices.includes(index) ? 'sort-value-active' : ''} ${frame.sortedIndices.includes(index) ? 'sort-value-sorted' : ''}`} key={index}>{value}</div>)}</div>
+        {frame.comparedIndices.length > 0 && <ArrowsComponent firstArrowPos={frame.comparedIndices[0]} secondArrowPos={frame.comparedIndices[1]} valuesRef={valuesRef} />}
       </div>
-      {showArrows && (
-        <ArrowsComponent
-          firstArrowPos={firstArrowPosition}
-          secondArrowPos={secondArrowPosition}
-          valuesRef={mergeSortValuesRef}
-          xOffset={20}
-          yOffset={1}
-        />
-      )}
+      <p className="sort-step-description">{frame.description}</p>
+      {frame.mergeBuffer && <div className="merge-buffer">Merge buffer: {frame.mergeBuffer.length ? frame.mergeBuffer.join(', ') : 'empty'}</div>}
+      <div className="merge-pass-history" aria-label="Completed merge passes">{frame.passes.map((pass) => <div className="merge-pass" key={pass.size}><span>Runs of {pass.size}</span><div>{pass.values.map((value, index) => <span className={index > 0 && index % pass.size === 0 ? 'merge-run-start' : ''} key={index}>{value}</span>)}</div></div>)}</div>
     </div>
   );
 };
+MergeSort.propTypes = sortingProps;
 
-// user merge sort
-
-export const MergeSortUser = ({ randomNumbers, setWinner }) => {
-  const [valuesToSortUser, setValuesToSortUser] = React.useState([]);
-  const [userAttempt, setUserAttempt] = React.useState([]);
-  const [sortedArray, setSortedArray] = React.useState([]);
-
-  const valuesToSortRef = React.useRef(null);
-
-  React.useEffect(() => {
-    setValuesToSortUser(randomNumbers);
-    setUserAttempt([" ", " ", " ", " ", " ", " ", " ", " "]);
-    let temp = [...randomNumbers];
-    setSortedArray(temp.sort((a, b) => a - b));
-  }, [randomNumbers]);
-
-  React.useEffect(() => {
-    if (userAttempt.length > 0) {
-      if (JSON.stringify(userAttempt) === JSON.stringify(sortedArray)) {
-        setWinner("user");
-      }
-    }
-  }, [userAttempt]);
-
-  function selectValue(value, index) {
-    // check for empty spot
-    let availableIndex;
-    for (let i = 0; i < userAttempt.length; i++) {
-      if (String(userAttempt[i]) === String(" ")) {
-        availableIndex = i;
-        break;
-      }
-    }
-    // update attempt
-    setUserAttempt((prev) => {
-      let updatedArray = [...prev];
-      updatedArray[availableIndex] = value;
-      return [...updatedArray];
-    });
-    //update values to sort
-    setValuesToSortUser((prev) => {
-      let updatedValuesToSort = [...prev];
-      updatedValuesToSort[index] = " ";
-      return [...updatedValuesToSort];
-    });
-    valuesToSortRef?.current?.children[index]?.classList.add("valueClicked");
-  }
-
-  function removeValue(value, index) {
-    // check for empty spot
-    let availableIndex;
-    for (let i = 0; i < valuesToSortUser.length; i++) {
-      if (String(valuesToSortUser[i]) === String(" ")) {
-        availableIndex = i;
-        break;
-      }
-    }
-    //update values to sort
-    setValuesToSortUser((prev) => {
-      let updatedValuesToSort = [...prev];
-      updatedValuesToSort[availableIndex] = value;
-      return [...updatedValuesToSort];
-    });
-    // update attempt
-    setUserAttempt((prev) => {
-      let updatedArray = [...prev];
-      updatedArray[index] = " ";
-      return [...updatedArray];
-    });
-  }
-
+export const MergeSortUser = ({ randomNumbers, setWinner, active = false }) => {
+  const [board, setBoard] = useState(() => createMergeBoard(randomNumbers));
+  useEffect(() => setBoard(createMergeBoard(randomNumbers)), [randomNumbers]);
+  useEffect(() => {
+    if (active && isSortedAnswer(board.answer, randomNumbers)) setWinner('user');
+  }, [active, board.answer, randomNumbers, setWinner]);
+  const move = (row, index) => { if (active) setBoard((previous) => moveMergeValue(previous, row, index)); };
   return (
     <div className="mergeSortUser">
-      <div className="userAttemptContainer">
-        {userAttempt.map((value, index) => {
-          return (
-            <div
-              className="userAttempt"
-              key={`attempt${index}`}
-              onClick={() => removeValue(value, index)}
-            >
-              {value}
-            </div>
-          );
-        })}
-      </div>
-      <div ref={valuesToSortRef} className="valuesToSortUserContainer">
-        {valuesToSortUser.map((value, index) => {
-          return (
-            <div
-              className="valueToSortMerge"
-              key={`user${value} ${index}`}
-              onClick={() => selectValue(value, index)}
-            >
-              {value}
-            </div>
-          );
-        })}
-      </div>
+      <div className="userAttemptContainer" aria-label="Your sorted answer">{board.answer.map((value, index) => <button type="button" className="userAttempt" key={index} disabled={!active || value === null} onClick={() => move('answer', index)} aria-label={`Return ${value ?? 'empty slot'} from answer position ${index + 1}`}>{value ?? '—'}</button>)}</div>
+      <div className="valuesToSortUserContainer" aria-label="Numbers to choose">{board.source.map((value, index) => <button type="button" className="valueToSortMerge" key={index} disabled={!active || value === null} onClick={() => move('source', index)} aria-label={`Choose ${value ?? 'empty slot'} from position ${index + 1}`}>{value ?? '—'}</button>)}</div>
     </div>
   );
 };
+MergeSortUser.propTypes = playerProps;

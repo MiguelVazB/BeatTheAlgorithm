@@ -21,6 +21,8 @@
 .gameLayout .circleValue[style*="background-color"] { background: #f4dfd2 !important; border-color: #e8bd9f; color: #9d512e; }
 .gameLayout .heap-tree-edges { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; overflow: visible; pointer-events: none; }
 .gameLayout .treeEdge { stroke: #cdd5c7; stroke-width: 1.5; stroke-dasharray: none; }
+.gameLayout .heap-array-order { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; font-size: 11px; color: var(--text-secondary); }
+.gameLayout .heap-array-order > span:not(:first-child) { padding: 3px 5px; border-radius: 3px; font-variant-numeric: tabular-nums; }
 .gameLayout .heapSort .arrowBrowser { height: 25px; }
 .gameLayout .heapSortUser { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 26px; }
 .gameLayout .selectedValueContainer { display: flex; justify-content: center; }

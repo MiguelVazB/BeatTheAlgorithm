@@ -1,235 +1,33 @@
-import React from "react";
-import { ArrowsComponent } from "./ArrowsComponent";
-import "./componentStyles/SelectionSort.css";
-import { getDifficultyTimeInterval } from "../utils/difficultyConfig";
-import { animateSwap } from "../utils/animationUtils";
+import { useEffect, useRef, useState } from 'react';
+import { ArrowsComponent } from './ArrowsComponent';
+import { useSortingAnimation } from '../hooks/useSortingAnimation';
+import { isSortedAnswer } from '../utils/sortingAlgorithms';
+import { createSwapBoard, selectSwapValue } from '../utils/sortingGameState';
+import { sortingProps, playerProps } from './common/sortingProps';
+import './componentStyles/SelectionSort.css';
 
-export const SelectionSort = ({
-  difficulty,
-  randomNumbers,
-  countDownOver,
-  setWinner,
-  winner,
-}) => {
-  const [firstArrowPosition, setFirstArrowPosition] = React.useState(0);
-  const [secondArrowPosition, setSecondArrowPosition] = React.useState(1);
-  const [showArrows, setShowArrows] = React.useState(false);
-
-  const [startAlgo, setStartAlgo] = React.useState(false);
-
-  const [valuesToSort, setValuesToSort] = React.useState([]); // stores original values
-  const [boxValues, setBoxValues] = React.useState([]); // stores values being changed
-
-  const valuesToSortRef = React.useRef(null);
-  const winnerRef = React.useRef(winner);
-
-  const [sortedIndices, setSortedIndices] = React.useState([]);
-  const [currentSmallest, setCurrentSmallest] = React.useState("");
-
-  React.useEffect(() => {
-    setValuesToSort(randomNumbers);
-    setBoxValues(randomNumbers);
-  }, [randomNumbers]);
-
-  React.useEffect(() => {
-    if (countDownOver) {
-      setShowArrows(true);
-      setStartAlgo(true);
-    } else {
-      setShowArrows(false);
-    }
-  }, [countDownOver]);
-
-  React.useEffect(() => {
-    if (sortedIndices.length > 0) {
-      for (let element in sortedIndices) {
-        valuesToSortRef.current.children[element].classList.add("valueSorted");
-      }
-    }
-  }, [sortedIndices]);
-
-  React.useEffect(() => {
-    if (startAlgo) {
-      let firstPos = 0;
-      let secondPos = 1;
-      let smallestValueIndex = firstPos;
-      let selectionSort;
-
-      const difficultyTimeInterval = getDifficultyTimeInterval('selection_sort', difficulty);
-
-      let updatedValues = [...valuesToSort];
-
-      selectionSort = setInterval(() => {
-        const currentWinner = winnerRef.current;
-
-        if (currentWinner === "user") {
-          setShowArrows(false);
-          clearInterval(selectionSort);
-        }
-
-        if (firstPos < randomNumbers.length) {
-          setFirstArrowPosition(firstPos);
-          if (secondPos < randomNumbers.length) {
-            setSecondArrowPosition(secondPos);
-            let firstValue = Number(updatedValues[secondPos]);
-            let smallestValue = Number(updatedValues[smallestValueIndex]);
-            if (firstValue < smallestValue) {
-              smallestValueIndex = secondPos;
-            }
-            setCurrentSmallest(updatedValues[smallestValueIndex]);
-            secondPos++;
-          } else {
-            let temp = updatedValues[firstPos];
-            updatedValues[firstPos] = updatedValues[smallestValueIndex];
-            updatedValues[smallestValueIndex] = temp;
-            setSortedIndices((prev) => [...prev, firstPos]);
-            firstPos++;
-            secondPos = firstPos + 1;
-            smallestValueIndex = firstPos;
-            setBoxValues([...updatedValues]);
-          }
-        } else {
-          setShowArrows(false);
-          clearInterval(selectionSort);
-          setStartAlgo(false);
-          setWinner("computer");
-        }
-      }, difficultyTimeInterval);
-      winnerRef.current = winner;
-    }
-  }, [startAlgo, winner]);
-
+export const SelectionSort = (props) => {
+  const frame = useSortingAnimation('selection_sort', props);
+  const valuesRef = useRef(null);
+  const activeIndices = frame.comparedIndices.length ? frame.comparedIndices : frame.swappedIndices;
   return (
     <div className="selectionSort">
-      <div ref={valuesToSortRef} className="numbersToSort">
-        {boxValues.map((number, index) => {
-          return (
-            <div className="values" key={`${number} ${index}`}>
-              {number}
-            </div>
-          );
-        })}
-      </div>
-      {showArrows && (
-        <ArrowsComponent
-          firstArrowPos={firstArrowPosition}
-          secondArrowPos={secondArrowPosition}
-          valuesRef={valuesToSortRef}
-        />
-      )}
-      <div className="colorMeanings">
-        <div className="sortedColor">
-          <div id="sorted"></div>Sorted Values
-        </div>
-        <div className="unsortedColor">
-          <div id="unsorted"></div>Unsorted Values
-        </div>
-      </div>
-      <div className="currentValues">
-        <div>Current smallest: {currentSmallest}</div>
-      </div>
+      <div ref={valuesRef} className="numbersToSort">{frame.values.map((value, index) => <div className={`values ${frame.sortedIndices.includes(index) ? 'valueSorted sort-value-sorted' : ''} ${activeIndices.includes(index) ? 'sort-value-active' : ''}`} key={index}>{value}</div>)}</div>
+      {activeIndices.length > 0 && <ArrowsComponent firstArrowPos={activeIndices[0]} secondArrowPos={activeIndices[1]} valuesRef={valuesRef} />}
+      <div className="colorMeanings"><span className="sortedColor"><i id="sorted" />Final positions</span><span className="unsortedColor"><i id="unsorted" />Still sorting</span></div>
+      <div className="currentValues">Current minimum: {frame.minimumIndex === null ? '—' : frame.values[frame.minimumIndex]}</div>
+      <p className="sort-step-description">{frame.description}</p>
     </div>
   );
 };
+SelectionSort.propTypes = sortingProps;
 
-export const SelectionSortUser = ({ randomNumbers, setWinner, difficulty = "easy" }) => {
-  const [highlightSelectedBoxes, setHighlightSelectedBoxes] = React.useState(
-    []
-  );
-  const [boxValues, setBoxValues] = React.useState([]);
-  const [valuesSorted, setValuesSorted] = React.useState([]);
-
-  const userValuesToSortRef = React.useRef(null);
-
-  React.useEffect(() => {
-    if (randomNumbers.length > 0) {
-      setBoxValues(randomNumbers);
-      let correctAnswer = [...randomNumbers];
-      setValuesSorted(correctAnswer.sort((a, b) => a - b));
-    }
-  }, [randomNumbers]);
-
-  React.useEffect(() => {
-    if (boxValues.length > 0 && boxValues.length === randomNumbers.length) {
-      if (JSON.stringify(boxValues) == JSON.stringify(valuesSorted)) {
-        setWinner("user");
-      }
-    }
-  }, [boxValues]);
-
-  React.useEffect(() => {
-    if (userValuesToSortRef.current) {
-      if (highlightSelectedBoxes.length === 2) {
-        // animate swap
-        let firstBoxIndex = highlightSelectedBoxes[0];
-        let secondBoxIndex = highlightSelectedBoxes[1];
-
-        const firstElement = userValuesToSortRef.current.children[firstBoxIndex];
-        const secondElement = userValuesToSortRef.current.children[secondBoxIndex];
-
-        animateSwap(firstElement, secondElement, difficulty === "easy" ? 500 : 100);
-
-        // remove highlight
-        for (let i = 0; i < highlightSelectedBoxes.length; i++) {
-          userValuesToSortRef?.current?.children[
-            highlightSelectedBoxes[i]
-          ]?.classList.remove("highlightBox");
-        }
-        //restart state to empty array
-        setHighlightSelectedBoxes([]);
-        setTimeout(
-          () => {
-            for (let i = 0; i < boxValues.length; i++) {
-              userValuesToSortRef?.current?.children[i].classList.remove(
-                "obscureUnselected"
-              );
-            }
-            let updatedValues = [...boxValues];
-            let temp = updatedValues[firstBoxIndex];
-            updatedValues[firstBoxIndex] = updatedValues[secondBoxIndex];
-            updatedValues[secondBoxIndex] = temp;
-            setBoxValues(updatedValues);
-          },
-          difficulty === "easy" ? 500 : 100
-        );
-      } else {
-        //add highlight
-        for (let i = 0; i < boxValues.length; i++) {
-          userValuesToSortRef?.current?.children[
-            highlightSelectedBoxes[i]
-          ]?.classList.add("highlightBox");
-        }
-      }
-    }
-    //reduce the opacity of the other boxes
-    for (let i = 0; i < boxValues.length; i++) {
-      if (!highlightSelectedBoxes.includes(i)) {
-        userValuesToSortRef?.current?.children[i].classList.add(
-          "obscureUnselected"
-        );
-      }
-    }
-  }, [highlightSelectedBoxes]);
-
-  function selectBox(index) {
-    setHighlightSelectedBoxes((prev) => [...prev, index]);
-  }
-
-  return (
-    <div className="selectionSortUser">
-      <div ref={userValuesToSortRef} className="userValuesToSort">
-        {boxValues.map((number, index) => {
-          return (
-            <div
-              className="values userValues"
-              key={`${number} ${index}`}
-              onClick={() => selectBox(index)}
-            >
-              {number}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+export const SelectionSortUser = ({ randomNumbers, setWinner, active = false }) => {
+  const [board, setBoard] = useState(() => createSwapBoard(randomNumbers));
+  useEffect(() => setBoard(createSwapBoard(randomNumbers)), [randomNumbers]);
+  useEffect(() => {
+    if (active && board.moves > 0 && isSortedAnswer(board.values, randomNumbers)) setWinner('user');
+  }, [active, board, randomNumbers, setWinner]);
+  return <div className="selectionSortUser"><div className="userValuesToSort">{board.values.map((value, index) => <button type="button" className={`values userValues ${board.selected === index ? 'highlightBox' : ''}`} key={index} aria-pressed={board.selected === index} aria-label={`Select ${value} at position ${index + 1}`} disabled={!active} onClick={() => { if (active) setBoard((previous) => selectSwapValue(previous, index)); }}>{value}</button>)}</div></div>;
 };
+SelectionSortUser.propTypes = playerProps;

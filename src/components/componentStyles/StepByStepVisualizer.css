@@ -11,6 +11,10 @@
 .step-visualizer .array-element.comparing { background: #f6e4c1; border-color: #d5b56f; color: #815d1f; }
 .step-visualizer .array-element.swapping { background: #f8e0d5; border-color: #df9779; color: #a54b2b; }
 .step-visualizer .array-element.minimum { background: #e0e8d9; border-color: #91a37e; color: #536b40; }
+.step-visualizer .array-element.settled { background: #e0e8d9; border-color: #91a37e; color: #536b40; }
+.step-visualizer .step-example .example-legend { margin: 18px 0 0; font-size: 11px; }
+.step-visualizer .step-scrubber { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; color: var(--text-secondary); font-size: 12px; }
+.step-visualizer .step-scrubber input { width: 100%; padding: 0; accent-color: var(--primary-button-color); }
 .step-visualizer .subarrays-visualization { display: flex; justify-content: center; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
 .step-visualizer .subarray { background: #e6ebdf; color: #617450; border: 1px solid #cfd9c5; font-size: 12px; font-family: monospace; border-radius: 4px; padding: 6px 8px; }
 .step-visualizer .step-controls { display: flex; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid var(--border-color); margin-top: 22px; padding-top: 18px; }

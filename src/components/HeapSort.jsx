@@ -1,410 +1,62 @@
-import React from "react";
-import { ArrowsComponent } from "./ArrowsComponent";
-import { getDifficultyTimeInterval } from "../utils/difficultyConfig";
-import { getRelativePoint } from "../utils/elementGeometry";
-import "./componentStyles/HeapSort.css";
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { ArrowsComponent } from './ArrowsComponent';
+import { useSortingAnimation } from '../hooks/useSortingAnimation';
+import { getRelativePoint } from '../utils/elementGeometry';
+import { isSortedAnswer } from '../utils/sortingAlgorithms';
+import { createCarryBoard, moveCarriedValue } from '../utils/sortingGameState';
+import { sortingProps, playerProps } from './common/sortingProps';
+import './componentStyles/HeapSort.css';
 
-export const HeapSort = ({
-  difficulty,
-  randomNumbers,
-  countDownOver,
-  setWinner,
-  winner,
-}) => {
-  const [valuesToSort, setValuesToSort] = React.useState([]); // stores original values
-  const [circleValues, setCircleValues] = React.useState([]); // stores values being changed
-  const [lines, setLines] = React.useState([]);
-
-  const [showArrows, setShowArrows] = React.useState(false);
-
-  const [startAlgo, setStartAlgo] = React.useState(false);
-  const winnerRef = React.useRef(winner);
-
-  const heapRef = React.useRef(null);
-  const binaryTreeRef = React.useRef(null);
-
-  const [firstArrowPosition, setFirstArrowPosition] = React.useState(-1);
-  const [secondArrowPosition, setSecondArrowPosition] = React.useState(-1);
-
-  const [leftAndRightIndices, setLeftAndRightIndices] = React.useState([]);
-
-  const [circleIndicesSwap, setCircleIndicesSwap] = React.useState([]);
-  const [firstAndLastSwap, setFirstAndLastSwap] = React.useState([]);
-
-  React.useEffect(() => {
-    setValuesToSort([...randomNumbers]);
-    setCircleValues([...randomNumbers]);
-  }, [randomNumbers]);
-
-  React.useLayoutEffect(() => {
+export const HeapSort = (props) => {
+  const frame = useSortingAnimation('heap_sort', props);
+  const heapRef = useRef(null);
+  const binaryTreeRef = useRef(null);
+  const [lines, setLines] = useState([]);
+  const activeIndices = frame.comparedIndices.length ? frame.comparedIndices : frame.swappedIndices;
+  useLayoutEffect(() => {
     const heap = heapRef.current;
     const tree = binaryTreeRef.current;
     if (!heap || !tree) return;
-
     const updateLines = () => {
       const origin = heap.getBoundingClientRect();
       const centers = Array.from(tree.children, (node) => getRelativePoint(node.getBoundingClientRect(), origin));
-      // In array order, each child belongs to floor((childIndex - 1) / 2).
       setLines(centers.slice(1).map((child, index) => {
         const parent = centers[Math.floor(index / 2)];
         return { x1: parent.x, y1: parent.y, x2: child.x, y2: child.y };
       }));
     };
-
     updateLines();
-    const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(updateLines);
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(updateLines);
     observer?.observe(heap);
     observer?.observe(tree);
     for (const node of tree.children) observer?.observe(node);
-    window.addEventListener("resize", updateLines);
-    return () => {
-      observer?.disconnect();
-      window.removeEventListener("resize", updateLines);
-    };
-  }, [circleValues]);
-
-  React.useEffect(() => {
-    if (countDownOver) {
-      setStartAlgo(true);
-      setInterval(() => {
-        setShowArrows(true);
-      }, getDifficultyTimeInterval('heap_sort', difficulty));
-    } else {
-      setShowArrows(false);
-    }
-  }, [countDownOver]);
-
-  React.useEffect(() => {
-    if (circleIndicesSwap.length > 0) {
-      // console.log(circleIndicesSwap[0] + "-----" + circleIndicesSwap[1]);
-      let firstIndex = circleIndicesSwap[0];
-      let secondIndex = circleIndicesSwap[1];
-
-      let firstCirclePos =
-        binaryTreeRef?.current?.children[firstIndex].getBoundingClientRect();
-      let secondCirclePos =
-        binaryTreeRef?.current?.children[secondIndex].getBoundingClientRect();
-
-      if (secondIndex % 2 === 0) {
-        let distanceX = secondCirclePos.x - firstCirclePos.x;
-        let distanceY = secondCirclePos.y - firstCirclePos.y;
-
-        binaryTreeRef?.current?.children[firstIndex].animate(
-          [
-            // keyframes
-            { transform: `translate(${(0, 0)}px)`, opacity: 0.5 },
-            {
-              transform: `translate(${distanceX}px, ${distanceY}px)`,
-              opacity: 1,
-            },
-          ],
-          {
-            duration:
-              difficulty === "easy"
-                ? getDifficultyTimeInterval('heap_sort', difficulty) / 10
-                : getDifficultyTimeInterval('heap_sort', difficulty) / 20,
-            timingFunction: "ease-in-out",
-          }
-        );
-        binaryTreeRef?.current?.children[secondIndex].animate(
-          [
-            // keyframes
-            { transform: `translate(${(0, 0)}px)`, opacity: 0.5 },
-            {
-              transform: `translate(${-distanceX}px, ${-distanceY}px)`,
-              opacity: 1,
-            },
-          ],
-          {
-            duration:
-              difficulty === "easy"
-                ? getDifficultyTimeInterval('heap_sort', difficulty) / 10
-                : getDifficultyTimeInterval('heap_sort', difficulty) / 20,
-            timingFunction: "ease-in-out",
-          }
-        );
-      }
-      if (secondIndex % 2 !== 0) {
-        let distanceX = secondCirclePos.x - firstCirclePos.x;
-        let distanceY = secondCirclePos.y - firstCirclePos.y;
-
-        binaryTreeRef?.current?.children[secondIndex].animate(
-          [
-            // keyframes
-            { transform: `translate(${(0, 0)}px)`, opacity: 0.5 },
-            {
-              transform: `translate(${-distanceX}px, ${-distanceY}px)`,
-              opacity: 1,
-            },
-          ],
-          {
-            duration:
-              difficulty === "easy"
-                ? getDifficultyTimeInterval('heap_sort', difficulty) / 10
-                : getDifficultyTimeInterval('heap_sort', difficulty) / 20,
-            timingFunction: "ease-in-out",
-          }
-        );
-        binaryTreeRef?.current?.children[firstIndex].animate(
-          [
-            // keyframes
-            { transform: `translate(${(0, 0)}px)`, opacity: 0.5 },
-            {
-              transform: `translate(${distanceX}px, ${distanceY}px)`,
-              opacity: 1,
-            },
-          ],
-          {
-            duration:
-              difficulty === "easy"
-                ? getDifficultyTimeInterval('heap_sort', difficulty) / 10
-                : getDifficultyTimeInterval('heap_sort', difficulty) / 20,
-            timingFunction: "ease-in-out",
-          }
-        );
-      }
-    }
-  }, [circleIndicesSwap]);
-
-  React.useEffect(() => {
-    if (leftAndRightIndices[0]) {
-      setSecondArrowPosition(leftAndRightIndices[0]);
-    }
-    if (leftAndRightIndices[1]) {
-      setTimeout(() => {
-        setSecondArrowPosition(leftAndRightIndices[1]);
-      }, getDifficultyTimeInterval('heap_sort', difficulty) / 10);
-    }
-  }, [leftAndRightIndices]);
-
-  React.useEffect(() => {
-    let firstNode;
-    if (firstAndLastSwap.length > 0) {
-      let firstIndex = firstAndLastSwap[0];
-      let secondIndex = firstAndLastSwap[1];
-      firstNode = binaryTreeRef?.current?.children[firstIndex];
-      let secondNode = binaryTreeRef?.current?.children[secondIndex];
-      firstNode.style.backgroundColor = "#164B9D";
-      secondNode.style.backgroundColor = "#164B9D";
-    }
-  }, [firstAndLastSwap]);
-
-  // remove function for heap sort
-
-  function remove(a, size) {
-    let max = a[0];
-    a[0] = a[size - 1];
-
-    heapify(a, size - 1, 0);
-
-    setCircleIndicesSwap([0, size - 1]);
-    setFirstAndLastSwap([0, size - 1]);
-
-    // console.log("Comparison: Remove", max, a[0]);
-    return max;
-  }
-
-  // heapify function
-
-  function heapify(a, size, i) {
-    let largest = i;
-    const left = 2 * i + 1;
-    const right = 2 * i + 2;
-
-    setFirstArrowPosition(i);
-
-    if (left < size && a[left] > a[largest]) {
-      // console.log("Comparison: Left Child", a[i], a[left]);
-      largest = left;
-    }
-
-    if (right < size && a[right] > a[largest]) {
-      // console.log("Comparison: Right Child", a[i], a[right]);
-      largest = right;
-    }
-
-    if (left < size && right < size) {
-      setLeftAndRightIndices([left, right]);
-    } else if (left < size) {
-      setLeftAndRightIndices([left]);
-    } else if (right < size) {
-      setLeftAndRightIndices([right]);
-    }
-
-    if (largest !== i) {
-      // console.log("Comparison: Swap", a[i], a[largest]);
-
-      swap(a, i, largest);
-      setCircleIndicesSwap([i, largest]);
-
-      setTimeout(() => {
-        setFirstArrowPosition(i);
-      }, getDifficultyTimeInterval('heap_sort', difficulty) / 10);
-      setTimeout(() => {
-        setSecondArrowPosition(largest);
-      }, getDifficultyTimeInterval('heap_sort', difficulty) / 10);
-
-      heapify(a, size, largest);
-    }
-  }
-
-  function swap(a, i, j) {
-    [a[i], a[j]] = [a[j], a[i]];
-    setCircleValues([...a]);
-  }
-
-  // heap sort algorithm
-
-  React.useEffect(() => {
-    if (startAlgo) {
-      let valuesArray = [...valuesToSort];
-      let n = valuesArray.length;
-      let i = Math.floor(n / 2 - 1);
-      let iteration = 0;
-
-      let interval = setInterval(() => {
-        const currentWinner = winnerRef.current;
-
-        if (currentWinner === "user") {
-          setStartAlgo(false);
-          clearInterval(interval);
-          setShowArrows(false);
-        }
-
-        if (i >= 0) {
-          heapify(valuesArray, n, i);
-          i--;
-        } else {
-          if (iteration < n) {
-            let size = n - iteration;
-
-            let max = remove(valuesArray, size);
-
-            valuesArray[size - 1] = max;
-            setCircleValues([...valuesArray]);
-            iteration++;
-          } else {
-            if (currentWinner === "user") {
-              setStartAlgo(false);
-              clearInterval(interval);
-              setShowArrows(false);
-            } else {
-              setWinner("computer");
-              setStartAlgo(false);
-              clearInterval(interval);
-              setShowArrows(false);
-            }
-          }
-        }
-      }, getDifficultyTimeInterval('heap_sort', difficulty));
-      winnerRef.current = winner;
-    }
-  }, [startAlgo, winner]);
-
+    window.addEventListener('resize', updateLines);
+    return () => { observer?.disconnect(); window.removeEventListener('resize', updateLines); };
+  }, [frame.values]);
   return (
     <div className="heapSort" ref={heapRef}>
-      <div className="originalValues">
-        <div className="orValues">Original Values:</div>
-        {valuesToSort.map((value, index) => {
-          return <div key={`${value} ${index}`}>{value}</div>;
-        })}
-      </div>
-      <div ref={binaryTreeRef} className="binaryTree">
-        {circleValues.map((value, index) => {
-          return (
-            <div
-              className={`circleValue circleValue${index}`}
-              key={`${value} ${index}`}
-            >
-              {value}
-            </div>
-          );
-        })}
-      </div>
-      <svg className="heap-tree-edges" aria-hidden="true">
-        {lines.map((line, index) => <line key={index} className="treeEdge" {...line} />)}
-      </svg>
-      {showArrows && (
-        <ArrowsComponent
-          firstArrowPos={firstArrowPosition}
-          secondArrowPos={secondArrowPosition}
-          valuesRef={binaryTreeRef}
-          xOffset={1}
-          yOffset={1}
-        />
-      )}
+      <div className="originalValues"><span className="orValues">Original:</span>{props.randomNumbers.map((value, index) => <span key={index}>{value}</span>)}</div>
+      <div ref={binaryTreeRef} className="binaryTree">{frame.values.map((value, index) => <div className={`circleValue circleValue${index} ${frame.sortedIndices.includes(index) ? 'sort-value-sorted' : ''} ${activeIndices.includes(index) ? 'sort-value-active' : ''}`} key={index}>{value}</div>)}</div>
+      <svg className="heap-tree-edges" aria-hidden="true">{lines.map((line, index) => index + 1 < frame.heapSize && <line key={index} className="treeEdge" {...line} />)}</svg>
+      {activeIndices.length > 0 && <ArrowsComponent firstArrowPos={activeIndices[0]} secondArrowPos={activeIndices[1]} valuesRef={binaryTreeRef} />}
+      <div className="heap-array-order"><span>Array order:</span>{frame.values.map((value, index) => <span className={frame.sortedIndices.includes(index) ? 'sort-value-sorted' : ''} key={index}>{value}</span>)}</div>
+      <p className="sort-step-description">{frame.description} <span className="sort-heap-size">Heap size: {frame.heapSize}. Green nodes are outside the active heap.</span></p>
     </div>
   );
 };
+HeapSort.propTypes = sortingProps;
 
-export const HeapSortUser = ({ randomNumbers, setWinner }) => {
-  const [userValues, setUserValues] = React.useState([]);
-  const [selectedValue, setSelectedValue] = React.useState("");
-  const [valuesSorted, setValuesSorted] = React.useState([]);
-
-  const valuesToSortRef = React.useRef(null);
-  const selectedValueRef = React.useRef(null);
-
-  React.useEffect(() => {
-    setUserValues(randomNumbers);
-    let correctAnswer = [...randomNumbers];
-    setValuesSorted(correctAnswer.sort((a, b) => a - b));
-  }, [randomNumbers]);
-
-  React.useEffect(() => {
-    if (userValues.length > 0 && userValues.length === randomNumbers.length) {
-      if (JSON.stringify(userValues) == JSON.stringify(valuesSorted)) {
-        setWinner("user");
-      }
-    }
-  }, [userValues]);
-
-  React.useEffect(() => {
-    if (selectedValue) {
-      selectedValueRef?.current?.classList.remove("nonHighlightSelectedValue");
-    } else {
-      selectedValueRef?.current?.classList.add("nonHighlightSelectedValue");
-    }
-  }, [selectedValue]);
-
-  function selectValueFunction(index, value) {
-    let tempArray = [...userValues];
-    if (selectedValue === "") {
-      tempArray[index] = "";
-      setUserValues([...tempArray]);
-      setSelectedValue(value);
-    } else {
-      let valueInBox = selectedValue;
-      setSelectedValue(value);
-      tempArray[index] = valueInBox;
-      setUserValues([...tempArray]);
-    }
-  }
-
+export const HeapSortUser = ({ randomNumbers, setWinner, active = false }) => {
+  const [board, setBoard] = useState(() => createCarryBoard(randomNumbers));
+  useEffect(() => setBoard(createCarryBoard(randomNumbers)), [randomNumbers]);
+  useEffect(() => {
+    if (active && board.moves > 0 && board.carried === null && isSortedAnswer(board.values, randomNumbers)) setWinner('user');
+  }, [active, board, randomNumbers, setWinner]);
   return (
     <div className="heapSortUser">
-      <div className="selectedValueContainer">
-        <div
-          ref={selectedValueRef}
-          className="selectedValue nonHighlightSelectedValue"
-        >
-          {selectedValue}
-        </div>
-      </div>
-      <div ref={valuesToSortRef} className="valuesToSortUser">
-        {userValues.map((value, index) => {
-          return (
-            <div
-              className="userValues"
-              key={`${value}+${index}`}
-              onClick={() => selectValueFunction(index, value)}
-            >
-              <span className="indexPos">{index + 1}</span>
-              {value}
-            </div>
-          );
-        })}
-      </div>
+      <div className="selectedValueContainer"><div className={`selectedValue ${board.carried === null ? 'nonHighlightSelectedValue' : ''}`} aria-label="Number in hand">{board.carried ?? '—'}</div></div>
+      <div className="valuesToSortUser">{board.values.map((value, index) => <button type="button" className="userValues" key={index} disabled={!active} aria-label={`${value === null ? 'Empty' : value}, position ${index + 1}`} onClick={() => { if (active) setBoard((previous) => moveCarriedValue(previous, index)); }}><span className="indexPos">{index + 1}</span>{value ?? '—'}</button>)}</div>
     </div>
   );
 };
+HeapSortUser.propTypes = playerProps;
