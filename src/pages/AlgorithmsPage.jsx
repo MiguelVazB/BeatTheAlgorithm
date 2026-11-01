@@ -40,6 +40,15 @@ const algorithms = [
     method: "Divide & conquer",
     description: "Break the problem into smaller pieces, then bring them back together in the right order.",
   },
+  {
+    id: "quick_sort",
+    name: "Quick Sort",
+    number: "05",
+    level: "A step further",
+    complexity: "O(n log n)",
+    method: "Partition around a pivot",
+    description: "Pick a pivot and give each value a side. Sort the smaller partitions until everything finds its place.",
+  },
 ];
 
 export default function AlgorithmsPage() {
@@ -60,7 +69,7 @@ export default function AlgorithmsPage() {
         <div className="library-section-heading">
           <div className="library-section-label">
             <h2 id="library-sorting-title">Sorting algorithms</h2>
-            <span className="library-count">04</span>
+            <span className="library-count">{String(algorithms.length).padStart(2, "0")}</span>
           </div>
           <p>Different approaches. One sorted list.</p>
         </div>

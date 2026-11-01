@@ -9,12 +9,14 @@ const algorithmSamples = {
   selection_sort: [64, 25, 12, 22, 11, 34, 90],
   heap_sort: [12, 11, 13, 5, 6, 7, 15],
   merge_sort: [38, 27, 43, 3, 9, 82, 10],
+  quick_sort: [8, 2, 7, 1, 3, 5],
 };
 const algorithmFacts = {
   bubble_sort: { time: "O(n²)", space: "O(1)", approach: "Compare & swap", summary: "Small comparisons. A clearer picture. See how neighboring numbers find their place, one swap at a time." },
   selection_sort: { time: "O(n²)", space: "O(1)", approach: "Find the minimum", summary: "Find the smallest. Make your move. Build a sorted list by choosing the next number with care." },
   heap_sort: { time: "O(n log n)", space: "O(1)", approach: "Build a heap", summary: "A little structure goes a long way. Explore how a binary heap turns an unsorted list into an ordered one." },
   merge_sort: { time: "O(n log n)", space: "O(n)", approach: "Divide & conquer", summary: "Break it down. Bring it together. Discover how smaller, simpler lists become one sorted whole." },
+  quick_sort: { time: "O(n log n) avg.", space: "O(log n) avg.", approach: "Partition around a pivot", summary: "Choose a pivot. Give every value a side. Follow each partition as the list finds its order." },
 };
 const sections = [
   ["introduction", "The idea"],

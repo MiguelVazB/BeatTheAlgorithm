@@ -16,6 +16,13 @@ export default function AlgorithmArt({ algorithm = 'bubble_sort', compact = fals
       {[57, 187].map((x, i) => <g key={x}><rect x={x} y="67" width="78" height="29" rx="7" fill={i === 0 ? sage : peach} /><text x={x + 39} y="85" textAnchor="middle" fontSize="10" fill={ink}>{i === 0 ? '2 3 6 8' : '1 4 5 7'}</text></g>)}
       <rect x="86" y="119" width="148" height="29" rx="7" fill="var(--art-solid, #3e5043)" /><text x="160" y="137" textAnchor="middle" fontSize="10" fill="var(--art-on-solid, #fff)">1 2 3 4 5 6 7 8</text>
     </>;
+  } else if (algorithm === 'quick_sort') {
+    art = <>
+      {[8, 2, 7, 1, 3, 5].map((value, i) => <g key={`before-${i}`}><rect x={28 + i * 44} y="22" width="34" height="30" rx="6" fill={i === 5 ? peach : sage} stroke={i === 5 ? orange : 'none'} /><text x={45 + i * 44} y="42" textAnchor="middle" fontSize="12" fill={ink}>{value}</text></g>)}
+      <path d="M265 59v16h-88v20m-4-5 4 5 4-5" fill="none" stroke={orange} strokeWidth="1.5" />
+      {[2, 1, 3, 5, 7, 8].map((value, i) => <g key={`after-${i}`}><rect x={28 + i * 44} y="104" width="34" height="30" rx="6" fill={i === 3 ? orange : i < 3 ? sage : peach} /><text x={45 + i * 44} y="124" textAnchor="middle" fontSize="12" fill={i === 3 ? '#29170e' : ink}>{value}</text></g>)}
+      <text x="89" y="151" textAnchor="middle" fontSize="9" fill={ink}>at or below</text><text x="177" y="151" textAnchor="middle" fontSize="9" fill={ink}>pivot</text><text x="243" y="151" textAnchor="middle" fontSize="9" fill={ink}>above</text>
+    </>;
   } else if (algorithm === 'selection_sort') {
     art = <>
       <path d="M25 136h270" stroke="var(--art-line, #cdd4c6)" />

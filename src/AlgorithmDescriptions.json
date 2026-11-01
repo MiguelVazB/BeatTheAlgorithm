@@ -97,5 +97,30 @@
       "spaceComplexity": "Merge sort has a space complexity of O(n), as it requires additional memory equal to the size of the input array to store temporary sublists during the merging process.",
       "realWorldApplications": "Merge sort is widely used in external sorting for large datasets that don't fit in memory, stable sorting requirements, and parallel processing environments. It is commonly used in programming languages' standard libraries, database systems, and file sorting applications."
     }
+  },
+  "quick_sort": {
+    "description": "Quick sort chooses a pivot and partitions the list around it: values at or below the pivot go to the left, and larger values go to the right. Once the pivot is in its final position, it repeats the process on each side.",
+    "instructions": "Select two numbers to swap their places. Arrange your row from smallest to largest before the computer finishes. Select the same number again to cancel your selection, or press Reset to restore your original row. Your moves do not have to follow the computer's partitioning strategy.",
+    "difficulty": {
+      "easy": "The computer takes one visual step every 500 milliseconds.",
+      "intermediate": "The computer takes one visual step every 250 milliseconds.",
+      "hard": "The computer takes one visual step every 100 milliseconds.",
+      "impossible": "The computer takes one visual step every 10 milliseconds."
+    },
+    "detailedDescription": {
+      "simpleExplanation": "This visualization uses quick sort with Lomuto partitioning. The last value in the active partition is the pivot. Scan the other values and move each value at or below the pivot into the left part. Then place the pivot between that part and the larger values. The pivot is now in its final position; recursively sort the parts on either side. Partitions with one value are already finished. This swapping version is not stable: equal values may change their relative order.",
+      "steps": {
+        "step1": "Start with the entire list as the active partition.",
+        "step2": "Choose the last value of the active partition as the pivot.",
+        "step3": "Scan from left to right, comparing each remaining value with the pivot.",
+        "step4": "When a value is at or below the pivot, swap it into the next slot in the left part if needed. Leave larger values for the right part.",
+        "step5": "Place the pivot immediately after the left part. It is now in its final position and will not move again.",
+        "step6": "Repeat the process on the left partition, then the right partition, excluding the fixed pivot.",
+        "step7": "Stop at empty or single-value partitions. When every partition is finished, the list is sorted."
+      },
+      "timeComplexity": "Quick sort takes O(n log n) time on average when partitions are reasonably balanced. Its worst case is O(n^2). With the last-value pivot used here, already sorted, reverse-sorted, and all-equal lists create unbalanced partitions and reach that worst case. Randomized pivots and other partitioning strategies can help in practical implementations.",
+      "spaceComplexity": "Partitioning is in place and uses O(1) auxiliary space. Recursive calls use O(log n) stack space on average and O(n) in the worst case. The saved animation frames use additional memory for visualization and are separate from the algorithm's auxiliary space.",
+      "realWorldApplications": "Quick sort is useful for sorting arrays in memory when good average performance matters and equal values do not need to retain their original order. Its partitioning idea also underlies quickselect, which finds an order statistic such as the median without sorting the entire array. Practical sorting implementations often combine partitioning with other methods to handle small partitions and avoid poor worst-case behavior."
+    }
   }
 }

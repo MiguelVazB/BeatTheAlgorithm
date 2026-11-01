@@ -9,6 +9,7 @@ const challenges = [
   { id: 'selection_sort', number: '02', name: 'Selection sort', idea: 'Find the smallest. Find your rhythm.', level: 'Beginner', complexity: 'O(n²)' },
   { id: 'heap_sort', number: '03', name: 'Heap sort', idea: 'A different way to get to the top.', level: 'Intermediate', complexity: 'O(n log n)' },
   { id: 'merge_sort', number: '04', name: 'Merge sort', idea: 'Break it down. Bring it together.', level: 'Intermediate', complexity: 'O(n log n)' },
+  { id: 'quick_sort', number: '05', name: 'Quick sort', idea: 'Pick a pivot. Give every value a side.', level: 'Intermediate', complexity: 'O(n log n)' },
 ];
 const steps = [
   { number: '01', icon: 'target', title: 'Pick your challenge', text: 'Choose an algorithm and a difficulty that feels right. There’s room to experiment.' },
@@ -28,7 +29,7 @@ export default function HomePage() {
         </div>
         <div className="home-hero-visual"><div className="home-visual-coordinate" aria-hidden="true">[ curiosity → understanding ]</div><SortingPreview /></div>
       </section>
-      <div className="home-feature-strip"><span><Icon name="code" size={17} />4 sorting algorithms</span><span><Icon name="layers" size={17} />4 difficulty levels</span><span><Icon name="book" size={17} />Learn by doing</span><span className="home-strip-trailing">Made for your next “aha.” <Icon name="spark" size={15} /></span></div>
+      <div className="home-feature-strip"><span><Icon name="code" size={17} />{challenges.length} sorting algorithms</span><span><Icon name="layers" size={17} />4 difficulty levels</span><span><Icon name="book" size={17} />Learn by doing</span><span className="home-strip-trailing">Made for your next “aha.” <Icon name="spark" size={15} /></span></div>
       <section className="home-challenges" aria-labelledby="challenges-title">
         <div className="home-section-intro"><span className="eyebrow">Choose your opponent</span><h2 id="challenges-title">A little challenge.<br />A new way to think.</h2><p>Meet the algorithms behind the theory. Start simple, then work your way up.</p><Link to="/moreOnAlgorithms" className="text-link">See the playground <Icon name="arrow-right" size={17} /></Link><div className="home-start-note"><span className="home-start-arrow" aria-hidden="true">↗</span>New around here?<br /><strong>Bubble sort is a great first move.</strong></div></div>
         <div className="home-challenge-list">{challenges.map((challenge) => <Link to={`/algo/${challenge.id}`} className="home-challenge-row" key={challenge.id}><span className="home-challenge-number">{challenge.number}</span><div className="home-challenge-art"><AlgorithmArt algorithm={challenge.id} compact /></div><div className="home-challenge-info"><span className="home-challenge-level">{challenge.level}</span><h3>{challenge.name}</h3><p>{challenge.idea}</p></div><span className="home-challenge-complexity">{challenge.complexity}</span><span className="home-challenge-arrow"><Icon name="arrow-up-right" size={20} /></span></Link>)}</div>

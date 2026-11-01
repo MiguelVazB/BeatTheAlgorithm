@@ -6,6 +6,7 @@ import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
 import Icon from "../components/Icon";
 import { useSortingGame } from "../hooks/useSortingGame";
 import { getDifficultyDescription } from "../utils/difficultyConfig";
+import { SORTING_ALGORITHMS } from "../utils/sortingAlgorithms";
 import { WinnerOverlay, AlgorithmHeader, GameContainer, GameDialog } from "../components/common/SortingGameUI";
 import {
   generateXRandomNumbers,
@@ -51,14 +52,19 @@ const MergeSortUser = React.lazy(() =>
     default: module.MergeSortUser,
   }))
 );
+const QuickSort = React.lazy(() =>
+  import("../components/QuickSort").then((module) => ({ default: module.QuickSort }))
+);
+const QuickSortUser = React.lazy(() =>
+  import("../components/QuickSort").then((module) => ({ default: module.QuickSortUser }))
+);
 
 export default function GameLayout({ algo: propAlgo }) {
   const { algoname } = useParams();
   const algo = algoname || propAlgo;
 
   // Validate that the algorithm is supported
-  const supportedAlgorithms = ["bubble_sort", "selection_sort", "heap_sort", "merge_sort"];
-  const isValidAlgorithm = supportedAlgorithms.includes(algo);
+  const isValidAlgorithm = SORTING_ALGORITHMS.includes(algo);
 
   // Redirect to not found page if algorithm is not supported
   if (!isValidAlgorithm) {
@@ -69,7 +75,7 @@ export default function GameLayout({ algo: propAlgo }) {
 }
 
 GameLayout.propTypes = { algo: PropTypes.string };
-SortingGame.propTypes = { algo: PropTypes.oneOf(["bubble_sort", "selection_sort", "heap_sort", "merge_sort"]).isRequired };
+SortingGame.propTypes = { algo: PropTypes.oneOf(SORTING_ALGORITHMS).isRequired };
 
 function SortingGame({ algo }) {
   // Each algorithm gets its own game session when the route changes.
@@ -123,6 +129,8 @@ function SortingGame({ algo }) {
 
   function getComputerSideComponent() {
     switch (algo) {
+      case "quick_sort":
+        return <QuickSort difficulty={difficulty} randomNumbers={randomValues} countDownOver={countDownOver} setWinner={setWinner} winner={winner} />;
       case "bubble_sort":
         return (
           <BubbleSort
@@ -168,6 +176,8 @@ function SortingGame({ algo }) {
 
   function getUserSideComponent() {
     switch (algo) {
+      case "quick_sort":
+        return <QuickSortUser active={countDownOver && !winner} randomNumbers={randomValues} setWinner={setWinner} />;
       case "bubble_sort":
         return (
           <BubbleSortUser 
@@ -234,6 +244,7 @@ function SortingGame({ algo }) {
               <p>{({
                 bubble_sort: "Pop the numbers on your side from smallest to largest. Your choices build the sorted list. Need a fresh attempt? Hit Reset.",
                 selection_sort: "Select two numbers to swap their places. Keep swapping until your row runs from smallest to largest.",
+                quick_sort: "Select two numbers to swap their places. Put the row in order from smallest to largest before Quick Sort finishes. Select the same number again to cancel, or Reset to start your row over.",
                 heap_sort: "Pick up a number, then click a position to place it. If that position is filled, you’ll pick up its number. Arrange the whole row from smallest to largest.",
                 merge_sort: "Select numbers from smallest to largest to fill your answer row above. Click a number in your answer to send it back and try again.",
               })[algo]}</p>

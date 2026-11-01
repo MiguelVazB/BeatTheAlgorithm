@@ -73,6 +73,7 @@ export const GameContainer = ({ algo, computerSide, userSide }) => {
   const playerHints = {
     bubble_sort: "Pop the numbers from smallest to largest.",
     selection_sort: "Select two numbers to swap their places.",
+    quick_sort: "Swap pairs of numbers to sort your row from smallest to largest.",
     heap_sort: "Pick up a number, then choose where to place it.",
     merge_sort: "Build your answer above, from smallest to largest.",
   };

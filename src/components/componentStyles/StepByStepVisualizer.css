@@ -12,6 +12,7 @@
 .step-visualizer .array-element.swapping { background: var(--surface-warm, #f8e0d5); border-color: var(--warm-border, #df9779); color: var(--warm-ink, #a54b2b); }
 .step-visualizer .array-element.minimum { background: var(--sorted-background, #e0e8d9); border-color: var(--sorted-border, #91a37e); color: var(--sorted-ink, #536b40); }
 .step-visualizer .array-element.settled { background: var(--sorted-background, #e0e8d9); border-color: var(--sorted-border, #91a37e); color: var(--sorted-ink, #536b40); }
+.step-visualizer .array-element.pivot { outline: 2px solid var(--primary-color); outline-offset: 2px; }
 .step-visualizer .step-example .example-legend { margin: 18px 0 0; font-size: 11px; }
 .step-visualizer .step-scrubber { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; color: var(--text-secondary); font-size: 12px; }
 .step-visualizer .step-scrubber input { width: 100%; padding: 0; accent-color: var(--primary-button-color); }

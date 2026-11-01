@@ -1,4 +1,4 @@
-export const SORTING_ALGORITHMS = ['bubble_sort', 'selection_sort', 'heap_sort', 'merge_sort'];
+export const SORTING_ALGORITHMS = ['bubble_sort', 'selection_sort', 'heap_sort', 'merge_sort', 'quick_sort'];
 
 export function isSortedAnswer(answer, original) {
   if (!original.length || answer.length !== original.length || Array.from(answer).some((value) => !Number.isFinite(value))) return false;
@@ -17,6 +17,7 @@ export function createSortingSteps(algorithm, input) {
   const emit = (type, description, details = {}) => steps.push({
     type, description, values: [...values], comparedIndices: [], swappedIndices: [],
     sortedIndices: [...sortedIndices], heapSize: values.length, minimumIndex: null,
+    pivotIndex: null, partitionRange: null,
     passes: passes.map((pass) => ({ ...pass, values: [...pass.values] })), ...details,
   });
   emit('start', 'Start with the unsorted list.');
@@ -109,6 +110,41 @@ export function createSortingSteps(algorithm, input) {
       passes.push({ size: Math.min(size * 2, values.length), values: [...values] });
       emit('pass', `This pass is complete. Sorted runs now contain up to ${Math.min(size * 2, values.length)} values.`);
     }
+  }
+
+  if (algorithm === 'quick_sort') {
+    // Lomuto partitioning: the last value is the pivot, and equal values go left.
+    const sortPartition = (start, end) => {
+      if (start > end) return;
+      const details = (pivotIndex = end) => ({ pivotIndex, partitionRange: [start, end + 1] });
+      if (start === end) {
+        sortedIndices.push(start);
+        emit('pivot-fixed', `${values[start]} is the only value in this partition, so it is in its final position.`, details());
+        return;
+      }
+      const pivot = values[end];
+      let boundary = start;
+      emit('partition', `Choose ${pivot}, the last value in positions ${start + 1} to ${end + 1}, as the pivot.`, details());
+      for (let index = start; index < end; index += 1) {
+        emit('compare', `Compare ${values[index]} with pivot ${pivot}. ${values[index] <= pivot ? 'It belongs on the left, with values at or below the pivot.' : 'It belongs on the right, with values above the pivot.'}`, { ...details(), comparedIndices: [index, end] });
+        if (values[index] <= pivot) {
+          if (index !== boundary) {
+            [values[boundary], values[index]] = [values[index], values[boundary]];
+            emit('swap', `Move ${values[boundary]} into the left part of this partition.`, { ...details(), swappedIndices: [boundary, index] });
+          }
+          boundary += 1;
+        }
+      }
+      if (boundary !== end) {
+        [values[boundary], values[end]] = [values[end], values[boundary]];
+        emit('swap', `Place pivot ${pivot} between the values at or below it and the larger values.`, { ...details(boundary), swappedIndices: [boundary, end] });
+      }
+      sortedIndices.push(boundary);
+      emit('pivot-fixed', `Pivot ${pivot} is now in its final position. Sort the remaining partitions independently.`, details(boundary));
+      sortPartition(start, boundary - 1);
+      sortPartition(boundary + 1, end);
+    };
+    sortPartition(0, values.length - 1);
   }
 
   sortedIndices = values.map((_, index) => index);

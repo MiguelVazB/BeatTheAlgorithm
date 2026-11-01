@@ -28,10 +28,11 @@ export default function StepByStepVisualizer({ algorithm, sampleData }) {
         <div className="current-step"><div className="step-example">
           <h4>The working array</h4>
           {algorithm === 'heap_sort' && <p className="example-description">Max heap: the largest active value rises to the root. Heap size: {frame.heapSize}.</p>}
-          <div className="array-visualization">{frame.values.map((value, position) => <div key={position} className={`array-element ${frame.comparedIndices.includes(position) ? 'comparing' : ''} ${frame.swappedIndices.includes(position) ? 'swapping' : ''} ${frame.minimumIndex === position ? 'minimum' : ''} ${frame.sortedIndices.includes(position) ? 'settled' : ''}`}>{value}</div>)}</div>
+          {frame.partitionRange && <p className="example-description">Active partition: positions {frame.partitionRange[0] + 1} to {frame.partitionRange[1]}. Pivot: <strong>{frame.values[frame.pivotIndex]}</strong>. Values at or below the pivot go left; larger values go right.</p>}
+          <div className="array-visualization">{frame.values.map((value, position) => <div key={position} className={`array-element ${frame.comparedIndices.includes(position) ? 'comparing' : ''} ${frame.swappedIndices.includes(position) ? 'swapping' : ''} ${frame.minimumIndex === position ? 'minimum' : ''} ${frame.sortedIndices.includes(position) ? 'settled' : ''} ${frame.pivotIndex === position ? 'pivot' : ''}`} aria-label={frame.pivotIndex === position ? `${value}, pivot` : undefined}>{value}</div>)}</div>
           {frame.mergeBuffer && <p className="example-description">Merge buffer: [{frame.mergeBuffer.join(', ')}]</p>}
           {runs && <div className="subarrays-visualization" aria-label="Sorted runs from the last completed pass">{Array.from({ length: Math.ceil(runs.values.length / runs.size) }, (_, run) => <span className="subarray" key={run}>[{runs.values.slice(run * runs.size, (run + 1) * runs.size).join(', ')}]</span>)}</div>}
-          <p className="example-description example-legend">Amber: comparing · Orange: swapped · Green: final position{algorithm === 'selection_sort' ? ' or current minimum' : ''}</p>
+          <p className="example-description example-legend">Amber: comparing · Orange: swapped · Green: final position{algorithm === 'selection_sort' ? ' or current minimum' : ''}{algorithm === 'quick_sort' ? ' · Outline: pivot' : ''}</p>
         </div></div>
       </div>
       <div className="step-controls">
