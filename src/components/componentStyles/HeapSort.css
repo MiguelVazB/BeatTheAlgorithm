@@ -1,304 +1,49 @@
-.heapSort{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    row-gap: 0.5rem;
-    overflow: visible;
+.gameLayout .heapSort { flex: 1; min-width: 0; display: flex; flex-direction: column; position: relative; gap: 14px; overflow: visible; }
+.gameLayout .originalValues { display: flex; align-items: center; gap: 9px; height: 18px; flex-shrink: 0; color: var(--text-secondary); font-size: 11px; line-height: 18px; white-space: nowrap; }
+.gameLayout .orValues { margin-right: 6px; color: var(--text-muted); font-size: 10px; }
+.gameLayout .binaryTree { flex: 1; display: grid; min-height: 282px; grid-template-columns: repeat(16, 1fr); grid-template-rows: repeat(4, 1fr); overflow: visible; }
+.gameLayout .circleValue0 { grid-area: 1 / 1 / 2 / 17; }
+.gameLayout .circleValue1 { grid-area: 2 / 1 / 3 / 9; }
+.gameLayout .circleValue2 { grid-area: 2 / 9 / 3 / 17; }
+.gameLayout .circleValue3 { grid-area: 3 / 1 / 4 / 5; }
+.gameLayout .circleValue4 { grid-area: 3 / 5 / 4 / 9; }
+.gameLayout .circleValue5 { grid-area: 3 / 9 / 4 / 13; }
+.gameLayout .circleValue6 { grid-area: 3 / 13 / 4 / 17; }
+.gameLayout .circleValue7 { grid-area: 4 / 1 / 5 / 3; }
+.gameLayout .circleValue8 { grid-area: 4 / 3 / 5 / 5; }
+.gameLayout .circleValue9 { grid-area: 4 / 5 / 5 / 7; }
+.gameLayout .circleValue10 { grid-area: 4 / 7 / 5 / 9; }
+.gameLayout .circleValue11 { grid-area: 4 / 9 / 5 / 11; }
+.gameLayout .circleValue12 { grid-area: 4 / 11 / 5 / 13; }
+.gameLayout .circleValue13 { grid-area: 4 / 13 / 5 / 15; }
+.gameLayout .circleValue14 { grid-area: 4 / 15 / 5 / 17; }
+.gameLayout .circleValue { z-index: 1; display: flex; justify-content: center; align-items: center; width: 48px; height: 48px; padding: 0; place-self: center; border: 1px solid #d7ded2; border-radius: 50%; background: #edf2e8; color: #485b3e; font-size: 17px; font-weight: 600; }
+.gameLayout .circleValue[style*="background-color"] { background: #f4dfd2 !important; border-color: #e8bd9f; color: #9d512e; }
+.gameLayout .heap-tree-edges { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; overflow: visible; pointer-events: none; }
+.gameLayout .treeEdge { stroke: #cdd5c7; stroke-width: 1.5; stroke-dasharray: none; }
+.gameLayout .heapSort .arrowBrowser { height: 25px; }
+.gameLayout .heapSortUser { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 26px; }
+.gameLayout .selectedValueContainer { display: flex; justify-content: center; }
+.gameLayout .selectedValue { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border: 1px dashed #829174; border-radius: 8px; color: #485b3e; background: #e1ead8; font-size: 17px; font-weight: 600; }
+.gameLayout .nonHighlightSelectedValue { opacity: .5; background: transparent; }
+.gameLayout .heapSortUser .valuesToSortUser { display: grid; grid-template-columns: repeat(15, minmax(0, 1fr)); align-items: center; gap: 8px; padding-bottom: 18px; flex: 1; }
+.gameLayout .valuesToSortUser .userValues { position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 44px; height: 42px; justify-self: center; border: 1px solid #cfd9c7; border-radius: 7px; color: #485b3e; background: #fff; font-size: 15px; font-weight: 600; cursor: pointer; }
+.gameLayout .valuesToSortUser .userValues:hover { border-color: #8da67b; background: #e5eedc; }
+.gameLayout .indexPos { position: absolute; bottom: -17px; left: 0; right: 0; text-align: center; color: #829174; font-size: 9px; font-weight: 400; }
+
+@media (max-width: 760px) {
+  .gameLayout .circleValue { width: 34px; height: 34px; font-size: 13px; }
+  .gameLayout .binaryTree { min-height: 250px; }
+  .gameLayout .originalValues { font-size: 10px; gap: 6px; }
+  .gameLayout .heapSortUser .valuesToSortUser { grid-template-columns: repeat(5, 1fr); gap: 22px 12px; }
+  .gameLayout .heapSortUser { gap: 20px; }
+  .gameLayout .valuesToSortUser .userValues { height: 36px; max-width: 44px; font-size: 14px; }
+  .gameLayout .heapSort .arrowBrowser { height: 19px; }
 }
 
-.originalValues{
-    display: flex;
-    column-gap: 0.5rem;
-    font-size: 1.2rem;
-    align-items: center;
-}
-
-.binaryTree{
-    overflow: visible;
-    display: grid;
-    grid-template-columns: repeat(12, 0.9fr);
-    grid-template-rows: repeat(4, 0.5fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-}
-
-.circleValue0 { grid-area: 1 / 5 / 2 / 9; }
-.circleValue1 { grid-area: 2 / 3 / 3 / 5; }
-.circleValue2 { grid-area: 2 / 7 / 3 / 13; }
-.circleValue3 { grid-area: 3 / 2 / 4 / 3; }
-.circleValue4 { grid-area: 3 / 4 / 4 / 7; }
-.circleValue5 { grid-area: 3 / 6 / 4 / 11; }
-.circleValue6 { grid-area: 3 / 10 / 4 / 15; }
-.circleValue7 { grid-area: 4 / 1 / 5 / 2; }
-.circleValue8 { grid-area: 4 / 3 / 5 / 4; }
-.circleValue9 { grid-area: 4 / 3 / 5 / 6; }
-.circleValue10 { grid-area: 4 / 5 / 5 / 8; }
-.circleValue11 { grid-area: 4 / 5 / 5 / 10; }
-.circleValue12 { grid-area: 4 / 7 / 5 / 12; }
-.circleValue13 { grid-area: 4 / 8 / 5 / 14; }
-.circleValue14 { grid-area: 4 / 12 / 5 / 16; }
-
-.circleValue{
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.1rem;
-    width: 4.5rem;
-    height: 4.5rem;
-    place-self: center;
-    border-radius: 100%;
-    font-weight: bold;
-    font-size: 2.2rem;
-    background-color: green;
-    box-shadow: 0px 0px 10px black;
-}
-
-.heapSort .arrowBrowser{
-    height: 3rem;
-    z-index: 100;
-}
-
-.lineContainer{
-    z-index: 0;
-}
-
-.treeEdge{
-    stroke: white;
-    stroke-dasharray: 6,6;
-    stroke-width: 4;
-}
-
-/* user side */
-
-.heapSortUser{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.heapSortUser .selectedValueContainer{
-    display: flex;
-    text-align: center;
-    justify-content: center;
-}
-
-.selectedValue{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 4rem;
-    height: 4rem;
-    font-size: 2rem;
-    font-weight: bold;
-    background-color: black;
-    color: white;
-    border-radius: 1rem;
-    border: 5px dashed green;
-}
-
-.nonHighlightSelectedValue{
-    opacity: 0.5;
-}
-
-.heapSortUser .valuesToSortUser{
-    flex: 1;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    row-gap: 1rem;
-    column-gap: 0rem;
-}
-
-.valuesToSortUser .userValues{
-    position: relative;
-    background-color: white;
-    color: black;
-    font-weight: bold;
-    width: 3rem;
-    height: 3rem;
-    font-size: clamp(1.2rem, 2vw, 2.5rem);
-    border-radius: 0.5rem;
-    box-shadow: 4px 4px 1px black;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.indexPos{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    margin-left: -0.2em;
-    margin-bottom: -1.1em;
-    color: black;
-    opacity: 0.5;
-}
-
-
-/* Mobile responsiveness */
-
-@media (max-width: 1070px){
-    .circleValue{
-        padding: 0.3rem;
-        width: 4rem;
-        height: 4rem;
-        font-size: 2.2rem;
-    }
-    .valuesToSortUser .userValues{
-        width: 2.5rem;
-        height: 2.5rem;
-    }
-    .selectedValue{
-        width: 3.5rem;
-        height: 3.5rem;
-    }
-}
-
-@media (max-width: 950px){
-    .binaryTree{
-        row-gap: 1rem;
-    }
-    .circleValue{
-        width: 3.5rem;
-        height: 3.5rem;
-        font-size: 2rem;
-    }
-    .lineContainer{
-        top: 1rem;
-    }
-    .heapSort .arrowBrowser{
-        height: 2.5rem;
-    }
-}
-
-@media (max-width: 850px){
-    .binaryTree{
-        row-gap: 1.3rem;
-    }
-    .circleValue{
-        width: 3rem;
-        height: 3rem;
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 756px){
-    .heapSort{
-        row-gap: 0;
-    }
-    .valuesToSortUser .userValues{
-        width: 2rem;
-        height: 2rem;
-    }
-    .selectedValue{
-        width: 3rem;
-        height: 3rem;
-    }
-    .binaryTree{
-        row-gap: 1.4rem;
-    }
-    .circleValue{
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 2rem;
-    }
-    .heapSort .arrowBrowser{
-        height: 2.2rem;
-    }
-}
-
-@media (max-width: 635px){
-    .binaryTree{
-        row-gap: 1.5rem;
-    }
-    .heapSortUser .valuesToSortUser{
-        flex-wrap: wrap;
-        column-gap: 2rem;
-    }
-    .valuesToSortUser .userValues{
-        width: 2rem;
-        height: 2rem;
-    }
-    .originalValues{
-        font-size: 1rem;
-    }
-    .circleValue{
-        width: 2rem;
-        height: 2rem;
-        font-size: 1.5rem;
-    }
-    .heapSort .arrowBrowser{
-        height: 1.5rem;
-    }
-}
-
-@media (max-width: 540px){ 
-    .binaryTree{
-        row-gap: 2rem;
-    }
-    .originalValues{
-        font-size: 0.8rem;
-    }
-    .circleValue{
-        width: 1.5rem;
-        height: 1.5rem;
-        font-size: 1.3rem;
-    }
-    .heapSort .arrowBrowser{
-        height: 1.2rem;
-    }
-}
-
-@media (max-width: 450px){ 
-    .binaryTree{
-        row-gap: 3rem;
-    }
-    .originalValues{
-        font-size: 0.6rem;
-    }
-    .circleValue{
-        padding: 0.2rem;
-        width: 1.2rem;
-        height: 1.2rem;
-        font-size: 1rem;
-    }
-    .lineContainer{
-        top: 0.5rem;
-    }
-}
-
-@media (max-width: 350px){ 
-    .binaryTree{
-        row-gap: 3.5rem;
-    }
-    .originalValues{
-        font-size: 0.6rem;
-    }
-    .circleValue{
-        padding: 0.1rem;
-        width: 1.1rem;
-        height: 1.1rem;
-        font-size: 0.8rem;
-    }
-    .lineContainer{
-        top: 1.2rem;
-    }
-    .heapSort .arrowBrowser{
-        height: 1rem;
-    }
-    .heapSortUser .valuesToSortUser{
-        column-gap: 1rem;
-    }
-    .valuesToSortUser .userValues{
-        width: 1.5rem;
-        height: 1.5rem;
-    }
-    .selectedValue{
-        width: 2.5rem;
-        height: 2.5rem;
-    }
+@media (max-width: 440px) {
+  .gameLayout .circleValue { width: 26px; height: 26px; font-size: 11px; }
+  .gameLayout .orValues { display: none; }
+  .gameLayout .originalValues { justify-content: space-between; gap: 4px; font-size: 9px; }
+  .gameLayout .heapSort .arrowBrowser { height: 16px; }
 }

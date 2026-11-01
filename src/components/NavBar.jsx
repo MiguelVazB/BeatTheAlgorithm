@@ -1,196 +1,41 @@
-import { Link } from "react-router-dom";
-import React from "react";
-import { useState, useEffect } from "react";
-import "./componentStyles/NavBar.css";
-import { AlgoMenu } from "./AlgoMenu";
+import { useEffect, useRef, useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import Icon from './Icon';
+import './componentStyles/NavBar.css';
 
+export function BrandMark() {
+  return <span className="brand-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 16v3m5-8v8m5-13v13m5-8v8" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" /></svg></span>;
+}
+const links = [{ to: '/', label: 'Playground', end: true }, { to: '/moreOnAlgorithms', label: 'Algorithms' }, { to: '/about', label: 'About' }];
 export default function NavBar() {
-  const [showMenu, setShowMenu] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  function showMenuClick() {
-    setShowMenu((prev) => !prev);
-  }
-
-  function toggleMobileMenu() {
-    setIsMobileMenuOpen((prev) => !prev);
-  }
-
-  // Close mobile menu when clicking outside
+  const [menuOpen, setMenuOpen] = useState(false);
+  const headerRef = useRef(null);
+  const menuButtonRef = useRef(null);
+  const { pathname } = useLocation();
+  useEffect(() => { setMenuOpen(false); }, [pathname]);
   useEffect(() => {
-    function handleClickOutside(event) {
-      const mobileMenu = document.querySelector(".mobile-menu");
-      const mobileMenuButton = document.querySelector(".mobile-menu-button");
-
-      if (
-        mobileMenu &&
-        !mobileMenu.contains(event.target) &&
-        !mobileMenuButton.contains(event.target)
-      ) {
-        setIsMobileMenuOpen(false);
-      }
-    }
-
-    if (isMobileMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+    if (!menuOpen) return;
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') { setMenuOpen(false); menuButtonRef.current?.focus(); }
     };
-  }, [isMobileMenuOpen]);
-
-  React.useEffect(() => {
-    if (showMenu) {
-      document.body.style.overflow = "hidden";
-      document.querySelector(".algoMenu").style.overflow = "auto";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [showMenu]);
-
-  // Handle scroll locking for mobile menu
-  React.useEffect(() => {
-    if (isMobileMenuOpen) {
-      // Disable scrolling
-      document.body.style.overflow = "hidden";
-      document.body.style.position = "fixed";
-      document.body.style.width = "100%";
-      document.body.style.top = `-${window.scrollY}px`;
-
-      // Prevent touch scrolling on mobile
-      const preventScroll = (e) => e.preventDefault();
-      document.addEventListener('touchmove', preventScroll, { passive: false });
-      document.addEventListener('wheel', preventScroll, { passive: false });
-
-      return () => {
-        document.removeEventListener('touchmove', preventScroll);
-        document.removeEventListener('wheel', preventScroll);
-      };
-    } else if (!showMenu) {
-      // Re-enable scrolling
-      const scrollY = document.body.style.top;
-      document.body.style.overflow = "auto";
-      document.body.style.position = "";
-      document.body.style.width = "";
-      document.body.style.top = "";
-
-      // Restore scroll position
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      }
-    }
-  }, [isMobileMenuOpen, showMenu]);
-
-  const handleNavClick = () => {
-    setShowMenu(false);
-    setIsMobileMenuOpen(false);
-    document.body.style.overflow = "auto";
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
+    const onPointerDown = (event) => {
+      if (!headerRef.current?.contains(event.target)) setMenuOpen(false);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => { document.removeEventListener('keydown', onKeyDown); document.removeEventListener('pointerdown', onPointerDown); };
+  }, [menuOpen]);
   return (
-    <header className="navbar-container">
-      <div className="logo">
-        <Link to="/" onClick={handleNavClick}>
-          <img
-            src={"./beatthealgo.png"}
-            alt="Logo"
-            className="logo-icon"
-          />
-        </Link>
-        <Link className="logo-text" to="/" onClick={handleNavClick}>
-          Beat the Algorithm
-        </Link>
+    <header className="navbar-container" ref={headerRef}>
+      <div className="navbar-inner">
+        <Link to="/" className="brand" aria-label="Beat the Algorithm home" onClick={() => setMenuOpen(false)}><BrandMark /><span>Beat the<span className="brand-second-line">Algorithm<span className="brand-period">.</span></span></span></Link>
+        <nav className="desktop-nav" aria-label="Main navigation">{links.map((link) => <NavLink key={link.to} to={link.to} end={link.end} className={({ isActive }) => `nav-link${isActive ? ' is-active' : ''}`}>{link.label}</NavLink>)}</nav>
+        <div className="nav-actions">
+          <Link className="nav-challenge-link" to="/algo/bubble_sort">Start a challenge <Icon name="arrow-up-right" size={16} /></Link>
+          <button className="mobile-menu-button" ref={menuButtonRef} onClick={() => setMenuOpen(!menuOpen)} type="button" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} aria-controls="mobile-navigation"><Icon name={menuOpen ? 'close' : 'menu'} size={23} /></button>
+        </div>
       </div>
-
-      {/* Desktop Navigation */}
-      <nav className="desktop-nav">
-        <Link
-          to="/"
-          className="nav-link"
-          onClick={handleNavClick}
-        >
-          Home
-        </Link>
-        <Link
-          to="/moreOnAlgorithms"
-          className="nav-link"
-          onClick={handleNavClick}
-        >
-          Algorithms
-        </Link>
-        <Link
-          to="/about"
-          className="nav-link"
-          onClick={handleNavClick}
-        >
-          About
-        </Link>
-      </nav>
-
-      <div className="action-container">
-        <Link
-          to="/algo/bubble_sort"
-          className="start-challenge-button"
-          onClick={() => setIsMobileMenuOpen(false)}
-        >
-          <span>Start Challenge</span>
-          <span className="material-icon">play_arrow</span>
-        </Link>
-
-        {/* Hamburger Menu Button */}
-        <button
-          className={`mobile-menu-button ${isMobileMenuOpen ? 'open' : ''}`}
-          onClick={toggleMobileMenu}
-          aria-label="Toggle menu"
-        >
-          <span className="material-icon">
-            {isMobileMenuOpen ? "close" : "menu"}
-          </span>
-        </button>
-      </div>
-
-      {/* Mobile Navigation */}
-      <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
-        <nav className="mobile-nav">
-          <Link
-            to="/"
-            className="mobile-nav-link"
-            onClick={handleNavClick}
-          >
-            Home
-          </Link>
-          <Link
-            to="/moreOnAlgorithms"
-            className="mobile-nav-link"
-            onClick={handleNavClick}
-          >
-            Algorithms
-          </Link>
-          <Link
-            to="/about"
-            className="mobile-nav-link"
-            onClick={handleNavClick}
-          >
-            About
-          </Link>
-          <Link
-            to="/algo/bubble_sort"
-            className="mobile-nav-link mobile-start-button"
-            onClick={handleNavClick}
-          >
-            <span>Start Challenge</span>
-            <span className="material-icon">play_arrow</span>
-          </Link>
-        </nav>
-      </div>
-
-      {/* AlgoMenu overlay */}
-      {showMenu && <AlgoMenu showMenuClick={showMenuClick} />}
+      {menuOpen && <nav id="mobile-navigation" className="mobile-navigation" aria-label="Mobile navigation">{links.map((link) => <NavLink key={link.to} to={link.to} end={link.end} onClick={() => setMenuOpen(false)}>{link.label}<Icon name="arrow-up-right" size={18} /></NavLink>)}<Link to="/algo/bubble_sort" onClick={() => setMenuOpen(false)} className="mobile-challenge">Start a challenge <Icon name="play" size={18} /></Link></nav>}
     </header>
   );
 }

@@ -1,82 +1,109 @@
-import "./pageStyles/AlgorithmsPage.css";
-import React from "react";
 import { Link } from "react-router-dom";
-import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
+import AlgorithmArt from "../components/AlgorithmArt";
+import Icon from "../components/Icon";
+import "./pageStyles/AlgorithmsPage.css";
+
+const algorithms = [
+  {
+    id: "bubble_sort",
+    name: "Bubble Sort",
+    number: "01",
+    level: "Beginner friendly",
+    complexity: "O(n²)",
+    method: "Compare & swap",
+    description: "Small swaps. Big progress. Compare neighboring values and watch the largest ones rise to the end.",
+  },
+  {
+    id: "selection_sort",
+    name: "Selection Sort",
+    number: "02",
+    level: "Beginner friendly",
+    complexity: "O(n²)",
+    method: "Find the minimum",
+    description: "Find the smallest value, give it a home, and repeat. Build a sorted list one good choice at a time.",
+  },
+  {
+    id: "heap_sort",
+    name: "Heap Sort",
+    number: "03",
+    level: "A step further",
+    complexity: "O(n log n)",
+    method: "Build & extract",
+    description: "Turn a list into a tree. Use the structure of a heap to bring a little order to the chaos.",
+  },
+  {
+    id: "merge_sort",
+    name: "Merge Sort",
+    number: "04",
+    level: "A step further",
+    complexity: "O(n log n)",
+    method: "Divide & conquer",
+    description: "Break the problem into smaller pieces, then bring them back together in the right order.",
+  },
+];
 
 export default function AlgorithmsPage() {
-  const [algorithmsToDisplay, setAlgorithmsToDisplay] = React.useState([]);
-  const [displayAlgo, setDisplayAlgo] = React.useState(false);
-
-  React.useEffect(() => {
-    let algorithms = [];
-    for (let algorithm in AlgorithmDescriptions) {
-      if (AlgorithmDescriptions.hasOwnProperty(algorithm))
-        algorithms.push(algorithm);
-    }
-    setAlgorithmsToDisplay(algorithms);
-  }, [AlgorithmDescriptions]);
-
-  React.useEffect(() => {
-    if (algorithmsToDisplay) setDisplayAlgo(true);
-  }, [algorithmsToDisplay]);
-
-  const getEmoji = (algorithm) => {
-    switch (algorithm) {
-      case "bubble_sort":
-        return "🫧";
-      case "selection_sort":
-        return "☐☑";
-      case "heap_sort":
-        return "🌳";
-      case "merge_sort":
-        return "➗👑";
-      default:
-        return "";
-    }
-  };
-
   return (
-    <main className="algoPage">
-      <div className="page-header">
-        <h2>Select Your Challenge</h2>
-        <p>
-          Choose an algorithm to test your skills against. Each challenge offers a unique problem-solving experience.
-        </p>
-      </div>
-      
-      <div className="algorithms-sections">
-        <div className="algorithm-category">
-          <h3>Sorting Algorithms</h3>
-          <div className="algorithm-grid">
-            {displayAlgo &&
-              algorithmsToDisplay.map((algorithm) => {
-                const emoji = getEmoji(algorithm);
-                const algoName = algorithm
-                  .split("_")
-                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                  .join(" ");
-                const description = AlgorithmDescriptions[algorithm]?.detailedDescription?.simpleExplanation || "";
-                
-                return (
-                  <div key={algorithm} className="algorithm-card">
-                    <div className="card-header">
-                      <h4>{algoName} {emoji}</h4>
-                    </div>
-                    <p className="card-description">{description}</p>
-                    <div className="card-actions">
-                      <Link className="challenge-button" to={`/algo/${algorithm}`}>
-                        Challenge
-                      </Link>
-                      <Link className="learn-more-button" to={`/moreOnAlgorithms/${algorithm}`}>
-                        Learn More
-                      </Link>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
+    <main className="algorithm-library">
+      <header className="library-intro">
+        <div>
+          <p className="library-eyebrow"><span /> The algorithm library</p>
+          <h1>A little logic.<br />A worthy opponent.</h1>
         </div>
-      </div>
+        <p className="library-intro-description">
+          Get to know the algorithms, then go head to head.
+          Pick a challenge and turn understanding into instinct.
+        </p>
+      </header>
+
+      <section aria-labelledby="library-sorting-title">
+        <div className="library-section-heading">
+          <div className="library-section-label">
+            <h2 id="library-sorting-title">Sorting algorithms</h2>
+            <span className="library-count">04</span>
+          </div>
+          <p>Different approaches. One sorted list.</p>
+        </div>
+
+        <div className="library-grid">
+          {algorithms.map((algorithm) => (
+            <article className="library-card" key={algorithm.id} aria-labelledby={`${algorithm.id}-title`}>
+              <div className={`library-card-visual library-card-visual--${algorithm.id}`}>
+                <span className="library-card-number">/ {algorithm.number}</span>
+                <span className="library-card-method">{algorithm.method}</span>
+                <AlgorithmArt algorithm={algorithm.id} />
+              </div>
+              <div className="library-card-content">
+                <div className="library-card-meta">
+                  <span className="library-level"><span />{algorithm.level}</span>
+                  <span className="library-complexity" title="Average time complexity">{algorithm.complexity}</span>
+                </div>
+                <h3 id={`${algorithm.id}-title`}>{algorithm.name}</h3>
+                <p className="library-card-description">{algorithm.description}</p>
+                <div className="library-card-actions">
+                  <Link className="library-challenge" to={`/algo/${algorithm.id}`} aria-label={`Challenge ${algorithm.name}`}>
+                    <Icon name="play" size={15} />
+                    Challenge
+                    <Icon name="arrow-right" size={16} />
+                  </Link>
+                  <Link className="library-learn" to={`/moreOnAlgorithms/${algorithm.id}`} aria-label={`Learn ${algorithm.name}`}>
+                    Learn the logic <Icon name="arrow-up-right" size={16} />
+                  </Link>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <aside className="library-start-note">
+        <span className="library-note-icon"><Icon name="book" size={21} /></span>
+        <div>
+          <h2>New to sorting? You’re in the right place.</h2>
+          <p>Start with Bubble Sort. Learn the steps, choose an easy pace, and make your first move.</p>
+        </div>
+        <Link to="/moreOnAlgorithms/bubble_sort">Start learning <Icon name="arrow-right" size={17} /></Link>
+      </aside>
     </main>
   );
 }

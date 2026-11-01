@@ -1,187 +1,33 @@
-.selectionSort{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.gameLayout .selectionSort, .gameLayout .selectionSortUser { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.gameLayout .selectionSort { gap: 18px; }
+.gameLayout .numbersToSort, .gameLayout .userValuesToSort { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.gameLayout .numbersToSort { min-height: 90px; padding-bottom: 18px; }
+.gameLayout .selectionSort .values, .gameLayout .selectionSortUser .values { display: flex; align-items: center; justify-content: center; width: 58px; height: 58px; padding: 0; flex-shrink: 0; border: 1px solid #e4dfd6; border-radius: 10px; background: #faf8f4; color: #5e5c50; font-size: 19px; font-weight: 600; text-align: center; }
+.gameLayout .selectionSort .valueSorted { background: #e9f0e3; border-color: #c9d8bf; color: #53664a; }
+.gameLayout .colorMeanings { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; color: var(--text-secondary); font-size: 10px; }
+.gameLayout .sortedColor, .gameLayout .unsortedColor { display: inline-flex; align-items: center; gap: 5px; }
+.gameLayout #sorted, .gameLayout #unsorted { width: 9px; height: 9px; margin: 0; border: 1px solid #d7ded2; border-radius: 2px; background: #e9f0e3; }
+.gameLayout #unsorted { background: #faf8f4; border-color: #e4dfd6; }
+.gameLayout .currentValues { color: var(--text-secondary); text-align: left; font-size: 12px; }
+.gameLayout .userValuesToSort { flex: 1; }
+.gameLayout .selectionSortUser .userValues { cursor: pointer; color: #485b3e; background: #fff; border-color: #cfd9c7; transition: opacity .15s, border-color .15s, background .15s; }
+.gameLayout .selectionSortUser .userValues:hover { background: #e7efdf; border-color: #93a984; }
+.gameLayout .selectionSortUser .highlightBox { border-color: #6e895d; box-shadow: 0 0 0 3px #7f97712b; background: #dce8d1; opacity: 1; }
+.gameLayout .obscureUnselected { opacity: .55; }
+
+@media (max-width: 960px) {
+  .gameLayout .selectionSort .values, .gameLayout .selectionSortUser .values { width: 48px; height: 48px; font-size: 16px; }
 }
 
-.numbersToSort{
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+@media (max-width: 680px) {
+  .gameLayout .numbersToSort { min-height: 90px; gap: 5px; }
+  .gameLayout .numbersToSort .values { width: 30px; height: 36px; font-size: 12px; border-radius: 6px; }
+  .gameLayout .userValuesToSort { display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center; gap: 14px; }
+  .gameLayout .userValuesToSort .values { width: 48px; height: 48px; font-size: 16px; }
+  .gameLayout .currentValues { margin-top: auto; padding-top: 10px; }
 }
 
-.values{
-    text-align: center;
-    width: 2rem;
-    height: 2rem;
-    padding: 2rem;
-    background-color: white;
-    color: black;
-    font-weight: bold;
-    font-size: 2rem;
-    border-radius: 1.5rem;
-    cursor: not-allowed;
-}
-
-.valueSorted{
-    background-color:  rgba(97, 137, 47, 1);
-}
-
-.colorMeanings{
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    flex: 0.25;
-}
-
-.sortedColor, .unsortedColor{
-    display: flex;
-    align-items: center;
-}
-
-#sorted, #unsorted{
-    display: inline-block;
-    margin: 0;
-    margin-right: 0.5rem;
-    width: 1rem;
-    height: 1rem;
-    align-items: center;
-}
-
-#sorted{
-    background-color:rgba(97, 137, 47, 1);
-}
-
-#unsorted{
-    background-color: white;
-}
-
-.currentValues{
-    text-align: left;
-    font-size: 2rem;
-}
-
-
-/* Styling for arrows */
-.selectionSort .second{
-    filter: brightness(50%);
-}
-
-
-/* Selection Sort User styling */
-
-.selectionSortUser{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.userValuesToSort{
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.userValues{
-    background-color: black;
-    border: 1px solid var(--primary-color);
-    color: white;
-    cursor: pointer;
-}
-
-.highlightBox{
-    box-shadow: 0px 0px 1rem white;
-}
-
-.obscureUnselected{
-    opacity: 50%;
-}
-
-/* mobile responsiveness */
-
-@media (max-width: 1224px) {
-    .values{
-        width: 1.5rem;
-        height: 1.5rem;
-        padding: 1.5rem;
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 920px) {
-    .userValuesToSort{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        place-items: center;
-        row-gap: 1rem;
-    }
-    .userValuesToSort .values{
-        width: 2rem;
-        height: 2rem;
-        padding: 2rem;
-        font-size: 2rem;
-        border-radius: 1.5rem;
-    }
-    .currentValues{
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 700px){
-    .numbersToSort .values{
-        width: 1rem;
-        height: 1rem;
-        padding: 1rem;
-        font-size: 1rem;
-        border-radius: 1rem;
-    }
-}
-
-@media (max-width: 500px){
-    .numbersToSort{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        place-items: center;
-        row-gap: 1rem;
-    }
-    .userValuesToSort .values{
-        width: 1.2rem;
-        height: 1.2rem;
-        padding: 1.2rem;
-        font-size: 1.2rem;
-        border-radius: 0.5rem;
-    }
-    .colorMeanings{
-        margin-top: 1rem;
-    }
-}
-
-@media (max-width: 300px){
-    .numbersToSort .values{
-        width: 0.8rem;
-        height: 0.8rem;
-        padding: 0.8rem;
-        font-size: 0.8rem;
-        border-radius: 0.5rem;
-    }
-    .currentValues{
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 290px){
-    .userValuesToSort .values{
-        width: 1rem;
-        height: 1rem;
-        padding: 1rem;
-        font-size: 1rem;
-        border-radius: 0.5rem;
-    }
-    .userSide{
-        padding: 0.5rem;
-    }
+@media (max-width: 370px) {
+  .gameLayout .numbersToSort { gap: 3px; }
+  .gameLayout .numbersToSort .values { width: 26px; height: 32px; font-size: 10px; }
 }

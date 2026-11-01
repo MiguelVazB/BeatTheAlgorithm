@@ -1,10 +1,11 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { lazy, Suspense, useLayoutEffect } from "react";
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const AlgorithmsPage = lazy(() => import("./pages/AlgorithmsPage"));
 const About = lazy(() => import("./pages/About"));
-const NavBar = lazy(() => import("./components/NavBar"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const GameLayout = lazy(() => import("./pages/GameLayout"));
 const WorkInProgressPage = lazy(() => import("./pages/WorkInProgressPage"));
@@ -26,14 +27,16 @@ function App() {
   
   return (
     <div className="App">
+      <a className="skip-link" href="#main-content" onClick={(event) => { event.preventDefault(); document.getElementById('main-content')?.focus(); document.getElementById('main-content')?.scrollIntoView(); }}>Skip to content</a>
+      <NavBar />
+      <div className="page-outlet" id="main-content" tabIndex={-1}>
       <Suspense
         fallback={
-          <div className="loading-container">
-            <div className="loading-icon"></div>
+          <div className="loading-container" role="status" aria-label="Loading page">
+            <div className="loading-icon" aria-hidden="true"></div>
           </div>
         }
       >
-        <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
 
@@ -53,6 +56,8 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+      </div>
+      <Footer />
     </div>
   );
 }

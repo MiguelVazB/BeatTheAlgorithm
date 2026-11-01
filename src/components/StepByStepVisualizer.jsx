@@ -1,5 +1,6 @@
 import React from "react";
 import "./componentStyles/StepByStepVisualizer.css";
+import Icon from "./Icon";
 
 const StepByStepVisualizer = ({ algorithm, steps, sampleData }) => {
   const [currentStepIndex, setCurrentStepIndex] = React.useState(0);
@@ -249,13 +250,13 @@ const StepByStepVisualizer = ({ algorithm, steps, sampleData }) => {
         <div className="step-counter">
           Step {currentStepIndex + 1} of {steps.length}
         </div>
-        <div className="step-content">
+        <div className="step-content" aria-live="polite" aria-atomic="true">
           {steps[currentStepIndex]}
         </div>
         <div className="current-step">
           {getVisualExample() && (
             <div className="step-example">
-              <h4>Example:</h4>
+              <h4>The working array</h4>
               <p className="example-description">{getVisualExample().description}</p>
               <div className="array-visualization">
                 {getVisualExample().data.map((value, index) => (
@@ -287,27 +288,31 @@ const StepByStepVisualizer = ({ algorithm, steps, sampleData }) => {
 
       <div className="step-controls">
         <button
+          type="button"
           className="step-btn prev-btn"
           onClick={prevStep}
           disabled={steps.length === 0}
         >
-          ← Previous
+          <Icon name="arrow-left" size={15} /> Previous
         </button>
 
         <button
+          type="button"
           className="step-btn play-btn"
           onClick={togglePlay}
+          aria-pressed={isPlaying}
           disabled={steps.length === 0}
         >
-          {isPlaying ? '⏸️ Pause' : '▶️ Play'}
+          <Icon name={isPlaying ? "pause" : "play"} size={14} /> {isPlaying ? "Pause" : "Play"}
         </button>
 
         <button
+          type="button"
           className="step-btn next-btn"
           onClick={nextStep}
           disabled={steps.length === 0}
         >
-          Next →
+          Next <Icon name="arrow-right" size={15} />
         </button>
       </div>
 
@@ -315,9 +320,12 @@ const StepByStepVisualizer = ({ algorithm, steps, sampleData }) => {
         {steps.map((_, index) => (
           <button
             key={index}
+            type="button"
             className={`step-indicator ${index === currentStepIndex ? 'active' : ''} ${index < currentStepIndex ? 'completed' : ''}`}
             onClick={() => goToStep(index)}
             title={`Go to step ${index + 1}`}
+            aria-label={`Go to step ${index + 1}`}
+            aria-current={index === currentStepIndex ? "step" : undefined}
           />
         ))}
       </div>

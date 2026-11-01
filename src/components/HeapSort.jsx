@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowsComponent } from "./ArrowsComponent";
 import { getDifficultyTimeInterval } from "../utils/difficultyConfig";
+import { getRelativePoint } from "../utils/elementGeometry";
 import "./componentStyles/HeapSort.css";
 
 export const HeapSort = ({
@@ -13,13 +14,13 @@ export const HeapSort = ({
   const [valuesToSort, setValuesToSort] = React.useState([]); // stores original values
   const [circleValues, setCircleValues] = React.useState([]); // stores values being changed
   const [lines, setLines] = React.useState([]);
-  const [containerRect, setContainerRect] = React.useState(null);
 
   const [showArrows, setShowArrows] = React.useState(false);
 
   const [startAlgo, setStartAlgo] = React.useState(false);
   const winnerRef = React.useRef(winner);
 
+  const heapRef = React.useRef(null);
   const binaryTreeRef = React.useRef(null);
 
   const [firstArrowPosition, setFirstArrowPosition] = React.useState(-1);
@@ -35,173 +36,32 @@ export const HeapSort = ({
     setCircleValues([...randomNumbers]);
   }, [randomNumbers]);
 
-  React.useEffect(() => {
-    setContainerRect(binaryTreeRef.current.getBoundingClientRect());
-  }, [circleValues]);
+  React.useLayoutEffect(() => {
+    const heap = heapRef.current;
+    const tree = binaryTreeRef.current;
+    if (!heap || !tree) return;
 
-  React.useEffect(() => {
-    const handleResize = () => {
-      if (binaryTreeRef.current) {
-        const rect = binaryTreeRef.current.getBoundingClientRect();
-        setContainerRect(rect);
-      }
-    };
-
-    if (binaryTreeRef.current) {
-      const rect = binaryTreeRef.current.getBoundingClientRect();
-      setContainerRect(rect);
-    }
-
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // draw lines that connect the nodes
-  React.useEffect(() => {
     const updateLines = () => {
-      if (!containerRect) return;
-      let updatedLines = [];
-      for (let i = 0; i < circleValues.length; i++) {
-        let containerX = containerRect.left + window.scrollX;
-        let containerY = containerRect.top + window.scrollY;
-        let containerWidth = containerRect.width;
-        let containerHeight = containerRect.height;
-        const svgStyle = {
-          width: containerWidth,
-          height: containerHeight,
-          position: "absolute",
-          top: 0,
-          left: 0,
-        };
-        if (i === 0) {
-          let point1 =
-            binaryTreeRef.current.children[0].getBoundingClientRect();
-          let x1 = point1.left + point1.width / 2 - containerX;
-          let y1 = point1.top + point1.height / 2 - containerY;
-
-          let point2 =
-            binaryTreeRef.current.children[1].getBoundingClientRect();
-          let x2 = point2.left + point2.width / 2 - containerX;
-          let y2 = point2.top + point2.height / 2 - containerY;
-
-          updatedLines.push(
-            <div
-              className="lineContainer"
-              key={`${i}${x1}-${x2}-${y2}`}
-              style={{
-                position: "absolute",
-                width: "100%",
-                height: "auto",
-              }}
-            >
-              <svg style={svgStyle}>
-                <line
-                  className="treeEdge"
-                  x1={x1}
-                  y1={y1 + point1.height / 4}
-                  x2={x2}
-                  y2={y2 + point2.height / 4}
-                />
-              </svg>
-            </div>
-          );
-
-          point2 = binaryTreeRef.current.children[2].getBoundingClientRect();
-          x2 = point2.left + point2.width / 2 - containerX;
-          y2 = point2.top + point2.height / 2 - containerY;
-
-          updatedLines.push(
-            <div
-              className="lineContainer"
-              key={`${i}${x1}-${x2}-${y2}`}
-              style={{
-                position: "absolute",
-                width: "100%",
-                height: "auto",
-              }}
-            >
-              <svg style={svgStyle}>
-                <line
-                  className="treeEdge"
-                  x1={x1}
-                  y1={y1 + point1.height / 4}
-                  x2={x2}
-                  y2={y2 + point2.height / 4}
-                />
-              </svg>
-            </div>
-          );
-        } else {
-          if (2 * i + 1 < circleValues.length) {
-            var point1 =
-              binaryTreeRef.current.children[i].getBoundingClientRect();
-            var x1 = point1.left + point1.width / 2 - containerX;
-            var y1 = point1.top + point1.height / 2 - containerY;
-
-            var point2 =
-              binaryTreeRef.current.children[2 * i + 1].getBoundingClientRect();
-            var x2 = point2.left + point2.width / 2 - containerX;
-            var y2 = point2.top + point2.height / 2 - containerY;
-
-            updatedLines.push(
-              <div
-                className="lineContainer"
-                key={`${i}${x1}-${x2}-${y2}`}
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "auto",
-                }}
-              >
-                <svg style={svgStyle}>
-                  <line
-                    className="treeEdge"
-                    x1={x1}
-                    y1={y1 + point1.height / 4}
-                    x2={x2}
-                    y2={y2 + point2.height / 4}
-                  />
-                </svg>
-              </div>
-            );
-          }
-
-          if (2 * i + 2 < circleValues.length) {
-            point2 =
-              binaryTreeRef.current.children[2 * i + 2].getBoundingClientRect();
-            x2 = point2.left + point2.width / 2 - containerX;
-            y2 = point2.top + point2.height / 2 - containerY;
-
-            updatedLines.push(
-              <div
-                className="lineContainer"
-                key={`${i}${x1}-${x2}-${y2}`}
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "auto",
-                }}
-              >
-                <svg style={svgStyle}>
-                  <line
-                    className="treeEdge"
-                    x1={x1}
-                    y1={y1 + point1.height / 4}
-                    x2={x2}
-                    y2={y2 + point2.height / 4}
-                  />
-                </svg>
-              </div>
-            );
-          }
-        }
-      }
-      setLines([...updatedLines]);
+      const origin = heap.getBoundingClientRect();
+      const centers = Array.from(tree.children, (node) => getRelativePoint(node.getBoundingClientRect(), origin));
+      // In array order, each child belongs to floor((childIndex - 1) / 2).
+      setLines(centers.slice(1).map((child, index) => {
+        const parent = centers[Math.floor(index / 2)];
+        return { x1: parent.x, y1: parent.y, x2: child.x, y2: child.y };
+      }));
     };
 
     updateLines();
-  }, [circleValues, binaryTreeRef, containerRect]);
+    const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(updateLines);
+    observer?.observe(heap);
+    observer?.observe(tree);
+    for (const node of tree.children) observer?.observe(node);
+    window.addEventListener("resize", updateLines);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", updateLines);
+    };
+  }, [circleValues]);
 
   React.useEffect(() => {
     if (countDownOver) {
@@ -442,7 +302,7 @@ export const HeapSort = ({
   }, [startAlgo, winner]);
 
   return (
-    <div className="heapSort">
+    <div className="heapSort" ref={heapRef}>
       <div className="originalValues">
         <div className="orValues">Original Values:</div>
         {valuesToSort.map((value, index) => {
@@ -461,7 +321,9 @@ export const HeapSort = ({
           );
         })}
       </div>
-      {lines}
+      <svg className="heap-tree-edges" aria-hidden="true">
+        {lines.map((line, index) => <line key={index} className="treeEdge" {...line} />)}
+      </svg>
       {showArrows && (
         <ArrowsComponent
           firstArrowPos={firstArrowPosition}

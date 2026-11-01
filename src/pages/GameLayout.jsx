@@ -1,11 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./pageStyles/GameLayout.css";
-import "./pageStyles/AlgorithmsPage.css";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate, Link } from "react-router-dom";
 import AlgorithmDescriptions from "../AlgorithmDescriptions.json";
-import { useWindowSize } from "react-use";
+import Icon from "../components/Icon";
 import { useSortingGame } from "../hooks/useSortingGame";
-import { WinnerOverlay, AlgorithmHeader, GameContainer } from "../components/common/SortingGameUI";
+import { WinnerOverlay, AlgorithmHeader, GameContainer, GameDialog } from "../components/common/SortingGameUI";
 import {
   generateXRandomNumbers,
   generateXUniqueRandomNumbers,
@@ -64,7 +64,14 @@ export default function GameLayout({ algo: propAlgo }) {
     return <Navigate to="/not-found" replace />;
   }
 
-  // Use the common sorting game hook
+  return <SortingGame key={algo} algo={algo} />;
+}
+
+GameLayout.propTypes = { algo: PropTypes.string };
+SortingGame.propTypes = { algo: PropTypes.oneOf(["bubble_sort", "selection_sort", "heap_sort", "merge_sort"]).isRequired };
+
+function SortingGame({ algo }) {
+  // Each algorithm gets its own game session when the route changes.
   const {
     countDownOver,
     showWinner,
@@ -84,12 +91,16 @@ export default function GameLayout({ algo: propAlgo }) {
 
   const [randomValues, setRandomValues] = React.useState([]);
 
-  const algoInfoRef = React.useRef(null);
-  const instructionsRef = React.useRef(null);
-  const difficultyRef = React.useRef(null);
+  const [setupStep, setSetupStep] = React.useState(0);
   const difficulties = ["easy", "intermediate", "hard", "impossible"];
+  const algorithmName = algo.split("_").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 
-  const { width, height } = useWindowSize();
+  React.useEffect(() => {
+    if (difficulty && !showWinner) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previousOverflow; };
+  }, [difficulty, showWinner]);
 
   React.useEffect(() => {
     let randomNumbers;
@@ -101,7 +112,7 @@ export default function GameLayout({ algo: propAlgo }) {
       randomNumbers = generateXRandomNumbers(9);
     }
     setRandomValues(randomNumbers);
-  }, []);
+  }, [algo]);
 
   React.useEffect(() => {
     if (difficulty.length > 0 && !countDownOver) {
@@ -197,91 +208,49 @@ export default function GameLayout({ algo: propAlgo }) {
     );
   }
 
-  function hideAndShowNextOverlay(overlay) {
-    if (overlay === "algoInfo") {
-      algoInfoRef.current.style.display = "none";
-      instructionsRef.current.style.display = "block";
-    } else {
-      instructionsRef.current.style.display = "none";
-      difficultyRef.current.style.display = "flex";
-    }
-  }
-
   return (
     <main className="gameLayout">
-      <div className="overlay difficultyOverlay" ref={difficultyOverlayRef}>
-        <div ref={algoInfoRef} className="algoDescription algoInfo">
-          <p className="infoTitle">
-            {String(algo)
-              .split("_")
-              .map((x) => {
-                return x.charAt(0).toUpperCase() + x.slice(1) + " ";
-              })}
-          </p>
-          <p className="description">
-            {AlgorithmDescriptions[algo]?.description}
-          </p>
-          <button
-            className="nextOverlayButton"
-            onClick={() => hideAndShowNextOverlay("algoInfo")}
-          >{`Next >`}</button>
-        </div>
-        <div ref={difficultyRef} className="difficultySection modern-card difficultySelection">
-          <p className="modern-title">Choose Difficulty</p>
-          <div className="difficultyOptions">
-            {width >= 768 ? (
-              // Desktop: Show difficulty buttons
-              <div className="difficulty-buttons">
-                {difficulties.map((diff) => (
-                  <button
-                    key={diff}
-                    className={`difficulty-btn ${selectedDifficulty === diff ? `active ${diff}` : ''}`}
-                    onClick={() => setSelectedDifficulty(diff)}
-                  >
-                    {diff.charAt(0).toUpperCase() + diff.slice(1)}
-                  </button>
-                ))}
+      <GameDialog className="difficultyOverlay" overlayRef={difficultyOverlayRef} labelId="game-setup-title">
+        <div className="game-setup-card">
+          <div className="game-setup-topline">
+            <Link to="/moreOnAlgorithms" className="game-back-link">All algorithms</Link>
+            <span>Let’s get you ready</span>
+          </div>
+          <div className="game-setup-progress" aria-label={`Setup step ${setupStep + 1} of 3`}>
+            {["The idea", "How to play", "Your pace"].map((step, index) => (
+              <span key={step} className={index <= setupStep ? "is-current" : ""}><i>{index < setupStep ? <Icon name="check" size={12} /> : index + 1}</i>{step}</span>
+            ))}
+          </div>
+          <div className="game-setup-copy" aria-live="polite">
+            <p className="game-eyebrow">{algorithmName} challenge</p>
+            <h2 id="game-setup-title">{["A little order. A little competition.", "You’ve got the human advantage.", "Find your starting pace."][setupStep]}</h2>
+            {setupStep === 0 && <p>{AlgorithmDescriptions[algo]?.description}</p>}
+            {setupStep === 1 && <>
+              <p>{({
+                bubble_sort: "Pop the numbers on your side from smallest to largest. Your choices build the sorted list. Need a fresh attempt? Hit Reset.",
+                selection_sort: "Select two numbers to swap their places. Keep swapping until your row runs from smallest to largest.",
+                heap_sort: "Pick up a number, then click a position to place it. If that position is filled, you’ll pick up its number. Arrange the whole row from smallest to largest.",
+                merge_sort: "Select numbers from smallest to largest to fill your answer row above. Click a number in your answer to send it back and try again.",
+              })[algo]}</p>
+              <div className="game-setup-note"><Icon name="check" size={18} /><span>Same numbers. Same goal. Sort your list before the computer.</span></div>
+            </>}
+            {setupStep === 2 && <>
+              <p>The difficulty controls how quickly the computer sorts. Start easy and work your way up.</p>
+              <div className="difficulty-buttons" role="group" aria-label="Computer difficulty">
+                {difficulties.map((diff, index) => <button key={diff} type="button" className={`difficulty-btn ${selectedDifficulty === diff ? "active" : ""}`} aria-pressed={selectedDifficulty === diff} onClick={() => setSelectedDifficulty(diff)}><span className="difficulty-bars" aria-hidden="true">{[0, 1, 2, 3].map((bar) => <i key={bar} className={bar <= index ? "filled" : ""} />)}</span>{diff.charAt(0).toUpperCase() + diff.slice(1)}</button>)}
               </div>
-            ) : (
-              // Mobile: Show select dropdown
-              <select
-                name="difficulty"
-                id="difficulty"
-                className="modern-select"
-                value={selectedDifficulty}
-                onChange={(e) => setSelectedDifficulty(e.target.value)}
-              >
-                <option value="easy">Easy</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="hard">Hard</option>
-                <option value="impossible">Impossible</option>
-              </select>
-            )}
-            <button
-              className="setDifficultyButton modern-btn"
-              onClick={setDifficultyFunction}
-            >
-              Start
+              <p className="difficultyExplanation">{AlgorithmDescriptions[algo]?.difficulty[selectedDifficulty]}</p>
+            </>}
+          </div>
+          <div className="game-setup-actions">
+            {setupStep > 0 ? <button type="button" className="game-secondary-button" onClick={() => setSetupStep((step) => step - 1)}>Back</button> : <span className="game-setup-duration">A quick challenge. A lasting lesson.</span>}
+            <button type="button" className="game-primary-button" onClick={setupStep === 2 ? setDifficultyFunction : () => setSetupStep((step) => step + 1)} autoFocus>
+              {setupStep === 2 ? "Let’s play" : "Continue"}<Icon name={setupStep === 2 ? "play" : "arrow-right"} size={18} />
             </button>
           </div>
-          <div className="difficultyExplanation modern-difficulty-explanation">
-            <div className={`modern-difficulty-level ${selectedDifficulty}`}>
-              {AlgorithmDescriptions[algo]?.difficulty[selectedDifficulty]}
-            </div>
-          </div>
         </div>
-        <div ref={instructionsRef} className="algoDescription gameInstructions">
-          <p className="infoTitle">Instructions</p>
-          <p className="instructions">
-            {AlgorithmDescriptions[algo]?.instructions}
-          </p>
-          <button
-            className="nextOverlayButton"
-            onClick={() => hideAndShowNextOverlay("instructions")}
-          >{`Next >`}</button>
-        </div>
-      </div>
-      <div className="overlay countDown" ref={countDownRef} />
+      </GameDialog>
+      <div className="overlay countDown" ref={countDownRef} aria-live="assertive" aria-label="Game starts in" />
       {showWinner && (
         <WinnerOverlay winner={winner} algo={algo} onRestart={resetGame} />
       )}
@@ -290,6 +259,7 @@ export default function GameLayout({ algo: propAlgo }) {
         difficulty={difficulty}
         songPlaying={songPlaying}
         onToggleMusic={toggleMusic}
+        countDownOver={countDownOver}
       />
       <GameContainer
         algo={algo}

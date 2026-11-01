@@ -34,6 +34,8 @@ The website is up! Follow this link to beat the algorithm: https://miguelvazb.gi
 
 To use Beat the Algorithm locally, follow these steps:
 
+Use Node.js 20.19+ on the 20.x line, or Node.js 22.12+ (see the [Vite 7 requirements](https://v7.vite.dev/guide/migration#node-js-support)).
+
 1\. Clone the GitHub repository: `git clone https://github.com/MiguelVazB/BeatTheAlgorithm.git`
 
 2\. Navigate to the project directory: `cd BeatTheAlgorithm`
@@ -42,6 +44,12 @@ To use Beat the Algorithm locally, follow these steps:
 
 4\. Start the development server: `npm run dev`
 
-5\. Access the website locally: Open your web browser and visit `http://localhost:5173/`
+5\. Access the website locally: Open your web browser and visit `http://localhost:5173/BeatTheAlgorithm/`.
+
+For a reproducible install from the committed lockfile, use `npm ci`. After changing dependencies, run `npm install` and commit both `package.json` and `package-lock.json`.
+
+The project explicitly approves esbuild's install script through npm's `allowScripts` setting. It installs the native build binary used by Vite; no global npm configuration is needed.
+
+Run `npm run build` to verify the production bundle, `npm run preview` to serve it locally, `npm run lint` to check source quality, and `npm audit` to inspect dependency advisories. The existing source has lint errors that need a separate cleanup. Some development-only audit findings originate in the ESLint toolchain's transitive `minimatch` dependency; avoid forcing an incompatible major version through an override.
 
 ## Let's beat those algorithms together!

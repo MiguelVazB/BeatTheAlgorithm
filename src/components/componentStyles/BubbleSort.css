@@ -1,355 +1,48 @@
-.bubbleSort{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.algorithm{
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.temporaryBubble{
-    flex: 1;
-    display: flex;
-    font-size: 1.5rem;
-    align-items: center;
-    margin-top: 1rem;
-    justify-content: space-around;
-}
-
-.valueToSortComputer p{
-    padding: 0;
-    margin: 0;
-}
-
-.valueToSortComputer, .tempBubble{
-    cursor: not-allowed;
-}
-
-.valueToSort, .tempBubble{
-    position: relative;
-    display: inline-block;
-    background-image: radial-gradient(rgba(63, 137, 174, 0.2) 55%, rgba(255, 255, 255, 0.8));
-    border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
-    padding: 2.5rem;
-    text-align: center;
-    font-weight: bold;
-    font-size: 2rem;
-}
-
-.tempBubble{
-    display: flex;
-    width: 0.5rem;
-    height: 0.5rem;
-    margin: 1rem;
-    justify-content: center;
-}
-
-.tempBubbleValue{
-    margin: 0;
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-}
-
-.bubbleDot{
-    position: absolute;
-    width: 1rem;
-    height: 1rem;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border: 0;
-    top: 1rem;
-    right: 2.4rem;
-}
-
-.smallBubbleDot{
-    top: 2.2rem;
-    right: 1.8rem;
-    width: 0.6rem;
-    height: 0.6rem;
-    background-color: rgba(255, 255, 255, 0.4);
-}
-
-.sortedValues{
-    flex: 1;
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 1rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-/* Bubble Sort user */
-
-.bubbleSortUser{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    justify-self: center;
-    row-gap: 2rem;
-}
-
-.userCLickableBubbles{
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-}
-
-.bubblePopAnimate{
-    animation: popBubble 0.5s ease-in-out forwards;
-}
-
-.userAttempt{
-    flex: 1;
-    display: flex;
-    font-size: 2.5rem;
-    justify-content: space-evenly;
-}
-
-.userBubbles{
-    cursor: pointer;
-}
-
-.userBubbles p{
-    margin: 0;
-}
-
-.buttonWrapper{
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.resetBtn{
-    font-size: 1rem;
-    font-weight: bold;
-    color: white;
-    background-color: rgba(32,32,32, 0.5);
-    padding: 1rem 2rem;
-    margin: auto;
-    border-radius: 1rem;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.resetBtn:hover{
-    background-color: rgba(97, 137, 47, 1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Animations */
+.gameLayout .bubbleSort, .gameLayout .bubbleSortUser { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; }
+.gameLayout .algorithm, .gameLayout .userCLickableBubbles { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.gameLayout .algorithm { min-height: 78px; padding-bottom: 16px; }
+.gameLayout .bubbleSort .valueToSort, .gameLayout .bubbleSortUser .valueToSort, .gameLayout .tempBubble { position: relative; display: flex; justify-content: center; align-items: center; flex-shrink: 0; width: 58px; height: 58px; padding: 0; border: 1px solid #d7ded2; border-radius: 50%; background: #edf2e8; color: #485b3e; font-size: 19px; font-weight: 600; text-align: center; }
+.gameLayout .bubbleSort .valueToSort { background: #fbf2ec; border-color: #edddd2; color: #9d512e; }
+.gameLayout .valueToSortComputer, .gameLayout .tempBubble { cursor: default; }
+.gameLayout .valueToSortComputer p, .gameLayout .userBubbles p, .gameLayout .tempBubbleValue { padding: 0; margin: 0; line-height: 1; color: inherit; }
+.gameLayout .bubbleDot { display: none; }
+.gameLayout .temporaryBubble { display: flex; align-items: center; gap: 12px; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border-color); }
+.gameLayout .temporaryBubble > p { flex-shrink: 0; margin: 0; font-size: 11px; }
+.gameLayout .tempBubble { width: 35px; height: 35px; border-style: dashed; background: transparent; }
+.gameLayout .tempBubbleValue { font-size: 13px; }
+.gameLayout .sortedValues { flex: 1; display: flex; justify-content: space-evenly; gap: 8px; font-size: 13px; font-weight: 500; color: var(--text-secondary); }
+.gameLayout .bubbleSortUser { gap: 20px; }
+.gameLayout .userBubbles { cursor: pointer; transition: background .15s ease, border-color .15s ease; }
+.gameLayout .bubbleSortUser .userBubbles:hover { background: #dbe7d1; border-color: #8da67b; }
+.gameLayout .bubbleSortUser > .userAttempt { display: flex; justify-content: space-evenly; gap: 8px; min-height: 28px; font-size: 18px; font-weight: 500; color: #53664a; }
+.gameLayout .buttonWrapper { display: flex; justify-content: center; }
+.gameLayout .resetBtn { display: inline-flex; padding: 8px 20px; background: transparent; border: 1px solid #cad6c1; border-radius: 6px; color: #53664a; font-size: 11px; font-weight: 500; box-shadow: none; }
+.gameLayout .resetBtn:hover { background: #e2eadc; border-color: #9baf8d; }
+.gameLayout .bubblePopAnimate { animation: popBubble .35s ease-in-out forwards; }
 
 @keyframes popBubble {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.2);
-        opacity: 0.7;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 0;
-    }
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.12); opacity: .65; }
+  100% { transform: scale(.85); opacity: 0; }
 }
 
-/* Responsive Design */
-
-@media (max-width: 1224px) {
-    .valueToSort{
-        width: 1.5rem;
-        height: 1.5rem;
-        padding: 2rem;
-        font-size: 1.5rem;
-    }
-    .tempBubble{
-        width: 0.8rem;
-        height: 0.8rem;
-        padding: 2rem;
-    }
-    .tempBubbleValue{
-        font-size: 1rem;
-    }
-    .bubbleDot{
-        width: 0.8rem;
-        height: 0.8rem;
-        top: 0.8rem;
-        right: 1.8rem;
-    } 
-    .smallBubbleDot{
-        top: 1.8rem;
-        right: 1.2rem;
-        width: 0.6rem;
-        height: 0.6rem;
-    }
+@media (max-width: 960px) {
+  .gameLayout .bubbleSort .valueToSort, .gameLayout .bubbleSortUser .valueToSort { width: 49px; height: 49px; font-size: 16px; }
 }
 
-@media (max-width: 860px) {
-    .valueToSortComputer{
-        width: 1.1rem;
-        height: 1.1rem;
-        padding: 1.6rem;
-        font-size: 1.2rem;
-    }
-    .userCLickableBubbles{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        place-items: center;
-        row-gap: 0.5rem;
-    }
-    .tempBubble{
-        width: 0.5rem;
-        height: 0.5rem;
-        padding: 1.3rem;
-        margin: 0;
-        margin-left: 0.2rem;
-    }
-    .temporaryBubble{
-        font-size: 1.2rem;
-    }
-    .tempBubbleValue{
-        font-size: 0.7rem;
-    }
-    .valueToSortComputer .bubbleDot{
-        width: 0.6rem;
-        height: 0.6rem;
-        top: 0.7rem;
-        right: 1.5rem;
-    } 
-    .valueToSortComputer .smallBubbleDot{
-        top: 1.4rem;
-        right: 1.1rem;
-        width: 0.4rem;
-        height: 0.4rem;
-    }
-    .tempBubble .bubbleDot{
-        width: 0.5rem;
-        height: 0.5rem;
-        top: 0.4rem;
-        right: 1.1rem;
-    }   
-    .tempBubble .smallBubbleDot{
-        top: 0.9rem;
-        right: 0.8rem;
-        width: 0.3rem;
-        height: 0.3rem;
-    }
-    .sortedValues{
-        margin-top: 0;
-    }
+@media (max-width: 680px) {
+  .gameLayout .bubbleSort .valueToSort { width: 30px; height: 30px; font-size: 12px; }
+  .gameLayout .algorithm { gap: 5px; min-height: 78px; }
+  .gameLayout .userCLickableBubbles { display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center; gap: 12px; }
+  .gameLayout .bubbleSortUser .valueToSort { width: 44px; height: 44px; font-size: 15px; }
+  .gameLayout .temporaryBubble { gap: 7px; flex-wrap: wrap; margin-top: 18px; padding-top: 14px; }
+  .gameLayout .temporaryBubble > p { font-size: 10px; }
+  .gameLayout .sortedValues { flex-basis: 100%; padding-top: 10px; font-size: 12px; }
+  .gameLayout .bubbleSortUser { gap: 18px; }
+  .gameLayout .bubbleSortUser > .userAttempt { font-size: 15px; }
 }
 
-@media (max-width: 700px) {
-    .valueToSortComputer{
-        width: 0.8rem;
-        height: 0.8rem;
-        padding: 1rem;
-        font-size: 0.8rem;
-    }
-    .tempBubble{
-        width: 0.2rem;
-        height: 0.2rem;
-        padding: 1rem;
-    }
-    .temporaryBubble{
-        font-size: 1rem;
-    }
-    .tempBubbleValue{
-        font-size: 0.5rem;
-    }
-    .valueToSortComputer .bubbleDot{
-        width: 0.5rem;
-        height: 0.5rem;
-        top: 0.4rem;
-        right: 0.9rem;
-    } 
-    .valueToSortComputer .smallBubbleDot{
-        top: 1rem;
-        right: 0.6rem;
-        width: 0.3rem;
-        height: 0.3rem;
-    }
-    .tempBubble .bubbleDot{
-        width: 0.3rem;
-        height: 0.3rem;
-        top: 0.3rem;
-        right: 0.8rem;
-    }   
-    .tempBubble .smallBubbleDot{
-        top: 0.6rem;
-        right: 0.5rem;
-        width: 0.2rem;
-        height: 0.2rem;
-    }
-    .userAttempt{
-        font-size: 2rem;
-    }
-    .sortedValues{
-        font-size: 1.2rem;
-    }
+@media (max-width: 370px) {
+  .gameLayout .bubbleSort .valueToSort { width: 26px; height: 26px; font-size: 10px; }
+  .gameLayout .algorithm { gap: 3px; }
 }
-
-@media (max-width: 475px){
-    .algorithm{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        place-items: center;
-        row-gap: 0.5rem;
-    }
-    .userBubbles{
-        width: 0.8rem;
-        height: 0.8rem;
-        padding: 1rem;
-        font-size: 0.8rem;
-    }
-    .userBubbles .bubbleDot{
-        width: 0.5rem;
-        height: 0.5rem;
-        top: 0.4rem;
-        right: 0.9rem;
-    } 
-    .userBubbles .smallBubbleDot{
-        top: 1rem;
-        right: 0.6rem;
-        width: 0.3rem;
-        height: 0.3rem;
-    }
-    .sortedValues{
-        font-size: 0.8rem;
-    }
-    .userAttempt{
-        font-size: 1.5rem;
-    }
-    .temporaryBubble{
-        font-size: 0.7rem;
-    }
-}
-
-@media (max-width: 320px){
-    .sortedValues{
-        font-size: 0.6rem;
-    }
-    .temporaryBubble{
-        font-size: 0.6rem;
-    }
-    .tempBubble{
-        width: 0.1rem;
-        height: 0.1rem;
-        padding: 0.6rem;
-    }
-    .userAttempt{
-        font-size: 1rem;
-    }
-} 
