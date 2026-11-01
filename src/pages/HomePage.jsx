@@ -26,7 +26,7 @@ export default function HomePage() {
           <div className="home-hero-actions"><Link className="button-primary" to="/algo/bubble_sort">Let’s play <Icon name="arrow-up-right" size={18} /></Link><Link className="home-explore-link" to="/moreOnAlgorithms">Explore algorithms <Icon name="arrow-right" size={17} /></Link></div>
           <div className="home-hero-note"><span className="home-note-icon"><Icon name="check" size={13} /></span>No sign-up. Just you and the algorithm.</div>
         </div>
-        <div className="home-hero-visual"><div className="home-visual-coordinate" aria-hidden="true">[ curiosity → understanding ]</div><SortingPreview /><div className="home-visual-note"><span className="home-note-spark"><Icon name="spark" size={17} /></span><span>Big ideas.<br /><strong>One small step at a time.</strong></span></div></div>
+        <div className="home-hero-visual"><div className="home-visual-coordinate" aria-hidden="true">[ curiosity → understanding ]</div><SortingPreview /></div>
       </section>
       <div className="home-feature-strip"><span><Icon name="code" size={17} />4 sorting algorithms</span><span><Icon name="layers" size={17} />4 difficulty levels</span><span><Icon name="book" size={17} />Learn by doing</span><span className="home-strip-trailing">Made for your next “aha.” <Icon name="spark" size={15} /></span></div>
       <section className="home-challenges" aria-labelledby="challenges-title">

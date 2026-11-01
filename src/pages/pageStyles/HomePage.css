@@ -50,10 +50,6 @@
 .preview-play:hover { background: #3c5040; }
 .preview-next { display: inline-flex; gap: 8px; align-items: center; font-size: 11px; min-height: 36px; background: transparent; border: 0; padding: 8px 0 8px 10px; color: #5c6951; }
 .preview-next:hover { color: var(--primary-color); }
-.home-visual-note { position: absolute; left: -20px; bottom: 4px; padding: 13px 17px; display: flex; align-items: center; gap: 11px; background: #f4ece2; border: 1px solid #e9dfd0; border-radius: 9px; transform: rotate(-4deg); box-shadow: 0 3px 4px #20262203; }
-.home-note-spark { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid #dbc6ac; border-radius: 50%; color: #a27d4a; }
-.home-visual-note > span:last-child { font-size: 9px; color: #8e795e; line-height: 1.7; }
-.home-visual-note strong { font-weight: 500; color: #6a5944; }
 .home-feature-strip { border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 40px; padding: 24px 0; }
 .home-feature-strip > span { display: inline-flex; align-items: center; gap: 9px; font-size: 12px; color: var(--text-secondary); }
 .home-feature-strip svg { color: #8b977f; }
@@ -136,7 +132,6 @@
   .home-hero-actions .button-primary { font-size: 13px; padding: 0 22px; }
   .home-hero-note { margin-top: 16px; }
   .home-hero-visual { max-width: 460px; width: 100%; justify-self: center; margin-top: 0; }
-  .home-visual-note { left: -6px; bottom: 2px; }
   .preview-body { padding: 22px; }
   .preview-chart { height: 177px; gap: 9px; }
   .preview-code code { font-size: 9px; }
