@@ -1,17 +1,19 @@
-.navbar-container { position: sticky; top: 0; z-index: 600; border-bottom: 1px solid var(--border-color); background: #f8f7f3f5; backdrop-filter: blur(16px); }
+.navbar-container { position: sticky; top: 0; z-index: 600; border-bottom: 1px solid var(--border-color); background: var(--nav-background, #f8f7f3f5); backdrop-filter: blur(16px); }
 .navbar-inner { max-width: 1200px; width: calc(100% - var(--page-gutter) * 2); min-height: var(--nav-height); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; line-height: 1.22; font-weight: 600; letter-spacing: -.025em; }
-.brand-mark { display: inline-grid; place-items: center; width: 37px; height: 37px; border-radius: 11px; background: var(--text-primary); color: #f5f3ec; }
+.brand-mark { display: inline-grid; place-items: center; width: 37px; height: 37px; border-radius: 11px; background: var(--strong-background, var(--text-primary)); color: var(--strong-ink, #f5f3ec); }
 .brand-second-line { display: block; }
 .brand-period { color: var(--primary-color); }
 .desktop-nav { display: flex; align-items: center; gap: 32px; }
 .nav-link { position: relative; color: var(--text-secondary); font-size: 13px; font-weight: 500; padding: 9px 0; }
 .nav-link:hover, .nav-link.is-active { color: var(--text-primary); }
 .nav-link.is-active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; margin: auto; height: 3px; width: 3px; background: var(--primary-color); border-radius: 50%; }
-.nav-actions { display: flex; align-items: center; }
-.nav-challenge-link { display: inline-flex; align-items: center; gap: 14px; font-size: 12px; font-weight: 600; padding: 11px 15px; background: var(--text-primary); color: white; border: 1px solid var(--text-primary); border-radius: 8px; }
-.nav-challenge-link:hover { background: #3a453c; color: white; }
-.mobile-menu-button { display: none; border: 1px solid var(--border-color); background: white; width: 42px; height: 42px; padding: 8px; align-items: center; justify-content: center; }
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+.theme-toggle { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 40px; height: 40px; padding: 0; border: 1px solid var(--border-color); background: var(--card-background); color: var(--text-primary); border-radius: 9px; }
+.theme-toggle:hover { background: var(--button-hover-bg); border-color: var(--text-muted); }
+.nav-challenge-link { display: inline-flex; align-items: center; gap: 14px; font-size: 12px; font-weight: 600; padding: 11px 15px; background: var(--strong-background, var(--text-primary)); color: white; border: 1px solid var(--strong-background, var(--text-primary)); border-radius: 8px; }
+.nav-challenge-link:hover { background: var(--strong-hover, #3a453c); color: white; }
+.mobile-menu-button { display: none; border: 1px solid var(--border-color); background: var(--card-background, white); width: 42px; height: 42px; padding: 8px; align-items: center; justify-content: center; }
 .mobile-navigation { display: none; }
 @media (max-width: 720px) {
   .desktop-nav, .nav-challenge-link { display: none; }
@@ -19,5 +21,5 @@
   .mobile-navigation { position: absolute; top: 100%; left: 0; right: 0; display: flex; flex-direction: column; padding: 12px 20px 20px; border-bottom: 1px solid var(--border-color); background: var(--background-color); box-shadow: 0 20px 24px #2026220a; }
   .mobile-navigation a { padding: 15px 8px; display: flex; justify-content: space-between; align-items: center; font-size: .9rem; border-bottom: 1px solid var(--border-color); }
   .mobile-navigation a.active { color: var(--primary-color); }
-  .mobile-navigation .mobile-challenge { margin-top: 12px; padding: 14px; background: var(--text-primary); color: white; border-radius: 8px; }
+  .mobile-navigation .mobile-challenge { margin-top: 12px; padding: 14px; background: var(--strong-background, var(--text-primary)); color: white; border-radius: 8px; }
 }

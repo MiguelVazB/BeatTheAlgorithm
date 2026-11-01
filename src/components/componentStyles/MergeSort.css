@@ -1,20 +1,20 @@
 .gameLayout .mergeSort { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
 .gameLayout .merge-current-board { position: relative; padding-bottom: 28px; }
 .gameLayout .merge-current-values { display: grid; grid-template-columns: repeat(var(--value-count, 8), minmax(0, 1fr)); gap: 10px; justify-items: center; }
-.gameLayout .merge-current-value { width: 100%; max-width: 46px; height: 42px; display: grid; place-items: center; border: 1px solid #dedfd5; border-radius: 7px; background: #faf8f4; color: #5e5c50; font-size: 15px; font-weight: 600; }
+.gameLayout .merge-current-value { width: 100%; max-width: 46px; height: 42px; display: grid; place-items: center; border: 1px solid var(--border-color, #dedfd5); border-radius: 7px; background: var(--surface-subtle, #faf8f4); color: var(--sage-ink, #5e5c50); font-size: 15px; font-weight: 600; }
 .gameLayout .merge-pass-history { display: flex; flex-direction: column; gap: 12px; }
 .gameLayout .merge-buffer { min-height: 24px; color: var(--text-secondary); font-size: 12px; }
 .gameLayout .merge-pass { display: flex; align-items: center; gap: 14px; font-size: 11px; color: var(--text-secondary); }
 .gameLayout .merge-pass > span { flex: 0 0 66px; }
 .gameLayout .merge-pass > div { flex: 1; display: flex; align-items: center; justify-content: center; min-width: 0; }
-.gameLayout .merge-pass > div > span { flex: 1; text-align: center; min-width: 0; padding: 7px 2px; background: #eef2e8; color: #53664a; font-variant-numeric: tabular-nums; }
+.gameLayout .merge-pass > div > span { flex: 1; text-align: center; min-width: 0; padding: 7px 2px; background: var(--surface-subtle, #eef2e8); color: var(--sage-ink, #53664a); font-variant-numeric: tabular-nums; }
 .gameLayout .merge-pass .merge-run-start { margin-left: 9px; }
 .gameLayout .mergeSortUser { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 26px; }
 .gameLayout .userAttemptContainer, .gameLayout .mergeSortUser .valuesToSortUserContainer { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 12px; justify-items: center; align-items: center; }
-.gameLayout .userAttemptContainer { padding-bottom: 22px; border-bottom: 1px solid #dce3d5; }
-.gameLayout .userAttemptContainer .userAttempt, .gameLayout .valuesToSortUserContainer .valueToSortMerge { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 50px; height: 46px; padding: 0; border: 1px dashed #bdcdb0; border-radius: 8px; background: #fbfcf9; color: #485b3e; font-size: 17px; font-weight: 600; cursor: pointer; }
-.gameLayout .valuesToSortUserContainer .valueToSortMerge { border-style: solid; border-color: #cfd9c7; background: #fff; }
-.gameLayout .valuesToSortUserContainer .valueToSortMerge:hover:not(:disabled), .gameLayout .userAttemptContainer .userAttempt:hover:not(:disabled) { background: #e2ecd9; border-color: #8da67b; }
+.gameLayout .userAttemptContainer { padding-bottom: 22px; border-bottom: 1px solid var(--border-color, #dce3d5); }
+.gameLayout .userAttemptContainer .userAttempt, .gameLayout .valuesToSortUserContainer .valueToSortMerge { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 50px; height: 46px; padding: 0; border: 1px dashed var(--border-color, #bdcdb0); border-radius: 8px; background: var(--surface-subtle, #fbfcf9); color: var(--sage-ink, #485b3e); font-size: 17px; font-weight: 600; cursor: pointer; }
+.gameLayout .valuesToSortUserContainer .valueToSortMerge { border-style: solid; border-color: var(--border-color, #cfd9c7); background: var(--card-background, #fff); }
+.gameLayout .valuesToSortUserContainer .valueToSortMerge:hover:not(:disabled), .gameLayout .userAttemptContainer .userAttempt:hover:not(:disabled) { background: var(--surface-sage, #e2ecd9); border-color: var(--border-emphasis, #8da67b); }
 .gameLayout .mergeSortUser button:disabled { cursor: default; opacity: .55; }
 @media (max-width: 760px) {
   .gameLayout .merge-current-values { gap: 6px; }

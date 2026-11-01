@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import Icon from './Icon';
+import { useTheme } from '../hooks/useTheme';
 import './componentStyles/NavBar.css';
 
 export function BrandMark() {
@@ -8,6 +9,7 @@ export function BrandMark() {
 }
 const links = [{ to: '/', label: 'Playground', end: true }, { to: '/moreOnAlgorithms', label: 'Algorithms' }, { to: '/about', label: 'About' }];
 export default function NavBar() {
+  const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef(null);
   const menuButtonRef = useRef(null);
@@ -31,6 +33,7 @@ export default function NavBar() {
         <Link to="/" className="brand" aria-label="Beat the Algorithm home" onClick={() => setMenuOpen(false)}><BrandMark /><span>Beat the<span className="brand-second-line">Algorithm<span className="brand-period">.</span></span></span></Link>
         <nav className="desktop-nav" aria-label="Main navigation">{links.map((link) => <NavLink key={link.to} to={link.to} end={link.end} className={({ isActive }) => `nav-link${isActive ? ' is-active' : ''}`}>{link.label}</NavLink>)}</nav>
         <div className="nav-actions">
+          <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} aria-pressed={theme === 'dark'} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}><Icon name={theme === 'dark' ? 'sun' : 'moon'} size={19} /></button>
           <Link className="nav-challenge-link" to="/algo/bubble_sort">Start a challenge <Icon name="arrow-up-right" size={16} /></Link>
           <button className="mobile-menu-button" ref={menuButtonRef} onClick={() => setMenuOpen(!menuOpen)} type="button" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} aria-controls="mobile-navigation"><Icon name={menuOpen ? 'close' : 'menu'} size={23} /></button>
         </div>

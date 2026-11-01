@@ -1,8 +1,8 @@
 .gameLayout .bubbleSort, .gameLayout .bubbleSortUser { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; }
 .gameLayout .algorithm, .gameLayout .userCLickableBubbles { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .gameLayout .algorithm { min-height: 78px; padding-bottom: 16px; }
-.gameLayout .bubbleSort .valueToSort, .gameLayout .bubbleSortUser .valueToSort, .gameLayout .tempBubble { position: relative; display: flex; justify-content: center; align-items: center; flex-shrink: 0; width: 58px; height: 58px; padding: 0; border: 1px solid #d7ded2; border-radius: 50%; background: #edf2e8; color: #485b3e; font-size: 19px; font-weight: 600; text-align: center; }
-.gameLayout .bubbleSort .valueToSort { background: #fbf2ec; border-color: #edddd2; color: #9d512e; }
+.gameLayout .bubbleSort .valueToSort, .gameLayout .bubbleSortUser .valueToSort, .gameLayout .tempBubble { position: relative; display: flex; justify-content: center; align-items: center; flex-shrink: 0; width: 58px; height: 58px; padding: 0; border: 1px solid var(--border-color, #d7ded2); border-radius: 50%; background: var(--surface-sage, #edf2e8); color: var(--sage-ink, #485b3e); font-size: 19px; font-weight: 600; text-align: center; }
+.gameLayout .bubbleSort .valueToSort { background: var(--surface-warm, #fbf2ec); border-color: var(--warm-border, #edddd2); color: var(--warm-ink, #9d512e); }
 .gameLayout .valueToSortComputer, .gameLayout .tempBubble { cursor: default; }
 .gameLayout .valueToSortComputer p, .gameLayout .userBubbles p, .gameLayout .tempBubbleValue { padding: 0; margin: 0; line-height: 1; color: inherit; }
 .gameLayout .bubbleDot { display: none; }
@@ -13,11 +13,11 @@
 .gameLayout .sortedValues { flex: 1; display: flex; justify-content: space-evenly; gap: 8px; font-size: 13px; font-weight: 500; color: var(--text-secondary); }
 .gameLayout .bubbleSortUser { gap: 20px; }
 .gameLayout .userBubbles { cursor: pointer; transition: background .15s ease, border-color .15s ease; }
-.gameLayout .bubbleSortUser .userBubbles:hover { background: #dbe7d1; border-color: #8da67b; }
-.gameLayout .bubbleSortUser > .userAttempt { display: flex; justify-content: space-evenly; gap: 8px; min-height: 28px; font-size: 18px; font-weight: 500; color: #53664a; }
+.gameLayout .bubbleSortUser .userBubbles:hover { background: var(--surface-sage, #dbe7d1); border-color: var(--border-emphasis, #8da67b); }
+.gameLayout .bubbleSortUser > .userAttempt { display: flex; justify-content: space-evenly; gap: 8px; min-height: 28px; font-size: 18px; font-weight: 500; color: var(--sage-ink, #53664a); }
 .gameLayout .buttonWrapper { display: flex; justify-content: center; }
-.gameLayout .resetBtn { display: inline-flex; padding: 8px 20px; background: transparent; border: 1px solid #cad6c1; border-radius: 6px; color: #53664a; font-size: 11px; font-weight: 500; box-shadow: none; }
-.gameLayout .resetBtn:hover { background: #e2eadc; border-color: #9baf8d; }
+.gameLayout .resetBtn { display: inline-flex; padding: 8px 20px; background: transparent; border: 1px solid var(--border-color, #cad6c1); border-radius: 6px; color: var(--sage-ink, #53664a); font-size: 11px; font-weight: 500; box-shadow: none; }
+.gameLayout .resetBtn:hover { background: var(--surface-sage, #e2eadc); border-color: var(--border-emphasis, #9baf8d); }
 .gameLayout .bubblePopAnimate { animation: popBubble .35s ease-in-out forwards; }
 
 @keyframes popBubble {

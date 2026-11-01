@@ -103,7 +103,7 @@
 }
 
 .library-card:hover {
-  border-color: #c9cfc2;
+  border-color: var(--border-color, #c9cfc2);
   box-shadow: 0 8px 26px #20262207;
 }
 
@@ -115,12 +115,12 @@
   height: 228px;
   padding: 35px 42px 14px;
   border-bottom: 1px solid var(--border-color);
-  background: #f3f4ed;
+  background: var(--surface-subtle, #f3f4ed);
 }
 
-.library-card-visual--selection_sort { background: #f8f0e8; }
-.library-card-visual--heap_sort { background: #eef1eb; }
-.library-card-visual--merge_sort { background: #f1f0e9; }
+.library-card-visual--selection_sort { background: var(--surface-subtle, #f8f0e8); }
+.library-card-visual--heap_sort { background: var(--surface-subtle, #eef1eb); }
+.library-card-visual--merge_sort { background: var(--surface-subtle, #f1f0e9); }
 
 .library-card-visual > .algorithm-art {
   width: 100%;
@@ -132,7 +132,7 @@
 .library-card-method {
   position: absolute;
   top: 19px;
-  color: #818579;
+  color: var(--text-muted, #818579);
   font-family: monospace;
   font-size: 10px;
   letter-spacing: 0.6px;
@@ -164,7 +164,7 @@
   height: 5px;
   width: 5px;
   border-radius: 50%;
-  background: #8e9c7d;
+  background: var(--surface-subtle, #8e9c7d);
 }
 
 .library-complexity {
@@ -215,7 +215,7 @@
   min-height: 41px;
   padding: 0 13px;
   border-radius: 6px;
-  background: var(--text-primary);
+  background: var(--strong-background, var(--text-primary));
   color: #fff;
   transition: background 160ms ease;
 }
@@ -233,7 +233,7 @@
   margin-top: 38px;
   border: 1px solid var(--border-color);
   border-radius: 10px;
-  background: #f0f1e9;
+  background: var(--surface-subtle, #f0f1e9);
 }
 
 .library-note-icon {
@@ -242,9 +242,9 @@
   width: 46px;
   height: 46px;
   flex-shrink: 0;
-  border: 1px solid #d9ddce;
+  border: 1px solid var(--border-color, #d9ddce);
   border-radius: 10px;
-  color: #7c896d;
+  color: var(--sage-ink, #7c896d);
 }
 
 .library-start-note h2 {

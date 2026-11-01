@@ -48,6 +48,8 @@ Use Node.js 20.19+ on the 20.x line, or Node.js 22.12+ (see the [Vite 7 requirem
 
 For a reproducible install from the committed lockfile, use `npm ci`. After changing dependencies, run `npm install` and commit both `package.json` and `package-lock.json`.
 
+Use the sun/moon button in the header to switch between light and dark mode. The site follows your system theme until you choose a mode, then remembers that choice in your browser. Both themes cover the games, sorting highlights, diagrams, and learning pages.
+
 The project explicitly approves esbuild's install script through npm's `allowScripts` setting. It installs the native build binary used by Vite; no global npm configuration is needed.
 
 Run `npm test` to check sorting correctness, animation cancellation, countdown and winner handling, player moves, and scroll geometry. Run `npm run build` to verify the production bundle, `npm run preview` to serve it locally, `npm run lint` to check source quality, and `npm audit` to inspect dependency advisories. The unused legacy algorithm menu still has lint findings. Some development-only audit findings originate in the ESLint toolchain's transitive `minimatch` dependency; avoid forcing an incompatible major version through an override.

@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 
 const paths = {
+  sun: 'M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4',
+  moon: 'M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z',
   'arrow-right': 'M4 12h16m-6-6 6 6-6 6', 'arrow-left': 'M20 12H4m6-6-6 6 6 6',
   'arrow-up-right': 'M6 18 18 6M6 6h12v12', 'chevron-right': 'm9 5 7 7-7 7',
   'chevron-left': 'm15 5-7 7 7 7', 'chevron-down': 'm5 9 7 7 7-7',

@@ -2,17 +2,17 @@
 .gameLayout .selectionSort { gap: 18px; }
 .gameLayout .numbersToSort, .gameLayout .userValuesToSort { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .gameLayout .numbersToSort { min-height: 90px; padding-bottom: 18px; }
-.gameLayout .selectionSort .values, .gameLayout .selectionSortUser .values { display: flex; align-items: center; justify-content: center; width: 58px; height: 58px; padding: 0; flex-shrink: 0; border: 1px solid #e4dfd6; border-radius: 10px; background: #faf8f4; color: #5e5c50; font-size: 19px; font-weight: 600; text-align: center; }
-.gameLayout .selectionSort .valueSorted { background: #e9f0e3; border-color: #c9d8bf; color: #53664a; }
+.gameLayout .selectionSort .values, .gameLayout .selectionSortUser .values { display: flex; align-items: center; justify-content: center; width: 58px; height: 58px; padding: 0; flex-shrink: 0; border: 1px solid var(--border-color, #e4dfd6); border-radius: 10px; background: var(--surface-subtle, #faf8f4); color: var(--sage-ink, #5e5c50); font-size: 19px; font-weight: 600; text-align: center; }
+.gameLayout .selectionSort .valueSorted { background: var(--surface-sage, #e9f0e3); border-color: var(--border-color, #c9d8bf); color: var(--sage-ink, #53664a); }
 .gameLayout .colorMeanings { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; color: var(--text-secondary); font-size: 10px; }
 .gameLayout .sortedColor, .gameLayout .unsortedColor { display: inline-flex; align-items: center; gap: 5px; }
-.gameLayout #sorted, .gameLayout #unsorted { width: 9px; height: 9px; margin: 0; border: 1px solid #d7ded2; border-radius: 2px; background: #e9f0e3; }
-.gameLayout #unsorted { background: #faf8f4; border-color: #e4dfd6; }
+.gameLayout #sorted, .gameLayout #unsorted { width: 9px; height: 9px; margin: 0; border: 1px solid var(--border-color, #d7ded2); border-radius: 2px; background: var(--surface-sage, #e9f0e3); }
+.gameLayout #unsorted { background: var(--surface-subtle, #faf8f4); border-color: var(--border-color, #e4dfd6); }
 .gameLayout .currentValues { color: var(--text-secondary); text-align: left; font-size: 12px; }
 .gameLayout .userValuesToSort { flex: 1; }
-.gameLayout .selectionSortUser .userValues { cursor: pointer; color: #485b3e; background: #fff; border-color: #cfd9c7; transition: opacity .15s, border-color .15s, background .15s; }
-.gameLayout .selectionSortUser .userValues:hover { background: #e7efdf; border-color: #93a984; }
-.gameLayout .selectionSortUser .highlightBox { border-color: #6e895d; box-shadow: 0 0 0 3px #7f97712b; background: #dce8d1; opacity: 1; }
+.gameLayout .selectionSortUser .userValues { cursor: pointer; color: var(--sage-ink, #485b3e); background: var(--card-background, #fff); border-color: var(--border-color, #cfd9c7); transition: opacity .15s, border-color .15s, background .15s; }
+.gameLayout .selectionSortUser .userValues:hover { background: var(--surface-sage, #e7efdf); border-color: var(--border-emphasis, #93a984); }
+.gameLayout .selectionSortUser .highlightBox { border-color: var(--border-emphasis, #6e895d); box-shadow: 0 0 0 3px #7f97712b; background: var(--surface-sage, #dce8d1); opacity: 1; }
 .gameLayout .obscureUnselected { opacity: .55; }
 
 @media (max-width: 960px) {

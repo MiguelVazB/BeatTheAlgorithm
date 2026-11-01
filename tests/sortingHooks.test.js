@@ -14,7 +14,7 @@ let SoundManager;
 let StepByStepVisualizer;
 const players = {};
 before(async () => {
-  server = await createServer({ server: { middlewareMode: true, watch: null }, appType: 'custom', optimizeDeps: { noDiscovery: true, include: [] } });
+  server = await createServer({ server: { middlewareMode: true, watch: null, hmr: false }, appType: 'custom', optimizeDeps: { noDiscovery: true, include: [] } });
   ({ useSortingAnimation } = await server.ssrLoadModule('/src/hooks/useSortingAnimation.js'));
   ({ useSortingGame } = await server.ssrLoadModule('/src/hooks/useSortingGame.js'));
   ({ SoundManager } = await server.ssrLoadModule('/src/utils/soundManager.js'));
