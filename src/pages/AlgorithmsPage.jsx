@@ -49,6 +49,15 @@ const algorithms = [
     method: "Partition around a pivot",
     description: "Pick a pivot and give each value a side. Sort the smaller partitions until everything finds its place.",
   },
+  {
+    id: "insertion_sort",
+    name: "Insertion Sort",
+    number: "06",
+    level: "Beginner friendly",
+    complexity: "O(n²)",
+    method: "Insert into the prefix",
+    description: "Take the next value and slide it into place. Grow an ordered prefix, one careful insertion at a time.",
+  },
 ];
 
 export default function AlgorithmsPage() {

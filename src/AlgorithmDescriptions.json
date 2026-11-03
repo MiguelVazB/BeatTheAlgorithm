@@ -122,5 +122,30 @@
       "spaceComplexity": "Partitioning is in place and uses O(1) auxiliary space. Recursive calls use O(log n) stack space on average and O(n) in the worst case. The saved animation frames use additional memory for visualization and are separate from the algorithm's auxiliary space.",
       "realWorldApplications": "Quick sort is useful for sorting arrays in memory when good average performance matters and equal values do not need to retain their original order. Its partitioning idea also underlies quickselect, which finds an order statistic such as the median without sorting the entire array. Practical sorting implementations often combine partitioning with other methods to handle small partitions and avoid poor worst-case behavior."
     }
+  },
+  "insertion_sort": {
+    "description": "Insertion sort grows an ordered prefix one value at a time. Take the next value and move it left past larger neighbors until it fits. The prefix stays ordered, but its values may move again when a smaller value arrives later.",
+    "instructions": "Select a number, then select another position to insert it there. The values between the two positions shift to make room. Arrange your row from smallest to largest before the computer finishes. Select the same number again to cancel your selection, or press Reset to restore your original row. You can use your own strategy; you do not have to follow the computer's moves.",
+    "difficulty": {
+      "easy": "The computer takes one visual step every 500 milliseconds.",
+      "intermediate": "The computer takes one visual step every 250 milliseconds.",
+      "hard": "The computer takes one visual step every 100 milliseconds.",
+      "impossible": "The computer takes one visual step every 10 milliseconds."
+    },
+    "detailedDescription": {
+      "simpleExplanation": "Insertion sort builds an ordered prefix at the left of the list. Starting with the second value, take the next value as the key and move it left past larger neighbors until it belongs. This visualization uses adjacent swaps to show each move. It swaps only when the left neighbor is strictly larger, so equal values keep their original order and the sort is stable. An ordered prefix is not a set of final positions: a smaller value encountered later can still shift those values right.",
+      "steps": {
+        "step1": "Treat the first value as an ordered prefix of length one.",
+        "step2": "Take the next value outside the prefix as the key.",
+        "step3": "Compare the key with its immediate left neighbor.",
+        "step4": "If the neighbor is larger, swap the two values. The key moves one place left; compare it with its new left neighbor.",
+        "step5": "Stop when the key reaches the beginning or its left neighbor is at most as large. Equal values stay in their original order.",
+        "step6": "The ordered prefix now includes one more value. Its values can still move when later keys are inserted.",
+        "step7": "Repeat with the next value until the prefix covers the whole list. The entire list is now sorted."
+      },
+      "timeComplexity": "Insertion sort takes O(n^2) time on average and in the worst case, when many values must move across the ordered prefix. An already sorted list takes O(n) time because each new key needs only one comparison and no swaps. Nearly sorted lists also need fewer moves.",
+      "spaceComplexity": "Insertion sort works in place and uses O(1) auxiliary space. The adjacent-swap version shown here needs only a few indices and a temporary value. Saved animation frames use additional memory for visualization and are separate from the algorithm's auxiliary space.",
+      "realWorldApplications": "Insertion sort works well for small or nearly sorted lists. It can maintain an ordered list as new values arrive, and hybrid sorting algorithms use it to finish small sections. Its stability is useful when equal values should preserve their original order."
+    }
   }
 }

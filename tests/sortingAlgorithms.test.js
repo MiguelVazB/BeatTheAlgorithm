@@ -128,6 +128,98 @@ test('quick sort exposes the quadratic worst case for ordered or equal inputs', 
   assert.deepEqual(partition.partitionRange, [0, 6]);
 });
 
+test('insertion sort distinguishes its sorted prefix from final positions and tracks the selected key', () => {
+  for (const input of cases) {
+    const frames = createSortingSteps('insertion_sort', input);
+    assert.equal(frames.filter((frame) => frame.type === 'prefix').length, input.length ? 1 : 0);
+    assert.equal(frames.filter((frame) => frame.type === 'insert').length, Math.max(0, input.length - 1));
+    let selectedValue;
+    let insertedCount = 1;
+    for (const [frameIndex, frame] of frames.entries()) {
+      assert.ok(Number.isInteger(frame.sortedPrefixLength));
+      assert.ok(frame.sortedPrefixLength >= 0 && frame.sortedPrefixLength <= input.length);
+      const prefix = frame.values.slice(0, frame.sortedPrefixLength);
+      assert.deepEqual(prefix, sorted(prefix), 'prefix highlight must always cover sorted values');
+      if (frame.type !== 'done') assert.deepEqual(frame.sortedIndices, [], 'a sorted prefix is not yet in its final positions');
+      if (frame.type === 'prefix') assert.equal(frame.sortedPrefixLength, 1);
+      if (frame.type === 'insert') selectedValue = frame.values[frame.insertionIndex];
+      if (frame.insertionIndex !== null) {
+        assert.ok(frame.insertionIndex >= 0 && frame.insertionIndex < input.length);
+        assert.equal(frame.values[frame.insertionIndex], selectedValue, 'the selected key must follow every swap');
+        assert.equal(frame.sortedPrefixLength, frame.insertionIndex);
+      }
+      if (frame.type === 'compare') assert.deepEqual(frame.comparedIndices, [frame.insertionIndex - 1, frame.insertionIndex]);
+      if (frame.type === 'swap') {
+        assert.equal(frame.insertionIndex, frames[frameIndex - 1].insertionIndex - 1);
+        assert.deepEqual(frame.swappedIndices, [frame.insertionIndex, frame.insertionIndex + 1]);
+      }
+      if (frame.type === 'inserted') {
+        insertedCount += 1;
+        assert.equal(frame.sortedPrefixLength, insertedCount);
+        assert.equal(frame.insertionIndex, null);
+      }
+    }
+    assert.equal(frames.at(-1).sortedPrefixLength, input.length);
+    assert.equal(frames.at(-1).insertionIndex, null);
+  }
+});
+
+test('insertion sort preserves equal-value order and never swaps equal neighbors', () => {
+  for (const input of [[2, 2, 2, 2], [3, 2, 3, 1, 2, 1], [0, -4, 0, 2, -4]]) {
+    // Follow original identities through the emitted swaps to verify stability.
+    const identities = input.map((value, originalIndex) => ({ value, originalIndex }));
+    const frames = createSortingSteps('insertion_sort', input);
+    for (const frame of frames) {
+      if (frame.type === 'swap') {
+        const [left, right] = frame.swappedIndices;
+        assert.ok(identities[left].value > identities[right].value, 'only strictly greater values may move past the key');
+        [identities[left], identities[right]] = [identities[right], identities[left]];
+      }
+      assert.deepEqual(frame.values, identities.map(({ value }) => value));
+    }
+    for (let index = 1; index < identities.length; index += 1) {
+      if (identities[index - 1].value === identities[index].value) {
+        assert.ok(identities[index - 1].originalIndex < identities[index].originalIndex);
+      }
+    }
+    if (input.every((value) => value === input[0])) assert.equal(frames.filter((frame) => frame.type === 'swap').length, 0);
+  }
+});
+
+test('insertion sort takes one comparison per new value on sorted input and one swap per inversion', () => {
+  for (let length = 1; length <= 12; length += 1) {
+    const ascending = Array.from({ length }, (_, index) => index);
+    const bestCase = createSortingSteps('insertion_sort', ascending);
+    assert.equal(bestCase.filter((frame) => frame.type === 'compare').length, length - 1);
+    assert.equal(bestCase.filter((frame) => frame.type === 'swap').length, 0);
+    const worstCase = createSortingSteps('insertion_sort', [...ascending].reverse());
+    const inversions = length * (length - 1) / 2;
+    assert.equal(worstCase.filter((frame) => frame.type === 'compare').length, inversions);
+    assert.equal(worstCase.filter((frame) => frame.type === 'swap').length, inversions);
+  }
+});
+
+test('insertion frames keep independent snapshots and other traces use neutral insertion metadata', () => {
+  const frames = createSortingSteps('insertion_sort', [3, 2, 1]);
+  const firstSwap = frames.find((frame) => frame.type === 'swap');
+  const secondSwap = frames.find((frame) => frame.type === 'swap' && frame !== firstSwap);
+  firstSwap.values[0] = 999;
+  firstSwap.swappedIndices[0] = 999;
+  firstSwap.insertionIndex = 999;
+  firstSwap.sortedPrefixLength = 999;
+  assert.deepEqual(frames[0].values, [3, 2, 1]);
+  assert.deepEqual(secondSwap.values, [2, 1, 3]);
+  assert.deepEqual(secondSwap.swappedIndices, [1, 2]);
+  assert.equal(secondSwap.insertionIndex, 1);
+  assert.equal(secondSwap.sortedPrefixLength, 1);
+  for (const algorithm of SORTING_ALGORITHMS.filter((algorithm) => algorithm !== 'insertion_sort')) {
+    for (const frame of createSortingSteps(algorithm, [3, 2, 1])) {
+      assert.equal(frame.insertionIndex, null);
+      assert.equal(frame.sortedPrefixLength, 0);
+    }
+  }
+});
+
 test('answer validation rejects incomplete, sparse, and duplicate-cheating answers', () => {
   assert.equal(isSortedAnswer([1, 1, 2], [2, 1, 1]), true);
   for (const answer of [[1, 2], [1, 2, 2], [null, 1, 2], Array(3), [1, 2, undefined], [2, 1, 1]]) assert.equal(isSortedAnswer(answer, [2, 1, 1]), false);

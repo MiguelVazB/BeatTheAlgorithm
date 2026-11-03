@@ -8,6 +8,17 @@ export function selectSwapValue(state, index) {
   return { values, selected: null, moves: state.moves + 1 };
 }
 
+export const createInsertionBoard = (values) => ({ values: [...values], selected: null, moves: 0 });
+export function selectInsertionValue(state, index) {
+  if (!Number.isInteger(index) || index < 0 || index >= state.values.length) return state;
+  if (state.selected === null) return { ...state, selected: index };
+  if (state.selected === index) return { ...state, selected: null };
+  const values = [...state.values];
+  const [value] = values.splice(state.selected, 1);
+  values.splice(index, 0, value);
+  return { values, selected: null, moves: state.moves + 1 };
+}
+
 export const createCarryBoard = (values) => ({ values: [...values], carried: null, moves: 0 });
 export function moveCarriedValue(state, index) {
   if (!Number.isInteger(index) || index < 0 || index >= state.values.length) return state;

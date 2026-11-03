@@ -1,4 +1,4 @@
-export const SORTING_ALGORITHMS = ['bubble_sort', 'selection_sort', 'heap_sort', 'merge_sort', 'quick_sort'];
+export const SORTING_ALGORITHMS = ['bubble_sort', 'selection_sort', 'heap_sort', 'merge_sort', 'quick_sort', 'insertion_sort'];
 
 export function isSortedAnswer(answer, original) {
   if (!original.length || answer.length !== original.length || Array.from(answer).some((value) => !Number.isFinite(value))) return false;
@@ -17,7 +17,7 @@ export function createSortingSteps(algorithm, input) {
   const emit = (type, description, details = {}) => steps.push({
     type, description, values: [...values], comparedIndices: [], swappedIndices: [],
     sortedIndices: [...sortedIndices], heapSize: values.length, minimumIndex: null,
-    pivotIndex: null, partitionRange: null,
+    pivotIndex: null, partitionRange: null, insertionIndex: null, sortedPrefixLength: 0,
     passes: passes.map((pass) => ({ ...pass, values: [...pass.values] })), ...details,
   });
   emit('start', 'Start with the unsorted list.');
@@ -147,7 +147,31 @@ export function createSortingSteps(algorithm, input) {
     sortPartition(0, values.length - 1);
   }
 
+  if (algorithm === 'insertion_sort') {
+    if (values.length) {
+      emit('prefix', 'The first value forms a sorted prefix. Later insertions may still move it.', { sortedPrefixLength: 1 });
+    }
+    for (let index = 1; index < values.length; index += 1) {
+      const key = values[index];
+      let cursor = index;
+      const details = () => ({ insertionIndex: cursor, sortedPrefixLength: cursor });
+      emit('insert', `Choose ${key} at position ${index + 1} to insert into the sorted prefix.`, details());
+      while (cursor > 0) {
+        emit('compare', `Compare ${values[cursor - 1]} with the selected value, ${key}.`, { ...details(), comparedIndices: [cursor - 1, cursor] });
+        // Strictly greater neighbors move right, preserving the order of equal values.
+        if (values[cursor - 1] <= key) break;
+        [values[cursor - 1], values[cursor]] = [values[cursor], values[cursor - 1]];
+        cursor -= 1;
+        emit('swap', `Move ${key} one position left and its larger neighbor one position right.`, { ...details(), swappedIndices: [cursor, cursor + 1] });
+      }
+      emit('inserted', `${key} is inserted. The first ${index + 1} values are sorted, but later insertions may still move them.`, { sortedPrefixLength: index + 1 });
+    }
+  }
+
   sortedIndices = values.map((_, index) => index);
-  emit('done', 'The entire list is sorted from smallest to largest.', { heapSize: algorithm === 'heap_sort' ? 0 : values.length });
+  emit('done', 'The entire list is sorted from smallest to largest.', {
+    heapSize: algorithm === 'heap_sort' ? 0 : values.length,
+    sortedPrefixLength: algorithm === 'insertion_sort' ? values.length : 0,
+  });
   return steps;
 }

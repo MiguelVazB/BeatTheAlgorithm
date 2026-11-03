@@ -23,6 +23,7 @@ let useSortingGame;
 let SoundManager;
 let StepByStepVisualizer;
 let QuickSort;
+let InsertionSort;
 let GameLayout;
 let AlgorithmsPage;
 let HomePage;
@@ -34,10 +35,11 @@ before(async () => {
   ({ useSortingGame } = await server.ssrLoadModule('/src/hooks/useSortingGame.js'));
   ({ SoundManager } = await server.ssrLoadModule('/src/utils/soundManager.js'));
   ({ default: StepByStepVisualizer } = await server.ssrLoadModule('/src/components/StepByStepVisualizer.jsx'));
-  for (const name of ['BubbleSort', 'SelectionSort', 'HeapSort', 'MergeSort', 'QuickSort']) {
+  for (const name of ['BubbleSort', 'SelectionSort', 'HeapSort', 'MergeSort', 'QuickSort', 'InsertionSort']) {
     players[name] = (await server.ssrLoadModule(`/src/components/${name}.jsx`))[`${name}User`];
   }
   ({ QuickSort } = await server.ssrLoadModule('/src/components/QuickSort.jsx'));
+  ({ InsertionSort } = await server.ssrLoadModule('/src/components/InsertionSort.jsx'));
   ({ default: GameLayout } = await server.ssrLoadModule('/src/pages/GameLayout.jsx'));
   ({ default: AlgorithmsPage } = await server.ssrLoadModule('/src/pages/AlgorithmsPage.jsx'));
   ({ default: HomePage } = await server.ssrLoadModule('/src/pages/HomePage.jsx'));
@@ -278,20 +280,137 @@ test('quick sort player blocks early input, cancels selection, resets, and sorts
   act(() => renderer.unmount());
 });
 
-test('quick sort is discoverable from home and the library, and its lesson route works', () => {
+test('insertion sort shows a moving zero key and distinguishes the ordered prefix from final positions', (context) => {
+  const clock = fakeClock(context);
+  const randomNumbers = [3, 2, 0, 2];
+  const frames = createSortingSteps('insertion_sort', randomNumbers);
+  const winners = [];
+  let renderer;
+  act(() => { renderer = create(React.createElement(InsertionSort, { randomNumbers, difficulty: 'Hard', countDownOver: true, winner: '', setWinner: (value) => winners.push(value) })); });
+  let sawZeroKeyAtFirstPosition = false;
+  let sawPrefixShrink = false;
+  for (let index = 0; index < frames.length; index += 1) {
+    if (index > 0) act(() => clock.tick(100));
+    const frame = frames[index];
+    const cards = renderer.root.findAll((element) => element.props.className?.startsWith('insertion-sort-card'));
+    const slots = renderer.root.findAll((element) => element.props.className === 'insertion-sort-slot');
+    assert.deepEqual(cards.map((card) => Number(card.children[0])), frame.values);
+    assert.equal(cards.filter((card) => card.props.className.includes('is-ordered')).length, frame.sortedPrefixLength);
+    assert.equal(cards.filter((card) => card.props.className.includes('is-final')).length, frame.type === 'done' ? randomNumbers.length : 0);
+    assert.equal(cards.filter((card) => card.props.className.includes('is-key')).length, frame.insertionIndex === null ? 0 : 1);
+    assert.equal(renderer.root.findByProps({ className: 'sort-step-description' }).children[0], frame.description);
+    if (frame.insertionIndex !== null) {
+      assert.ok(cards[frame.insertionIndex].props.className.includes('is-key'));
+      assert.ok(slots[frame.insertionIndex].props['aria-label'].includes(', key'));
+      assert.equal(Number(renderer.root.findByProps({ className: 'insertion-sort-key-label' }).findByType('strong').children[0]), frame.values[frame.insertionIndex]);
+      if (frame.insertionIndex === 0 && frame.values[0] === 0) sawZeroKeyAtFirstPosition = true;
+    }
+    if (frame.type !== 'done') {
+      assert.ok(slots.every((slot) => !slot.props['aria-label'].includes('final position')));
+      assert.ok(slots.slice(0, frame.sortedPrefixLength).every((slot) => slot.props['aria-label'].includes('may move later')));
+    }
+    if (index > 0 && frame.sortedPrefixLength < frames[index - 1].sortedPrefixLength) sawPrefixShrink = true;
+  }
+  assert.equal(sawZeroKeyAtFirstPosition, true);
+  assert.equal(sawPrefixShrink, true);
+  assert.deepEqual(winners, ['computer']);
+  assert.equal(clock.tasks.size, 0);
+  act(() => renderer.unmount());
+});
+
+test('insertion player guards every control, cancels selections, resets, and inserts through duplicate values', () => {
+  const winners = [];
+  const props = { randomNumbers: [3, 0, 2, 1, 1], setWinner: (value) => winners.push(value) };
+  let renderer;
+  act(() => { renderer = create(React.createElement(players.InsertionSort, props)); });
+  const buttons = () => renderer.root.findAllByType('button');
+  const values = () => buttons().filter((button) => button.props.className?.startsWith('insertion-sort-card')).map((button) => Number(button.children[0]));
+  const reset = () => buttons().at(-1);
+  assert.ok(buttons().every((button) => button.props.disabled));
+  act(() => { for (const button of buttons()) button.props.onClick(); });
+  assert.deepEqual(values(), props.randomNumbers);
+  assert.ok(buttons().slice(0, 5).every((button) => button.props['aria-pressed'] === false));
+  assert.deepEqual(winners, []);
+  act(() => renderer.update(React.createElement(players.InsertionSort, { ...props, active: true })));
+  act(() => buttons()[0].props.onClick());
+  assert.equal(buttons()[0].props['aria-pressed'], true);
+  assert.equal(buttons()[2].props['aria-label'], 'Insert 3 at position 3');
+  act(() => buttons()[0].props.onClick());
+  assert.equal(buttons()[0].props['aria-pressed'], false);
+  act(() => { buttons()[0].props.onClick(); buttons()[2].props.onClick(); });
+  assert.deepEqual(values(), [0, 2, 3, 1, 1]);
+  assert.equal(renderer.root.findByProps({ className: 'insertion-sort-player-controls' }).findByType('span').children[1], '1');
+  act(() => buttons()[3].props.onClick());
+  act(() => renderer.update(React.createElement(players.InsertionSort, { ...props, active: false })));
+  assert.ok(buttons().every((button) => button.props.disabled));
+  act(() => { buttons()[2].props.onClick(); reset().props.onClick(); });
+  assert.deepEqual(values(), [0, 2, 3, 1, 1]);
+  assert.equal(buttons()[3].props['aria-pressed'], true);
+  act(() => renderer.update(React.createElement(players.InsertionSort, { ...props, active: true })));
+  act(() => reset().props.onClick());
+  assert.deepEqual(values(), props.randomNumbers);
+  assert.ok(buttons().slice(0, 5).every((button) => button.props['aria-pressed'] === false));
+  assert.equal(renderer.root.findByProps({ className: 'insertion-sort-player-controls' }).findByType('span').children[1], '0');
+  act(() => { buttons()[0].props.onClick(); buttons()[4].props.onClick(); });
+  assert.deepEqual(values(), [0, 2, 1, 1, 3]);
+  assert.deepEqual(winners, []);
+  act(() => { buttons()[1].props.onClick(); buttons()[3].props.onClick(); });
+  assert.deepEqual(values(), [0, 1, 1, 2, 3]);
+  assert.deepEqual(winners, ['user']);
+  act(() => renderer.update(React.createElement(players.InsertionSort, { ...props, randomNumbers: [2, 0, 1], active: false })));
+  assert.deepEqual(values(), [2, 0, 1]);
+  assert.ok(buttons().every((button) => button.props.disabled));
+  act(() => renderer.unmount());
+});
+
+test('insertion lesson highlights its key and explains that the prefix can still move', () => {
+  const sample = [5, 2, 4, 1, 3, 2];
+  const frames = createSortingSteps('insertion_sort', sample);
+  let renderer;
+  act(() => { renderer = mountRoute(SpecificAlgoPage, '/moreOnAlgorithms/:algoname', '/moreOnAlgorithms/insertion_sort'); });
+  const keyAtFirst = frames.findIndex((frame) => frame.insertionIndex === 0);
+  const inserted = frames.findIndex((frame) => frame.type === 'inserted');
+  for (const index of [keyAtFirst, inserted, frames.length - 1]) {
+    act(() => renderer.root.findByType('input').props.onChange({ target: { value: String(index) } }));
+    const frame = frames[index];
+    const cards = renderer.root.findAll((element) => /(^|\s)array-element(\s|$)/.test(element.props.className ?? ''));
+    assert.deepEqual(cards.map((card) => Number(card.children[0])), frame.values);
+    assert.equal(cards.filter((card) => card.props.className.includes('ordered-prefix')).length, frame.sortedPrefixLength);
+    assert.equal(cards.filter((card) => card.props.className.includes('settled')).length, frame.type === 'done' ? sample.length : 0);
+    assert.equal(cards.filter((card) => card.props.className.includes('insertion-key')).length, frame.insertionIndex === null ? 0 : 1);
+    if (frame.insertionIndex !== null) assert.equal(cards[frame.insertionIndex].props['aria-label'], `${frame.values[frame.insertionIndex]}, key`);
+  }
+  assert.match(renderer.root.findByProps({ className: 'example-description example-legend' }).children.join(''), /prefix.*(?:may|can).*move/i);
+  act(() => renderer.unmount());
+});
+
+test('quick and insertion sort are discoverable from home, the library, and their lesson routes', () => {
   for (const Page of [HomePage, AlgorithmsPage]) {
     let renderer;
     act(() => { renderer = create(React.createElement(MemoryRouter, {}, React.createElement(Page))); });
-    assert.ok(renderer.root.findAllByType('a').some((link) => link.props.href === '/algo/quick_sort'));
+    for (const algorithm of ['quick_sort', 'insertion_sort']) {
+      assert.ok(renderer.root.findAllByType('a').some((link) => link.props.href === `/algo/${algorithm}`));
+    }
     if (Page === AlgorithmsPage) {
-      assert.equal(renderer.root.findByProps({ className: 'library-count' }).children[0], '05');
-      assert.ok(renderer.root.findAllByType('a').some((link) => link.props.href === '/moreOnAlgorithms/quick_sort'));
+      assert.equal(renderer.root.findByProps({ className: 'library-count' }).children[0], String(SORTING_ALGORITHMS.length).padStart(2, '0'));
+      for (const algorithm of ['quick_sort', 'insertion_sort']) {
+        assert.ok(renderer.root.findAllByType('a').some((link) => link.props.href === `/moreOnAlgorithms/${algorithm}`));
+      }
     }
     act(() => renderer.unmount());
   }
+  for (const [algorithm, title] of [['quick_sort', 'Quick Sort'], ['insertion_sort', 'Insertion Sort']]) {
+    let renderer;
+    act(() => { renderer = mountRoute(SpecificAlgoPage, '/moreOnAlgorithms/:algoname', `/moreOnAlgorithms/${algorithm}`); });
+    assert.equal(renderer.root.findByType('h1').children[0], title);
+    assert.ok(renderer.root.findAllByType('a').some((link) => link.props.href === `/algo/${algorithm}`));
+    act(() => renderer.unmount());
+  }
+});
+
+test('quick sort lesson marks its fixed pivot as a final position', () => {
   let renderer;
   act(() => { renderer = mountRoute(SpecificAlgoPage, '/moreOnAlgorithms/:algoname', '/moreOnAlgorithms/quick_sort'); });
-  assert.equal(renderer.root.findByType('h1').children[0], 'Quick Sort');
   const frames = createSortingSteps('quick_sort', [8, 2, 7, 1, 3, 5]);
   const fixedIndex = frames.findIndex((frame) => frame.type === 'pivot-fixed');
   act(() => renderer.root.findByType('input').props.onChange({ target: { value: String(fixedIndex) } }));
@@ -302,7 +421,8 @@ test('quick sort is discoverable from home and the library, and its lesson route
   act(() => renderer.unmount());
 });
 
-test('quick sort game route completes setup, waits for countdown, and finishes the race', async (context) => {
+for (const [algorithm, title, componentName] of [['quick_sort', 'Quick Sort', 'QuickSort'], ['insertion_sort', 'Insertion Sort', 'InsertionSort']]) {
+test(`${title} game route completes setup, waits for countdown, and finishes the race`, async (context) => {
   const clock = fakeClock(context);
   const sounds = mockSounds(context);
   for (const [name, value] of Object.entries({
@@ -316,10 +436,10 @@ test('quick sort game route completes setup, waits for countdown, and finishes t
   }
   let renderer;
   await act(async () => {
-    renderer = mountRoute(GameLayout, '/algo/:algoname', '/algo/quick_sort', { createNodeMock: () => ({ style: {}, textContent: '' }) });
+    renderer = mountRoute(GameLayout, '/algo/:algoname', `/algo/${algorithm}`, { createNodeMock: () => ({ style: {}, textContent: '' }) });
   });
-  assert.equal(renderer.root.findByType('h1').children[0], 'Quick Sort');
-  const player = () => renderer.root.findByType(players.QuickSort).findAllByType('button');
+  assert.equal(renderer.root.findByType('h1').children[0], title);
+  const player = () => renderer.root.findByType(players[componentName]).findAllByType('button');
   assert.ok(player().every((button) => button.props.disabled));
   for (let step = 0; step < 3; step += 1) act(() => renderer.root.findByProps({ className: 'game-primary-button' }).props.onClick());
   assert.ok(player().every((button) => button.props.disabled));
@@ -335,3 +455,4 @@ test('quick sort game route completes setup, waits for countdown, and finishes t
   assert.equal(clock.tasks.size, 0);
   assert.equal(document.body.style.overflow, '');
 });
+}

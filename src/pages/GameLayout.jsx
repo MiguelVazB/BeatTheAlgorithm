@@ -58,6 +58,12 @@ const QuickSort = React.lazy(() =>
 const QuickSortUser = React.lazy(() =>
   import("../components/QuickSort").then((module) => ({ default: module.QuickSortUser }))
 );
+const InsertionSort = React.lazy(() =>
+  import("../components/InsertionSort").then((module) => ({ default: module.InsertionSort }))
+);
+const InsertionSortUser = React.lazy(() =>
+  import("../components/InsertionSort").then((module) => ({ default: module.InsertionSortUser }))
+);
 
 export default function GameLayout({ algo: propAlgo }) {
   const { algoname } = useParams();
@@ -129,6 +135,8 @@ function SortingGame({ algo }) {
 
   function getComputerSideComponent() {
     switch (algo) {
+      case "insertion_sort":
+        return <InsertionSort difficulty={difficulty} randomNumbers={randomValues} countDownOver={countDownOver} setWinner={setWinner} winner={winner} />;
       case "quick_sort":
         return <QuickSort difficulty={difficulty} randomNumbers={randomValues} countDownOver={countDownOver} setWinner={setWinner} winner={winner} />;
       case "bubble_sort":
@@ -176,6 +184,8 @@ function SortingGame({ algo }) {
 
   function getUserSideComponent() {
     switch (algo) {
+      case "insertion_sort":
+        return <InsertionSortUser active={countDownOver && !winner} randomNumbers={randomValues} setWinner={setWinner} />;
       case "quick_sort":
         return <QuickSortUser active={countDownOver && !winner} randomNumbers={randomValues} setWinner={setWinner} />;
       case "bubble_sort":
@@ -245,6 +255,7 @@ function SortingGame({ algo }) {
                 bubble_sort: "Pop the numbers on your side from smallest to largest. Your choices build the sorted list. Need a fresh attempt? Hit Reset.",
                 selection_sort: "Select two numbers to swap their places. Keep swapping until your row runs from smallest to largest.",
                 quick_sort: "Select two numbers to swap their places. Put the row in order from smallest to largest before Quick Sort finishes. Select the same number again to cancel, or Reset to start your row over.",
+                insertion_sort: "Select a number, then choose its new position. The values between them shift to make room. Arrange your row from smallest to largest. Select the same number again to cancel, or Reset to restore your original row.",
                 heap_sort: "Pick up a number, then click a position to place it. If that position is filled, you’ll pick up its number. Arrange the whole row from smallest to largest.",
                 merge_sort: "Select numbers from smallest to largest to fill your answer row above. Click a number in your answer to send it back and try again.",
               })[algo]}</p>

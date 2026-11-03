@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { createSwapBoard, selectSwapValue, createCarryBoard, moveCarriedValue, createMergeBoard, moveMergeValue } from '../src/utils/sortingGameState.js';
+import { createSwapBoard, selectSwapValue, createCarryBoard, moveCarriedValue, createMergeBoard, moveMergeValue, createInsertionBoard, selectInsertionValue } from '../src/utils/sortingGameState.js';
 import { isSortedAnswer } from '../src/utils/sortingAlgorithms.js';
 
 test('rapid consecutive selection moves keep all values and allow deselection', () => {
@@ -36,4 +36,40 @@ test('merge player ignores empty/full slots, supports undo, duplicates, and vari
   assert.equal(isSortedAnswer(board.answer, [2, 1, 1]), false);
   board = moveMergeValue(board, 'source', 0);
   assert.equal(isSortedAnswer(board.answer, [2, 1, 1]), true);
+});
+
+test('insertion moves shift every intervening value in either direction without mutating earlier boards', () => {
+  const original = Object.freeze([4, 0, 2, 2, 1]);
+  const initial = createInsertionBoard(original);
+  assert.notEqual(initial.values, original);
+  Object.freeze(initial.values);
+  Object.freeze(initial);
+  const forwardSelection = selectInsertionValue(initial, 0);
+  Object.freeze(forwardSelection);
+  const movedForward = selectInsertionValue(forwardSelection, 4);
+  assert.deepEqual(movedForward, { values: [0, 2, 2, 1, 4], selected: null, moves: 1 });
+  assert.deepEqual(initial, { values: [4, 0, 2, 2, 1], selected: null, moves: 0 });
+  assert.equal(forwardSelection.selected, 0);
+  Object.freeze(movedForward.values);
+  Object.freeze(movedForward);
+  const movedBackward = selectInsertionValue(selectInsertionValue(movedForward, 3), 1);
+  assert.deepEqual(movedBackward, { values: [0, 1, 2, 2, 4], selected: null, moves: 2 });
+  assert.deepEqual(movedForward.values, [0, 2, 2, 1, 4]);
+  assert.deepEqual(original, [4, 0, 2, 2, 1]);
+  assert.equal(isSortedAnswer(movedBackward.values, original), true);
+});
+
+test('insertion selection handles index zero, cancellation, invalid destinations, and empty boards', () => {
+  let board = createInsertionBoard([0, 2, 1, 1]);
+  for (const index of [-1, 4, 0.5, NaN, Infinity, '0', null, undefined]) assert.equal(selectInsertionValue(board, index), board);
+  board = selectInsertionValue(board, 0);
+  assert.equal(board.selected, 0);
+  for (const index of [-1, 4, 0.5, NaN, Infinity, '1', null, undefined]) assert.equal(selectInsertionValue(board, index), board);
+  board = selectInsertionValue(board, 0);
+  assert.deepEqual(board, { values: [0, 2, 1, 1], selected: null, moves: 0 });
+  for (const index of [0, 1, 0, 3]) board = selectInsertionValue(board, index);
+  assert.deepEqual(board, { values: [0, 1, 1, 2], selected: null, moves: 2 });
+  assert.equal(isSortedAnswer(board.values, [0, 2, 1, 1]), true);
+  const empty = createInsertionBoard([]);
+  assert.equal(selectInsertionValue(empty, 0), empty);
 });

@@ -4,6 +4,7 @@ export const DIFFICULTY_CONFIG = {
   bubble_sort: { ...intervals }, selection_sort: { ...intervals },
   heap_sort: { ...intervals }, merge_sort: { ...intervals },
   quick_sort: { ...intervals },
+  insertion_sort: { ...intervals },
 };
 export const getDifficultyTimeInterval = (algorithm, difficulty) =>
   DIFFICULTY_CONFIG[algorithm]?.[difficulty?.toLowerCase()] ?? intervals.easy;

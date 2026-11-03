@@ -23,6 +23,14 @@ export default function AlgorithmArt({ algorithm = 'bubble_sort', compact = fals
       {[2, 1, 3, 5, 7, 8].map((value, i) => <g key={`after-${i}`}><rect x={28 + i * 44} y="104" width="34" height="30" rx="6" fill={i === 3 ? orange : i < 3 ? sage : peach} /><text x={45 + i * 44} y="124" textAnchor="middle" fontSize="12" fill={i === 3 ? '#29170e' : ink}>{value}</text></g>)}
       <text x="89" y="151" textAnchor="middle" fontSize="9" fill={ink}>at or below</text><text x="177" y="151" textAnchor="middle" fontSize="9" fill={ink}>pivot</text><text x="243" y="151" textAnchor="middle" fontSize="9" fill={ink}>above</text>
     </>;
+  } else if (algorithm === 'insertion_sort') {
+    art = <>
+      {[2, 4, 5, 3, 1, 6].map((value, i) => <g key={`before-${i}`}><rect x={28 + i * 44} y="22" width="34" height="30" rx="6" fill={i === 3 ? orange : i < 3 ? sage : peach} /><text x={45 + i * 44} y="42" textAnchor="middle" fontSize="12" fill={i === 3 ? '#29170e' : ink}>{value}</text></g>)}
+      <path d="M177 59v17H89v19m-4-5 4 5 4-5" fill="none" stroke={orange} strokeWidth="1.5" />
+      <text x="223" y="82" textAnchor="middle" fontSize="9" fill={ink}>insert 3</text>
+      {[2, 3, 4, 5, 1, 6].map((value, i) => <g key={`after-${i}`}><rect x={28 + i * 44} y="104" width="34" height="30" rx="6" fill={i === 1 ? orange : i < 4 ? sage : peach} /><text x={45 + i * 44} y="124" textAnchor="middle" fontSize="12" fill={i === 1 ? '#29170e' : ink}>{value}</text></g>)}
+      <text x="111" y="151" textAnchor="middle" fontSize="9" fill={ink}>ordered prefix</text><text x="243" y="151" textAnchor="middle" fontSize="9" fill={ink}>still to insert</text>
+    </>;
   } else if (algorithm === 'selection_sort') {
     art = <>
       <path d="M25 136h270" stroke="var(--art-line, #cdd4c6)" />

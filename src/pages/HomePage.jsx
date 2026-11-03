@@ -10,6 +10,7 @@ const challenges = [
   { id: 'heap_sort', number: '03', name: 'Heap sort', idea: 'A different way to get to the top.', level: 'Intermediate', complexity: 'O(n log n)' },
   { id: 'merge_sort', number: '04', name: 'Merge sort', idea: 'Break it down. Bring it together.', level: 'Intermediate', complexity: 'O(n log n)' },
   { id: 'quick_sort', number: '05', name: 'Quick sort', idea: 'Pick a pivot. Give every value a side.', level: 'Intermediate', complexity: 'O(n log n)' },
+  { id: 'insertion_sort', number: '06', name: 'Insertion sort', idea: 'Find its place. Make a little room.', level: 'Beginner', complexity: 'O(n²)' },
 ];
 const steps = [
   { number: '01', icon: 'target', title: 'Pick your challenge', text: 'Choose an algorithm and a difficulty that feels right. There’s room to experiment.' },
